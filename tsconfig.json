@@ -1,0 +1,19 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": true,
+
+    "baseUrl": "./",
+    "paths": {
+      "@apis": ["src/apis"],
+      "@assets": ["src/assets"],
+      "@components": ["src/components"],
+      "@contexts": ["src/contexts"],
+      "@hooks": ["src/hooks"],
+      "@providers": ["src/providers"],
+      "@routes": ["src/routes"],
+      "@screens": ["src/screens"],
+      "@types": ["src/types"]
+    }
+  }
+}
