@@ -1,3 +1,4 @@
+import SignInScreen from './Unlogged/SignInScreen'
 import SplashScreen from './Unprotected/SplashScreen'
 
-export { SplashScreen }
+export { SignInScreen, SplashScreen }

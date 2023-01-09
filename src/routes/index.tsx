@@ -1,5 +1,7 @@
-import React, { useRef, useEffect, useState, useMemo } from 'react'
-import { View, Text } from 'react-native'
+import React from 'react'
+
+import { SignInScreen } from '../screens'
+
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -7,44 +9,28 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
+const screenProperties = {
+  headerShown: false,
+}
+
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="Authentication" component={Authentication} />
-        {/* <Stack.Screen name="Home" component={Home} /> */}
+      <Stack.Navigator screenOptions={screenProperties}>
+        {Logged}
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
-const Authentication = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Stack.Screen
-        name="Login"
-        component={() => {
-          return (
-            <View className="flex-1 items-center justify-center">
-              <Text>teste</Text>
-            </View>
-          )
-        }}
-      />
-      {/* <Stack.Screen name="Login" component={Login} /> */}
-      {/* <Stack.Screen name="RegistrationEmail" component={RegistrationEmail} /> */}
-      {/* <Stack.Screen
-        name="RegistrationPassword"
-        component={RegistrationPassword}
-      /> */}
-      {/* <Stack.Screen name="RegistrationName" component={RegistrationName} /> */}
-      {/* <Stack.Screen name="RegistrationImage" component={RegistrationImage} /> */}
-    </Stack.Navigator>
-  )
-}
+const Logged = (
+  <>
+    <Stack.Screen name="SignIn" component={SignInScreen} />
+    {/* <Stack.Screen name="SignUp" component={SignUpScreen} /> */}
+    {/* <Stack.Screen name="ForgotPassword" component={SignUpScreen} /> */}
+    {/* <Stack.Screen name="SetEmail" component={SetEmailScreen} /> */}
+    {/* <Stack.Screen name="SetPassword" component={SetPasswordScreen} /> */}
+    {/* <Stack.Screen name="SetName" component={SetNameScreen} /> */}
+    {/* <Stack.Screen name="SetProfilePic" component={SetProfilePicScreen} /> */}
+  </>
+)
