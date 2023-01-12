@@ -5,4 +5,8 @@ module.exports = {
   singleQuote: true,
   trailingComma: 'all',
   semi: false,
-};
+  printWidth: 120,
+  singleAttributePerLine: true,
+  singleQuote: true,
+  jsxSingleQuote: true,
+}
