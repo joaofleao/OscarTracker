@@ -1,3 +1,5 @@
-import Logo from '../images/Logo'
+import Logo from './Logo'
+import Google from './Google'
+import Facebook from './Facebook'
 
-export { Logo }
+export { Logo, Google, Facebook }
