@@ -1,2 +1,3 @@
-import { Provider } from './BasicTypes'
-export type { Provider }
+import type { ScreenTypes } from './ScreenTypes'
+
+export type { ScreenTypes }
