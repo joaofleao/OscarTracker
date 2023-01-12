@@ -1,19 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Animated, StyleSheet } from 'react-native'
+import { Animated } from 'react-native'
 
-import { Logo } from '../../../assets/images'
-
-export default function SplashScreen({
-  children,
-  isAppReady,
-}: {
+type Props = {
   isAppReady: boolean
   children: React.ReactNode
-}) {
+}
+
+export default function SplashScreen({ children, isAppReady }: Props) {
   return (
     <>
       {isAppReady && children}
-
       <Splash isAppReady={isAppReady} />
     </>
   )
@@ -30,18 +26,14 @@ export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
   const imageOpacity = useRef(new Animated.Value(0)).current
 
   const [state, setState] = useState<
-    | typeof LOADING_IMAGE
-    | typeof FADE_IN_IMAGE
-    | typeof WAIT_FOR_APP_TO_BE_READY
-    | typeof FADE_OUT
-    | typeof HIDDEN
+    typeof LOADING_IMAGE | typeof FADE_IN_IMAGE | typeof WAIT_FOR_APP_TO_BE_READY | typeof FADE_OUT | typeof HIDDEN
   >(LOADING_IMAGE)
 
   useEffect(() => {
     if (state === FADE_IN_IMAGE) {
       Animated.timing(imageOpacity, {
         toValue: 1,
-        duration: 500, // Fade in duration
+        duration: 500,
         useNativeDriver: true,
       }).start(() => {
         setState(WAIT_FOR_APP_TO_BE_READY)
@@ -75,17 +67,17 @@ export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
   return (
     <Animated.View
       collapsable={false}
-      className="bg-zinc-900 items-center justify-center h-full"
+      className='bg-zinc-900 items-center justify-center h-full'
       style={{ opacity: containerOpacity }}>
       <Animated.Image
-        source={require('../../../assets/images/Logo.png')}
+        source={require('../../../assets/images/Logo/Logo.png')}
         fadeDuration={0}
         onLoad={() => {
           setState(FADE_IN_IMAGE)
         }}
-        className="w-64 h-64"
+        className='w-64 h-64'
         style={{ opacity: imageOpacity }}
-        resizeMode="contain"
+        resizeMode='contain'
       />
     </Animated.View>
   )
