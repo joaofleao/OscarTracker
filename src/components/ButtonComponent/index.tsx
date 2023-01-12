@@ -13,11 +13,12 @@ interface ButtonProps {
 function ButtonComponent({ name, onPress, ...rest }: ButtonProps) {
   return (
     <TouchableOpacity
-      className="bg-zinc-900 border-amber-500 h-11 border-solid border rounded-xl justify-center w-full"
+      onPress={onPress}
+      className='bg-amber-500 h-11  rounded-xl justify-center w-full'
       {...rest}>
       <Text
-        className="text-amber-500 text-[16px] mx-6 font-[Montserrat-Bold]  text-center "
-        lineBreakMode="middle"
+        className='text-zinc-900 text-[16px] mx-6 font-[Montserrat-Bold]  text-center '
+        lineBreakMode='middle'
         numberOfLines={1}>
         {name}
       </Text>
