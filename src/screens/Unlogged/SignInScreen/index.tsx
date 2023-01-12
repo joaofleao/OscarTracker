@@ -1,35 +1,71 @@
+import React, { useState } from 'react'
 import { Text, View } from 'react-native'
-import { TextInputComponent, ButtonComponent } from '../../../components'
+import {
+  TextInputComponent,
+  ButtonComponent,
+  SocialButtonComponent,
+  LogoComponent,
+  ModelComponent,
+} from '../../../components'
 
-import { Logo } from '../../../assets/images'
+import { useAuth } from '../../../hooks'
+import { routes } from '../../../utils'
 
-function SignInScreen() {
+function SignInScreen({ navigation }: any) {
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const { signInGoogle, signInFacebook } = useAuth()
+
   return (
-    <View className="flex-1 justify-center bg-zinc-900">
-      <View className="flex-row mb-20 w-full justify-center">
-        <Logo />
-        <View className="w-2.5" />
-        <View className="justify-center">
-          <Text className="text-white font-[Spartan-Regular] text-4xl">
-            oscar
-          </Text>
-          <View className="h-2.5" />
+    <ModelComponent>
+      <View className='justify-end flex-1'>
+        <LogoComponent />
 
-          <Text className="text-white font-[Spartan-Regular] text-4xl">
-            tracker
-          </Text>
+        <TextInputComponent
+          placeholder='Email'
+          value={email}
+          className='mx-4 mb-5'
+          onChange={e => setEmail(e.nativeEvent.text)}
+        />
+
+        <TextInputComponent
+          value={password}
+          placeholder='Password'
+          className='mx-4 mb-12'
+          onChange={e => setPassword(e.nativeEvent.text)}
+        />
+
+        <View className='items-center mb-28'>
+          <ButtonComponent
+            name='Sign In'
+            className='w-60 mb-5'
+            onPress={() => console.log(email, password)}
+          />
+          <ButtonComponent
+            name='Register'
+            className='w-60'
+            onPress={() => navigation.navigate(routes.unlogged.signUpEmail)}
+          />
+        </View>
+
+        <View className='w-full items-center'>
+          <Text className='text-gray-600 font-[Spartan-Regular] mb-4 text-md'>continue using</Text>
+
+          <View className='flex-row'>
+            <SocialButtonComponent
+              name='Facebook'
+              onPress={() => signInFacebook()}
+              className='mr-2'
+            />
+            <SocialButtonComponent
+              name='Google'
+              onPress={() => signInGoogle()}
+              className='ml-2'
+            />
+          </View>
         </View>
       </View>
-
-      <TextInputComponent placeholder="Email" className="mx-4 mb-5 " />
-
-      <TextInputComponent placeholder="Password" className="mx-4 mb-12" />
-
-      <View className="items-center">
-        <ButtonComponent name="Sign In" className="w-60 mb-5" />
-        <ButtonComponent name="Register" className="w-60" />
-      </View>
-    </View>
+    </ModelComponent>
   )
 }
 
