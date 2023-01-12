@@ -1,32 +1,33 @@
-import { TextInput, View } from 'react-native'
+import { NativeSyntheticEvent, TextInput, TextInputChangeEventData, View } from 'react-native'
 import { styled } from 'nativewind'
+
+const colors = require('tailwindcss/colors')
 
 interface TextInputProps {
   appearance?: 'primary' | 'secondary' | 'dark' | 'light'
-  placeholder?: string
+  value?: string
+  placeholder: string
   size?: 'small' | 'medium' | 'big' | 'full'
-  password?: 'text' | 'password' | 'number'
+  type?: 'text' | 'password' | 'number'
   conditions?: 'email' | 'phone' | 'password'
   className?: string
   disabled?: boolean
   loading?: boolean
-  onChange?: () => void
+  onChange: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void
 }
 
-function TextInputComponent({
-  placeholder,
-  onChange,
-  ...rest
-}: TextInputProps) {
+function TextInputComponent({ placeholder, onChange, value, ...rest }: TextInputProps) {
   return (
     <View
-      className="border-solid border-stone-300 border rounded-xl justify-center items-center px-4 py-4"
+      className='border-solid border-stone-300 border rounded-xl justify-center items-center '
       {...rest}>
       <TextInput
-        autoCapitalize="none"
+        value={value}
+        autoCapitalize='none'
         placeholder={placeholder}
+        placeholderTextColor={colors.gray[600]}
         onChange={onChange}
-        className="text-white text-[16px] w-full font-[Montserrat-SemiBold] "
+        className='text-white px-4 py-4 text-[16px] w-full font-[Montserrat-SemiBold] '
       />
     </View>
   )
