@@ -17,7 +17,7 @@ const ContextProviderComposer = ({ contextProviders, children }: Provider) => {
 const ContextProviders = ({ children }: Provider) => {
   return (
     <ContextProviderComposer
-      contextProviders={[<AuthProvider key={'auth_provider'} />, <ThemeProvider key={'theme_provider'} />]}>
+      contextProviders={[<ThemeProvider key={'theme_provider'} />, <AuthProvider key={'auth_provider'} />]}>
       {children}
     </ContextProviderComposer>
   )

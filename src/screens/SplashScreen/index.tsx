@@ -70,7 +70,7 @@ export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
       className='bg-zinc-900 items-center justify-center h-full '
       style={{ opacity: containerOpacity }}>
       <Animated.Image
-        source={require('../../../assets/images/Logo/Logo.png')}
+        source={require('../../assets/images/Logo/Logo.png')}
         fadeDuration={0}
         onLoad={() => {
           setState(FADE_IN_IMAGE)

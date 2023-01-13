@@ -7,14 +7,23 @@ type Provider = {
 }
 
 const ThemeProvider: React.FC<Provider> = ({ children }) => {
+  const [loadingText, setLoadingText] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [loadingMessage, setLoadingMessage] = useState('')
+
+  const startLoading = (text: string) => {
+    setLoadingText(text)
+    setIsLoading(true)
+  }
+
+  const stopLoading = () => {
+    setTimeout(() => setIsLoading(false), 1000)
+  }
 
   const value = {
     isLoading,
-    setIsLoading,
-    loadingMessage,
-    setLoadingMessage,
+    loadingText,
+    stopLoading,
+    startLoading,
   } satisfies ThemeContextType
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

@@ -63,4 +63,4 @@ buck-out/
 /ios/Pods/
 /vendor/bundle/
 
-/src/services/config
+/src/services/*/config.ts

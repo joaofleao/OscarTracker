@@ -1,15 +1,17 @@
 export type AuthContextType = {
-  isLogged: boolean
-  signIn: (password: string, email: string) => void
-  signUp: (password: string, email: string) => void
+  signIn: (password: string, email: string) => Promise<boolean>
+  signUp: (password: string, email: string) => Promise<boolean>
   signInFacebook: () => void
   signInGoogle: () => void
   signOut: () => void
+  setUser: (user: any) => void
+  user: any
+  initializing: boolean
 }
 
 export type ThemeContextType = {
+  loadingText: string
   isLoading: boolean
-  loadingMessage: string
-  setIsLoading: (isLoading: boolean) => void
-  setLoadingMessage: (loadingMessage: string) => void
+  stopLoading: () => void
+  startLoading: (loading: string) => void
 }

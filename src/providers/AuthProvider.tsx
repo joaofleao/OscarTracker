@@ -1,34 +1,99 @@
-import { useState, useMemo } from 'react'
-import { AuthContextType } from '../types'
+import { useState, useMemo, useEffect } from 'react'
+import { AuthContextType, Provider } from '../types'
 import { AuthContext } from '../contexts'
-
-type Provider = {
-  children?: React.ReactNode
-}
+import { useTheme } from '../hooks'
+import { auth } from '../services'
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  User,
+} from 'firebase/auth'
 
 const AuthProvider: React.FC<Provider> = ({ children }) => {
-  const [currentUser, setUser] = useState<string>('')
-  const [isLogged, setIsLogged] = useState<boolean>(false)
+  const { startLoading, stopLoading } = useTheme()
+  const [user, setUser] = useState<User | null>(null)
+  const [initializing, setInitializing] = useState<boolean>(true)
 
-  function signIn(email: string, password: string) {
-    console.log(email, password)
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      setUser(user)
+      setInitializing(false)
+    })
+    return unsubscribe
+  }, [])
+
+  const signIn = async (email: string, password: string) => {
+    startLoading('Signin in')
+    return await signInWithEmailAndPassword(auth, email, password)
+      .then(response => {
+        stopLoading()
+        setUser(response.user)
+        return true
+      })
+      .catch(error => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode, errorMessage)
+        stopLoading()
+        return false
+      })
   }
-  function signUp(email: string, password: string) {}
-  function signInGoogle() {}
-  function signInFacebook() {}
-  function signOut() {}
+
+  const signUp = async (email: string, password: string) => {
+    startLoading('Creating an Account')
+    const response = createUserWithEmailAndPassword(auth, email, password)
+      .then(response => {
+        stopLoading()
+        setUser(response.user)
+        return true
+      })
+      .catch(error => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode, errorMessage)
+        stopLoading()
+        return false
+      })
+    return response
+  }
+
+  const signOutFunction = async () => {
+    startLoading('Signing Out')
+    const response = signOut(auth)
+      .then(() => {
+        setUser(null)
+        stopLoading()
+        return true
+      })
+      .catch(error => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode, errorMessage)
+        stopLoading()
+        return false
+      })
+    return response
+  }
+
+  const signInFacebook = async () => {}
+
+  const signInGoogle = async () => {}
 
   const value = useMemo(
     () =>
       ({
-        isLogged,
+        user,
+        initializing,
         signIn,
         signUp,
-        signOut,
+        signOut: signOutFunction,
         signInFacebook,
         signInGoogle,
+        setUser,
       } satisfies AuthContextType),
-    [isLogged, signIn, signUp, signOut, signInFacebook, signInGoogle],
+    [user],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

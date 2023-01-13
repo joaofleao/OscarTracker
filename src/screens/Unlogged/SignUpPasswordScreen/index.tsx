@@ -1,13 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
 import { TextInputComponent, ButtonComponent, ModelComponent } from '../../../components'
+import { useAuth } from '../../../hooks'
 import { routes } from '../../../utils'
-import { useTheme } from '../../../hooks'
 
 function SignUpScreen({ navigation, route }: any) {
   const { email } = route.params
-  const { setIsLoading, isLoading, setLoadingMessage } = useTheme()
+  const [pressed, setPressed] = useState<boolean>(false)
+
+  const { signUp, isLogged } = useAuth()
+
   const [password, setPassword] = useState<string>('')
+
+  useEffect(() => {
+    if (!isLogged && pressed) navigation.navigate(routes.unlogged.signIn)
+  }, [isLogged])
 
   return (
     <ModelComponent>
@@ -33,8 +40,8 @@ function SignUpScreen({ navigation, route }: any) {
             name='Next'
             className='w-60'
             onPress={() => {
-              setLoadingMessage('Creating your account...')
-              setIsLoading(!isLoading)
+              signUp(email, password)
+              setPressed(true)
             }}
           />
         </View>

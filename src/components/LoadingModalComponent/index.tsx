@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, View, Modal } from 'react-native'
 import { LoadingComponent } from '..'
 
 import { useTheme } from '../../hooks'
 
 function LoadingScreen() {
-  const { loadingMessage, isLoading } = useTheme()
+  const { loadingText, isLoading } = useTheme()
+
   return (
     <Modal
       visible={isLoading}
@@ -16,7 +17,7 @@ function LoadingScreen() {
           animation='movie'
           size={100}
         />
-        <Text className='text-white font-[Montserrat-Bold] text-lg mt-4'>{loadingMessage}</Text>
+        <Text className='text-white font-[Montserrat-Bold] text-lg mt-4'>{loadingText}</Text>
       </View>
     </Modal>
   )

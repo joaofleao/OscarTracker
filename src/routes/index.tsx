@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SignInScreen, HomeScreen, SignUpPasswordScreen, SignUpEmailScreen, SplashScreen } from '../screens'
 import { LoadingModalComponent } from '../components'
 import { routes } from '../utils'
@@ -19,16 +19,15 @@ const screenProperties = {
 }
 
 export default function Routes() {
-  const { isLogged } = useAuth()
+  const { user, initializing } = useAuth()
 
   return (
     <SplashScreen isAppReady={true}>
       <StatusBar barStyle={'light-content'} />
       <LoadingModalComponent />
-
       <SafeAreaProvider>
         <NavigationContainer>
-          <Stack.Navigator screenOptions={screenProperties}>{isLogged ? Unlogged : Logged}</Stack.Navigator>
+          <Stack.Navigator screenOptions={screenProperties}>{user ? Unlogged : Logged}</Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
     </SplashScreen>
@@ -49,11 +48,9 @@ const Logged = (
       name={routes.unlogged.signUpPassword}
       component={SignUpPasswordScreen}
     />
-    {/* <Stack.Screen name="ForgotPassword" component={SignUpScreen} /> */}
-    {/* <Stack.Screen name="SetEmail" component={SetEmailScreen} /> */}
-    {/* <Stack.Screen name="SetPassword" component={SetPasswordScreen} /> */}
-    {/* <Stack.Screen name="SetName" component={SetNameScreen} /> */}
-    {/* <Stack.Screen name="SetProfilePic" component={SetProfilePicScreen} /> */}
+    {/* <Stack.Screen   name={routes.unlogged.forgotPassword} component={ForgotPasswordScreen} /> */}
+    {/* <Stack.Screen   name={routes.unlogged.signUpName} component={SignUpNameScreen} /> */}
+    {/* <Stack.Screen   name={routes.unlogged.signUpAvatar} component={SignUpAvatarScreen} /> */}
   </>
 )
 
