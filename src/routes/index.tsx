@@ -1,5 +1,6 @@
 import React from 'react'
-import { SignInScreen, HomeScreen, SignUpPasswordScreen, SignUpEmailScreen, LoadingScreen } from '../screens'
+import { SignInScreen, HomeScreen, SignUpPasswordScreen, SignUpEmailScreen, SplashScreen } from '../screens'
+import { LoadingModalComponent } from '../components'
 import { routes } from '../utils'
 import { ScreenTypes } from '../types'
 import { NavigationContainer } from '@react-navigation/native'
@@ -8,6 +9,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'react-native'
+import { useAuth } from '../hooks'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 const Tab = createBottomTabNavigator()
@@ -15,22 +17,21 @@ const Tab = createBottomTabNavigator()
 const screenProperties = {
   headerShown: false,
 }
-const tag = null
 
 export default function Routes() {
+  const { isLogged } = useAuth()
+
   return (
-    <SafeAreaProvider>
-      <StatusBar
-        animated={true}
-        barStyle={'light-content'}
-      />
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={screenProperties}>
-          {tag === null ? Logged : Unlogged}
-          {Unprotected}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <SplashScreen isAppReady={true}>
+      <StatusBar barStyle={'light-content'} />
+      <LoadingModalComponent />
+
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={screenProperties}>{isLogged ? Unlogged : Logged}</Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </SplashScreen>
   )
 }
 
@@ -61,16 +62,6 @@ const Unlogged = (
     <Stack.Screen
       name={routes.logged.home}
       component={HomeScreen}
-    />
-    {/* <Stack.Screen name="WatchList" component={WatchListScreen} /> */}
-    {/* <Stack.Screen name="ProfileScreen" component={ProfileScreen} /> */}
-  </>
-)
-const Unprotected = (
-  <>
-    <Stack.Screen
-      name={routes.unprotected.loadingScreen}
-      component={LoadingScreen}
     />
     {/* <Stack.Screen name="WatchList" component={WatchListScreen} /> */}
     {/* <Stack.Screen name="ProfileScreen" component={ProfileScreen} /> */}
