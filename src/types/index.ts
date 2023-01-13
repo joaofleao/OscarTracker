@@ -1,3 +1,2 @@
-import type { ScreenTypes } from './ScreenTypes'
-
-export type { ScreenTypes }
+export type { AuthContextType, ThemeContextType } from './ContextTypes'
+export type { ScreenTypes } from './ScreenTypes'

@@ -1,8 +1,7 @@
-import TextInputComponent from './TextInputComponent'
-import ButtonComponent from './ButtonComponent'
-import SocialButtonComponent from './SocialButtonComponent'
-import LogoComponent from './LogoComponent'
-import ModelComponent from './ModelComponent'
-import LoadingComponent from './LoadingComponent'
-
-export { TextInputComponent, ButtonComponent, SocialButtonComponent, LogoComponent, ModelComponent, LoadingComponent }
+export { default as TextInputComponent } from './TextInputComponent'
+export { default as ButtonComponent } from './ButtonComponent'
+export { default as SocialButtonComponent } from './SocialButtonComponent'
+export { default as LogoComponent } from './LogoComponent'
+export { default as ModelComponent } from './ModelComponent'
+export { default as LoadingComponent } from './LoadingComponent'
+export { default as LoadingModalComponent } from './LoadingModalComponent'

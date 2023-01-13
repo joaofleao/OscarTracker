@@ -1,10 +1,7 @@
-import HomeScreen from './Logged/HomeScreen'
+export { default as SplashScreen } from './SplashScreen'
 
-import SignInScreen from './Unlogged/SignInScreen'
-import SignUpEmailScreen from './Unlogged/SignUpEmailScreen'
-import SignUpPasswordScreen from './Unlogged/SignUpPasswordScreen'
-import LoadingScreen from './Unprotected/LoadingScreen'
+export { default as SignInScreen } from './Unlogged/SignInScreen'
+export { default as SignUpEmailScreen } from './Unlogged/SignUpEmailScreen'
+export { default as SignUpPasswordScreen } from './Unlogged/SignUpPasswordScreen'
 
-import SplashScreen from './Unprotected/SplashScreen'
-
-export { HomeScreen, SignInScreen, SplashScreen, SignUpEmailScreen, SignUpPasswordScreen, LoadingScreen }
+export { default as HomeScreen } from './Logged/HomeScreen'

@@ -1,5 +1,2 @@
-import { AuthContext, authValues } from './AuthContext'
-import { AuthContextType } from './AuthContext'
-
-export { AuthContext, authValues }
-export type { AuthContextType }
+export { default as AuthContext } from './AuthContext'
+export { default as ThemeContext } from './ThemeContext'
