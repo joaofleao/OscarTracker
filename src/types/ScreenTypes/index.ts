@@ -1,12 +1,8 @@
 export type ScreenTypes = {
-  SplashScreen: undefined
-  LoadingScreen: {
-    await: number | undefined
-    text: string
-    destination: string
-  }
   SignInScreen: undefined
   SignUpEmail: undefined
-  SignUpPassword: undefined
+  SignUpPassword: {
+    email: string
+  }
   HomeScreen: undefined
 }
