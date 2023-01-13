@@ -9,8 +9,8 @@ type Props = {
 export default function SplashScreen({ children, isAppReady }: Props) {
   return (
     <>
-      {isAppReady && children}
       <Splash isAppReady={isAppReady} />
+      {isAppReady && children}
     </>
   )
 }
@@ -67,7 +67,7 @@ export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
   return (
     <Animated.View
       collapsable={false}
-      className='bg-zinc-900 items-center justify-center h-full'
+      className='bg-zinc-900 items-center justify-center h-full '
       style={{ opacity: containerOpacity }}>
       <Animated.Image
         source={require('../../../assets/images/Logo/Logo.png')}
