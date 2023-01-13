@@ -29,7 +29,11 @@ function SignUpScreen({ navigation }: any) {
           <ButtonComponent
             name='Next'
             className='w-60'
-            onPress={() => navigation.navigate(routes.unlogged.signUpPassword)}
+            onPress={() =>
+              navigation.navigate(routes.unlogged.signUpPassword, {
+                email,
+              })
+            }
           />
         </View>
       </View>

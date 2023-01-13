@@ -2,15 +2,18 @@ import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import { TextInputComponent, ButtonComponent, ModelComponent } from '../../../components'
 import { routes } from '../../../utils'
+import { useTheme } from '../../../hooks'
 
-function SignUpScreen({ navigation }: any) {
+function SignUpScreen({ navigation, route }: any) {
+  const { email } = route.params
+  const { setIsLoading, isLoading, setLoadingMessage } = useTheme()
   const [password, setPassword] = useState<string>('')
 
   return (
     <ModelComponent>
       <View className='flex-1 mx-4 justify-between'>
         <View className='justify-center items-center h-11 my-4'>
-          <Text className='text-white font-[Montserrat-Bold] text-lg '>Register</Text>
+          <Text className='text-white font-[Montserrat-Bold] text-lg'>Register</Text>
         </View>
 
         <View className='flex-1 justify-center'>
@@ -29,13 +32,10 @@ function SignUpScreen({ navigation }: any) {
           <ButtonComponent
             name='Next'
             className='w-60'
-            onPress={() =>
-              navigation.navigate(routes.unprotected.loadingScreen, {
-                await: 3000,
-                destination: routes.unlogged.signIn,
-                text: 'Creating Account',
-              })
-            }
+            onPress={() => {
+              setLoadingMessage('Creating your account...')
+              setIsLoading(!isLoading)
+            }}
           />
         </View>
       </View>
