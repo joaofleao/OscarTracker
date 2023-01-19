@@ -41,6 +41,7 @@
 		ED5CE13B09684D64907D159F /* Montserrat-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA4423926A464865B1E51DBA /* Montserrat-BlackItalic.ttf */; };
 		F781792617BA4113AC70CD35 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0434317201034542A14B6CCD /* Montserrat-Regular.ttf */; };
 		F7F409145D5F463F97BA8EB2 /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1060463B56014258B662CB25 /* Montserrat-Thin.ttf */; };
+		B4FC0891ACEC42C8811ECE9C /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65D0EA4C7D0E4844A1894A48 /* icons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		EE7CD130FF654779AA70BE23 /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-ExtraBold.ttf"; path = "../src/assets/fonts/montserrat/Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
 		F5741F890806417A96BBA8EA /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-BoldItalic.ttf"; path = "../src/assets/fonts/montserrat/Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
 		FAD630535F7848A6BE7D0C3D /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBoldItalic.ttf"; path = "../src/assets/fonts/montserrat/Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		65D0EA4C7D0E4844A1894A48 /* icons.ttf */ = {isa = PBXFileReference; name = "icons.ttf"; path = "../src/assets/fonts/icons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 				B73CA6816CB044DE8B6E57AE /* Spartan-Regular.ttf */,
 				81597F2480C1435D8D9B4D8B /* Spartan-SemiBold.ttf */,
 				AEE7D323517641D99A3DA4DC /* Spartan-Thin.ttf */,
+				65D0EA4C7D0E4844A1894A48 /* icons.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -361,6 +364,7 @@
 				1356627946D34AF9924F7DED /* Spartan-Regular.ttf in Resources */,
 				7A4C2C017DA04B7EBCA7B1A1 /* Spartan-SemiBold.ttf in Resources */,
 				6CF3C2DCA9384CD18D2DDF9C /* Spartan-Thin.ttf in Resources */,
+				B4FC0891ACEC42C8811ECE9C /* icons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

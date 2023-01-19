@@ -12,7 +12,7 @@ import { useAuth } from '../../../hooks'
 import { routes } from '../../../utils'
 
 function SignInScreen({ navigation }: any) {
-  const { signInGoogle, signInFacebook, signIn, auth } = useAuth()
+  const { signInGoogle, signInFacebook, signIn } = useAuth()
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -45,7 +45,7 @@ function SignInScreen({ navigation }: any) {
           <ButtonComponent
             name='Register'
             className='w-60'
-            onPress={() => console.log(auth.currentUser)}
+            onPress={() => navigation.navigate(routes.unlogged.signUpEmail)}
           />
         </View>
 

@@ -1,7 +1,7 @@
 import { NativeSyntheticEvent, TextInput, TextInputChangeEventData, View } from 'react-native'
 import { styled } from 'nativewind'
 
-const colors = require('tailwindcss/colors')
+import colors from 'tailwindcss/colors'
 
 interface TextInputProps {
   appearance?: 'primary' | 'secondary' | 'dark' | 'light'
