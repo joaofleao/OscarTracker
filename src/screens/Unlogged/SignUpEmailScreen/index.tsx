@@ -10,11 +10,11 @@ function SignUpScreen({ navigation }: any) {
     <ModelComponent>
       <View className='flex-1 mx-4 justify-between'>
         <View className='justify-center items-center h-11 my-4'>
-          <Text className='text-white font-[Montserrat-Bold] text-lg '>Register</Text>
+          <Text className='text-white font-primaryBold text-lg '>Register</Text>
         </View>
 
         <View className='flex-1 justify-center'>
-          <Text className='text-white font-[Montserrat-Regular] text-2xl'>Give us your best e-mail</Text>
+          <Text className='text-white font-primaryRegular text-2xl'>Give us your best e-mail</Text>
         </View>
 
         <TextInputComponent

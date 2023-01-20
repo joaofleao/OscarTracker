@@ -17,7 +17,7 @@ function LoadingScreen() {
           animation='movie'
           size={100}
         />
-        <Text className='text-white font-[Montserrat-Bold] text-lg mt-4'>{loadingText}</Text>
+        <Text className='text-white font-primaryBold text-lg mt-4'>{loadingText}</Text>
       </View>
     </Modal>
   )

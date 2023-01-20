@@ -8,23 +8,23 @@ function SignUpScreen({ navigation, route }: any) {
   const { email } = route.params
   const [pressed, setPressed] = useState<boolean>(false)
 
-  const { signUp, isLogged } = useAuth()
+  const { signUp, user } = useAuth()
 
   const [password, setPassword] = useState<string>('')
 
   useEffect(() => {
-    if (!isLogged && pressed) navigation.navigate(routes.unlogged.signIn)
-  }, [isLogged])
+    if (!user && pressed) navigation.navigate(routes.unlogged.signIn)
+  }, [user])
 
   return (
     <ModelComponent>
       <View className='flex-1 mx-4 justify-between'>
         <View className='justify-center items-center h-11 my-4'>
-          <Text className='text-white font-[Montserrat-Bold] text-lg'>Register</Text>
+          <Text className='text-white font-primaryBold text-lg'>Register</Text>
         </View>
 
         <View className='flex-1 justify-center'>
-          <Text className='text-white font-[Montserrat-Regular] text-2xl'>How about some security?</Text>
+          <Text className='text-white font-primaryRegular text-2xl'>How about some security?</Text>
         </View>
 
         <TextInputComponent

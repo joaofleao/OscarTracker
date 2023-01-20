@@ -27,7 +27,7 @@ function TextInputComponent({ placeholder, onChange, value, ...rest }: TextInput
         placeholder={placeholder}
         placeholderTextColor={colors.gray[600]}
         onChange={onChange}
-        className='text-white px-4 py-4 text-[16px] w-full font-[Montserrat-SemiBold] '
+        className='text-white px-4 py-4 text-[16px] w-full font-primarySemibold '
       />
     </View>
   )

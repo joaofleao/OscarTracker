@@ -17,7 +17,7 @@ function ButtonComponent({ name, onPress, ...rest }: ButtonProps) {
       className='bg-amber-500 h-11  rounded-xl justify-center w-full'
       {...rest}>
       <Text
-        className='text-zinc-900 text-[16px] mx-6 font-[Montserrat-Bold]  text-center '
+        className='text-zinc-900 text-[16px] mx-6 font-primaryBold  text-center '
         lineBreakMode='middle'
         numberOfLines={1}>
         {name}
