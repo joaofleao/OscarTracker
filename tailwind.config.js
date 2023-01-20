@@ -4,11 +4,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        primaryHeavy: ['Linotte-Black'],
-        primaryBold: ['Linotte-Bold'],
-        primaryLight: ['Linotte-Light'],
-        primaryRegular: ['Linotte-Regular'],
-        primarySemibold: ['Linotte-SemiBold'],
+        primaryHeavy: ['Comfortaa-Black'],
+        primaryBold: ['Comfortaa-Bold'],
+        primaryLight: ['Comfortaa-Light'],
+        primaryRegular: ['Comfortaa-Regular'],
+        primarySemibold: ['Comfortaa-SemiBold'],
 
         secondaryHeavy: ['Spartan-ExtraBold'],
         secondaryBold: ['Spartan-Bold'],

@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* OscarTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* OscarTrackerTests.m */; };
-		0175A87CBCB74E728C9336D4 /* Linotte-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96A28EC33D824AF4B755F4A8 /* Linotte-Bold.ttf */; };
-		09CEA7C8B37E4BFAA42AD987 /* Linotte-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F9ECC35DD4F4DB584C7466D /* Linotte-Light.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-OscarTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-OscarTracker.a */; };
 		12D9C49A46254D66AE3D7665 /* Spartan-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4D8C9ACA30B84FCEBE5CAA7A /* Spartan-Bold.ttf */; };
 		1356627946D34AF9924F7DED /* Spartan-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B73CA6816CB044DE8B6E57AE /* Spartan-Regular.ttf */; };
@@ -18,17 +16,24 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2A6EA66BF37F4C919A3FC890 /* Spartan-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDC9BAF6CE2B42E6A6622B04 /* Spartan-Black.ttf */; };
 		46038997BAFE4A3A90C66E37 /* Spartan-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC67748FD6CD47C5A946C016 /* Spartan-ExtraBold.ttf */; };
-		4FECD07F61C84357AA68BFB6 /* Linotte-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB62294206014F779FFA5952 /* Linotte-Regular.ttf */; };
+		46433C35CDB34135A82353AF /* Comfortaa-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A52113DC976A4692A2E64B38 /* Comfortaa-Medium.ttf */; };
 		6CF3C2DCA9384CD18D2DDF9C /* Spartan-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEE7D323517641D99A3DA4DC /* Spartan-Thin.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-OscarTracker-OscarTrackerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-OscarTracker-OscarTrackerTests.a */; };
 		7A4C2C017DA04B7EBCA7B1A1 /* Spartan-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81597F2480C1435D8D9B4D8B /* Spartan-SemiBold.ttf */; };
+		7CC49AB32FCC492AA68952E4 /* Comfortaa-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC37E97825374C6290175DF8 /* Comfortaa-Light.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8E058D43EBE645F8AE01B07B /* Spartan-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DE4669855974D2697752131 /* Spartan-ExtraLight.ttf */; };
+		99448200EBFE4AF685CB8DBB /* Comfortaa-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C0FF6F2D52142A097C2F4C6 /* Comfortaa-SemiBold.ttf */; };
 		A42CA2ED44E14518AB481F07 /* Spartan-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1809320E6AE496089D9E9E4 /* Spartan-Medium.ttf */; };
+		A4596267EA2E4062A238F066 /* Comfortaa-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 38C1215EBB2748E78B5B034C /* Comfortaa-Bold.ttf */; };
 		CAD0E1A4728846808B69F0B5 /* Spartan-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6B116966A49A79C467F23 /* Spartan-Light.ttf */; };
 		CCE5B8388A6F4EDEBB9E4FEE /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65A91E7844B74F36948757EF /* icons.ttf */; };
-		E10F2A16C1AE4C16985CAD71 /* Linotte-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84CA64D6FBB74607A52D4BFD /* Linotte-SemiBold.ttf */; };
-		ECE0AC72B0A84868BD14BF31 /* Linotte-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87496A93F71F4C05BB7B44C5 /* Linotte-Black.ttf */; };
+		D3D856CD423749B196188ADE /* Comfortaa-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6FA1B8D4BC4476D9CEC897A /* Comfortaa-Regular.ttf */; };
+		CA25C8328583441A8B5420D2 /* Linotte-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89778BB5A3A34F44BF863148 /* Linotte-Black.ttf */; };
+		8A92E562C1BD420F8863788E /* Linotte-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CA20062DA1F42659B85746F /* Linotte-Bold.ttf */; };
+		0F4D2C6BF2D74767A357D712 /* Linotte-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 38BE343571B44E58985EDE28 /* Linotte-Light.ttf */; };
+		0D702057AC9D4932B058E8A2 /* Linotte-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4AB637E5693245309357EB0B /* Linotte-Regular.ttf */; };
+		6C1BC761DA0342D69D46691B /* Linotte-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 281355CCF4E74E4D9E9CDF26 /* Linotte-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,28 +57,33 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = OscarTracker/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = OscarTracker/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-OscarTracker-OscarTrackerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OscarTracker-OscarTrackerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		38C1215EBB2748E78B5B034C /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-Bold.ttf"; path = "../src/assets/fonts/comfortaa/Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-OscarTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OscarTracker.debug.xcconfig"; path = "Target Support Files/Pods-OscarTracker/Pods-OscarTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		4D8C9ACA30B84FCEBE5CAA7A /* Spartan-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Bold.ttf"; path = "../src/assets/fonts/spartan/Spartan-Bold.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-OscarTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OscarTracker.release.xcconfig"; path = "Target Support Files/Pods-OscarTracker/Pods-OscarTracker.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-OscarTracker-OscarTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OscarTracker-OscarTrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-OscarTracker-OscarTrackerTests/Pods-OscarTracker-OscarTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-OscarTracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OscarTracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A91E7844B74F36948757EF /* icons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = icons.ttf; path = ../src/assets/fonts/icons/icons.ttf; sourceTree = "<group>"; };
+		6C0FF6F2D52142A097C2F4C6 /* Comfortaa-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-SemiBold.ttf"; path = "../src/assets/fonts/comfortaa/Comfortaa-SemiBold.ttf"; sourceTree = "<group>"; };
 		6DE4669855974D2697752131 /* Spartan-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-ExtraLight.ttf"; path = "../src/assets/fonts/spartan/Spartan-ExtraLight.ttf"; sourceTree = "<group>"; };
 		81597F2480C1435D8D9B4D8B /* Spartan-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-SemiBold.ttf"; path = "../src/assets/fonts/spartan/Spartan-SemiBold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = OscarTracker/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		84CA64D6FBB74607A52D4BFD /* Linotte-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Linotte-SemiBold.ttf"; path = "../src/assets/fonts/linotte/Linotte-SemiBold.ttf"; sourceTree = "<group>"; };
-		87496A93F71F4C05BB7B44C5 /* Linotte-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Linotte-Black.ttf"; path = "../src/assets/fonts/linotte/Linotte-Black.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-OscarTracker-OscarTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OscarTracker-OscarTrackerTests.release.xcconfig"; path = "Target Support Files/Pods-OscarTracker-OscarTrackerTests/Pods-OscarTracker-OscarTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
-		96A28EC33D824AF4B755F4A8 /* Linotte-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Linotte-Bold.ttf"; path = "../src/assets/fonts/linotte/Linotte-Bold.ttf"; sourceTree = "<group>"; };
 		9CD6B116966A49A79C467F23 /* Spartan-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Light.ttf"; path = "../src/assets/fonts/spartan/Spartan-Light.ttf"; sourceTree = "<group>"; };
-		9F9ECC35DD4F4DB584C7466D /* Linotte-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Linotte-Light.ttf"; path = "../src/assets/fonts/linotte/Linotte-Light.ttf"; sourceTree = "<group>"; };
+		A52113DC976A4692A2E64B38 /* Comfortaa-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-Medium.ttf"; path = "../src/assets/fonts/comfortaa/Comfortaa-Medium.ttf"; sourceTree = "<group>"; };
+		A6FA1B8D4BC4476D9CEC897A /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-Regular.ttf"; path = "../src/assets/fonts/comfortaa/Comfortaa-Regular.ttf"; sourceTree = "<group>"; };
 		AC67748FD6CD47C5A946C016 /* Spartan-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-ExtraBold.ttf"; path = "../src/assets/fonts/spartan/Spartan-ExtraBold.ttf"; sourceTree = "<group>"; };
 		AEE7D323517641D99A3DA4DC /* Spartan-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Thin.ttf"; path = "../src/assets/fonts/spartan/Spartan-Thin.ttf"; sourceTree = "<group>"; };
 		B73CA6816CB044DE8B6E57AE /* Spartan-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Regular.ttf"; path = "../src/assets/fonts/spartan/Spartan-Regular.ttf"; sourceTree = "<group>"; };
 		CDC9BAF6CE2B42E6A6622B04 /* Spartan-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Black.ttf"; path = "../src/assets/fonts/spartan/Spartan-Black.ttf"; sourceTree = "<group>"; };
 		D1809320E6AE496089D9E9E4 /* Spartan-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Medium.ttf"; path = "../src/assets/fonts/spartan/Spartan-Medium.ttf"; sourceTree = "<group>"; };
+		EC37E97825374C6290175DF8 /* Comfortaa-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-Light.ttf"; path = "../src/assets/fonts/comfortaa/Comfortaa-Light.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FB62294206014F779FFA5952 /* Linotte-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Linotte-Regular.ttf"; path = "../src/assets/fonts/linotte/Linotte-Regular.ttf"; sourceTree = "<group>"; };
+		89778BB5A3A34F44BF863148 /* Linotte-Black.ttf */ = {isa = PBXFileReference; name = "Linotte-Black.ttf"; path = "../src/assets/fonts/linotte/Linotte-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6CA20062DA1F42659B85746F /* Linotte-Bold.ttf */ = {isa = PBXFileReference; name = "Linotte-Bold.ttf"; path = "../src/assets/fonts/linotte/Linotte-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		38BE343571B44E58985EDE28 /* Linotte-Light.ttf */ = {isa = PBXFileReference; name = "Linotte-Light.ttf"; path = "../src/assets/fonts/linotte/Linotte-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4AB637E5693245309357EB0B /* Linotte-Regular.ttf */ = {isa = PBXFileReference; name = "Linotte-Regular.ttf"; path = "../src/assets/fonts/linotte/Linotte-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		281355CCF4E74E4D9E9CDF26 /* Linotte-SemiBold.ttf */ = {isa = PBXFileReference; name = "Linotte-SemiBold.ttf"; path = "../src/assets/fonts/linotte/Linotte-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,11 +159,16 @@
 				81597F2480C1435D8D9B4D8B /* Spartan-SemiBold.ttf */,
 				AEE7D323517641D99A3DA4DC /* Spartan-Thin.ttf */,
 				65A91E7844B74F36948757EF /* icons.ttf */,
-				87496A93F71F4C05BB7B44C5 /* Linotte-Black.ttf */,
-				96A28EC33D824AF4B755F4A8 /* Linotte-Bold.ttf */,
-				9F9ECC35DD4F4DB584C7466D /* Linotte-Light.ttf */,
-				FB62294206014F779FFA5952 /* Linotte-Regular.ttf */,
-				84CA64D6FBB74607A52D4BFD /* Linotte-SemiBold.ttf */,
+				38C1215EBB2748E78B5B034C /* Comfortaa-Bold.ttf */,
+				EC37E97825374C6290175DF8 /* Comfortaa-Light.ttf */,
+				A52113DC976A4692A2E64B38 /* Comfortaa-Medium.ttf */,
+				A6FA1B8D4BC4476D9CEC897A /* Comfortaa-Regular.ttf */,
+				6C0FF6F2D52142A097C2F4C6 /* Comfortaa-SemiBold.ttf */,
+				89778BB5A3A34F44BF863148 /* Linotte-Black.ttf */,
+				6CA20062DA1F42659B85746F /* Linotte-Bold.ttf */,
+				38BE343571B44E58985EDE28 /* Linotte-Light.ttf */,
+				4AB637E5693245309357EB0B /* Linotte-Regular.ttf */,
+				281355CCF4E74E4D9E9CDF26 /* Linotte-SemiBold.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -308,11 +323,16 @@
 				7A4C2C017DA04B7EBCA7B1A1 /* Spartan-SemiBold.ttf in Resources */,
 				6CF3C2DCA9384CD18D2DDF9C /* Spartan-Thin.ttf in Resources */,
 				CCE5B8388A6F4EDEBB9E4FEE /* icons.ttf in Resources */,
-				ECE0AC72B0A84868BD14BF31 /* Linotte-Black.ttf in Resources */,
-				0175A87CBCB74E728C9336D4 /* Linotte-Bold.ttf in Resources */,
-				09CEA7C8B37E4BFAA42AD987 /* Linotte-Light.ttf in Resources */,
-				4FECD07F61C84357AA68BFB6 /* Linotte-Regular.ttf in Resources */,
-				E10F2A16C1AE4C16985CAD71 /* Linotte-SemiBold.ttf in Resources */,
+				A4596267EA2E4062A238F066 /* Comfortaa-Bold.ttf in Resources */,
+				7CC49AB32FCC492AA68952E4 /* Comfortaa-Light.ttf in Resources */,
+				46433C35CDB34135A82353AF /* Comfortaa-Medium.ttf in Resources */,
+				D3D856CD423749B196188ADE /* Comfortaa-Regular.ttf in Resources */,
+				99448200EBFE4AF685CB8DBB /* Comfortaa-SemiBold.ttf in Resources */,
+				CA25C8328583441A8B5420D2 /* Linotte-Black.ttf in Resources */,
+				8A92E562C1BD420F8863788E /* Linotte-Bold.ttf in Resources */,
+				0F4D2C6BF2D74767A357D712 /* Linotte-Light.ttf in Resources */,
+				0D702057AC9D4932B058E8A2 /* Linotte-Regular.ttf in Resources */,
+				6C1BC761DA0342D69D46691B /* Linotte-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
