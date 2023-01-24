@@ -16,6 +16,16 @@ module.exports = {
         secondaryRegular: ['Spartan-Regular'],
         secondarySemibold: ['Spartan-SemiBold'],
       },
+
+      width: {
+        poster: '27px',
+      },
+      height: {
+        poster: '40px',
+      },
+      aspectRatio: {
+        poster: '48 / 36',
+      },
     },
   },
   plugins: [],
