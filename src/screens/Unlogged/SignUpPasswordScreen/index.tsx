@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
-import { TextInputComponent, ButtonComponent, ModelComponent } from '../../../components'
+import { TextInputComponent, ButtonComponent, ModelComponent, HeaderComponent } from '../../../components'
 import { useAuth } from '../../../hooks'
 import { routes } from '../../../utils'
 
@@ -19,9 +19,11 @@ function SignUpScreen({ navigation, route }: any) {
   return (
     <ModelComponent>
       <View className='flex-1 mx-4 justify-between'>
-        <View className='justify-center items-center h-11 my-4'>
-          <Text className='text-white font-primaryBold text-lg'>Register</Text>
-        </View>
+        <HeaderComponent
+          leadingAction={() => navigation.goBack()}
+          leadingButton='chevron-left'>
+          Register
+        </HeaderComponent>
 
         <View className='flex-1 justify-center'>
           <Text className='text-white font-primaryRegular text-2xl'>How about some security?</Text>
@@ -35,7 +37,7 @@ function SignUpScreen({ navigation, route }: any) {
         />
         <View className='flex-1' />
 
-        <View className='items-center h-11 justify-center my-4 '>
+        <View className='items-center justify-center my-4 '>
           <ButtonComponent
             name='Next'
             className='w-60'

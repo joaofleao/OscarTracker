@@ -12,7 +12,7 @@ import { useAuth } from '../../../hooks'
 import { routes } from '../../../utils'
 
 function SignInScreen({ navigation }: any) {
-  const { signInGoogle, signInFacebook, signIn } = useAuth()
+  const { signIn } = useAuth()
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -49,10 +49,10 @@ function SignInScreen({ navigation }: any) {
           />
         </View>
 
-        <View className='w-full items-center'>
-          <Text className='text-gray-600 font-[Spartan-Regular] mb-4 text-md'>continue using</Text>
+        <View className='w-full items-center h-10'>
+          {/* <Text className='text-gray-600 font-[Spartan-Regular] mb-4 text-md'>continue using</Text> */}
 
-          <View className='flex-row'>
+          {/* <View className='flex-row'>
             <SocialButtonComponent
               name='Facebook'
               onPress={() => signInFacebook()}
@@ -63,7 +63,7 @@ function SignInScreen({ navigation }: any) {
               onPress={() => signInGoogle()}
               className='ml-2'
             />
-          </View>
+          </View> */}
         </View>
       </View>
     </ModelComponent>

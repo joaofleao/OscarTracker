@@ -1,3 +1,3 @@
-import { auth } from './firebase/api'
+import { auth, db } from './firebase/api'
 
-export { auth }
+export { auth, db }
