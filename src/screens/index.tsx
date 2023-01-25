@@ -5,3 +5,6 @@ export { default as SignUpEmailScreen } from './Unlogged/SignUpEmailScreen'
 export { default as SignUpPasswordScreen } from './Unlogged/SignUpPasswordScreen'
 
 export { default as HomeScreen } from './Logged/HomeScreen'
+export { default as ProfileScreen } from './Logged/ProfileScreen'
+export { default as WatchListScreen } from './Logged/WatchListScreen'
+export { default as MovieScreen } from './Logged/MovieScreen'
