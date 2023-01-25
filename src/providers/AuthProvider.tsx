@@ -3,6 +3,7 @@ import { AuthContextType, Provider } from '../types'
 import { AuthContext } from '../contexts'
 import { useTheme } from '../hooks'
 import { auth } from '../services'
+
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -11,17 +12,22 @@ import {
   User,
 } from 'firebase/auth'
 
+function onAuthStateChange(callback: any) {
+  return auth.onAuthStateChanged((user: any) => {
+    callback(user)
+  })
+}
+
 const AuthProvider: React.FC<Provider> = ({ children }) => {
   const { startLoading, stopLoading } = useTheme()
-  const [user, setUser] = useState<User | null>(null)
   const [initializing, setInitializing] = useState<boolean>(true)
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
-      setUser(user)
-      setInitializing(false)
-    })
-    return unsubscribe
+    const unsubscribe = onAuthStateChange(setUser)
+    return () => {
+      unsubscribe()
+    }
   }, [])
 
   const signIn = async (email: string, password: string) => {
@@ -36,6 +42,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         const errorCode = error.code
         const errorMessage = error.message
         console.log(errorCode, errorMessage)
+
         stopLoading()
         return false
       })
@@ -53,6 +60,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         const errorCode = error.code
         const errorMessage = error.message
         console.log(errorCode, errorMessage)
+
         stopLoading()
         return false
       })
@@ -71,15 +79,12 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         const errorCode = error.code
         const errorMessage = error.message
         console.log(errorCode, errorMessage)
+
         stopLoading()
         return false
       })
     return response
   }
-
-  const signInFacebook = async () => {}
-
-  const signInGoogle = async () => {}
 
   const value = useMemo(
     () =>
@@ -89,8 +94,6 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         signIn,
         signUp,
         signOut: signOutFunction,
-        signInFacebook,
-        signInGoogle,
         setUser,
       } satisfies AuthContextType),
     [user],
