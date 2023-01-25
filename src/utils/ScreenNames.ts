@@ -8,5 +8,8 @@ export const routes = {
   },
   logged: {
     home: 'HomeScreen' as keyof ScreenTypes,
+    watchList: 'WatchList' as keyof ScreenTypes,
+    profile: 'Profile' as keyof ScreenTypes,
+    movie: 'Movie' as keyof ScreenTypes,
   },
 }

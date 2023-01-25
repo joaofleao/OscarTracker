@@ -5,4 +5,11 @@ export type ScreenTypes = {
     email: string
   }
   HomeScreen: undefined
+  WatchListScreen: undefined
+  ProfileScreen: undefined
+  MovieScreen: {
+    id: string
+    poster: string
+    name: string
+  }
 }
