@@ -1,12 +1,20 @@
+import { Nomination } from '../../types'
+
 export type AuthContextType = {
-  signIn: (password: string, email: string) => Promise<boolean>
-  signUp: (password: string, email: string) => Promise<boolean>
-  signInFacebook: () => void
-  signInGoogle: () => void
+  signIn: (email: string, password: string) => Promise<boolean>
+  signUp: (email: string, password: string) => Promise<boolean>
   signOut: () => void
   setUser: (user: any) => void
   user: any
   initializing: boolean
+}
+export type DataContextType = {
+  currentNominations: any | null
+  currentNominationsByCategory: any | null
+  currentCategoriesMap: any | null
+  currentMovies: any | null
+  currentMoviesMap: any | null
+  getMovieNominations: (movie: string) => any
 }
 
 export type ThemeContextType = {
