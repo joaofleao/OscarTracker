@@ -4,6 +4,8 @@ import { HeaderComponent, ModelComponent, SeparatorComponent } from '../../../co
 import { getImage } from '../../../services/tmdb/api'
 import { useData } from '../../../hooks'
 import { Nomination } from '../../../types'
+import { routes } from '../../../utils'
+
 function MovieScreen({ navigation, route }: any) {
   const { id, name, poster } = route.params
   const [watched, setWatched] = useState<boolean>(false)
@@ -19,11 +21,15 @@ function MovieScreen({ navigation, route }: any) {
   }, [watched])
 
   const renderItem = ({ item }: ListRenderItemInfo<Nomination>) => (
-    <View
-      className='bg-amber-500 rounded-2xl py-2 px-4 items-center justify-center'
-      key={item.category}>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate(routes.logged.home, {
+          filter: currentCategoriesMap.get(item.category),
+        })
+      }
+      className='bg-amber-500 rounded-2xl py-2 px-4 items-center justify-center'>
       <Text className='text-zinc-900 font-primaryBold text-md'>{currentCategoriesMap.get(item.category)}</Text>
-    </View>
+    </TouchableOpacity>
   )
 
   return (

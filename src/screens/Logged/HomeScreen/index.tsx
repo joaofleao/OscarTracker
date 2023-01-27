@@ -7,7 +7,7 @@ import { routes } from '../../../utils'
 
 function HomeScreen({ navigation, route }: any) {
   const { currentNominationsByCategory, currentCategoriesMap, currentMoviesMap } = useData()
-
+  const { filter } = route.params || ''
   const [search, setSearch] = useState<string>('')
   const [data, setData] = useState<[]>([])
 
@@ -23,6 +23,10 @@ function HomeScreen({ navigation, route }: any) {
       setData(filtered)
     }
   }, [search, currentNominationsByCategory])
+
+  useEffect(() => {
+    if (filter !== '') setSearch(filter)
+  }, [filter])
 
   const renderMovie = ({ item }: ListRenderItemInfo<any>) => {
     const movie = currentMoviesMap?.get(item.movie)
@@ -41,7 +45,11 @@ function HomeScreen({ navigation, route }: any) {
           className='w-[106px] h-[158px] rounded-xl'
           source={{ uri: getImage(movie['en-US'].image) }}
         />
-        <Text className='text-white font-primaryBold text-md p-3'>{movie['en-US'].name}</Text>
+        <Text
+          className='text-white font-primaryBold text-md p-3'
+          numberOfLines={2}>
+          {movie['en-US'].name}
+        </Text>
       </TouchableOpacity>
     )
   }
@@ -69,8 +77,9 @@ function HomeScreen({ navigation, route }: any) {
       <HeaderComponent>Home</HeaderComponent>
 
       <TextInputComponent
-        className='mx-5'
+        className='mx-5 mb-5'
         search
+        value={search}
         placeholder='Search Category'
         onChange={(e: any) => setSearch(e.nativeEvent.text)}
       />
@@ -80,7 +89,6 @@ function HomeScreen({ navigation, route }: any) {
         renderItem={renderCategory}
         ItemSeparatorComponent={SeparatorComponent}
         ListFooterComponent={SeparatorComponent}
-        ListHeaderComponent={SeparatorComponent}
       />
     </ModelComponent>
   )
