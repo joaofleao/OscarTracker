@@ -23,10 +23,10 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   const { user } = useAuth()
 
   useMemo(() => {
-    function fetchData() {
+    async function fetchData() {
       getCategories()
-      getEditionMovies()
-      getEditionNominations()
+      await getEditionMovies()
+      await getEditionNominations()
     }
     if (user) fetchData()
   }, [user])
