@@ -1,33 +1,30 @@
 import { useState, useMemo, useEffect } from 'react'
-import { AuthContextType, Provider } from '../types'
+import { AuthContextType, Provider, UserType } from '../types'
 import { AuthContext } from '../contexts'
 import { useTheme } from '../hooks'
-import { auth } from '../services'
+import { auth, db } from '../services'
 
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-  User,
-} from 'firebase/auth'
-
-function onAuthStateChange(callback: any) {
-  return auth.onAuthStateChanged((user: any) => {
-    callback(user)
-  })
-}
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User } from 'firebase/auth'
+import { doc, setDoc, collection, getDoc, onSnapshot } from 'firebase/firestore'
 
 const AuthProvider: React.FC<Provider> = ({ children }) => {
   const { startLoading, stopLoading } = useTheme()
   const [initializing, setInitializing] = useState<boolean>(true)
   const [user, setUser] = useState<User | null>(null)
+  const [userData, setUserData] = useState<any>()
+  const users = collection(db, 'users')
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChange(setUser)
-    return () => {
-      unsubscribe()
-    }
+    const unsubscribeAuth = auth.onAuthStateChanged((user: any) => {
+      setUser(user)
+      const unsubscribe = onSnapshot(doc(users, user.uid), snap => {
+        const response = snap.data()
+        setUserData(response)
+      })
+      return () => unsubscribe()
+    })
+
+    return () => unsubscribeAuth()
   }, [])
 
   const signIn = async (email: string, password: string) => {
@@ -54,6 +51,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
       .then(response => {
         stopLoading()
         setUser(response.user)
+        addUser(response.user)
         return true
       })
       .catch(error => {
@@ -65,6 +63,20 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         return false
       })
     return response
+  }
+
+  const addUser = async (user: User) => {
+    const object = {
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      phoneNumber: user.phoneNumber,
+      uid: user.uid,
+      emailVerified: user.emailVerified,
+      movies: [],
+    }
+    const userRef = doc(users, user.uid)
+    await setDoc(userRef, object).then(() => setUserData(object))
   }
 
   const signOutFunction = async () => {
@@ -86,18 +98,15 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
     return response
   }
 
-  const value = useMemo(
-    () =>
-      ({
-        user,
-        initializing,
-        signIn,
-        signUp,
-        signOut: signOutFunction,
-        setUser,
-      } satisfies AuthContextType),
-    [user],
-  )
+  const value = {
+    user,
+    initializing,
+    signIn,
+    signUp,
+    signOut: signOutFunction,
+    setUser,
+    userData,
+  } satisfies AuthContextType
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

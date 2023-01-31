@@ -35,10 +35,6 @@ const HomeTab = () => (
       component={HomeScreen}
       initialParams={{ filter: '' }}
     />
-    <Stack.Screen
-      name={routes.logged.movie}
-      component={MovieScreen}
-    />
   </Stack.Navigator>
 )
 
@@ -50,6 +46,10 @@ const WatchListTab = () => (
     <Stack.Screen
       name={routes.logged.watchList}
       component={WatchListScreen}
+    />
+    <Stack.Screen
+      name={routes.logged.movie}
+      component={MovieScreen}
     />
   </Stack.Navigator>
 )

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Image, View, Text, TouchableOpacity, FlatList, ListRenderItemInfo } from 'react-native'
 import { HeaderComponent, ModelComponent, SeparatorComponent } from '../../../components'
 import { getImage } from '../../../services/tmdb/api'
-import { useData } from '../../../hooks'
+import { useData, useAuth } from '../../../hooks'
 import { Nomination } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -10,7 +10,8 @@ function MovieScreen({ navigation, route }: any) {
   const { id, name, poster } = route.params
   const [watched, setWatched] = useState<boolean>(false)
   const [nominations, setNominations] = useState<Nomination[]>([])
-  const { getMovieNominations, currentCategoriesMap } = useData()
+  const { getMovieNominations, currentCategoriesMap, setMovieUnwatched, setMovieWatched } = useData()
+  const { userData } = useAuth()
 
   useEffect(() => {
     async function fetchData() {
@@ -18,7 +19,20 @@ function MovieScreen({ navigation, route }: any) {
       setNominations(nominations)
     }
     fetchData()
-  }, [watched])
+  }, [userData])
+
+  useEffect(() => {
+    const value = userData?.movies.includes(id) || false
+    setWatched(value)
+  }, [userData])
+
+  const markAsWatched = async (current: boolean) => {
+    if (current) {
+      setMovieUnwatched(id)
+    } else {
+      setMovieWatched(id)
+    }
+  }
 
   const renderItem = ({ item }: ListRenderItemInfo<Nomination>) => (
     <TouchableOpacity
@@ -48,7 +62,7 @@ function MovieScreen({ navigation, route }: any) {
         />
 
         <TouchableOpacity
-          onPress={() => setWatched(watched => !watched)}
+          onPress={() => markAsWatched(watched)}
           className={`py-4 px-4 rounded-2xl border-2 ${watched ? 'bg-amber-500' : 'border-solid  border-amber-500'}`}>
           <Text
             className={`text-md font-primaryBold

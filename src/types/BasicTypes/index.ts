@@ -14,6 +14,16 @@ export type Category = {
   'pt-BR': string
 }
 
+export type UserType = {
+  email: string | null
+  displayName: string | null
+  photoURL: string | null
+  phoneNumber: string | null
+  uid: string
+  emailVerified: boolean
+  movies: string[]
+}
+
 export type BasicMovieType = {
   item: {
     'en-US': {
