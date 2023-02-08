@@ -15,13 +15,17 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
   const users = collection(db, 'users')
 
   useEffect(() => {
-    const unsubscribeAuth = auth.onAuthStateChanged((user: any) => {
+    const unsubscribeAuth = auth.onAuthStateChanged((user: User | null) => {
       setUser(user)
-      const unsubscribe = onSnapshot(doc(users, user.uid), snap => {
-        const response = snap.data()
-        setUserData(response)
-      })
-      return () => unsubscribe()
+      console.log(user)
+      if (user) {
+        const userRef = doc(users, user.uid)
+        const unsubscribe = onSnapshot(userRef, snap => {
+          const response = snap.data()
+          setUserData(response)
+        })
+        return () => unsubscribe()
+      }
     })
 
     return () => unsubscribeAuth()

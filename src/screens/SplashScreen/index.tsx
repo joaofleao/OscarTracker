@@ -75,7 +75,7 @@ export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
         onLoad={() => {
           setState(FADE_IN_IMAGE)
         }}
-        className='w-64 h-64'
+        className='w-56 h-56 mb-20'
         style={{ opacity: imageOpacity }}
         resizeMode='contain'
       />

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Dimensions, Animated, View } from 'react-native'
+import { Dimensions, Animated, View, Platform } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import colors from 'tailwindcss/colors'
@@ -12,13 +12,26 @@ import { ScreenTypes } from '../../types'
 const Stack = createNativeStackNavigator<ScreenTypes>()
 const Tab = createBottomTabNavigator()
 
-const screenOptions = {
+const screenOptionsIos = {
   headerShown: false,
   tabBarShowLabel: false,
   tabBarStyle: {
     paddingHorizontal: 28,
     paddingTop: 20,
     marginBottom: 10,
+    borderTopWidth: 1,
+    borderTopColor: colors.zinc[800],
+    backgroundColor: colors.zinc[900],
+  },
+}
+const screenOptionsAndroid = {
+  headerShown: false,
+  tabBarShowLabel: false,
+  tabBarStyle: {
+    paddingHorizontal: 28,
+    paddingTop: 20,
+    elevation: 0,
+    marginBottom: 40,
     borderTopWidth: 1,
     borderTopColor: colors.zinc[800],
     backgroundColor: colors.zinc[900],
@@ -34,6 +47,10 @@ const HomeTab = () => (
       name={routes.logged.home}
       component={HomeScreen}
       initialParams={{ filter: '' }}
+    />
+    <Stack.Screen
+      name={routes.logged.movie}
+      component={MovieScreen}
     />
   </Stack.Navigator>
 )
@@ -115,7 +132,7 @@ function TabNavigator() {
   }
   return (
     <ModelComponent bottom={false}>
-      <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Navigator screenOptions={Platform.OS === 'ios' ? screenOptionsIos : screenOptionsAndroid}>
         {tabs.map((item, i) => {
           return renderTab(item.name, item.component, i * getWidth, item.icon)
         })}

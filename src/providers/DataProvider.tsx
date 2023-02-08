@@ -11,7 +11,7 @@ const people = collection(db, 'people')
 const users = collection(db, 'users')
 
 const DataProvider: React.FC<Provider> = ({ children }) => {
-  const [currentEdition, setCurrentEdition] = useState<string>('94')
+  const [currentEdition, setCurrentEdition] = useState<string>('95')
 
   const [currentMovies, setCurrentMovies] = useState<any>(null)
   const [currentMoviesMap, setCurrentMoviesMap] = useState<any>(null)

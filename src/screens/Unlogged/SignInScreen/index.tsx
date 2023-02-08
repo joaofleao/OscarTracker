@@ -1,12 +1,6 @@
 import React, { useState } from 'react'
-import { Text, View } from 'react-native'
-import {
-  TextInputComponent,
-  ButtonComponent,
-  SocialButtonComponent,
-  LogoComponent,
-  ModelComponent,
-} from '../../../components'
+import { View } from 'react-native'
+import { TextInputComponent, ButtonComponent, LogoComponent, ModelComponent } from '../../../components'
 
 import { useAuth } from '../../../hooks'
 import { routes } from '../../../utils'
@@ -17,9 +11,11 @@ function SignInScreen({ navigation }: any) {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
+  const formattedEmail = email.replace(/[^a-zA-Z0-9@.]/g, '')
+
   return (
     <ModelComponent>
-      <View className='justify-end flex-1'>
+      <View className='justify-center flex-1'>
         <LogoComponent />
 
         <TextInputComponent
@@ -36,11 +32,11 @@ function SignInScreen({ navigation }: any) {
           onChange={e => setPassword(e.nativeEvent.text)}
         />
 
-        <View className='items-center mb-28'>
+        <View className='items-center'>
           <ButtonComponent
             name='Sign In'
             className='w-60 mb-5'
-            onPress={() => signIn(email, password)}
+            onPress={() => signIn(formattedEmail, password)}
           />
           <ButtonComponent
             name='Register'
@@ -49,7 +45,7 @@ function SignInScreen({ navigation }: any) {
           />
         </View>
 
-        <View className='w-full items-center h-10'>
+        <View className='w-full items-center'>
           {/* <Text className='text-gray-600 font-[Spartan-Regular] mb-4 text-md'>continue using</Text> */}
 
           {/* <View className='flex-row'>

@@ -13,6 +13,7 @@ function NomineeCardComponent({ image, title, key, onPress, ...rest }: ButtonPro
   return (
     <TouchableOpacity
       key={key}
+      delayPressIn={200}
       onPress={onPress}
       className='justify-center '
       {...rest}>
@@ -21,7 +22,7 @@ function NomineeCardComponent({ image, title, key, onPress, ...rest }: ButtonPro
           className='w-[106px] h-[158px] rounded-xl'
           source={{ uri: getImage(image) }}
         />
-        <Text className={`ml-4 flex-1 mt-1 text-lg font-primaryBold text-white`}>{title}</Text>
+        <Text className={`ml-4 flex-1 text-lg font-primaryBold text-white`}>{title}</Text>
       </View>
     </TouchableOpacity>
   )

@@ -35,15 +35,9 @@ function MovieScreen({ navigation, route }: any) {
   }
 
   const renderItem = ({ item }: ListRenderItemInfo<Nomination>) => (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate(routes.logged.home, {
-          filter: currentCategoriesMap.get(item.category),
-        })
-      }
-      className='bg-amber-500 rounded-2xl py-2 px-4 items-center justify-center'>
+    <View className='bg-amber-500 rounded-2xl py-2 px-4 items-center justify-center'>
       <Text className='text-zinc-900 font-primaryBold text-md'>{currentCategoriesMap.get(item.category)}</Text>
-    </TouchableOpacity>
+    </View>
   )
 
   return (
@@ -80,7 +74,7 @@ function MovieScreen({ navigation, route }: any) {
           showsHorizontalScrollIndicator={false}
           data={nominations}
           renderItem={item => renderItem(item)}
-          keyExtractor={item => item.category}
+          keyExtractor={item => item.category + item.person + item.information}
           ItemSeparatorComponent={() => <SeparatorComponent className='w-2' />}
           ListHeaderComponent={() => <SeparatorComponent className='w-5' />}
           ListFooterComponent={() => <SeparatorComponent className='w-5' />}

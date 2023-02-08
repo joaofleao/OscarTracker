@@ -25,12 +25,13 @@ function ButtonComponent({ name, onPress, variant = 'filled', iconPositon, icon,
     if (plain) return colors.amber[500]
     if (outlined) return colors.amber[500]
     if (filled) return colors.zinc[900]
+    else return colors.amber[500]
   }
 
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={` justify-center py-4
+      className={` justify-center py-3
         ${icon && iconPositon === undefined ? 'px-0' : 'px-4'}
         ${name ? 'rounded-3xl' : 'rounded-2xl '}
         ${plain && ''}
@@ -49,7 +50,7 @@ function ButtonComponent({ name, onPress, variant = 'filled', iconPositon, icon,
         )}
 
         <Text
-          className={`mt-1 text-lg font-primaryBold text-center`}
+          className={`text-lg font-primaryBold text-center flex-1`}
           style={{ color: getColor() }}
           numberOfLines={1}>
           {name}

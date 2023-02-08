@@ -11,6 +11,8 @@ import { useAuth } from '../../hooks'
 import { ScreenTypes } from '../../types'
 import { Unlogged, Logged } from '../../routes'
 
+import colors from 'tailwindcss/colors'
+
 const Stack = createNativeStackNavigator<ScreenTypes>()
 
 const screenOptions = {
@@ -22,7 +24,11 @@ export default function Router() {
 
   return (
     <SplashScreen isAppReady={true}>
-      <StatusBar barStyle={'light-content'} />
+      <StatusBar
+        animated={true}
+        backgroundColor={colors.zinc[900]}
+        barStyle={'light-content'}
+      />
       <LoadingModalComponent />
       <SafeAreaProvider>
         <NavigationContainer>
