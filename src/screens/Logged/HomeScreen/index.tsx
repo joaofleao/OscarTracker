@@ -78,7 +78,7 @@ function HomeScreen({ navigation, route }: any) {
 
       <TextInputComponent
         className='mx-5 mb-5'
-        search
+        type='search'
         value={search}
         placeholder='Search Category'
         onChange={(e: any) => setSearch(e.nativeEvent.text)}

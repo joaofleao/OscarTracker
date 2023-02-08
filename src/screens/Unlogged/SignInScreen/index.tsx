@@ -28,6 +28,7 @@ function SignInScreen({ navigation }: any) {
         <TextInputComponent
           value={password}
           placeholder='Password'
+          type='password'
           className='mx-4 mb-12'
           onChange={e => setPassword(e.nativeEvent.text)}
         />
