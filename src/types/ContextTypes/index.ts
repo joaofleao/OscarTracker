@@ -18,6 +18,7 @@ export type DataContextType = {
   getMovieNominations: (movie: string) => any
   setMovieUnwatched: (movie: string) => void
   setMovieWatched: (movie: string) => void
+  updatePreferences: (poster: boolean, plot: boolean, cast: boolean, ratings: boolean) => void
 }
 
 export type ThemeContextType = {
@@ -25,4 +26,17 @@ export type ThemeContextType = {
   isLoading: boolean
   stopLoading: () => void
   startLoading: (loading: string) => void
+}
+export type UserContextType = {
+  posterSpoiler: boolean
+  setPosterSpoiler: (value: boolean) => void
+  castSpoiler: boolean
+  setCastSpoiler: (value: boolean) => void
+  ratingsSpoiler: boolean
+  setRatingsSpoiler: (value: boolean) => void
+  plotSpoiler: boolean
+  setPlotSpoiler: (value: boolean) => void
+
+  watchedMovies: string[]
+  setWatchedMovies: (value: string[]) => void
 }

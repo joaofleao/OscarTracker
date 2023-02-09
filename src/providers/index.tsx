@@ -2,6 +2,7 @@ import React from 'react'
 import AuthProvider from './AuthProvider'
 import DataProvider from './DataProvider'
 import ThemeProvider from './ThemeProvider'
+import UserProvider from './UserProvider'
 
 type Provider = {
   children?: React.ReactNode
@@ -20,6 +21,7 @@ const ContextProviders = ({ children }: Provider) => {
     <ContextProviderComposer
       contextProviders={[
         <ThemeProvider key={'theme_provider'} />,
+        <UserProvider key={'auth_provider'} />,
         <AuthProvider key={'auth_provider'} />,
         <DataProvider key={'data_provider'} />,
       ]}>
