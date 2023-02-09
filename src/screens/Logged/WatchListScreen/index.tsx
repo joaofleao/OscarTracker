@@ -42,7 +42,7 @@ function WatchListScreen({ navigation, route }: any) {
         className='mx-5'
         image={item['en-US'].image}
         title={item['en-US'].name}
-        key={item.imdb}
+        id={item.imdb}
       />
     )
   }

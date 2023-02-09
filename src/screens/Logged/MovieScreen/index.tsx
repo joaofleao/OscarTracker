@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Image, View, Text, TouchableOpacity, FlatList, ListRenderItemInfo } from 'react-native'
-import { HeaderComponent, ModelComponent, SeparatorComponent } from '../../../components'
+import { ImageBackground, View, Text, TouchableOpacity, FlatList, ListRenderItemInfo, Pressable } from 'react-native'
+import { HeaderComponent, IconComponent, ModelComponent, SeparatorComponent } from '../../../components'
 import { getImage } from '../../../services/tmdb/api'
-import { useData, useUser } from '../../../hooks'
+import { useData, usePersonalData, useUser } from '../../../hooks'
 import { Nomination } from '../../../types'
+import colors from 'tailwindcss/colors'
 
 function MovieScreen({ navigation, route }: any) {
   const { id, name, poster } = route.params
-  const { watchedMovies } = useUser()
+  const { watchedMovies, posterSpoiler } = useUser()
   const [watched, setWatched] = useState<boolean>(false)
   const [nominations, setNominations] = useState<Nomination[]>([])
+  const { isWatched } = usePersonalData()
   const { getMovieNominations, currentCategoriesMap, setMovieUnwatched, setMovieWatched } = useData()
+
+  const [showPoster, setShowPoster] = useState<boolean>(false)
 
   useEffect(() => {
     async function fetchData() {
@@ -49,10 +53,24 @@ function MovieScreen({ navigation, route }: any) {
         {name}
       </HeaderComponent>
       <View className='items-center '>
-        <Image
-          className='w-[228px] h-[338px] rounded-xl mb-4'
-          source={{ uri: getImage(poster) }}
-        />
+        <Pressable
+          onPressIn={() => setShowPoster(true)}
+          onPressOut={() => setShowPoster(false)}
+          className='items-center justify-center w-[228px] h-[338px] bg-zinc-800/40 rounded-xl mb-4'>
+          {(showPoster || posterSpoiler || isWatched(id)) && (
+            <ImageBackground
+              imageStyle={{ borderRadius: 12 }}
+              className='w-full h-full rounded-xl'
+              source={{ uri: getImage(poster) }}
+            />
+          )}
+          {!posterSpoiler && !showPoster && !isWatched(id) && (
+            <IconComponent
+              name={'eye'}
+              size={30}
+              color={colors.amber[500]}></IconComponent>
+          )}
+        </Pressable>
 
         <TouchableOpacity
           onPress={() => markAsWatched(watched)}
