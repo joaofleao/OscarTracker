@@ -17,7 +17,6 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged((user: User | null) => {
       setUser(user)
-      console.log(user)
       if (user) {
         const userRef = doc(users, user.uid)
         const unsubscribe = onSnapshot(userRef, snap => {
