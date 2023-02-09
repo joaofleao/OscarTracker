@@ -47,7 +47,7 @@ function SignInScreen({ navigation }: any) {
         </View>
 
         <View className='w-full items-center'>
-          {/* <Text className='text-gray-600 font-[Spartan-Regular] mb-4 text-md'>continue using</Text> */}
+          {/* <Text className='text-gray-600 font-[Spartan-Regular] mb-4 text-base'>continue using</Text> */}
 
           {/* <View className='flex-row'>
             <SocialButtonComponent

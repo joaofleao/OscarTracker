@@ -39,7 +39,7 @@ function TextInputComponent({ placeholder, onChange, value, conditions, type, ..
         placeholder={placeholder}
         placeholderTextColor={colors.stone[700]}
         onChange={onChange}
-        className='text-white text-md leading-4 font-primarySemibold py-0 my-0 flex-1 '
+        className='text-white text-base leading-4 font-primarySemibold py-0 my-0 flex-1 '
       />
 
       {type === 'password' && (
