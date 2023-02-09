@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { Image, View, Text, TouchableOpacity, FlatList, ListRenderItemInfo } from 'react-native'
 import { HeaderComponent, ModelComponent, SeparatorComponent } from '../../../components'
 import { getImage } from '../../../services/tmdb/api'
-import { useData, useAuth } from '../../../hooks'
+import { useData, useUser } from '../../../hooks'
 import { Nomination } from '../../../types'
-import { routes } from '../../../utils'
 
 function MovieScreen({ navigation, route }: any) {
   const { id, name, poster } = route.params
+  const { watchedMovies } = useUser()
   const [watched, setWatched] = useState<boolean>(false)
   const [nominations, setNominations] = useState<Nomination[]>([])
   const { getMovieNominations, currentCategoriesMap, setMovieUnwatched, setMovieWatched } = useData()
-  const { userData } = useAuth()
 
   useEffect(() => {
     async function fetchData() {
@@ -19,12 +18,12 @@ function MovieScreen({ navigation, route }: any) {
       setNominations(nominations)
     }
     fetchData()
-  }, [userData])
+  }, [])
 
   useEffect(() => {
-    const value = userData?.movies.includes(id) || false
+    const value = watchedMovies.includes(id) || false
     setWatched(value)
-  }, [userData])
+  }, [watchedMovies])
 
   const markAsWatched = async (current: boolean) => {
     if (current) {
@@ -36,7 +35,7 @@ function MovieScreen({ navigation, route }: any) {
 
   const renderItem = ({ item }: ListRenderItemInfo<Nomination>) => (
     <View className='bg-amber-500 rounded-2xl py-2 px-4 items-center justify-center'>
-      <Text className='text-zinc-900 font-primaryBold text-md'>{currentCategoriesMap.get(item.category)}</Text>
+      <Text className='text-zinc-900 font-primaryBold text-base'>{currentCategoriesMap.get(item.category)}</Text>
     </View>
   )
 
@@ -59,7 +58,7 @@ function MovieScreen({ navigation, route }: any) {
           onPress={() => markAsWatched(watched)}
           className={`py-4 px-4 rounded-2xl border-2 ${watched ? 'bg-amber-500' : 'border-solid  border-amber-500'}`}>
           <Text
-            className={`text-md font-primaryBold
+            className={`text-base font-primaryBold
             ${watched ? 'text-zinc-900' : 'text-amber-500'}
             `}>
             {watched ? 'Watched' : 'Mark as Watched'}

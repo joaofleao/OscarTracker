@@ -1,19 +1,17 @@
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BasicMovieType } from '../types'
-import { useAuth, useData } from '../hooks'
+import { useAuth, useData, useUser } from '../hooks'
 
 function usePersonalData() {
-  const { userData } = useAuth()
   const { currentMovies } = useData()
-  const watched = userData?.movies
+  const { watchedMovies } = useUser()
 
   const totalMovies = (): number => {
     if (currentMovies) return currentMovies.length
     return 0
   }
   const totalWatchedMovies = (): number => {
-    if (userData) return watched.length
-    return 0
+    return watchedMovies.length
   }
 
   function uniqueMovies(categoryMovies: BasicMovieType[]): number {
@@ -23,16 +21,21 @@ function usePersonalData() {
 
   function watchedMoviesInCategory(categoryMovies: BasicMovieType[]): number {
     const filtered = categoryMovies.filter((item: any) => {
-      return watched.includes(item.movie)
+      return watchedMovies.includes(item.movie)
     })
     return filtered.length
   }
-  function isWatched(movie: BasicMovieType): boolean {
-    return watched.includes(movie)
-    return false
+  function isWatched(imdb: string): boolean {
+    return watchedMovies.includes(imdb)
   }
 
-  return [isWatched, totalMovies, totalWatchedMovies, watchedMoviesInCategory, uniqueMovies] as const
+  return {
+    isWatched,
+    totalMovies,
+    totalWatchedMovies,
+    watchedMoviesInCategory,
+    uniqueMovies,
+  }
 }
 
 export default usePersonalData
