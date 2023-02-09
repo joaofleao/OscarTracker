@@ -102,6 +102,19 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     })
   }
 
+  async function updatePreferences(poster: boolean, plot: boolean, cast: boolean, ratings: boolean) {
+    const userRef = doc(users, user?.uid)
+
+    updateDoc(userRef, {
+      preferences: {
+        poster,
+        plot,
+        cast,
+        ratings,
+      },
+    })
+  }
+
   async function setMovieWatched(movie: string) {
     const userRef = doc(users, user?.uid)
 
@@ -119,6 +132,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     getMovieNominations,
     setMovieUnwatched,
     setMovieWatched,
+    updatePreferences,
   } satisfies DataContextType
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>

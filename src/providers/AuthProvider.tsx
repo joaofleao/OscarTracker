@@ -1,13 +1,14 @@
 import { useState, useMemo, useEffect } from 'react'
 import { AuthContextType, Provider, UserType } from '../types'
 import { AuthContext } from '../contexts'
-import { useTheme } from '../hooks'
+import { useTheme, useUser } from '../hooks'
 import { auth, db } from '../services'
 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User } from 'firebase/auth'
 import { doc, setDoc, collection, getDoc, onSnapshot } from 'firebase/firestore'
 
 const AuthProvider: React.FC<Provider> = ({ children }) => {
+  const { setPosterSpoiler, setCastSpoiler, setPlotSpoiler, setRatingsSpoiler, setWatchedMovies } = useUser()
   const { startLoading, stopLoading } = useTheme()
   const [initializing, setInitializing] = useState<boolean>(true)
   const [user, setUser] = useState<User | null>(null)
@@ -29,6 +30,16 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
 
     return () => unsubscribeAuth()
   }, [])
+
+  useEffect(() => {
+    if (userData) {
+      setPosterSpoiler(userData.preferences.poster)
+      setCastSpoiler(userData.preferences.cast)
+      setPlotSpoiler(userData.preferences.plot)
+      setRatingsSpoiler(userData.preferences.ratings)
+      setWatchedMovies(userData.movies)
+    }
+  }, [userData])
 
   const signIn = async (email: string, password: string) => {
     startLoading('Signin in')
@@ -77,6 +88,12 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
       uid: user.uid,
       emailVerified: user.emailVerified,
       movies: [],
+      preferences: {
+        poster: false,
+        cast: false,
+        plot: false,
+        ratings: false,
+      },
     }
     const userRef = doc(users, user.uid)
     await setDoc(userRef, object).then(() => setUserData(object))
@@ -84,6 +101,24 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
 
   const signOutFunction = async () => {
     startLoading('Signing Out')
+    const response = signOut(auth)
+      .then(() => {
+        setUser(null)
+        stopLoading()
+        return true
+      })
+      .catch(error => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode, errorMessage)
+
+        stopLoading()
+        return false
+      })
+    return response
+  }
+
+  const updatePreferences = async () => {
     const response = signOut(auth)
       .then(() => {
         setUser(null)

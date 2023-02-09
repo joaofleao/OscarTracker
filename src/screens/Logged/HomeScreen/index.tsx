@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Image, ListRenderItemInfo, Text, TouchableOpacity, View } from 'react-native'
-import { HeaderComponent, ModelComponent, SeparatorComponent, TextInputComponent } from '../../../components'
-import { useData } from '../../../hooks'
+import { FlatList, Image, ImageBackground, ListRenderItemInfo, Text, TouchableOpacity, View } from 'react-native'
+import {
+  HeaderComponent,
+  ModelComponent,
+  SeparatorComponent,
+  TextInputComponent,
+  ProgressBarComponent,
+} from '../../../components'
+import { useData, usePersonalData, useUser, useAuth } from '../../../hooks'
 import { getImage } from '../../../services/tmdb/api'
 import { routes } from '../../../utils'
 
 function HomeScreen({ navigation, route }: any) {
-  const { currentNominationsByCategory, currentCategoriesMap, currentMoviesMap } = useData()
+  const { currentNominationsByCategory, currentCategoriesMap, currentMoviesMap, currentMovies } = useData()
+  const { isWatched, totalMovies, totalWatchedMovies, watchedMoviesInCategory, uniqueMovies } = usePersonalData()
+  const { posterSpoiler } = useUser()
   const { filter } = route.params || ''
   const [search, setSearch] = useState<string>('')
   const [data, setData] = useState<[]>([])
@@ -33,7 +41,7 @@ function HomeScreen({ navigation, route }: any) {
 
     return (
       <TouchableOpacity
-        className='w-[106px] bg-neutral-900 rounded-xl '
+        className='w-[106px] bg-zinc-800/40 bg-opacity-2 rounded-xl relative'
         onPress={() =>
           navigation.navigate(routes.logged.movie, {
             id: movie.imdb,
@@ -41,22 +49,45 @@ function HomeScreen({ navigation, route }: any) {
             name: movie['en-US'].name,
           })
         }>
-        <Image
-          className='w-[106px] h-[158px] rounded-xl'
-          source={{ uri: getImage(movie['en-US'].image) }}
-        />
-        <Text
-          className='text-white font-primaryBold text-md p-3'
-          numberOfLines={2}>
-          {movie['en-US'].name}
-        </Text>
+        {isWatched(movie.imdb) && (
+          <View className='w-[106px] h-[158px]'>
+            <ImageBackground
+              imageStyle={{ borderRadius: 12 }}
+              className='absolute w-full h-full rounded-xl '
+              source={{ uri: getImage(movie['en-US'].image) }}
+            />
+          </View>
+        )}
+
+        {posterSpoiler && !isWatched(movie.imdb) && (
+          <View className='w-[106px] h-[158px]  flex-1 items-center justify-center'>
+            <ImageBackground
+              imageStyle={{ borderRadius: 12 }}
+              className='absolute w-full h-full rounded-xl '
+              source={{ uri: getImage(movie['en-US'].image) }}
+            />
+            <View className='absolute bg-zinc-900/70 w-full h-full rounded-xl' />
+            <Text className='text-white font-primaryBold text-base p-3 text-center'>{movie['en-US'].name}</Text>
+          </View>
+        )}
+        {!posterSpoiler && !isWatched(movie.imdb) && (
+          <View className='w-[106px] h-[158px] flex-1 items-center justify-center'>
+            <Text className='text-white font-primaryBold text-base p-3 text-center'>{movie['en-US'].name}</Text>
+          </View>
+        )}
       </TouchableOpacity>
     )
   }
   const renderCategory = ({ item }: ListRenderItemInfo<any>) => {
     return (
       <View>
-        <Text className='mx-5 mb-4 font-primaryBold text-white text-xl'>{currentCategoriesMap.get(item.key)}</Text>
+        <View className='flex-row justify-between items-center mx-5 mb-4'>
+          <Text className='font-primaryBold text-white text-xl'>{currentCategoriesMap.get(item.key)}</Text>
+
+          <Text className='font-primaryBold text-white text-base'>
+            {watchedMoviesInCategory(item.value)}/{uniqueMovies(item.value)}
+          </Text>
+        </View>
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -75,6 +106,11 @@ function HomeScreen({ navigation, route }: any) {
       bottom={false}
       top={false}>
       <HeaderComponent>Home</HeaderComponent>
+
+      <ProgressBarComponent
+        progress={totalWatchedMovies()}
+        total={totalMovies()}
+      />
 
       <TextInputComponent
         className='mx-5 mb-5'
