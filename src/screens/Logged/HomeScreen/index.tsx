@@ -41,7 +41,7 @@ function HomeScreen({ navigation, route }: any) {
 
     return (
       <TouchableOpacity
-        className='w-[106px] bg-zinc-800/40 bg-opacity-2 rounded-xl relative'
+        className='w-[106px] h-[158px] bg-zinc-800/40 bg-opacity-2 rounded-xl relative'
         onPress={() =>
           navigation.navigate(routes.logged.movie, {
             id: movie.imdb,
@@ -50,17 +50,15 @@ function HomeScreen({ navigation, route }: any) {
           })
         }>
         {isWatched(movie.imdb) && (
-          <View className='w-[106px] h-[158px]'>
-            <ImageBackground
-              imageStyle={{ borderRadius: 12 }}
-              className='absolute w-full h-full rounded-xl '
-              source={{ uri: getImage(movie['en-US'].image) }}
-            />
-          </View>
+          <ImageBackground
+            imageStyle={{ borderRadius: 12 }}
+            className='absolute w-full h-full rounded-xl '
+            source={{ uri: getImage(movie['en-US'].image) }}
+          />
         )}
 
         {posterSpoiler && !isWatched(movie.imdb) && (
-          <View className='w-[106px] h-[158px]  flex-1 items-center justify-center'>
+          <View className='  flex-1 items-center justify-center'>
             <ImageBackground
               imageStyle={{ borderRadius: 12 }}
               className='absolute w-full h-full rounded-xl '
@@ -71,7 +69,7 @@ function HomeScreen({ navigation, route }: any) {
           </View>
         )}
         {!posterSpoiler && !isWatched(movie.imdb) && (
-          <View className='w-[106px] h-[158px] flex-1 items-center justify-center'>
+          <View className='flex-1 items-center justify-center'>
             <Text className='text-white font-primaryBold text-base p-3 text-center'>{movie['en-US'].name}</Text>
           </View>
         )}

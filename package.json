@@ -1,6 +1,6 @@
 {
-  "name": "OscarTracker",
-  "version": "0.0.1",
+  "name": "oscartracker",
+  "version": "1.1.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
