@@ -15,3 +15,6 @@ For contributions, ideas and suggestions, please reach to me at joaofleao@gmail.
 
 ### Current Version
 1.1.1 Alpha Update 3
+
+
+For more information regarding the project, access the [Wiki](https://github.com/joaofleao/OscarTracker/wiki)
