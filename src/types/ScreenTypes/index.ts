@@ -4,6 +4,8 @@ export type ScreenTypes = {
   SignUpPassword: {
     email: string
   }
+  SignUpNameScreen: undefined
+  SignUpAvatarScreen: undefined
   HomeScreen: {
     filter?: string
   }
