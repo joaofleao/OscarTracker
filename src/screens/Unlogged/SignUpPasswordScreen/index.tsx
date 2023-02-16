@@ -1,20 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import { TextInputComponent, ButtonComponent, ModelComponent, HeaderComponent } from '../../../components'
-import { useAuth } from '../../../hooks'
 import { routes } from '../../../utils'
 
-function SignUpScreen({ navigation, route }: any) {
-  const { email } = route.params
-  const [pressed, setPressed] = useState<boolean>(false)
-
-  const { signUp, user } = useAuth()
-
+function SignUpPasswordScreen({ navigation, route }: any) {
   const [password, setPassword] = useState<string>('')
-
-  useEffect(() => {
-    if (!user && pressed) navigation.navigate(routes.unlogged.signIn)
-  }, [user])
 
   return (
     <ModelComponent>
@@ -32,6 +22,7 @@ function SignUpScreen({ navigation, route }: any) {
         <TextInputComponent
           placeholder='Password'
           value={password}
+          type={'password'}
           className='my-4'
           onChange={e => setPassword(e.nativeEvent.text)}
         />
@@ -41,10 +32,12 @@ function SignUpScreen({ navigation, route }: any) {
           <ButtonComponent
             name='Next'
             className='w-60'
-            onPress={() => {
-              signUp(email, password)
-              setPressed(true)
-            }}
+            onPress={() =>
+              navigation.navigate(routes.unlogged.signUpName, {
+                ...route.params,
+                password,
+              })
+            }
           />
         </View>
       </View>
@@ -52,4 +45,4 @@ function SignUpScreen({ navigation, route }: any) {
   )
 }
 
-export default SignUpScreen
+export default SignUpPasswordScreen

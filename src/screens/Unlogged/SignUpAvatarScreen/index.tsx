@@ -3,8 +3,8 @@ import { Text, View } from 'react-native'
 import { TextInputComponent, ButtonComponent, ModelComponent, HeaderComponent } from '../../../components'
 import { routes } from '../../../utils'
 
-function SignUpEmailScreen({ navigation }: any) {
-  const [email, setEmail] = useState<string>('')
+function SignUpAvatarScreen({ navigation, route }: any) {
+  const [avatar, setAvatar] = useState<string>('')
 
   return (
     <ModelComponent>
@@ -16,24 +16,26 @@ function SignUpEmailScreen({ navigation }: any) {
         </HeaderComponent>
 
         <View className='flex-1 justify-center'>
-          <Text className='text-white font-primaryRegular text-2xl'>Give us your best e-mail</Text>
+          <Text className='text-white font-primaryRegular text-2xl mb-4'>
+            Now let’s wrap it up with a cool profile picture
+          </Text>
+          <Text className='text-white font-primaryRegular text-base'>Feel free to use any image</Text>
         </View>
 
         <TextInputComponent
-          placeholder='E-mail'
-          value={email}
+          placeholder='Name'
           className='my-4'
-          onChange={e => setEmail(e.nativeEvent.text)}
         />
+
         <View className='flex-1' />
 
-        <View className='items-center justify-center '>
+        <View className='items-center justify-center my-4 '>
           <ButtonComponent
             name='Next'
             className='w-60'
             onPress={() =>
-              navigation.navigate(routes.unlogged.signUpPassword, {
-                email,
+              navigation.navigate(routes.unlogged.signUpName, {
+                ...route.params,
               })
             }
           />
@@ -43,4 +45,4 @@ function SignUpEmailScreen({ navigation }: any) {
   )
 }
 
-export default SignUpEmailScreen
+export default SignUpAvatarScreen
