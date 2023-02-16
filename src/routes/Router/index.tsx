@@ -20,7 +20,7 @@ const screenOptions = {
 }
 
 export default function Router() {
-  const { user } = useAuth()
+  const { initializing } = useAuth()
 
   return (
     <SplashScreen isAppReady={true}>
@@ -32,7 +32,7 @@ export default function Router() {
       <LoadingModalComponent />
       <SafeAreaProvider>
         <NavigationContainer>
-          <Stack.Navigator screenOptions={screenOptions}>{user ? Logged : Unlogged}</Stack.Navigator>
+          <Stack.Navigator screenOptions={screenOptions}>{!initializing ? Logged : Unlogged}</Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
     </SplashScreen>

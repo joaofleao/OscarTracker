@@ -1,14 +1,13 @@
-import { UserType, User } from '../../types'
+import { PreferencesType, User } from '../../types'
 
 export type AuthContextType = {
   signIn: (email: string, password: string) => Promise<boolean>
-  signUp: (email: string, password: string) => Promise<boolean>
+  signUp: (email: string, password: string, displayName: string, avatar: any) => Promise<boolean>
   signOut: () => void
   setUser: (user: any) => void
-  user: User | null
   initializing: boolean
-  userData: any
 }
+
 export type DataContextType = {
   currentNominations: any | null
   currentNominationsByCategory: any | null
@@ -27,16 +26,21 @@ export type ThemeContextType = {
   stopLoading: () => void
   startLoading: (loading: string) => void
 }
-export type UserContextType = {
-  posterSpoiler: boolean
-  setPosterSpoiler: (value: boolean) => void
-  castSpoiler: boolean
-  setCastSpoiler: (value: boolean) => void
-  ratingsSpoiler: boolean
-  setRatingsSpoiler: (value: boolean) => void
-  plotSpoiler: boolean
-  setPlotSpoiler: (value: boolean) => void
 
+export type UserContextType = {
+  preferences: PreferencesType
+  setPreferences: (preferences: PreferencesType) => void
+  email: string
+  setEmail: (email: string) => void
+  displayName: string
+  setDisplayName: (displayName: string) => void
+  emailVerified: boolean
+  setEmailVerified: (emailVerified: boolean) => void
+
+  photoURL: string
+  setPhoneURL: (photoURL: string) => void
   watchedMovies: string[]
-  setWatchedMovies: (value: string[]) => void
+  setWatchedMovies: (watchedMovies: string[]) => void
+  uid: string
+  setUid: (uid: string) => void
 }
