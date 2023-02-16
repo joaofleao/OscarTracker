@@ -6,13 +6,13 @@ import { useAuth, useData, useUser } from '../../../hooks'
 import packageJson from '../../../../package.json'
 
 function ProfileScreen() {
-  const { signOut, user } = useAuth()
-  const { posterSpoiler, plotSpoiler, castSpoiler, ratingsSpoiler } = useUser()
+  const { signOut } = useAuth()
+  const { preferences, email, displayName } = useUser()
   const { updatePreferences } = useData()
-  const [poster, setPoster] = useState<boolean>(posterSpoiler)
-  const [plot, setPlot] = useState<boolean>(plotSpoiler)
-  const [cast, setCast] = useState<boolean>(castSpoiler)
-  const [ratings, setRatings] = useState<boolean>(ratingsSpoiler)
+  const [poster, setPoster] = useState<boolean>(preferences.poster)
+  const [plot, setPlot] = useState<boolean>(preferences.plot)
+  const [cast, setCast] = useState<boolean>(preferences.cast)
+  const [ratings, setRatings] = useState<boolean>(preferences.ratings)
 
   return (
     <ModelComponent top={false}>
@@ -21,13 +21,13 @@ function ProfileScreen() {
         <Text className='mx-5 mb-5 text-white font-primaryRegular  text-xl'>Personal Information</Text>
 
         {/* <View className='mx-5 bg-zinc-500/10 rounded-xl px-4 pb-3 pt-2 mb-4'>
-        <Text className='text-white text-sm'>Name</Text>
-        <Text className='text-white text-base'>{user?.displayName}</Text>
-      </View> */}
+          <Text className='text-white text-sm'>Name</Text>
+          <Text className='text-white text-base'>{displayName}</Text>
+        </View> */}
 
         <View className='mx-5 bg-zinc-500/10 rounded-xl px-4 pb-3 pt-2 mb-8'>
           <Text className='text-white text-sm font-primaryRegular '>Email</Text>
-          <Text className='text-white text-base font-primaryRegular '>{user?.email}</Text>
+          <Text className='text-white text-base font-primaryRegular '>{email}</Text>
         </View>
 
         <Text className='mx-5 mb-5 text-white text-xl font-primaryRegular '>Spoiler Preferences</Text>
@@ -77,7 +77,10 @@ function ProfileScreen() {
         <ButtonComponent
           name='Update Account'
           disabled={
-            posterSpoiler === poster && plotSpoiler === plot && castSpoiler === cast && ratingsSpoiler === ratings
+            preferences.poster === poster &&
+            preferences.plot === plot &&
+            preferences.cast === cast &&
+            preferences.ratings === ratings
           }
           variant='filled'
           className='mx-5 mb-5'

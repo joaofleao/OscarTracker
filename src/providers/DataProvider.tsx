@@ -4,7 +4,7 @@ import { DataContext } from '../contexts'
 import { db } from '../services'
 import categoriesJson from '../utils/dictionary/categories.json'
 import { collection, getDocs, doc, query, orderBy, where, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
-import { useAuth } from '../hooks'
+import { useAuth, useUser } from '../hooks'
 
 const editions = collection(db, 'editions')
 const people = collection(db, 'people')
@@ -21,7 +21,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   const [currentNominations] = useState<any>()
   const [currentNominationsByCategory, setCurrentNominationsByCategory] = useState<any>()
 
-  const { user } = useAuth()
+  const { uid } = useUser()
 
   useMemo(() => {
     async function fetchData() {
@@ -29,8 +29,8 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
       await getEditionMovies()
       await getEditionNominations()
     }
-    if (user) fetchData()
-  }, [user])
+    if (uid) fetchData()
+  }, [uid])
 
   async function getCategories() {
     const categoriesMap = new Map()
@@ -95,7 +95,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   }
 
   async function setMovieUnwatched(movie: string) {
-    const userRef = doc(users, user?.uid)
+    const userRef = doc(users, uid)
 
     updateDoc(userRef, {
       movies: arrayRemove(movie),
@@ -103,7 +103,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   }
 
   async function updatePreferences(poster: boolean, plot: boolean, cast: boolean, ratings: boolean) {
-    const userRef = doc(users, user?.uid)
+    const userRef = doc(users, uid)
 
     updateDoc(userRef, {
       preferences: {
@@ -116,7 +116,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   }
 
   async function setMovieWatched(movie: string) {
-    const userRef = doc(users, user?.uid)
+    const userRef = doc(users, uid)
 
     updateDoc(userRef, {
       movies: arrayUnion(movie),
