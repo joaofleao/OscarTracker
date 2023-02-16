@@ -14,14 +14,22 @@ export type Category = {
   'pt-BR': string
 }
 
+export type PreferencesType = {
+  poster: boolean
+  cast: boolean
+  plot: boolean
+  ratings: boolean
+}
+
 export type UserType = {
-  email: string | null
-  displayName: string | null
-  photoURL: string | null
-  phoneNumber: string | null
-  uid: string
+  preferences: PreferencesType
+  email: string
+  displayName: string
   emailVerified: boolean
-  movies: string[]
+  phoneNumber: string
+  photoURL: string
+  watchedMovies: string[]
+  uid: string
 }
 
 export type BasicMovieType = {
