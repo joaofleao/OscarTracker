@@ -102,16 +102,19 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     })
   }
 
-  async function updatePreferences(poster: boolean, plot: boolean, cast: boolean, ratings: boolean) {
+  async function updateUser(
+    email: string,
+    displayName: string,
+    nickName: string,
+    preferences: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
+  ) {
     const userRef = doc(users, uid)
 
     updateDoc(userRef, {
-      preferences: {
-        poster,
-        plot,
-        cast,
-        ratings,
-      },
+      preferences,
+      email,
+      displayName,
+      nickName,
     })
   }
 
@@ -132,7 +135,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     getMovieNominations,
     setMovieUnwatched,
     setMovieWatched,
-    updatePreferences,
+    updateUser,
   } satisfies DataContextType
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>
