@@ -17,7 +17,12 @@ export type DataContextType = {
   getMovieNominations: (movie: string) => any
   setMovieUnwatched: (movie: string) => void
   setMovieWatched: (movie: string) => void
-  updatePreferences: (poster: boolean, plot: boolean, cast: boolean, ratings: boolean) => void
+  updateUser: (
+    email: string,
+    displayName: string,
+    nickName: string,
+    preferences: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
+  ) => void
 }
 
 export type ThemeContextType = {
