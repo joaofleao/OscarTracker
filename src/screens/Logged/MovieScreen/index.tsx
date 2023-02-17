@@ -8,7 +8,7 @@ import colors from 'tailwindcss/colors'
 
 function MovieScreen({ navigation, route }: any) {
   const { id, name, poster } = route.params
-  const { watchedMovies, posterSpoiler } = useUser()
+  const { watchedMovies, preferences } = useUser()
   const [watched, setWatched] = useState<boolean>(false)
   const [nominations, setNominations] = useState<Nomination[]>([])
   const { isWatched } = usePersonalData()
@@ -49,7 +49,7 @@ function MovieScreen({ navigation, route }: any) {
       top={false}>
       <HeaderComponent
         leadingAction={() => navigation.goBack()}
-        leadingButton='chevron-left'>
+        leadingButton='arrow-left'>
         {name}
       </HeaderComponent>
       <View className='items-center '>
@@ -57,14 +57,14 @@ function MovieScreen({ navigation, route }: any) {
           onPressIn={() => setShowPoster(true)}
           onPressOut={() => setShowPoster(false)}
           className='items-center justify-center w-[228px] h-[338px] bg-zinc-800/40 rounded-xl mb-4'>
-          {(showPoster || posterSpoiler || isWatched(id)) && (
+          {(showPoster || preferences.poster || isWatched(id)) && (
             <ImageBackground
               imageStyle={{ borderRadius: 12 }}
               className='w-full h-full rounded-xl'
               source={{ uri: getImage(poster) }}
             />
           )}
-          {!posterSpoiler && !showPoster && !isWatched(id) && (
+          {!preferences.poster && !showPoster && !isWatched(id) && (
             <IconComponent
               name={'eye'}
               size={30}
