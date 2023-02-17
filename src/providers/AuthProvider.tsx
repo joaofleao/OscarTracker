@@ -8,7 +8,7 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, Us
 import { doc, setDoc, collection, onSnapshot } from 'firebase/firestore'
 
 const AuthProvider: React.FC<Provider> = ({ children }) => {
-  const { setDisplayName, setEmail, setEmailVerified, setPhoneURL, setPreferences, setUid, setWatchedMovies } =
+  const { setDisplayName, setEmail, setEmailVerified, setNickName, setPreferences, setUid, setWatchedMovies } =
     useUser()
   const { startLoading, stopLoading } = useTheme()
   const [initializing, setInitializing] = useState<boolean>(true)
@@ -19,13 +19,11 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
     const unsubscribeAuth = auth.onAuthStateChanged((user: User | null) => {
       setUser(user)
     })
-    console.log(user)
 
     return () => unsubscribeAuth()
   }, [])
 
   useEffect(() => {
-    console.log(user)
     if (user) {
       setInitializing(false)
       const userRef = doc(users, user.uid)
@@ -35,7 +33,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
           setDisplayName(response.displayName)
           setEmail(response.email)
           setEmailVerified(response.emailVerified)
-          setPhoneURL(response.photoURL)
+          setNickName(response.nickName)
           setPreferences(response.preferences)
           setUid(response.uid)
           setWatchedMovies(response.movies)
@@ -44,10 +42,6 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
       return () => unsubscribe()
     }
   }, [user])
-
-  useEffect(() => {
-    console.log(initializing)
-  }, [initializing])
 
   const signIn = async (email: string, password: string) => {
     startLoading('Signin in')
@@ -64,11 +58,11 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
       })
   }
 
-  const signUp = async (email: string, password: string, displayName: string, avatar: any) => {
+  const signUp = async (email: string, password: string, displayName: string, nickName: any) => {
     startLoading('Creating an Account')
     const response = createUserWithEmailAndPassword(auth, email, password)
       .then(response => {
-        addUser(response.user, displayName, avatar)
+        addUser(response.user, displayName, nickName)
         return true
       })
       .catch(error => {
@@ -79,11 +73,11 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
     return response
   }
 
-  const addUser = async (user: User, displayName: string, avatar: any) => {
+  const addUser = async (user: User, displayName: string, nickName: any) => {
     const object = {
       email: user.email || '',
-      displayName: displayName,
-      photoURL: avatar,
+      displayName,
+      nickName,
       uid: user.uid,
       emailVerified: user.emailVerified,
       movies: [],
@@ -102,7 +96,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         setDisplayName(object.displayName)
         setEmail(object.email)
         setEmailVerified(object.emailVerified)
-        setPhoneURL(object.photoURL)
+        setNickName(object.nickName)
         setPreferences(object.preferences)
         setUid(object.uid)
         setWatchedMovies(object.movies)

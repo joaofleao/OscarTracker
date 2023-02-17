@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import { TextInputComponent, ButtonComponent, ModelComponent, HeaderComponent } from '../../../components'
-import { routes } from '../../../utils'
+import { useAuth } from '../../../hooks'
 
 function SignUpNameScreen({ navigation, route }: any) {
+  const { email, password } = route.params
+  const { signUp } = useAuth()
   const [name, setName] = useState<string>('')
   const [nickName, setNickName] = useState<string>('')
+
+  const handleNext = () => {
+    signUp(email, password, name, nickName)
+  }
 
   return (
     <ModelComponent>
@@ -41,13 +47,7 @@ function SignUpNameScreen({ navigation, route }: any) {
           <ButtonComponent
             name='Next'
             className='w-60'
-            onPress={() =>
-              navigation.navigate(routes.unlogged.signUpAvatar, {
-                ...route.params,
-                name,
-                nickName,
-              })
-            }
+            onPress={() => handleNext()}
           />
         </View>
       </View>
