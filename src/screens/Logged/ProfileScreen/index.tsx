@@ -8,17 +8,34 @@ import packageJson from '../../../../package.json'
 function ProfileScreen() {
   const { signOut } = useAuth()
   const { preferences, email, displayName, nickName } = useUser()
-  const { updatePreferences } = useData()
+  const { updateUser } = useData()
   const [poster, setPoster] = useState<boolean>(preferences.poster)
   const [plot, setPlot] = useState<boolean>(preferences.plot)
   const [cast, setCast] = useState<boolean>(preferences.cast)
   const [ratings, setRatings] = useState<boolean>(preferences.ratings)
 
+  const [editing, setEditing] = useState<boolean>(false)
+
+  const handleEdit = () => {
+    if (editing) {
+      updateUser(email, displayName, nickName, { poster, plot, cast, ratings })
+      setEditing(false)
+    } else {
+      setEditing(true)
+    }
+  }
+
   return (
-    <ModelComponent top={false}>
-      <HeaderComponent>Profile</HeaderComponent>
+    <ModelComponent
+      top={false}
+      bottom={false}>
+      <HeaderComponent
+        trailingAction={() => handleEdit()}
+        trailingButton={editing ? 'check' : 'edit-2'}>
+        Profile
+      </HeaderComponent>
       <ScrollView>
-        <Text className='mx-5 mb-5 text-white font-primaryRegular  text-xl'>Personal Information</Text>
+        <Text className='mx-5 mb-5 text-white font-primaryRegular text-xl'>Personal Information</Text>
 
         <View className='mx-5 bg-zinc-500/10 rounded-xl px-4 pb-3 pt-2 mb-4'>
           <Text className='text-white text-sm'>Name</Text>
@@ -31,16 +48,17 @@ function ProfileScreen() {
         </View>
 
         <View className='mx-5 bg-zinc-500/10 rounded-xl px-4 pb-3 pt-2 mb-8'>
-          <Text className='text-white text-sm font-primaryRegular '>Email</Text>
-          <Text className='text-white text-base font-primaryRegular '>{email}</Text>
+          <Text className='text-white text-sm font-primaryRegular'>Email</Text>
+          <Text className='text-white text-base font-primaryRegular'>{email}</Text>
         </View>
 
-        <Text className='mx-5 mb-5 text-white text-xl font-primaryRegular '>Spoiler Preferences</Text>
+        <Text className='mx-5 mb-5 text-white text-xl font-primaryRegular'>Spoiler Preferences</Text>
 
         <View className='mx-5 flex-row  mb-7 justify-between'>
-          <Text className='text-white text-base font-primaryRegular '>Show Posters</Text>
+          <Text className='text-white text-base font-primaryRegular'>Show Posters</Text>
 
           <Switch
+            disabled={!editing}
             trackColor={{ false: colors.zinc[800], true: colors.zinc[800] }}
             thumbColor={poster ? colors.amber[500] : colors.zinc[700]}
             ios_backgroundColor={colors.zinc[900]}
@@ -49,8 +67,9 @@ function ProfileScreen() {
           />
         </View>
         <View className='mx-5 flex-row  mb-7 justify-between'>
-          <Text className='text-white text-base font-primaryRegular '>Show Plot</Text>
+          <Text className='text-white text-base font-primaryRegular'>Show Plot</Text>
           <Switch
+            disabled={!editing}
             trackColor={{ false: colors.zinc[800], true: colors.zinc[800] }}
             thumbColor={plot ? colors.amber[500] : colors.zinc[700]}
             ios_backgroundColor={colors.zinc[900]}
@@ -59,8 +78,9 @@ function ProfileScreen() {
           />
         </View>
         <View className='mx-5 flex-row  mb-7 justify-between'>
-          <Text className='text-white text-base font-primaryRegular '>Show Cast</Text>
+          <Text className='text-white text-base font-primaryRegular'>Show Cast</Text>
           <Switch
+            disabled={!editing}
             trackColor={{ false: colors.zinc[800], true: colors.zinc[800] }}
             thumbColor={cast ? colors.amber[500] : colors.zinc[700]}
             ios_backgroundColor={colors.zinc[900]}
@@ -69,8 +89,9 @@ function ProfileScreen() {
           />
         </View>
         <View className='mx-5 flex-row  mb-7 justify-between'>
-          <Text className='text-white text-base font-primaryRegular '>Show Ratings</Text>
+          <Text className='text-white text-base font-primaryRegular'>Show Ratings</Text>
           <Switch
+            disabled={!editing}
             trackColor={{ false: colors.zinc[800], true: colors.zinc[800] }}
             thumbColor={ratings ? colors.amber[500] : colors.zinc[700]}
             ios_backgroundColor={colors.zinc[900]}
@@ -79,28 +100,17 @@ function ProfileScreen() {
           />
         </View>
 
-        <ButtonComponent
-          name='Update Account'
-          disabled={
-            preferences.poster === poster &&
-            preferences.plot === plot &&
-            preferences.cast === cast &&
-            preferences.ratings === ratings
-          }
-          variant='filled'
-          className='mx-5 mb-5'
-          onPress={() => updatePreferences(poster, plot, cast, ratings)}
-        />
+        <View className='mx-5 flex-row  mb-7 justify-between'>
+          <Text className='text-white text-base font-primaryRegular'>App Version</Text>
+          <Text className='text-amber-500 text-base font-primaryRegular'>{packageJson.version}</Text>
+        </View>
+
         <ButtonComponent
           name='Log Out'
           variant='outlined'
           className='mx-5 mb-5'
           onPress={signOut}
         />
-        <View className='mx-5 flex-row  mb-7 justify-between'>
-          <Text className='text-white text-base font-primaryRegular '>App Version</Text>
-          <Text className='text-amber-500 text-base font-primaryRegular '>{packageJson.version}</Text>
-        </View>
       </ScrollView>
     </ModelComponent>
   )
