@@ -23,7 +23,7 @@
 	<key>CFBundleVersion</key>
 	<string>4</string>
 	<key>LSRequiresIPhoneOS</key>
-	<true />
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -31,12 +31,12 @@
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true />
+				<true/>
 			</dict>
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string />
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -50,29 +50,20 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false />
+	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Spartan-Black.ttf</string>
 		<string>Spartan-Bold.ttf</string>
-		<string>Spartan-ExtraBold.ttf</string>
-		<string>Spartan-ExtraLight.ttf</string>
 		<string>Spartan-Light.ttf</string>
 		<string>Spartan-Medium.ttf</string>
 		<string>Spartan-Regular.ttf</string>
 		<string>Spartan-SemiBold.ttf</string>
-		<string>Spartan-Thin.ttf</string>
 		<string>icons.ttf</string>
-		<string>Comfortaa-Bold.ttf</string>
-		<string>Comfortaa-Light.ttf</string>
-		<string>Comfortaa-Medium.ttf</string>
-		<string>Comfortaa-Regular.ttf</string>
-		<string>Comfortaa-SemiBold.ttf</string>
-		<string>Linotte-Black.ttf</string>
-		<string>Linotte-Bold.ttf</string>
-		<string>Linotte-Light.ttf</string>
-		<string>Linotte-Regular.ttf</string>
-		<string>Linotte-SemiBold.ttf</string>
+		<string>Quicksand-Bold.ttf</string>
+		<string>Quicksand-Light.ttf</string>
+		<string>Quicksand-Medium.ttf</string>
+		<string>Quicksand-Regular.ttf</string>
+		<string>Quicksand-SemiBold.ttf</string>
 	</array>
 </dict>
 </plist>
