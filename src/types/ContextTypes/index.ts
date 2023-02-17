@@ -36,9 +36,8 @@ export type UserContextType = {
   setDisplayName: (displayName: string) => void
   emailVerified: boolean
   setEmailVerified: (emailVerified: boolean) => void
-
-  photoURL: string
-  setPhoneURL: (photoURL: string) => void
+  nickName: string
+  setNickName: (nickName: string) => void
   watchedMovies: string[]
   setWatchedMovies: (watchedMovies: string[]) => void
   uid: string

@@ -7,7 +7,7 @@ import packageJson from '../../../../package.json'
 
 function ProfileScreen() {
   const { signOut } = useAuth()
-  const { preferences, email, displayName } = useUser()
+  const { preferences, email, displayName, nickName } = useUser()
   const { updatePreferences } = useData()
   const [poster, setPoster] = useState<boolean>(preferences.poster)
   const [plot, setPlot] = useState<boolean>(preferences.plot)
@@ -20,10 +20,15 @@ function ProfileScreen() {
       <ScrollView>
         <Text className='mx-5 mb-5 text-white font-primaryRegular  text-xl'>Personal Information</Text>
 
-        {/* <View className='mx-5 bg-zinc-500/10 rounded-xl px-4 pb-3 pt-2 mb-4'>
+        <View className='mx-5 bg-zinc-500/10 rounded-xl px-4 pb-3 pt-2 mb-4'>
           <Text className='text-white text-sm'>Name</Text>
           <Text className='text-white text-base'>{displayName}</Text>
-        </View> */}
+        </View>
+
+        <View className='mx-5 bg-zinc-500/10 rounded-xl px-4 pb-3 pt-2 mb-4'>
+          <Text className='text-white text-sm'>Nickname</Text>
+          <Text className='text-white text-base'>{nickName}</Text>
+        </View>
 
         <View className='mx-5 bg-zinc-500/10 rounded-xl px-4 pb-3 pt-2 mb-8'>
           <Text className='text-white text-sm font-primaryRegular '>Email</Text>
