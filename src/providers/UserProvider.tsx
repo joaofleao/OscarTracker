@@ -7,7 +7,7 @@ const UserProvider: React.FC<Provider> = ({ children }) => {
   const [email, setEmail] = useState<string>('')
   const [displayName, setDisplayName] = useState<string>('')
   const [emailVerified, setEmailVerified] = useState<boolean>(false)
-  const [photoURL, setPhoneURL] = useState<string>('')
+  const [nickName, setNickName] = useState<string>('')
   const [watchedMovies, setWatchedMovies] = useState<string[]>([])
   const [uid, setUid] = useState<string>('')
   const [preferences, setPreferences] = useState<PreferencesType>({
@@ -26,8 +26,8 @@ const UserProvider: React.FC<Provider> = ({ children }) => {
     setDisplayName,
     emailVerified,
     setEmailVerified,
-    photoURL,
-    setPhoneURL,
+    nickName,
+    setNickName,
     watchedMovies,
     setWatchedMovies,
     uid,
