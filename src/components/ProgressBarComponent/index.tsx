@@ -8,7 +8,7 @@ interface ProgressBarProps {
 
 function ProgressBarComponent({ total, progress, ...rest }: ProgressBarProps) {
   return (
-    <View className='flex-row justify-between mx-5 mb-5 items-center'>
+    <View className='flex-row justify-between mx-5 items-center'>
       <View>
         <Text className='text-zinc-600 mr-3 font-primaryRegular '>{progress}</Text>
       </View>
