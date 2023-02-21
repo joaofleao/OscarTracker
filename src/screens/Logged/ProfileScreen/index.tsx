@@ -1,24 +1,28 @@
 import React, { useState } from 'react'
 import { Text, View, Switch, ScrollView } from 'react-native'
 import colors from 'tailwindcss/colors'
-import { ButtonComponent, ModelComponent, HeaderComponent } from '../../../components'
+import { ButtonComponent, ModelComponent, HeaderComponent, TextInputComponent } from '../../../components'
 import { useAuth, useData, useUser } from '../../../hooks'
 import packageJson from '../../../../package.json'
 
 function ProfileScreen() {
   const { signOut } = useAuth()
-  const { preferences, email, displayName, nickName } = useUser()
+  const user = useUser()
   const { updateUser } = useData()
-  const [poster, setPoster] = useState<boolean>(preferences.poster)
-  const [plot, setPlot] = useState<boolean>(preferences.plot)
-  const [cast, setCast] = useState<boolean>(preferences.cast)
-  const [ratings, setRatings] = useState<boolean>(preferences.ratings)
+
+  const [displayName, setDisplayName] = useState<string>(user.displayName)
+  const [nickName, setNickname] = useState<string>(user.nickName)
+
+  const [poster, setPoster] = useState<boolean>(user.preferences.poster)
+  const [plot, setPlot] = useState<boolean>(user.preferences.plot)
+  const [cast, setCast] = useState<boolean>(user.preferences.cast)
+  const [ratings, setRatings] = useState<boolean>(user.preferences.ratings)
 
   const [editing, setEditing] = useState<boolean>(false)
 
   const handleEdit = () => {
     if (editing) {
-      updateUser(email, displayName, nickName, { poster, plot, cast, ratings })
+      updateUser(user.email, displayName, nickName, { poster, plot, cast, ratings })
       setEditing(false)
     } else {
       setEditing(true)
@@ -37,20 +41,27 @@ function ProfileScreen() {
       <ScrollView>
         <Text className='mx-5 mb-5 text-white font-primaryRegular text-xl'>Personal Information</Text>
 
-        <View className='mx-5 bg-zinc-500/10 rounded-xl px-4 pb-3 pt-2 mb-4'>
-          <Text className='text-white text-sm'>Name</Text>
-          <Text className='text-white text-base'>{displayName}</Text>
-        </View>
-
-        <View className='mx-5 bg-zinc-500/10 rounded-xl px-4 pb-3 pt-2 mb-4'>
-          <Text className='text-white text-sm'>Nickname</Text>
-          <Text className='text-white text-base'>{nickName}</Text>
-        </View>
-
-        <View className='mx-5 bg-zinc-500/10 rounded-xl px-4 pb-3 pt-2 mb-8'>
-          <Text className='text-white text-sm font-primaryRegular'>Email</Text>
-          <Text className='text-white text-base font-primaryRegular'>{email}</Text>
-        </View>
+        <TextInputComponent
+          value={displayName}
+          className='mx-4 mb-4'
+          editable={editing}
+          label='Name'
+          onChangeText={text => setDisplayName(text)}
+        />
+        <TextInputComponent
+          value={nickName}
+          className='mx-4 mb-4'
+          editable={editing}
+          label='Nickname'
+          onChangeText={text => setNickname(text)}
+        />
+        <TextInputComponent
+          value={user.email}
+          className='mx-4 mb-8'
+          editable={false}
+          label='Email (not editable)'
+          onChangeText={() => {}}
+        />
 
         <Text className='mx-5 mb-5 text-white text-xl font-primaryRegular'>Spoiler Preferences</Text>
 
