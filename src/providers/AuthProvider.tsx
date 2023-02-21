@@ -58,7 +58,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
       })
   }
 
-  const signUp = async (email: string, password: string, displayName: string, nickName: any) => {
+  const signUp = async (email: string, password: string, displayName: string, nickName: string) => {
     startLoading('Creating an Account')
     const response = createUserWithEmailAndPassword(auth, email, password)
       .then(response => {
@@ -73,7 +73,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
     return response
   }
 
-  const addUser = async (user: User, displayName: string, nickName: any) => {
+  const addUser = async (user: User, displayName: string, nickName: string) => {
     const object = {
       email: user.email || '',
       displayName,
