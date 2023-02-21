@@ -9,19 +9,20 @@ function SignUpNameScreen({ navigation, route }: any) {
   const [name, setName] = useState<string>('')
   const [nickName, setNickName] = useState<string>('')
 
+  const nameValid = name.split(' ').length >= 2 && name.split(' ')[0].length > 0 && name.split(' ')[1].length > 0
+
   const handleNext = () => {
     signUp(email, password, name, nickName)
   }
 
   return (
     <ModelComponent>
+      <HeaderComponent
+        leadingAction={() => navigation.goBack()}
+        leadingButton='chevron-left'>
+        Register
+      </HeaderComponent>
       <View className='flex-1 mx-4 justify-between'>
-        <HeaderComponent
-          leadingAction={() => navigation.goBack()}
-          leadingButton='chevron-left'>
-          Register
-        </HeaderComponent>
-
         <View className='flex-1 justify-center'>
           <Text className='text-white font-primaryRegular text-2xl mb-4'>How would you like to be called?</Text>
           <Text className='text-white font-primaryRegular text-base'>
@@ -30,13 +31,15 @@ function SignUpNameScreen({ navigation, route }: any) {
         </View>
 
         <TextInputComponent
-          placeholder='Name'
+          label='Name'
           value={name}
+          validation={nameValid}
+          errorText={'Please provide name and last name'}
           className='my-4'
           onChange={e => setName(e.nativeEvent.text)}
         />
         <TextInputComponent
-          placeholder='NickName'
+          label='Nickname'
           value={nickName}
           className='my-4'
           onChange={e => setNickName(e.nativeEvent.text)}
