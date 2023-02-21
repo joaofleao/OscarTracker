@@ -19,18 +19,18 @@ function SignInScreen({ navigation }: any) {
         <LogoComponent />
 
         <TextInputComponent
-          placeholder='Email'
+          className='mb-5 mx-5'
+          label='Email'
           value={email}
-          className='mx-4 mb-5'
-          onChange={e => setEmail(e.nativeEvent.text)}
+          onChangeText={text => setEmail(text)}
         />
 
         <TextInputComponent
-          value={password}
-          placeholder='Password'
+          className='mb-10 mx-5'
+          label='Password'
           type='password'
-          className='mx-4 mb-12'
-          onChange={e => setPassword(e.nativeEvent.text)}
+          value={password}
+          onChangeText={text => setPassword(text)}
         />
 
         <View className='items-center'>
