@@ -2,7 +2,7 @@ import { TouchableOpacity, Text, View, ImageBackground } from 'react-native'
 import { styled } from 'nativewind'
 import { getImage } from '../../services/tmdb/api'
 import { useUser, usePersonalData } from '../../hooks'
-import { IconComponent } from '..'
+import { IconComponent, PosterComponent } from '..'
 import colors from 'tailwindcss/colors'
 
 interface ButtonProps {
@@ -13,7 +13,7 @@ interface ButtonProps {
 }
 
 function NomineeCardComponent({ image, title, id, onPress, ...rest }: ButtonProps) {
-  const { posterSpoiler } = useUser()
+  const { preferences } = useUser()
   const { isWatched } = usePersonalData()
 
   return (
@@ -23,40 +23,11 @@ function NomineeCardComponent({ image, title, id, onPress, ...rest }: ButtonProp
       className='justify-center '
       {...rest}>
       <View className='flex-row '>
-        {isWatched(id) && (
-          <View className='w-[106px] h-[158px] bg-zinc-700 rounded-xl'>
-            <ImageBackground
-              imageStyle={{ borderRadius: 12 }}
-              className='absolute w-full h-full rounded-xl '
-              source={{ uri: getImage(image) }}
-            />
-          </View>
-        )}
-        {posterSpoiler && !isWatched(id) && (
-          <View className='w-[106px] h-[158px]  items-center justify-center bg-zinc-700 rounded-xl'>
-            <ImageBackground
-              imageStyle={{ borderRadius: 12 }}
-              className='absolute w-full h-full rounded-xl '
-              source={{ uri: getImage(image) }}
-            />
-            <View className='absolute bg-zinc-900/70 w-full h-full rounded-xl' />
-            <IconComponent
-              name='eye-off'
-              color={colors.amber[500]}
-              size={24}
-            />
-          </View>
-        )}
-        {!posterSpoiler && !isWatched(id) && (
-          <View className='w-[106px] h-[158px] items-center justify-center bg-zinc-800/40 rounded-xl'>
-            <IconComponent
-              name='eye-off'
-              color={colors.amber[500]}
-              size={24}
-            />
-          </View>
-        )}
-
+        <PosterComponent
+          image={getImage(image)}
+          isWatched={isWatched(id)}
+          spoiler={preferences.poster}
+        />
         <Text className={`ml-4 flex-1 text-lg font-primaryBold text-white`}>{title}</Text>
       </View>
     </TouchableOpacity>
