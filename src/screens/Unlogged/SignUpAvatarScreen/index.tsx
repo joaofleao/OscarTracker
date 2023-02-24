@@ -16,7 +16,7 @@ function SignUpAvatarScreen({ navigation, route }: any) {
       <View className='flex-1 mx-4 justify-between'>
         <HeaderComponent
           leadingAction={() => navigation.goBack()}
-          leadingButton='chevron-left'>
+          leadingButton='arrow-left'>
           Register
         </HeaderComponent>
 

@@ -267,7 +267,7 @@ function PreferencesScreen({ navigation, route }: any) {
   return (
     <ModelComponent>
       <HeaderComponent
-        leadingButton={index !== 0 ? 'chevron-left' : ''}
+        leadingButton={index !== 0 ? 'arrow-left' : ''}
         leadingAction={handleBack}>
         Preferences
       </HeaderComponent>
