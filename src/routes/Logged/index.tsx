@@ -38,66 +38,21 @@ const screenOptionsAndroid = {
   },
 }
 
-const HomeTab = () => (
-  <Stack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <Stack.Screen
-      name={routes.logged.home}
-      component={HomeScreen}
-      initialParams={{ filter: '' }}
-    />
-    <Stack.Screen
-      name={routes.logged.movie}
-      component={MovieScreen}
-    />
-  </Stack.Navigator>
-)
-
-const WatchListTab = () => (
-  <Stack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <Stack.Screen
-      name={routes.logged.watchList}
-      component={WatchListScreen}
-    />
-    <Stack.Screen
-      name={routes.logged.movie}
-      component={MovieScreen}
-    />
-  </Stack.Navigator>
-)
-
-const UserTab = () => (
-  <Stack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <Stack.Screen
-      name={routes.logged.profile}
-      component={ProfileScreen}
-    />
-  </Stack.Navigator>
-)
-
 const tabs = [
   {
-    name: 'HomeTab',
-    component: HomeTab,
+    name: routes.logged.home,
     icon: 'home-tab',
+    component: HomeScreen,
   },
   {
-    name: 'WatchListTab',
-    component: WatchListTab,
+    name: routes.logged.watchList,
     icon: 'check-tab',
+    component: WatchListScreen,
   },
   {
-    name: 'UserTab',
-    component: UserTab,
+    name: routes.logged.profile,
     icon: 'user-tab',
+    component: ProfileScreen,
   },
 ]
 
@@ -152,12 +107,16 @@ function TabNavigator() {
 export const Logged = (
   <>
     <Stack.Screen
-      name={routes.logged.home}
+      name={routes.logged.index}
       component={TabNavigator}
     />
     <Stack.Screen
       name={routes.logged.preferences}
       component={PreferencesScreen}
+    />
+    <Stack.Screen
+      name={routes.logged.movie}
+      component={MovieScreen}
     />
   </>
 )
