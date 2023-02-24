@@ -12,12 +12,16 @@ import { getImage } from '../../../services/tmdb/api'
 import { routes } from '../../../utils'
 
 function HomeScreen({ navigation, route }: any) {
-  const { currentNominationsByCategory, currentCategoriesMap, currentMoviesMap, currentMovies } = useData()
+  const { currentNominationsByCategory, currentCategoriesMap, currentMoviesMap } = useData()
   const { isWatched, totalMovies, totalWatchedMovies, watchedMoviesInCategory, uniqueMovies } = usePersonalData()
-  const { posterSpoiler } = useUser()
-  const { filter } = route.params || ''
+  const { preferences, onboarding } = useUser()
+  const filter = route.params?.filter || ''
   const [search, setSearch] = useState<string>('')
   const [data, setData] = useState<[]>([])
+
+  useEffect(() => {
+    if (!onboarding) navigation.navigate(routes.logged.preferences)
+  }, [onboarding])
 
   useEffect(() => {
     if (search === '') setData(currentNominationsByCategory)
@@ -57,7 +61,7 @@ function HomeScreen({ navigation, route }: any) {
           />
         )}
 
-        {posterSpoiler && !isWatched(movie.imdb) && (
+        {preferences.poster && !isWatched(movie.imdb) && (
           <View className='  flex-1 items-center justify-center'>
             <ImageBackground
               imageStyle={{ borderRadius: 12 }}
@@ -68,7 +72,7 @@ function HomeScreen({ navigation, route }: any) {
             <Text className='text-white font-primaryBold text-base p-3 text-center'>{movie['en-US'].name}</Text>
           </View>
         )}
-        {!posterSpoiler && !isWatched(movie.imdb) && (
+        {!preferences.poster && !isWatched(movie.imdb) && (
           <View className='flex-1 items-center justify-center'>
             <Text className='text-white font-primaryBold text-base p-3 text-center'>{movie['en-US'].name}</Text>
           </View>
@@ -112,7 +116,6 @@ function HomeScreen({ navigation, route }: any) {
 
       <TextInputComponent
         className='mx-5 mb-5'
-        type='search'
         value={search}
         placeholder='Search Category'
         onChange={(e: any) => setSearch(e.nativeEvent.text)}

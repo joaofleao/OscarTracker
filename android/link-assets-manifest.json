@@ -2,64 +2,32 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "src/assets/fonts/comfortaa/Comfortaa-Bold.ttf",
-      "sha1": "030d538c445730fb1ec262b0e2bd748cdfceb272"
-    },
-    {
-      "path": "src/assets/fonts/comfortaa/Comfortaa-Light.ttf",
-      "sha1": "59ba6ecb3d687de56df4e0c793bf2871456cbed1"
-    },
-    {
-      "path": "src/assets/fonts/comfortaa/Comfortaa-Medium.ttf",
-      "sha1": "eda88ba64df47e9d918b3926f9d84653a5a82bd7"
-    },
-    {
-      "path": "src/assets/fonts/comfortaa/Comfortaa-Regular.ttf",
-      "sha1": "018c91b57e43873172a1767df40434cb56e130e4"
-    },
-    {
-      "path": "src/assets/fonts/comfortaa/Comfortaa-SemiBold.ttf",
-      "sha1": "8aa11f225d34b7d4e25aec3ca6b5cae30a444ce8"
-    },
-    {
       "path": "src/assets/fonts/icons/icons.ttf",
       "sha1": "66be78a6571ded896cfa2773741b57c366df6791"
     },
     {
-      "path": "src/assets/fonts/linotte/Linotte-Black.ttf",
-      "sha1": "8ed8ac8a3b915e46fe6babefdcc519f887fffea0"
+      "path": "src/assets/fonts/quicksand/Quicksand-Bold.ttf",
+      "sha1": "8727a6ae26c6646a7f25bfe6560e19c9265ea87c"
     },
     {
-      "path": "src/assets/fonts/linotte/Linotte-Bold.ttf",
-      "sha1": "4d6f60f507038f02eef07f1e71df1ec732a4a725"
+      "path": "src/assets/fonts/quicksand/Quicksand-Light.ttf",
+      "sha1": "739d87992cf1cd96cff0c9c32e40927385a38146"
     },
     {
-      "path": "src/assets/fonts/linotte/Linotte-Light.ttf",
-      "sha1": "4d304b68fac820115421a3a341dc97c9ea3efa58"
+      "path": "src/assets/fonts/quicksand/Quicksand-Medium.ttf",
+      "sha1": "48d202c7a215914264064dc27f6a8cd77ebe3036"
     },
     {
-      "path": "src/assets/fonts/linotte/Linotte-Regular.ttf",
-      "sha1": "f2daefc14a215272e78b4709603608b7f7d19f18"
+      "path": "src/assets/fonts/quicksand/Quicksand-Regular.ttf",
+      "sha1": "6eebfcb02f142c6e2bf58f7fcb31f10ec914a0ed"
     },
     {
-      "path": "src/assets/fonts/linotte/Linotte-SemiBold.ttf",
-      "sha1": "4311bf12739362d4899e2bac8219e3e1ab35875f"
-    },
-    {
-      "path": "src/assets/fonts/spartan/Spartan-Black.ttf",
-      "sha1": "092a49b11db0f0588e0352740afa46ba301af1ce"
+      "path": "src/assets/fonts/quicksand/Quicksand-SemiBold.ttf",
+      "sha1": "43fdbf795bb0b7cc5b0d3dbcbdef0cdec0f29ca9"
     },
     {
       "path": "src/assets/fonts/spartan/Spartan-Bold.ttf",
       "sha1": "ef66359bce31b2c5b1b05a975e4e880539fccb64"
-    },
-    {
-      "path": "src/assets/fonts/spartan/Spartan-ExtraBold.ttf",
-      "sha1": "ee29e6514c39254b2ea50d0c222774b6e69009d7"
-    },
-    {
-      "path": "src/assets/fonts/spartan/Spartan-ExtraLight.ttf",
-      "sha1": "9487b01f4582eff8904c843676fc9b5db358474c"
     },
     {
       "path": "src/assets/fonts/spartan/Spartan-Light.ttf",
@@ -76,10 +44,6 @@
     {
       "path": "src/assets/fonts/spartan/Spartan-SemiBold.ttf",
       "sha1": "fc1468ef994e240a081786576024428e898566ec"
-    },
-    {
-      "path": "src/assets/fonts/spartan/Spartan-Thin.ttf",
-      "sha1": "283b9ff698b4314f48cc737df77abe0422f50e1d"
     }
   ]
 }

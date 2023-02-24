@@ -55,7 +55,6 @@ function WatchListScreen({ navigation, route }: any) {
 
       <TextInputComponent
         className='mx-5 mb-5'
-        type='search'
         placeholder='Search Movie'
         onChange={(e: any) => setSearch(e.nativeEvent.text)}
       />

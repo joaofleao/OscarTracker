@@ -4,17 +4,17 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        primaryHeavy: ['Comfortaa-Black'],
-        primaryBold: ['Comfortaa-Bold'],
-        primaryLight: ['Comfortaa-Light'],
-        primaryRegular: ['Comfortaa-Regular'],
-        primarySemibold: ['Comfortaa-SemiBold'],
+        primaryBold: ['Quicksand-Bold'],
+        primarySemibold: ['Quicksand-SemiBold'],
+        primaryMedium: ['Quicksand-Medium'],
+        primaryRegular: ['Quicksand-Regular'],
+        primaryLight: ['Quicksand-Light'],
 
-        secondaryHeavy: ['Spartan-ExtraBold'],
         secondaryBold: ['Spartan-Bold'],
-        secondaryLight: ['Spartan-Light'],
-        secondaryRegular: ['Spartan-Regular'],
         secondarySemibold: ['Spartan-SemiBold'],
+        secondaryMedium: ['Spartan-Medium'],
+        secondaryRegular: ['Spartan-Regular'],
+        secondaryLight: ['Spartan-Light'],
       },
 
       width: {
