@@ -61,7 +61,6 @@ function MovieScreen({ navigation, route }: any) {
             source={{ uri: getImage(poster) }}
           />
         </SpoilerComponent>
-
         <TouchableOpacity
           onPress={() => markAsWatched(watched)}
           className={` mt-4 py-4 px-4 rounded-2xl border-2 ${
