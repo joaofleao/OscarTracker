@@ -61,7 +61,6 @@ function HomeScreen({ navigation, route }: any) {
           image={poster}
           isWatched={watched}
         />
-
         <Text
           numberOfLines={2}
           className='mt-2 font-primaryBold text-white text-base w-[full]'>
