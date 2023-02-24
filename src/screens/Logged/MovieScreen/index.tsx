@@ -54,7 +54,7 @@ function MovieScreen({ navigation, route }: any) {
       </HeaderComponent>
       <View className='items-center '>
         <SpoilerComponent
-          spoiler={preferences.poster}
+          show={preferences.poster}
           watched={watched}>
           <Image
             className='w-[228px] h-[338px]'
