@@ -15,7 +15,7 @@ function HomeScreen({ navigation, route }: any) {
   const { currentNominationsByCategory, currentCategoriesMap, currentMoviesMap } = useData()
   const { isWatched, totalMovies, totalWatchedMovies, watchedMoviesInCategory, uniqueMovies } = usePersonalData()
   const { preferences, onboarding } = useUser()
-  const { filter } = route.params || ''
+  const filter = route.params?.filter || ''
   const [search, setSearch] = useState<string>('')
   const [data, setData] = useState<[]>([])
 

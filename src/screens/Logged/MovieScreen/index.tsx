@@ -4,6 +4,7 @@ import { HeaderComponent, IconComponent, ModelComponent, SeparatorComponent } fr
 import { getImage } from '../../../services/tmdb/api'
 import { useData, usePersonalData, useUser } from '../../../hooks'
 import { Nomination } from '../../../types'
+import { routes } from '../../../utils'
 import colors from 'tailwindcss/colors'
 
 function MovieScreen({ navigation, route }: any) {
@@ -38,15 +39,15 @@ function MovieScreen({ navigation, route }: any) {
   }
 
   const renderItem = ({ item }: ListRenderItemInfo<Nomination>) => (
-    <View className='bg-amber-500 rounded-2xl py-2 px-4 items-center justify-center'>
+    <TouchableOpacity
+      onPress={() => navigation.navigate(routes.logged.home, { filter: currentCategoriesMap.get(item.category) })}
+      className='bg-amber-500 rounded-2xl py-2 px-4 items-center justify-center'>
       <Text className='text-zinc-900 font-primaryBold text-base'>{currentCategoriesMap.get(item.category)}</Text>
-    </View>
+    </TouchableOpacity>
   )
 
   return (
-    <ModelComponent
-      bottom={false}
-      top={false}>
+    <ModelComponent>
       <HeaderComponent
         leadingAction={() => navigation.goBack()}
         leadingButton='arrow-left'>
