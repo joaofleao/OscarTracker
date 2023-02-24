@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { ImageBackground, View, Text, TouchableOpacity, FlatList, ListRenderItemInfo, Pressable } from 'react-native'
-import { HeaderComponent, IconComponent, ModelComponent, SeparatorComponent } from '../../../components'
+import { View, Text, TouchableOpacity, FlatList, ListRenderItemInfo, Image } from 'react-native'
+import { HeaderComponent, ModelComponent, SeparatorComponent, SpoilerComponent } from '../../../components'
 import { getImage } from '../../../services/tmdb/api'
 import { useData, usePersonalData, useUser } from '../../../hooks'
 import { Nomination } from '../../../types'
 import { routes } from '../../../utils'
-import colors from 'tailwindcss/colors'
 
 function MovieScreen({ navigation, route }: any) {
   const { id, name, poster } = route.params
@@ -54,28 +53,19 @@ function MovieScreen({ navigation, route }: any) {
         {name}
       </HeaderComponent>
       <View className='items-center '>
-        <Pressable
-          onPressIn={() => setShowPoster(true)}
-          onPressOut={() => setShowPoster(false)}
-          className='items-center justify-center w-[228px] h-[338px] bg-zinc-800/40 rounded-xl mb-4'>
-          {(showPoster || preferences.poster || isWatched(id)) && (
-            <ImageBackground
-              imageStyle={{ borderRadius: 12 }}
-              className='w-full h-full rounded-xl'
-              source={{ uri: getImage(poster) }}
-            />
-          )}
-          {!preferences.poster && !showPoster && !isWatched(id) && (
-            <IconComponent
-              name={'eye'}
-              size={30}
-              color={colors.amber[500]}></IconComponent>
-          )}
-        </Pressable>
-
+        <SpoilerComponent
+          spoiler={preferences.poster}
+          watched={watched}>
+          <Image
+            className='w-[228px] h-[338px]'
+            source={{ uri: getImage(poster) }}
+          />
+        </SpoilerComponent>
         <TouchableOpacity
           onPress={() => markAsWatched(watched)}
-          className={`py-4 px-4 rounded-2xl border-2 ${watched ? 'bg-amber-500' : 'border-solid  border-amber-500'}`}>
+          className={` mt-4 py-4 px-4 rounded-2xl border-2 ${
+            watched ? 'bg-amber-500' : 'border-solid  border-amber-500'
+          }`}>
           <Text
             className={`text-base font-primaryBold
             ${watched ? 'text-zinc-900' : 'text-amber-500'}

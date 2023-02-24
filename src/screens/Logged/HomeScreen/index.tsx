@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Image, ImageBackground, ListRenderItemInfo, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, ListRenderItemInfo, Text, TouchableOpacity, View } from 'react-native'
 import {
   HeaderComponent,
   ModelComponent,
   SeparatorComponent,
   TextInputComponent,
   ProgressBarComponent,
+  PosterComponent,
 } from '../../../components'
 import { useData, usePersonalData, useUser, useAuth } from '../../../hooks'
 import { getImage } from '../../../services/tmdb/api'
@@ -42,10 +43,12 @@ function HomeScreen({ navigation, route }: any) {
 
   const renderMovie = ({ item }: ListRenderItemInfo<any>) => {
     const movie = currentMoviesMap?.get(item.movie)
+    const poster = getImage(movie['en-US'].image)
+    const watched = isWatched(movie.imdb)
 
     return (
       <TouchableOpacity
-        className='w-[106px] h-[158px] bg-zinc-800/40 bg-opacity-2 rounded-xl relative'
+        className='w-[106px]'
         onPress={() =>
           navigation.navigate(routes.logged.movie, {
             id: movie.imdb,
@@ -53,30 +56,16 @@ function HomeScreen({ navigation, route }: any) {
             name: movie['en-US'].name,
           })
         }>
-        {isWatched(movie.imdb) && (
-          <ImageBackground
-            imageStyle={{ borderRadius: 12 }}
-            className='absolute w-full h-full rounded-xl '
-            source={{ uri: getImage(movie['en-US'].image) }}
-          />
-        )}
-
-        {preferences.poster && !isWatched(movie.imdb) && (
-          <View className='  flex-1 items-center justify-center'>
-            <ImageBackground
-              imageStyle={{ borderRadius: 12 }}
-              className='absolute w-full h-full rounded-xl '
-              source={{ uri: getImage(movie['en-US'].image) }}
-            />
-            <View className='absolute bg-zinc-900/70 w-full h-full rounded-xl' />
-            <Text className='text-white font-primaryBold text-base p-3 text-center'>{movie['en-US'].name}</Text>
-          </View>
-        )}
-        {!preferences.poster && !isWatched(movie.imdb) && (
-          <View className='flex-1 items-center justify-center'>
-            <Text className='text-white font-primaryBold text-base p-3 text-center'>{movie['en-US'].name}</Text>
-          </View>
-        )}
+        <PosterComponent
+          spoiler={preferences.poster}
+          image={poster}
+          isWatched={watched}
+        />
+        <Text
+          numberOfLines={2}
+          className='mt-2 font-primaryBold text-white text-base w-[full]'>
+          {movie['en-US'].name}
+        </Text>
       </TouchableOpacity>
     )
   }
