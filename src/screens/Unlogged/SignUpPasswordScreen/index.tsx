@@ -33,7 +33,7 @@ function SignUpPasswordScreen({ navigation, route }: any) {
     <ModelComponent>
       <HeaderComponent
         leadingAction={() => navigation.goBack()}
-        leadingButton='chevron-left'>
+        leadingButton='arrow-left'>
         Register
       </HeaderComponent>
       <View className='flex-1 mx-4'>
