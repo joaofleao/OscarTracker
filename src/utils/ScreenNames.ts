@@ -13,5 +13,6 @@ export const routes = {
     watchList: 'WatchList' as keyof ScreenTypes,
     profile: 'Profile' as keyof ScreenTypes,
     movie: 'Movie' as keyof ScreenTypes,
+    preferences: 'PreferencesScreen' as keyof ScreenTypes,
   },
 }

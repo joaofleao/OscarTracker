@@ -8,6 +8,11 @@ function SignUpEmailScreen({ navigation }: any) {
 
   const emailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
 
+  const handleNext = () =>
+    navigation.navigate(routes.unlogged.signUpPassword, {
+      email,
+    })
+
   return (
     <ModelComponent>
       <HeaderComponent
@@ -16,17 +21,16 @@ function SignUpEmailScreen({ navigation }: any) {
         Register
       </HeaderComponent>
 
-      <View className='flex-1 justify-between'>
-        <View className='flex-1 justify-center mx-4'>
+      <View className='flex-1 mx-4'>
+        <View className='flex-1 justify-center'>
           <Text className='text-white font-primaryRegular text-2xl mb-4'>Give us your best e-mail</Text>
           <Text className='text-white font-primaryRegular text-base'>
-            We will send you a verification code to this e-mail
+            We will send you a verification code to confirm
           </Text>
         </View>
 
-        <View className='flex-1'>
+        <View className='flex-1 justify-top'>
           <TextInputComponent
-            className='mx-4'
             label='Email'
             value={email}
             validation={emailValid}
@@ -35,18 +39,12 @@ function SignUpEmailScreen({ navigation }: any) {
           />
         </View>
 
-        <View className='flex-1' />
-
-        <View className='items-center justify-center '>
+        <View className='flex-1 items-center justify-end'>
           <ButtonComponent
             name='Next'
             disabled={!emailValid}
             className='w-60'
-            onPress={() => {
-              navigation.navigate(routes.unlogged.signUpPassword, {
-                email,
-              })
-            }}
+            onPress={handleNext}
           />
         </View>
       </View>

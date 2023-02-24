@@ -14,10 +14,14 @@ import { routes } from '../../../utils'
 function HomeScreen({ navigation, route }: any) {
   const { currentNominationsByCategory, currentCategoriesMap, currentMoviesMap } = useData()
   const { isWatched, totalMovies, totalWatchedMovies, watchedMoviesInCategory, uniqueMovies } = usePersonalData()
-  const { preferences } = useUser()
+  const { preferences, onboarding } = useUser()
   const { filter } = route.params || ''
   const [search, setSearch] = useState<string>('')
   const [data, setData] = useState<[]>([])
+
+  useEffect(() => {
+    if (!onboarding) navigation.navigate(routes.logged.preferences)
+  }, [onboarding])
 
   useEffect(() => {
     if (search === '') setData(currentNominationsByCategory)
@@ -112,7 +116,6 @@ function HomeScreen({ navigation, route }: any) {
 
       <TextInputComponent
         className='mx-5 mb-5'
-        type='search'
         value={search}
         placeholder='Search Category'
         onChange={(e: any) => setSearch(e.nativeEvent.text)}

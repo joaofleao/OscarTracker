@@ -18,10 +18,11 @@ export type DataContextType = {
   setMovieUnwatched: (movie: string) => void
   setMovieWatched: (movie: string) => void
   updateUser: (
-    email: string,
-    displayName: string,
-    nickName: string,
-    preferences: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
+    email?: string,
+    displayName?: string,
+    nickName?: string,
+    preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
+    onboarding?: boolean,
   ) => void
 }
 
@@ -47,4 +48,6 @@ export type UserContextType = {
   setWatchedMovies: (watchedMovies: string[]) => void
   uid: string
   setUid: (uid: string) => void
+  onboarding: boolean
+  setOnboarding: (onboarding: boolean) => void
 }
