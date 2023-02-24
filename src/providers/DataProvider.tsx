@@ -4,7 +4,7 @@ import { DataContext } from '../contexts'
 import { db } from '../services'
 import categoriesJson from '../utils/dictionary/categories.json'
 import { collection, getDocs, doc, query, orderBy, where, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
-import { useAuth } from '../hooks'
+import { useAuth, useUser } from '../hooks'
 
 const editions = collection(db, 'editions')
 const people = collection(db, 'people')
@@ -21,7 +21,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   const [currentNominations] = useState<any>()
   const [currentNominationsByCategory, setCurrentNominationsByCategory] = useState<any>()
 
-  const { user } = useAuth()
+  const { uid } = useUser()
 
   useMemo(() => {
     async function fetchData() {
@@ -29,8 +29,8 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
       await getEditionMovies()
       await getEditionNominations()
     }
-    if (user) fetchData()
-  }, [user])
+    if (uid) fetchData()
+  }, [uid])
 
   async function getCategories() {
     const categoriesMap = new Map()
@@ -95,28 +95,33 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   }
 
   async function setMovieUnwatched(movie: string) {
-    const userRef = doc(users, user?.uid)
+    const userRef = doc(users, uid)
 
     updateDoc(userRef, {
       movies: arrayRemove(movie),
     })
   }
 
-  async function updatePreferences(poster: boolean, plot: boolean, cast: boolean, ratings: boolean) {
-    const userRef = doc(users, user?.uid)
+  async function updateUser(
+    email?: string,
+    displayName?: string,
+    nickName?: string,
+    preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
+    onboarding?: boolean,
+  ) {
+    const userRef = doc(users, uid)
 
     updateDoc(userRef, {
-      preferences: {
-        poster,
-        plot,
-        cast,
-        ratings,
-      },
+      ...(email && { email }),
+      ...(displayName && { displayName }),
+      ...(nickName && { nickName }),
+      ...(preferences && { preferences }),
+      ...(onboarding && { onboarding }),
     })
   }
 
   async function setMovieWatched(movie: string) {
-    const userRef = doc(users, user?.uid)
+    const userRef = doc(users, uid)
 
     updateDoc(userRef, {
       movies: arrayUnion(movie),
@@ -132,7 +137,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     getMovieNominations,
     setMovieUnwatched,
     setMovieWatched,
-    updatePreferences,
+    updateUser,
   } satisfies DataContextType
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>

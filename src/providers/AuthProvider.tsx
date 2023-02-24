@@ -1,45 +1,56 @@
-import { useState, useMemo, useEffect } from 'react'
-import { AuthContextType, Provider, UserType } from '../types'
+import { useState, useEffect } from 'react'
+import { AuthContextType, Provider } from '../types'
 import { AuthContext } from '../contexts'
 import { useTheme, useUser } from '../hooks'
 import { auth, db } from '../services'
 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User } from 'firebase/auth'
-import { doc, setDoc, collection, getDoc, onSnapshot } from 'firebase/firestore'
+import { doc, setDoc, collection, onSnapshot } from 'firebase/firestore'
 
 const AuthProvider: React.FC<Provider> = ({ children }) => {
-  const { setPosterSpoiler, setCastSpoiler, setPlotSpoiler, setRatingsSpoiler, setWatchedMovies } = useUser()
+  const {
+    setDisplayName,
+    setEmail,
+    setEmailVerified,
+    setNickName,
+    setPreferences,
+    setUid,
+    setWatchedMovies,
+    setOnboarding,
+  } = useUser()
   const { startLoading, stopLoading } = useTheme()
   const [initializing, setInitializing] = useState<boolean>(true)
   const [user, setUser] = useState<User | null>(null)
-  const [userData, setUserData] = useState<any>()
   const users = collection(db, 'users')
 
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged((user: User | null) => {
       setUser(user)
-      if (user) {
-        const userRef = doc(users, user.uid)
-        const unsubscribe = onSnapshot(userRef, snap => {
-          const response = snap.data()
-          setUserData(response)
-        })
-        return () => unsubscribe()
-      }
     })
 
     return () => unsubscribeAuth()
   }, [])
 
   useEffect(() => {
-    if (userData) {
-      setPosterSpoiler(userData.preferences.poster)
-      setCastSpoiler(userData.preferences.cast)
-      setPlotSpoiler(userData.preferences.plot)
-      setRatingsSpoiler(userData.preferences.ratings)
-      setWatchedMovies(userData.movies)
+    if (user) {
+      setInitializing(false)
+      const userRef = doc(users, user.uid)
+      const unsubscribe = onSnapshot(userRef, snap => {
+        const response = snap.data()
+        if (response) {
+          setDisplayName(response.displayName)
+          setEmail(response.email)
+          setEmailVerified(response.emailVerified)
+          setNickName(response.nickName)
+          setPreferences(response.preferences)
+          setUid(response.uid)
+          setWatchedMovies(response.movies)
+          setOnboarding(response.onboarding)
+        }
+      })
+      return () => unsubscribe()
     }
-  }, [userData])
+  }, [user])
 
   const signIn = async (email: string, password: string) => {
     startLoading('Signin in')
@@ -50,41 +61,32 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         return true
       })
       .catch(error => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log(errorCode, errorMessage)
-
+        console.log(error.code, error.message)
         stopLoading()
         return false
       })
   }
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string, displayName: string, nickName: string) => {
     startLoading('Creating an Account')
     const response = createUserWithEmailAndPassword(auth, email, password)
       .then(response => {
-        stopLoading()
-        setUser(response.user)
-        addUser(response.user)
+        addUser(response.user, displayName, nickName)
         return true
       })
       .catch(error => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log(errorCode, errorMessage)
-
+        console.log(error.code, error.message)
         stopLoading()
         return false
       })
     return response
   }
 
-  const addUser = async (user: User) => {
+  const addUser = async (user: User, displayName: string, nickName: string) => {
     const object = {
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      phoneNumber: user.phoneNumber,
+      email: user.email || '',
+      displayName,
+      nickName,
       uid: user.uid,
       emailVerified: user.emailVerified,
       movies: [],
@@ -96,7 +98,24 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
       },
     }
     const userRef = doc(users, user.uid)
-    await setDoc(userRef, object).then(() => setUserData(object))
+
+    await setDoc(userRef, object)
+      .then(() => {
+        setUser(user)
+        setDisplayName(object.displayName)
+        setEmail(object.email)
+        setEmailVerified(object.emailVerified)
+        setNickName(object.nickName)
+        setPreferences(object.preferences)
+        setUid(object.uid)
+        setWatchedMovies(object.movies)
+        stopLoading()
+      })
+      .catch(error => {
+        console.log(error.code, error.message)
+        stopLoading()
+        return false
+      })
   }
 
   const signOutFunction = async () => {
@@ -104,13 +123,12 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
     const response = signOut(auth)
       .then(() => {
         setUser(null)
+        setInitializing(true)
         stopLoading()
         return true
       })
       .catch(error => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log(errorCode, errorMessage)
+        console.log(error.code, error.message)
 
         stopLoading()
         return false
@@ -137,13 +155,11 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
   }
 
   const value = {
-    user,
     initializing,
     signIn,
     signUp,
     signOut: signOutFunction,
     setUser,
-    userData,
   } satisfies AuthContextType
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

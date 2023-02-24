@@ -6,7 +6,7 @@ import colors from 'tailwindcss/colors'
 
 import { routes } from '../../utils'
 import { IconComponent, ModelComponent } from '../../components'
-import { HomeScreen, ProfileScreen, WatchListScreen, MovieScreen } from '../../screens'
+import { HomeScreen, ProfileScreen, WatchListScreen, MovieScreen, PreferencesScreen } from '../../screens'
 import { ScreenTypes } from '../../types'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
@@ -38,72 +38,28 @@ const screenOptionsAndroid = {
   },
 }
 
-const HomeTab = () => (
-  <Stack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <Stack.Screen
-      name={routes.logged.home}
-      component={HomeScreen}
-      initialParams={{ filter: '' }}
-    />
-    <Stack.Screen
-      name={routes.logged.movie}
-      component={MovieScreen}
-    />
-  </Stack.Navigator>
-)
-
-const WatchListTab = () => (
-  <Stack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <Stack.Screen
-      name={routes.logged.watchList}
-      component={WatchListScreen}
-    />
-    <Stack.Screen
-      name={routes.logged.movie}
-      component={MovieScreen}
-    />
-  </Stack.Navigator>
-)
-
-const UserTab = () => (
-  <Stack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <Stack.Screen
-      name={routes.logged.profile}
-      component={ProfileScreen}
-    />
-  </Stack.Navigator>
-)
-
 const tabs = [
   {
-    name: 'HomeTab',
-    component: HomeTab,
+    name: routes.logged.home,
     icon: 'home-tab',
+    component: HomeScreen,
   },
   {
-    name: 'WatchListTab',
-    component: WatchListTab,
+    name: routes.logged.watchList,
     icon: 'check-tab',
+    component: WatchListScreen,
   },
   {
-    name: 'UserTab',
-    component: UserTab,
+    name: routes.logged.profile,
     icon: 'user-tab',
+    component: ProfileScreen,
   },
 ]
 
 function TabNavigator() {
   const tabOffsetValue = useRef(new Animated.Value(0)).current
   const getWidth = (Dimensions.get('window').width - 56) / tabs.length
+
   const renderTab = (name: string, component: any, position: number, icon: string) => {
     return (
       <Tab.Screen
@@ -111,6 +67,7 @@ function TabNavigator() {
         name={name}
         component={component}
         options={{
+          tabBarHideOnKeyboard: true,
           tabBarIcon: ({ focused }) => (
             <IconComponent
               name={focused ? icon.concat('-filled') : icon}
@@ -150,8 +107,16 @@ function TabNavigator() {
 export const Logged = (
   <>
     <Stack.Screen
-      name={routes.logged.home}
+      name={routes.logged.index}
       component={TabNavigator}
+    />
+    <Stack.Screen
+      name={routes.logged.preferences}
+      component={PreferencesScreen}
+    />
+    <Stack.Screen
+      name={routes.logged.movie}
+      component={MovieScreen}
     />
   </>
 )

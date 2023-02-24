@@ -4,11 +4,12 @@ import { HeaderComponent, IconComponent, ModelComponent, SeparatorComponent } fr
 import { getImage } from '../../../services/tmdb/api'
 import { useData, usePersonalData, useUser } from '../../../hooks'
 import { Nomination } from '../../../types'
+import { routes } from '../../../utils'
 import colors from 'tailwindcss/colors'
 
 function MovieScreen({ navigation, route }: any) {
   const { id, name, poster } = route.params
-  const { watchedMovies, posterSpoiler } = useUser()
+  const { watchedMovies, preferences } = useUser()
   const [watched, setWatched] = useState<boolean>(false)
   const [nominations, setNominations] = useState<Nomination[]>([])
   const { isWatched } = usePersonalData()
@@ -38,18 +39,18 @@ function MovieScreen({ navigation, route }: any) {
   }
 
   const renderItem = ({ item }: ListRenderItemInfo<Nomination>) => (
-    <View className='bg-amber-500 rounded-2xl py-2 px-4 items-center justify-center'>
+    <TouchableOpacity
+      onPress={() => navigation.navigate(routes.logged.home, { filter: currentCategoriesMap.get(item.category) })}
+      className='bg-amber-500 rounded-2xl py-2 px-4 items-center justify-center'>
       <Text className='text-zinc-900 font-primaryBold text-base'>{currentCategoriesMap.get(item.category)}</Text>
-    </View>
+    </TouchableOpacity>
   )
 
   return (
-    <ModelComponent
-      bottom={false}
-      top={false}>
+    <ModelComponent>
       <HeaderComponent
         leadingAction={() => navigation.goBack()}
-        leadingButton='chevron-left'>
+        leadingButton='arrow-left'>
         {name}
       </HeaderComponent>
       <View className='items-center '>
@@ -57,14 +58,14 @@ function MovieScreen({ navigation, route }: any) {
           onPressIn={() => setShowPoster(true)}
           onPressOut={() => setShowPoster(false)}
           className='items-center justify-center w-[228px] h-[338px] bg-zinc-800/40 rounded-xl mb-4'>
-          {(showPoster || posterSpoiler || isWatched(id)) && (
+          {(showPoster || preferences.poster || isWatched(id)) && (
             <ImageBackground
               imageStyle={{ borderRadius: 12 }}
               className='w-full h-full rounded-xl'
               source={{ uri: getImage(poster) }}
             />
           )}
-          {!posterSpoiler && !showPoster && !isWatched(id) && (
+          {!preferences.poster && !showPoster && !isWatched(id) && (
             <IconComponent
               name={'eye'}
               size={30}

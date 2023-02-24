@@ -19,43 +19,33 @@ function HeaderComponent({
   trailingButton,
   ...rest
 }: HeaderProps) {
-  function getLeadingButton() {
-    if (leadingAction && leadingButton)
+  const getButton = (action?: () => void, button?: string) => {
+    if (action && button)
       return (
-        <TouchableOpacity onPress={leadingAction}>
+        <TouchableOpacity
+          className='w-8 h-8 justify-center items-center rounded-lg'
+          onPress={action}>
           <IconComponent
-            name={leadingButton}
-            size={30}
-            color={colors.amber[500]}
+            className='text-amber-500'
+            name={button}
+            size={24}
           />
         </TouchableOpacity>
       )
-  }
-  function getTrailingButton() {
-    if (trailingAction && trailingButton)
-      return (
-        <TouchableOpacity onPress={trailingAction}>
-          <IconComponent
-            name={trailingButton}
-            size={30}
-            color={colors.amber[500]}
-          />
-        </TouchableOpacity>
-      )
+    else return <View className='w-8 h-8 justify-center items-center' />
   }
   return (
     <View
-      className='flex-row justify-between items-center pb-5'
+      className='flex-row justify-between items-center py-5 px-4'
       {...rest}>
-      <View className='w-10 h-10 justify-center items-center'>{getLeadingButton()}</View>
-
+      {getButton(leadingAction, leadingButton)}
       <Text
         className=' flex-1 text-white text-lg mx-6 font-primaryRegular text-center '
         lineBreakMode='middle'
         numberOfLines={1}>
         {children}
       </Text>
-      <View className='w-10 h-10 justify-center items-center'>{getTrailingButton()}</View>
+      {getButton(trailingAction, trailingButton)}
     </View>
   )
 }
