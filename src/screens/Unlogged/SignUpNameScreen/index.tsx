@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import { TextInputComponent, ButtonComponent, ModelComponent, HeaderComponent } from '../../../components'
-import { useAuth } from '../../../hooks'
+import { routes } from '../../../utils'
 
 function SignUpNameScreen({ navigation, route }: any) {
-  const { email, password } = route.params
-  const { signUp } = useAuth()
   const [name, setName] = useState<string>('')
   const [nickName, setNickName] = useState<string>('')
 
   const nameValid = name.split(' ').length >= 2 && name.split(' ')[0].length > 0 && name.split(' ')[1].length > 0
 
-  const handleNext = () => {
-    signUp(email, password, name, nickName)
-  }
+  const handleNext = () =>
+    navigation.navigate(routes.unlogged.posterSpoiler, {
+      ...route.params,
+      name,
+      nickName,
+    })
 
   return (
     <ModelComponent>
@@ -22,7 +23,7 @@ function SignUpNameScreen({ navigation, route }: any) {
         leadingButton='chevron-left'>
         Register
       </HeaderComponent>
-      <View className='flex-1 mx-4 justify-between'>
+      <View className='flex-1 mx-4'>
         <View className='flex-1 justify-center'>
           <Text className='text-white font-primaryRegular text-2xl mb-4'>How would you like to be called?</Text>
           <Text className='text-white font-primaryRegular text-base'>
@@ -30,27 +31,28 @@ function SignUpNameScreen({ navigation, route }: any) {
           </Text>
         </View>
 
-        <TextInputComponent
-          label='Name'
-          value={name}
-          validation={nameValid}
-          errorText={'Please provide name and last name'}
-          className='my-4'
-          onChange={e => setName(e.nativeEvent.text)}
-        />
-        <TextInputComponent
-          label='Nickname'
-          value={nickName}
-          className='my-4'
-          onChange={e => setNickName(e.nativeEvent.text)}
-        />
-        <View className='flex-1' />
+        <View className='flex-1 justify-center'>
+          <TextInputComponent
+            label='Name'
+            value={name}
+            validation={nameValid}
+            errorText={'Please provide name and last name'}
+            className='my-4'
+            onChange={e => setName(e.nativeEvent.text)}
+          />
+          <TextInputComponent
+            label='Nickname'
+            value={nickName}
+            className='my-4'
+            onChange={e => setNickName(e.nativeEvent.text)}
+          />
+        </View>
 
-        <View className='items-center justify-center my-4'>
+        <View className='flex-1 items-center justify-end my-4'>
           <ButtonComponent
             name='Next'
             className='w-60'
-            onPress={() => handleNext()}
+            onPress={handleNext}
           />
         </View>
       </View>
