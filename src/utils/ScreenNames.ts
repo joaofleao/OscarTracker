@@ -9,10 +9,11 @@ export const routes = {
     signUpAvatar: 'SignUpAvatarScreen' as keyof ScreenTypes,
   },
   logged: {
+    index: 'IndexScreen' as keyof ScreenTypes,
     home: 'HomeScreen' as keyof ScreenTypes,
-    watchList: 'WatchList' as keyof ScreenTypes,
-    profile: 'Profile' as keyof ScreenTypes,
-    movie: 'Movie' as keyof ScreenTypes,
+    watchList: 'WatchListScreen' as keyof ScreenTypes,
+    profile: 'ProfileScreen' as keyof ScreenTypes,
+    movie: 'MovieScreen' as keyof ScreenTypes,
     preferences: 'PreferencesScreen' as keyof ScreenTypes,
   },
 }

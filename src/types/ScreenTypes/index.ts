@@ -1,7 +1,8 @@
 export type ScreenTypes = {
+  IndexScreen: undefined
   SignInScreen: undefined
-  SignUpEmail: undefined
-  SignUpPassword: {
+  SignUpEmailScreen: undefined
+  SignUpPasswordScreen: {
     email: string
   }
   SignUpNameScreen: {
