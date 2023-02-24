@@ -22,7 +22,7 @@ function ProfileScreen() {
 
   const handleEdit = () => {
     if (editing) {
-      updateUser(user.email, displayName, nickName, { poster, plot, cast, ratings })
+      updateUser(user.email, displayName, nickName, { poster, plot, cast, ratings }, undefined)
       setEditing(false)
     } else {
       setEditing(true)

@@ -103,18 +103,20 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   }
 
   async function updateUser(
-    email: string,
-    displayName: string,
-    nickName: string,
-    preferences: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
+    email?: string,
+    displayName?: string,
+    nickName?: string,
+    preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
+    onboarding?: boolean,
   ) {
     const userRef = doc(users, uid)
 
     updateDoc(userRef, {
-      preferences,
-      email,
-      displayName,
-      nickName,
+      ...(email && { email }),
+      ...(displayName && { displayName }),
+      ...(nickName && { nickName }),
+      ...(preferences && { preferences }),
+      ...(onboarding && { onboarding }),
     })
   }
 
