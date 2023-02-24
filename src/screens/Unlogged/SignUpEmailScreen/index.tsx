@@ -17,7 +17,7 @@ function SignUpEmailScreen({ navigation }: any) {
     <ModelComponent>
       <HeaderComponent
         leadingAction={() => navigation.goBack()}
-        leadingButton='chevron-left'>
+        leadingButton='arrow-left'>
         Register
       </HeaderComponent>
 

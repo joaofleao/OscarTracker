@@ -1,26 +1,23 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import { TextInputComponent, ButtonComponent, ModelComponent, HeaderComponent } from '../../../components'
-import { routes } from '../../../utils'
+import { useAuth } from '../../../hooks'
 
 function SignUpNameScreen({ navigation, route }: any) {
   const [name, setName] = useState<string>('')
   const [nickName, setNickName] = useState<string>('')
+  const { signUp } = useAuth()
+  const { email, password } = route.params
 
   const nameValid = name.split(' ').length >= 2 && name.split(' ')[0].length > 0 && name.split(' ')[1].length > 0
 
-  const handleNext = () =>
-    navigation.navigate(routes.unlogged.posterSpoiler, {
-      ...route.params,
-      name,
-      nickName,
-    })
+  const handleNext = () => signUp(email, password, name, nickName)
 
   return (
     <ModelComponent>
       <HeaderComponent
         leadingAction={() => navigation.goBack()}
-        leadingButton='chevron-left'>
+        leadingButton='arrow-left'>
         Register
       </HeaderComponent>
       <View className='flex-1 mx-4'>
