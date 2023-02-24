@@ -6,7 +6,7 @@ import colors from 'tailwindcss/colors'
 
 import { routes } from '../../utils'
 import { IconComponent, ModelComponent } from '../../components'
-import { HomeScreen, ProfileScreen, WatchListScreen, MovieScreen } from '../../screens'
+import { HomeScreen, ProfileScreen, WatchListScreen, MovieScreen, PreferencesScreen } from '../../screens'
 import { ScreenTypes } from '../../types'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
@@ -104,6 +104,7 @@ const tabs = [
 function TabNavigator() {
   const tabOffsetValue = useRef(new Animated.Value(0)).current
   const getWidth = (Dimensions.get('window').width - 56) / tabs.length
+
   const renderTab = (name: string, component: any, position: number, icon: string) => {
     return (
       <Tab.Screen
@@ -111,6 +112,7 @@ function TabNavigator() {
         name={name}
         component={component}
         options={{
+          tabBarHideOnKeyboard: true,
           tabBarIcon: ({ focused }) => (
             <IconComponent
               name={focused ? icon.concat('-filled') : icon}
@@ -152,6 +154,10 @@ export const Logged = (
     <Stack.Screen
       name={routes.logged.home}
       component={TabNavigator}
+    />
+    <Stack.Screen
+      name={routes.logged.preferences}
+      component={PreferencesScreen}
     />
   </>
 )

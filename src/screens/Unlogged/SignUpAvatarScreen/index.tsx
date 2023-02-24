@@ -6,6 +6,11 @@ import { routes } from '../../../utils'
 function SignUpAvatarScreen({ navigation, route }: any) {
   const [avatar, setAvatar] = useState<string>('')
 
+  const handleNext = () =>
+    navigation.navigate(routes.unlogged.signUpName, {
+      ...route.params,
+    })
+
   return (
     <ModelComponent>
       <View className='flex-1 mx-4 justify-between'>
@@ -33,11 +38,7 @@ function SignUpAvatarScreen({ navigation, route }: any) {
           <ButtonComponent
             name='Next'
             className='w-60'
-            onPress={() =>
-              navigation.navigate(routes.unlogged.signUpName, {
-                ...route.params,
-              })
-            }
+            onPress={handleNext}
           />
         </View>
       </View>

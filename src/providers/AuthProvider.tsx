@@ -8,8 +8,16 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, Us
 import { doc, setDoc, collection, onSnapshot } from 'firebase/firestore'
 
 const AuthProvider: React.FC<Provider> = ({ children }) => {
-  const { setDisplayName, setEmail, setEmailVerified, setNickName, setPreferences, setUid, setWatchedMovies } =
-    useUser()
+  const {
+    setDisplayName,
+    setEmail,
+    setEmailVerified,
+    setNickName,
+    setPreferences,
+    setUid,
+    setWatchedMovies,
+    setOnboarding,
+  } = useUser()
   const { startLoading, stopLoading } = useTheme()
   const [initializing, setInitializing] = useState<boolean>(true)
   const [user, setUser] = useState<User | null>(null)
@@ -37,6 +45,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
           setPreferences(response.preferences)
           setUid(response.uid)
           setWatchedMovies(response.movies)
+          setOnboarding(response.onboarding)
         }
       })
       return () => unsubscribe()
