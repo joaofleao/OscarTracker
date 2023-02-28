@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
 import { AuthContextType, Provider } from '../types'
 import { AuthContext } from '../contexts'
-import { useTheme, useUser } from '../hooks'
+import { useTheme, useUser, useToast } from '../hooks'
 import { auth, db } from '../services'
 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User } from 'firebase/auth'
 import { doc, setDoc, collection, onSnapshot } from 'firebase/firestore'
+import { FirebaseError } from 'firebase/app'
 
 const AuthProvider: React.FC<Provider> = ({ children }) => {
+  const { showToast } = useToast()
   const {
     setDisplayName,
     setEmail,
@@ -60,9 +62,9 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         setUser(response.user)
         return true
       })
-      .catch(error => {
-        console.log(error.code, error.message)
+      .catch((error: FirebaseError) => {
         stopLoading()
+        showToast(error.code, error.message, 'error')
         return false
       })
   }
@@ -75,7 +77,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         return true
       })
       .catch(error => {
-        console.log(error.code, error.message)
+        showToast(error.code, error.message, 'error')
         stopLoading()
         return false
       })
@@ -112,7 +114,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         stopLoading()
       })
       .catch(error => {
-        console.log(error.code, error.message)
+        showToast(error.code, error.message, 'error')
         stopLoading()
         return false
       })
@@ -128,7 +130,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         return true
       })
       .catch(error => {
-        console.log(error.code, error.message)
+        showToast(error.code, error.message, 'error')
 
         stopLoading()
         return false
@@ -144,9 +146,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         return true
       })
       .catch(error => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log(errorCode, errorMessage)
+        showToast(error.code, error.message, 'error')
 
         stopLoading()
         return false

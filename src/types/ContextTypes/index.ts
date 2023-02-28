@@ -53,3 +53,7 @@ export type UserContextType = {
   onboarding: boolean
   setOnboarding: (onboarding: boolean) => void
 }
+
+export type ToastContextType = {
+  showToast: (message: string, description: string, type: 'success' | 'error') => void
+}
