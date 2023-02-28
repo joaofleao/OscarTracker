@@ -6,7 +6,14 @@ import colors from 'tailwindcss/colors'
 
 import { routes } from '../../utils'
 import { IconComponent, ModelComponent } from '../../components'
-import { HomeScreen, ProfileScreen, WatchListScreen, MovieScreen, PreferencesScreen } from '../../screens'
+import {
+  HomeScreen,
+  ProfileScreen,
+  WatchListScreen,
+  MovieScreen,
+  PreferencesScreen,
+  NominationScreen,
+} from '../../screens'
 import { ScreenTypes } from '../../types'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
@@ -117,6 +124,10 @@ export const Logged = (
     <Stack.Screen
       name={routes.logged.movie}
       component={MovieScreen}
+    />
+    <Stack.Screen
+      name={routes.logged.nomination}
+      component={NominationScreen}
     />
   </>
 )

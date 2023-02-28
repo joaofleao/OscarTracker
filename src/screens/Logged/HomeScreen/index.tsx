@@ -73,12 +73,13 @@ function HomeScreen({ navigation, route }: any) {
   const renderCategory = ({ item }: ListRenderItemInfo<any>) => {
     return (
       <View>
-        <View className='flex-row justify-between items-center mx-5 mb-4'>
+        <View className='flex-row justify-between items-center mx-4 mb-4'>
           <Text className='font-primaryBold text-white text-xl'>{currentCategoriesMap.get(item.key)}</Text>
 
-          <Text className='font-primaryBold text-white text-base'>
-            {watchedMoviesInCategory(item.value)}/{uniqueMovies(item.value)}
-          </Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate(routes.logged.nomination, { id: item.key, movies: item.value })}>
+            <Text className='font-primaryDefault text-zinc-600 text-sm'>see more</Text>
+          </TouchableOpacity>
         </View>
         <FlatList
           horizontal
@@ -105,7 +106,7 @@ function HomeScreen({ navigation, route }: any) {
       />
 
       <TextInputComponent
-        className='mx-5 mb-5'
+        className='mx-4 mb-5'
         value={search}
         placeholder='Search Category'
         onChange={(e: any) => setSearch(e.nativeEvent.text)}
