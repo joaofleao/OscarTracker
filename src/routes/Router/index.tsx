@@ -2,7 +2,6 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'react-native'
 
 import { SplashScreen } from '../../screens'
@@ -30,11 +29,9 @@ export default function Router() {
         barStyle={'light-content'}
       />
       <LoadingModalComponent />
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={screenOptions}>{!initializing ? Logged : Unlogged}</Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={screenOptions}>{!initializing ? Logged : Unlogged}</Stack.Navigator>
+      </NavigationContainer>
     </SplashScreen>
   )
 }
