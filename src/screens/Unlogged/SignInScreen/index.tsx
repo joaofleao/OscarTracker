@@ -19,14 +19,14 @@ function SignInScreen({ navigation }: any) {
         <LogoComponent />
 
         <TextInputComponent
-          className='mb-5 mx-5'
+          className='mb-5 mx-4'
           label='Email'
           value={email}
           onChangeText={text => setEmail(text)}
         />
 
         <TextInputComponent
-          className='mb-10 mx-5'
+          className='mb-10 mx-4'
           label='Password'
           type='password'
           value={password}
