@@ -12,11 +12,13 @@ function MovieScreen({ navigation, route }: any) {
   const [watched, setWatched] = useState<boolean>(false)
   const [nominations, setNominations] = useState<Nomination[]>([])
   const { getMovieNominations, currentCategoriesMap, setMovieUnwatched, setMovieWatched } = useData()
+  const { getMovie } = useMovies()
 
   useEffect(() => {
     async function fetchData() {
       const nominations = await getMovieNominations(id)
       setNominations(nominations)
+      const movie = await getMovie(id)
     }
     fetchData()
   }, [])
