@@ -13,6 +13,8 @@ export type DataContextType = {
   currentNominationsByCategory: any | null
   currentCategoriesMap: any | null
   currentMovies: any | null
+  currentPeopleMap: any | null
+  currentPeople: any | null
   currentMoviesMap: any | null
   getMovieNominations: (movie: string) => any
   setMovieUnwatched: (movie: string) => void
