@@ -21,4 +21,8 @@ export type ScreenTypes = {
     poster: string
     name: string
   }
+  NominationScreen: {
+    id: string
+    movies: any
+  }
 }

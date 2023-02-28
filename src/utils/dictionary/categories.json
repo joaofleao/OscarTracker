@@ -1,117 +1,117 @@
 [
   {
     "id": "0",
-    "en-US": "Actor in a Leading Role",
+    "en-US": "Best Leading Actor",
     "pt-BR": "Melhor Ator"
   },
   {
     "id": "1",
-    "en-US": "Actor in a Supporting Role",
+    "en-US": "Best Supporting Actor",
     "pt-BR": "Melhot Ator Coadjuvante"
   },
   {
     "id": "2",
-    "en-US": "Actress in a Leading Role",
+    "en-US": "Best Leading Actress",
     "pt-BR": "Melhor Atriz"
   },
   {
     "id": "3",
-    "en-US": "Actress in a Supporting Role",
+    "en-US": "Best Supporting Actress",
     "pt-BR": "Melhor Atriz Coadjuvante"
   },
   {
     "id": "4",
-    "en-US": "Adapted Screenplay",
+    "en-US": "Best Adapted Screenplay",
     "pt-BR": "Melhor Roteiro Adaptado"
   },
   {
     "id": "5",
-    "en-US": "Animated Feature Film",
+    "en-US": "Best Animated Film ",
     "pt-BR": "Melhor Filme de Animação"
   },
   {
     "id": "6",
-    "en-US": "Animated Short Film",
+    "en-US": "Best Animated Short",
     "pt-BR": "Melhor Curta-metragem de Animação"
   },
   {
     "id": "7",
-    "en-US": "Cinematography",
+    "en-US": "Best Cinematography",
     "pt-BR": "Melhor Fotografia"
   },
   {
     "id": "8",
-    "en-US": "Costume Design",
+    "en-US": "Best Costume Design",
     "pt-BR": "Melhor Figurino"
   },
   {
     "id": "9",
-    "en-US": "Director",
+    "en-US": "Best Director",
     "pt-BR": "Melhor Diretor"
   },
   {
     "id": "10",
-    "en-US": "Documentary Feature",
+    "en-US": "Best Documentary",
     "pt-BR": "Melhor Documentário de Longa-metragem"
   },
   {
     "id": "11",
-    "en-US": "Documentary Short Subject",
+    "en-US": "Best Documentary Short",
     "pt-BR": "Melhor Documentário de Curta-metragem"
   },
   {
     "id": "12",
-    "en-US": "Film Editing",
+    "en-US": "Best Film Editing",
     "pt-BR": "Melhor Edição"
   },
   {
     "id": "13",
-    "en-US": "International Feature Film",
+    "en-US": "Best International Film",
     "pt-BR": "Melhor Filme Internacional"
   },
   {
     "id": "14",
-    "en-US": "Live Action Short Film",
+    "en-US": "Best Live Action Short",
     "pt-BR": "Melhor Curta-metragem em Live Action"
   },
   {
     "id": "15",
-    "en-US": "Makeup and Hairstyling",
+    "en-US": "Best Makeup and Hairstyling",
     "pt-BR": "Melhor Maquiagem e Penteados"
   },
   {
     "id": "16",
-    "en-US": "Original Score",
+    "en-US": "Best Original Score",
     "pt-BR": "Melhor Trilha Sonora"
   },
   {
     "id": "17",
-    "en-US": "Original Screenplay",
+    "en-US": "Best Original Screenplay",
     "pt-BR": "Melhor Roteiro Original"
   },
   {
     "id": "18",
-    "en-US": "Original Song",
+    "en-US": "Best Original Song",
     "pt-BR": "Melhor Canção Original"
   },
   {
     "id": "19",
-    "en-US": "Picture",
+    "en-US": "Best Picture",
     "pt-BR": "Melhor Filme"
   },
   {
     "id": "20",
-    "en-US": "Production Design",
+    "en-US": "Best Production Design",
     "pt-BR": "Melhor Design de Produção"
   },
   {
     "id": "21",
-    "en-US": "Sound",
+    "en-US": "Best Sound",
     "pt-BR": "Melhor Som"
   },
   {
     "id": "22",
-    "en-US": "Visual Effects",
+    "en-US": "Best Visual Effects",
     "pt-BR": "Melhores Efeitos Visuais"
   }
 ]

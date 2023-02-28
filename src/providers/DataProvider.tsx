@@ -7,7 +7,6 @@ import { collection, getDocs, doc, query, orderBy, where, updateDoc, arrayUnion,
 import { useAuth, useUser } from '../hooks'
 
 const editions = collection(db, 'editions')
-const people = collection(db, 'people')
 const users = collection(db, 'users')
 
 const DataProvider: React.FC<Provider> = ({ children }) => {
@@ -16,10 +15,13 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   const [currentMovies, setCurrentMovies] = useState<any>(null)
   const [currentMoviesMap, setCurrentMoviesMap] = useState<any>(null)
 
+  const [currentPeople, setCurrentPeople] = useState<any>(null)
+  const [currentPeopleMap, setCurrentPeopleMap] = useState<any>(null)
   const [currentCategoriesMap, setCurrentCategoriesMap] = useState<any>(null)
 
   const [currentNominations] = useState<any>()
   const [currentNominationsByCategory, setCurrentNominationsByCategory] = useState<any>()
+  const editionRef = doc(editions, currentEdition)
 
   const { uid } = useUser()
 
@@ -28,6 +30,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
       getCategories()
       await getEditionMovies()
       await getEditionNominations()
+      await getEditionPeople()
     }
     if (uid) fetchData()
   }, [uid])
@@ -39,8 +42,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   }
 
   async function getEditionMovies() {
-    console.log('getEditionsMovies')
-    const editionRef = doc(editions, currentEdition)
+    console.log('edition movies fetched')
     const movies = collection(editionRef, 'movies')
     const orderedMovies = query(movies, orderBy('en-US.name'))
 
@@ -57,9 +59,23 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     setCurrentMoviesMap(map)
   }
 
+  async function getEditionPeople() {
+    console.log('edition people fetched')
+    const people = collection(editionRef, 'people')
+    const orderedPeople = query(people, orderBy('name'))
+    const response = await getDocs(orderedPeople)
+    const map: any = new Map()
+    var array: any = []
+    response.forEach(doc => {
+      map.set(doc.id, doc.data())
+      array.push(doc.data())
+    })
+    setCurrentPeople(array)
+    setCurrentPeopleMap(map)
+  }
+
   async function getEditionNominations() {
-    console.log('getEditionsNominations')
-    const editionRef = doc(editions, currentEdition)
+    console.log('edition nominations fetched')
     const nominations = collection(editionRef, 'nominations')
 
     const response = await getDocs(nominations)
@@ -79,8 +95,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   }
 
   async function getMovieNominations(movie: string) {
-    console.log('getMovieNominations')
-    const editionRef = doc(editions, currentEdition)
+    console.log('movie nominations fetched')
     const nominations = collection(editionRef, 'nominations')
     const movieNominations = query(nominations, where('movie', '==', movie))
 
@@ -132,6 +147,8 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     currentNominations,
     currentNominationsByCategory,
     currentCategoriesMap,
+    currentPeopleMap,
+    currentPeople,
     currentMovies,
     currentMoviesMap,
     getMovieNominations,

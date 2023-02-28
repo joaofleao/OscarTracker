@@ -8,11 +8,14 @@ import colors from 'tailwindcss/colors'
 interface ButtonProps {
   image: string
   title: string
+  information?: string
+  extra?: string
   id: string
   onPress: () => void
 }
 
-function NomineeCardComponent({ image, title, id, onPress, ...rest }: ButtonProps) {
+
+function NomineeCardComponent({ image, title, id, information, extra, onPress, ...rest }: ButtonProps) {
   const { preferences } = useUser()
   const { isWatched } = usePersonalData()
 
@@ -28,7 +31,27 @@ function NomineeCardComponent({ image, title, id, onPress, ...rest }: ButtonProp
           isWatched={isWatched(id)}
           spoiler={preferences.poster}
         />
-        <Text className={`ml-4 flex-1 text-lg font-primaryBold text-white`}>{title}</Text>
+        <View className='flex-1'>
+          <Text
+            numberOfLines={3}
+            className={`ml-4 text-lg font-primaryBold text-white`}>
+            {title}
+          </Text>
+          {information && (
+            <Text
+              numberOfLines={2}
+              className={`ml-4 text-base font-primaryRegular text-zinc-600`}>
+              {information}
+            </Text>
+          )}
+          {extra && (
+            <Text
+              numberOfLines={2}
+              className={`ml-4 text-base font-primaryRegular text-amber-500`}>
+              {extra}
+            </Text>
+          )}
+        </View>
       </View>
     </TouchableOpacity>
   )

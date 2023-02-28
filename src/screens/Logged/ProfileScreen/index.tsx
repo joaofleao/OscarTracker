@@ -39,7 +39,7 @@ function ProfileScreen() {
         Profile
       </HeaderComponent>
       <ScrollView>
-        <Text className='mx-5 mb-5 text-white font-primaryRegular text-xl'>Personal Information</Text>
+        <Text className='mx-4 mb-5 text-white font-primaryRegular text-xl'>Personal Information</Text>
 
         <TextInputComponent
           value={displayName}
@@ -63,9 +63,9 @@ function ProfileScreen() {
           onChangeText={() => {}}
         />
 
-        <Text className='mx-5 mb-5 text-white text-xl font-primaryRegular'>Spoiler Preferences</Text>
+        <Text className='mx-4 mb-5 text-white text-xl font-primaryRegular'>Spoiler Preferences</Text>
 
-        <View className='mx-5 flex-row  mb-7 justify-between'>
+        <View className='mx-4 flex-row  mb-7 justify-between'>
           <Text className='text-white text-base font-primaryRegular'>Show Posters</Text>
 
           <Switch
@@ -77,7 +77,7 @@ function ProfileScreen() {
             onValueChange={() => setPoster(value => !value)}
           />
         </View>
-        <View className='mx-5 flex-row  mb-7 justify-between'>
+        <View className='mx-4 flex-row  mb-7 justify-between'>
           <Text className='text-white text-base font-primaryRegular'>Show Plot</Text>
           <Switch
             disabled={!editing}
@@ -88,7 +88,7 @@ function ProfileScreen() {
             onValueChange={() => setPlot(value => !value)}
           />
         </View>
-        <View className='mx-5 flex-row  mb-7 justify-between'>
+        <View className='mx-4 flex-row  mb-7 justify-between'>
           <Text className='text-white text-base font-primaryRegular'>Show Cast</Text>
           <Switch
             disabled={!editing}
@@ -99,7 +99,7 @@ function ProfileScreen() {
             onValueChange={() => setCast(value => !value)}
           />
         </View>
-        <View className='mx-5 flex-row  mb-7 justify-between'>
+        <View className='mx-4 flex-row  mb-7 justify-between'>
           <Text className='text-white text-base font-primaryRegular'>Show Ratings</Text>
           <Switch
             disabled={!editing}
@@ -111,7 +111,7 @@ function ProfileScreen() {
           />
         </View>
 
-        <View className='mx-5 flex-row  mb-7 justify-between'>
+        <View className='mx-4 flex-row  mb-7 justify-between'>
           <Text className='text-white text-base font-primaryRegular'>App Version</Text>
           <Text className='text-amber-500 text-base font-primaryRegular'>{packageJson.version}</Text>
         </View>
@@ -119,7 +119,7 @@ function ProfileScreen() {
         <ButtonComponent
           name='Log Out'
           variant='outlined'
-          className='mx-5 mb-5'
+          className='mx-4 mb-5'
           onPress={signOut}
         />
       </ScrollView>
