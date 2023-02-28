@@ -26,7 +26,7 @@ function ProgressBarComponent({ total, progress, ...rest }: ProgressBarProps) {
 
   return (
     <View
-      className='flex-row justify-between mx-5 items-center'
+      className='flex-row justify-between mx-4 items-center'
       {...rest}>
       <View>
         <Text className='text-zinc-600 mr-3 font-primaryRegular '>{progress}</Text>

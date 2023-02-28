@@ -39,7 +39,7 @@ function WatchListScreen({ navigation, route }: any) {
             name: item['en-US'].name,
           })
         }
-        className='mx-5'
+        className='mx-4'
         image={item['en-US'].image}
         title={item['en-US'].name}
         id={item.imdb}
@@ -54,7 +54,7 @@ function WatchListScreen({ navigation, route }: any) {
       <HeaderComponent>Watch List</HeaderComponent>
 
       <TextInputComponent
-        className='mx-5 mb-5'
+        className='mx-4 mb-5'
         placeholder='Search Movie'
         onChange={(e: any) => setSearch(e.nativeEvent.text)}
       />

@@ -15,5 +15,6 @@ export const routes = {
     profile: 'ProfileScreen' as keyof ScreenTypes,
     movie: 'MovieScreen' as keyof ScreenTypes,
     preferences: 'PreferencesScreen' as keyof ScreenTypes,
+    nomination: 'NominationScreen' as keyof ScreenTypes,
   },
 }
