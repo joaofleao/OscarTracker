@@ -57,3 +57,4 @@ export type UserContextType = {
 export type ToastContextType = {
   showToast: (message: string, description: string, type: 'success' | 'error') => void
 }
+export type MoviesContextType = {}

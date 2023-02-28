@@ -4,6 +4,7 @@ import DataProvider from './DataProvider'
 import ThemeProvider from './ThemeProvider'
 import UserProvider from './UserProvider'
 import ToastProvider from './ToastProvider'
+import MoviesProvider from './MoviesProvider'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 type Provider = {
@@ -27,6 +28,7 @@ const ContextProviders = ({ children }: Provider) => {
         <ToastProvider key={'toast_provider'} />,
         <UserProvider key={'user_provider'} />,
         <AuthProvider key={'auth_provider'} />,
+        <MoviesProvider key={'movies_provider'} />,
         <DataProvider key={'data_provider'} />,
       ]}>
       {children}
