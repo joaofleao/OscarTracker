@@ -13,7 +13,7 @@ import { getImage } from '../../../services/tmdb/api'
 import { routes } from '../../../utils'
 
 function HomeScreen({ navigation, route }: any) {
-  const { currentNominationsByCategory, currentCategoriesMap, currentMoviesMap } = useData()
+  const { currentNominationsByCategory, currentCategoriesMap, currentMoviesMap, currentPeopleMap } = useData()
   const { isWatched, totalMovies, totalWatchedMovies, watchedMoviesInCategory, uniqueMovies } = usePersonalData()
   const { preferences, onboarding } = useUser()
   const filter = route.params?.filter || ''
@@ -43,8 +43,13 @@ function HomeScreen({ navigation, route }: any) {
 
   const renderMovie = ({ item }: ListRenderItemInfo<any>) => {
     const movie = currentMoviesMap?.get(item.movie)
-    const poster = getImage(movie['en-US'].image)
+    const person = currentPeopleMap?.get(item.person)
     const watched = isWatched(movie.imdb)
+
+    const showPoster = person ? true : preferences.poster
+    const image = person ? getImage(person.image) : getImage(movie['en-US'].image)
+
+    const text = person ? person.name : movie['en-US'].name
 
     return (
       <TouchableOpacity
@@ -57,15 +62,15 @@ function HomeScreen({ navigation, route }: any) {
           })
         }>
         <PosterComponent
-          spoiler={preferences.poster}
-          image={poster}
+          spoiler={showPoster}
+          image={image}
           isWatched={watched}
         />
 
         <Text
           numberOfLines={2}
           className='mt-2 font-primaryBold text-white text-base w-[full]'>
-          {movie['en-US'].name}
+          {text}
         </Text>
       </TouchableOpacity>
     )
