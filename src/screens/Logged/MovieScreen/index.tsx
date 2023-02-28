@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, FlatList, ListRenderItemInfo, Image } from 'react-native'
 import { HeaderComponent, ModelComponent, SeparatorComponent, SpoilerComponent } from '../../../components'
 import { getImage } from '../../../services/tmdb/api'
-import { useData, usePersonalData, useUser } from '../../../hooks'
+import { useData, useUser } from '../../../hooks'
 import { Nomination } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -11,10 +11,7 @@ function MovieScreen({ navigation, route }: any) {
   const { watchedMovies, preferences } = useUser()
   const [watched, setWatched] = useState<boolean>(false)
   const [nominations, setNominations] = useState<Nomination[]>([])
-  const { isWatched } = usePersonalData()
   const { getMovieNominations, currentCategoriesMap, setMovieUnwatched, setMovieWatched } = useData()
-
-  const [showPoster, setShowPoster] = useState<boolean>(false)
 
   useEffect(() => {
     async function fetchData() {
