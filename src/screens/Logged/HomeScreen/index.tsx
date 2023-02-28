@@ -71,6 +71,7 @@ function HomeScreen({ navigation, route }: any) {
           numberOfLines={2}
           className='mt-2 font-primaryBold text-white text-base w-[full]'>
           {text}
+
         </Text>
       </TouchableOpacity>
     )

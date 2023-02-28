@@ -14,6 +14,7 @@ interface ButtonProps {
   onPress: () => void
 }
 
+
 function NomineeCardComponent({ image, title, id, information, extra, onPress, ...rest }: ButtonProps) {
   const { preferences } = useUser()
   const { isWatched } = usePersonalData()
