@@ -8,6 +8,7 @@ import {
   ListRenderItemInfo,
   TouchableOpacity,
   ImageSourcePropType,
+  Platform,
 } from 'react-native'
 import { ButtonComponent, HeaderComponent, ModelComponent, ProgressBarComponent } from '../../../components'
 import { routes } from '../../../utils'
@@ -284,23 +285,21 @@ function PreferencesScreen({ navigation, route }: any) {
         scrollEnabled={false}
         renderItem={renderItem}
       />
-      <View className='items-center justify-end'>
-        <View>
-          {screens[index].firstButton && (
-            <ButtonComponent
-              name={screens[index].firstButton}
-              className='w-60 mb-4'
-              onPress={() => handleNext(false)}
-            />
-          )}
-          {screens[index].secondButton && (
-            <ButtonComponent
-              name={screens[index].secondButton}
-              className=' w-60'
-              onPress={() => handleNext(true)}
-            />
-          )}
-        </View>
+      <View className={`items-center justify-end ${Platform.OS === 'android' && 'mb-6'}`}>
+        {screens[index].firstButton && (
+          <ButtonComponent
+            name={screens[index].firstButton}
+            className='w-60 mb-4'
+            onPress={() => handleNext(false)}
+          />
+        )}
+        {screens[index].secondButton && (
+          <ButtonComponent
+            name={screens[index].secondButton}
+            className='w-60'
+            onPress={() => handleNext(true)}
+          />
+        )}
       </View>
     </ModelComponent>
   )
