@@ -38,10 +38,10 @@ function HomeScreen({ navigation, route }: any) {
   }, [search, currentNominationsByCategory])
 
   useEffect(() => {
-    if (filter !== '') setSearch(filter)
+    setSearch(filter)
   }, [filter])
 
-  const renderMovie = ({ item }: ListRenderItemInfo<any>) => {
+  const renderMovie = ({ item }: any, category: any) => {
     const movie = currentMoviesMap?.get(item.movie)
     const person = currentPeopleMap?.get(item.person)
     const watched = isWatched(movie.imdb)
@@ -53,7 +53,7 @@ function HomeScreen({ navigation, route }: any) {
 
     return (
       <TouchableOpacity
-        className='w-[106px]'
+        className={category === '19' ? 'w-[158px]' : 'w-[106px]'}
         onPress={() =>
           navigation.navigate(routes.logged.movie, {
             id: movie.imdb,
@@ -62,6 +62,7 @@ function HomeScreen({ navigation, route }: any) {
           })
         }>
         <PosterComponent
+          large={category === '19'}
           spoiler={showPoster}
           image={image}
           isWatched={watched}
@@ -69,9 +70,8 @@ function HomeScreen({ navigation, route }: any) {
 
         <Text
           numberOfLines={2}
-          className='mt-2 font-primaryBold text-white text-base w-[full]'>
+          className='mt-2 font-primaryBold text-white text-base'>
           {text}
-
         </Text>
       </TouchableOpacity>
     )
@@ -91,7 +91,7 @@ function HomeScreen({ navigation, route }: any) {
           horizontal
           showsHorizontalScrollIndicator={false}
           data={item.value}
-          renderItem={renderMovie}
+          renderItem={movie => renderMovie(movie, item.key)}
           ItemSeparatorComponent={SeparatorComponent}
           ListFooterComponent={SeparatorComponent}
           ListHeaderComponent={SeparatorComponent}
@@ -107,6 +107,7 @@ function HomeScreen({ navigation, route }: any) {
       <HeaderComponent>Home</HeaderComponent>
 
       <ProgressBarComponent
+        animated={false}
         progress={totalWatchedMovies()}
         total={totalMovies()}
       />
