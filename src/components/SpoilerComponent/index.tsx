@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Pressable, View, Text, Animated } from 'react-native'
 
-interface SpoilerButton {
+type SpoilerComponentProps = React.ComponentProps<typeof View> & {
   children: any
   show: boolean
   watched: boolean
+  text?: string
 }
 
-function SocialButtonComponent({ children, show, watched }: SpoilerButton) {
+function SocialButtonComponent({ children, show, watched, text, ...rest }: SpoilerComponentProps) {
   const [hidden, setHidden] = useState<boolean>(false)
   const animatedValue = useRef(new Animated.Value(0)).current
 
@@ -21,6 +22,7 @@ function SocialButtonComponent({ children, show, watched }: SpoilerButton) {
 
   return (
     <Pressable
+      {...rest}
       className='h-fit w-fit items-center justify-center rounded-xl overflow-hidden relative'
       onPress={() => setHidden(value => !value)}>
       {children}
@@ -29,7 +31,7 @@ function SocialButtonComponent({ children, show, watched }: SpoilerButton) {
         <Animated.View
           className='w-full h-full absolute bg-[#1e1e21] justify-center items-center'
           style={{ transform: [{ translateY: animatedValue }] }}>
-          <Text className='text-white font-primaryBold'>Click to see</Text>
+          <Text className='text-white font-primaryBold text-center px-1'>{text ? text : 'Click to show'}</Text>
         </Animated.View>
       )}
     </Pressable>
