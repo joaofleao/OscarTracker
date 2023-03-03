@@ -5,9 +5,13 @@ interface PosterProps {
   image: string
   isWatched: boolean
   spoiler: boolean
+  large?: boolean
 }
 
-function PosterComponent({ image, isWatched, spoiler }: PosterProps) {
+function PosterComponent({ image, isWatched, spoiler, large = false }: PosterProps) {
+  const width = large ? 158 : 106
+  const height = large ? 236 : 158
+
   const getPoster = (
     <Image
       source={{ uri: image }}
@@ -16,7 +20,10 @@ function PosterComponent({ image, isWatched, spoiler }: PosterProps) {
     />
   )
   const getCover = (
-    <View className='absolute w-[106px] h-[158px] rounded-xl bg-zinc-900/80 items-center justify-center' />
+    <View
+      style={{ width: width, height: height }}
+      className='absolute rounded-xl bg-zinc-900/80 items-center justify-center'
+    />
   )
   const getIcon = (
     <View className='absolute rounded-xl bg-amber-500 p-2 justify-center items-center'>
@@ -29,7 +36,9 @@ function PosterComponent({ image, isWatched, spoiler }: PosterProps) {
   )
 
   return (
-    <View className='w-[106px] h-[158px] items-center justify-center bg-zinc-700/20 rounded-xl relative'>
+    <View
+      style={{ width: width, height: height }}
+      className='items-center justify-center bg-zinc-700/20 rounded-xl relative'>
       {(isWatched || spoiler) && getPoster}
       {!isWatched && spoiler && getCover}
       {!isWatched && getIcon}

@@ -57,3 +57,9 @@ export type UserContextType = {
 export type ToastContextType = {
   showToast: (message: string, description: string, type: 'success' | 'error') => void
 }
+export type MoviesContextType = {
+  getMovie: (id: string) => Promise<any>
+  getCast: (id: string) => Promise<any>
+  getTrailer: (id: string) => Promise<any>
+  getProviders: (id: string) => Promise<any>
+}

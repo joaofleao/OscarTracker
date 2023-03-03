@@ -4,5 +4,6 @@ import useData from './useData'
 import usePersonalData from './usePersonalData'
 import useUser from './useUser'
 import useToast from './useToast'
+import useMovies from './useMovies'
 
-export { useAuth, useTheme, useData, usePersonalData, useUser, useToast }
+export { useAuth, useTheme, useData, usePersonalData, useUser, useToast, useMovies }
