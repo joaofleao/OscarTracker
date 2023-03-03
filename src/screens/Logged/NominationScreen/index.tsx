@@ -5,8 +5,11 @@ import { useData } from '../../../hooks'
 import { routes } from '../../../utils'
 
 function NominationScreen({ navigation, route }: any) {
-  const { id, movies } = route.params
-  const { currentCategoriesMap, currentMoviesMap, currentPeopleMap } = useData()
+  const { id } = route.params
+  const { currentCategoriesMap, currentMoviesMap, currentPeopleMap, currentNominationsByCategory } = useData()
+  const movies = currentNominationsByCategory.filter((category: any) => {
+    return category.key === id
+  })[0].value
 
   const renderMovie = ({ item }: any) => {
     const movie = currentMoviesMap?.get(item.movie)
