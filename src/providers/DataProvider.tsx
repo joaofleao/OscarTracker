@@ -23,6 +23,8 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   const [currentNominationsByCategory, setCurrentNominationsByCategory] = useState<any>()
   const editionRef = doc(editions, currentEdition)
 
+  const categoriesOrder = [19, 2, 0, 3, 1, 9, 4, 17, 18, 20, 21, 22, 7, 8, 12, 15, 16, 5, 6, 10, 11, 13, 14]
+
   const { uid } = useUser()
 
   useMemo(() => {
@@ -91,7 +93,11 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
       return { key: item[0], value: item[1] }
     })
 
-    setCurrentNominationsByCategory(array)
+    const ordered = array.sort(
+      (a, b) => categoriesOrder.indexOf(Number(a.key)) - categoriesOrder.indexOf(Number(b.key)),
+    )
+
+    setCurrentNominationsByCategory(ordered)
   }
 
   async function getMovieNominations(movie: string) {
