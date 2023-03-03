@@ -23,6 +23,5 @@ export type ScreenTypes = {
   }
   NominationScreen: {
     id: string
-    movies: any
   }
 }
