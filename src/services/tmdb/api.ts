@@ -36,4 +36,11 @@ const getVideos = async (id: string) => {
   return response.data
 }
 
-export { getMovie, getImage, getCast, getVideos }
+const getProviders = async (id: string) => {
+  const response = await api.get(`movie/${id}/watch/providers`, {
+    params: { api_key, language: 'en-US' },
+  })
+  return response.data
+}
+
+export { getMovie, getImage, getCast, getVideos, getProviders }
