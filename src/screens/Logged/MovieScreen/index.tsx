@@ -56,26 +56,30 @@ function MovieScreen({ navigation, route }: any) {
 
   const renderCast = ({ item }: ListRenderItemInfo<any>) => {
     return (
-      <View className='w-[106px]'>
-        <View className='justify-center items-center '>
-          <Text className='absolute text-white text-center'>No Image</Text>
+      <SpoilerComponent
+        show={preferences.cast}
+        watched={watched}>
+        <View className='w-[106px]'>
+          <View className='justify-center items-center '>
+            <Text className='absolute text-white text-center'>No Image</Text>
 
-          <Image
-            source={{ uri: getImage(item.profile_path) }}
-            className='w-[106px] h-[158px] rounded-xl bg-zinc-800/40'
-          />
+            <Image
+              source={{ uri: getImage(item.profile_path) }}
+              className='w-[106px] h-[158px] rounded-xl bg-zinc-800/40'
+            />
+          </View>
+          <Text
+            numberOfLines={2}
+            className='mt-3 font-primaryBold text-white text-base w-[full] flex-1'>
+            {item.name}
+          </Text>
+          <Text
+            numberOfLines={1}
+            className=' font-primaryRegular text-white text-sm w-[full] flex-1'>
+            {item.character}
+          </Text>
         </View>
-        <Text
-          numberOfLines={2}
-          className='mt-3 font-primaryBold text-white text-base w-[full] flex-1'>
-          {item.name}
-        </Text>
-        <Text
-          numberOfLines={1}
-          className=' font-primaryRegular text-white text-sm w-[full] flex-1'>
-          {item.character}
-        </Text>
-      </View>
+      </SpoilerComponent>
     )
   }
 
@@ -131,7 +135,7 @@ function MovieScreen({ navigation, route }: any) {
                   className='text-amber-500'
                 />
                 <Text className='text-white font-primaryBold text-base mt-2'>
-                  {Math.round(movieData.vote_average * 10) / 10}
+                  {movieData.vote_average && Math.round(movieData.vote_average * 10) / 10}
                 </Text>
               </View>
             </SpoilerComponent>
@@ -200,9 +204,13 @@ function MovieScreen({ navigation, route }: any) {
           )}
         </View>
 
-        <View className='mt-4'>
-          <Text className='mx-4 mb-2 font-primaryBold text-white text-xl'>Plot</Text>
-          <Text className='mx-4 font-primaryRegular text-white text-base text-justify'>{movieData.overview}</Text>
+        <View className='mt-4 mx-4'>
+          <Text className='mb-2 font-primaryBold text-white text-xl'>Plot</Text>
+          <SpoilerComponent
+            show={preferences.plot}
+            watched={watched}>
+            <Text className='font-primaryRegular text-white text-base text-justify'>{movieData.overview}</Text>
+          </SpoilerComponent>
         </View>
 
         <View className='mt-4'>
@@ -219,7 +227,7 @@ function MovieScreen({ navigation, route }: any) {
           />
         </View>
 
-        <View className='mt-8 mb-2 mx-4  items-center'>
+        <View className={`mt-8 mx-4  items-center ${Platform.OS === 'android' && 'mb-6'}`}>
           <TouchableOpacity
             className='flex-row items-center'
             onPress={() => Linking.openURL(imdbLink)}>
