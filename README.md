@@ -14,7 +14,7 @@ An unofficial movie tracker and social platform for the Academy Awards
 For contributions, ideas and suggestions, please reach to me at joaofleao@gmail.com
 
 ### Current Version
-1.1.1 Alpha Update 3
+[1.1.1 Beta Update 3](https://github.com/joaofleao/OscarTracker/releases/tag/v2.1.1)
 
 
 For more information regarding the project, access the [Wiki](https://github.com/joaofleao/OscarTracker/wiki)
