@@ -1,17 +1,20 @@
 module.exports = {
-  root: true,
-  extends: '@react-native-community',
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      rules: {
-        '@typescript-eslint/no-shadow': ['error'],
-        'no-shadow': 'off',
-        'no-undef': 'off',
-        semi: 'never',
-      },
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: ["plugin:react/recommended", "standard-with-typescript", "prettier"],
+  overrides: [],
+  parserOptions: {
+    project: "./tsconfig.json",
+    ecmaVersion: "latest",
+    sourceType: "module",
+  },
+  plugins: ["react"],
+  rules: {},
+  settings: {
+    react: {
+      version: "detect",
     },
-  ],
+  },
 }
