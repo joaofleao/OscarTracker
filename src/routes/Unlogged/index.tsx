@@ -1,22 +1,19 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import {
   SignInScreen,
   SignUpPasswordScreen,
   SignUpEmailScreen,
   SignUpNameScreen,
   SignUpAvatarScreen,
-} from '../../screens'
-import { routes } from '../../utils'
-import { ScreenTypes } from '../../types'
+} from "../../screens"
+import { routes } from "../../utils"
+import { ScreenTypes } from "../../types"
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 
 export const Unlogged = (
   <>
-    <Stack.Screen
-      name={routes.unlogged.signIn}
-      component={SignInScreen}
-    />
+    <Stack.Screen name={routes.unlogged.signIn} component={SignInScreen} />
     <Stack.Screen
       name={routes.unlogged.signUpEmail}
       component={SignUpEmailScreen}

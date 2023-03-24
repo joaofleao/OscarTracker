@@ -1,16 +1,16 @@
-import { useState } from 'react'
-import { PreferencesType, Provider, UserType } from '../types'
-import { UserContext } from '../contexts'
-import { UserContextType } from '../types/ContextTypes'
+import { useState } from "react"
+import { type PreferencesType, type Provider, UserType } from "../types"
+import { UserContext } from "../contexts"
+import { type UserContextType } from "../types/ContextTypes"
 
 const UserProvider: React.FC<Provider> = ({ children }) => {
-  const [email, setEmail] = useState<string>('')
-  const [displayName, setDisplayName] = useState<string>('')
+  const [email, setEmail] = useState<string>("")
+  const [displayName, setDisplayName] = useState<string>("")
   const [emailVerified, setEmailVerified] = useState<boolean>(false)
   const [onboarding, setOnboarding] = useState<boolean>(true)
-  const [nickName, setNickName] = useState<string>('')
+  const [nickName, setNickName] = useState<string>("")
   const [watchedMovies, setWatchedMovies] = useState<string[]>([])
-  const [uid, setUid] = useState<string>('')
+  const [uid, setUid] = useState<string>("")
   const [preferences, setPreferences] = useState<PreferencesType>({
     poster: false,
     cast: false,

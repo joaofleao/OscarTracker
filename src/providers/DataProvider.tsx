@@ -1,17 +1,27 @@
-import { DataContextType, Provider } from '../types'
-import { useState, useMemo } from 'react'
-import { DataContext } from '../contexts'
-import { db } from '../services'
-import categoriesJson from '../utils/dictionary/categories.json'
-import { collection, getDocs, doc, query, orderBy, where, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
-import { useAuth, useUser } from '../hooks'
+import { type DataContextType, type Provider } from "../types"
+import { useState, useMemo } from "react"
+import { DataContext } from "../contexts"
+import { db } from "../services"
+import categoriesJson from "../utils/dictionary/categories.json"
+import {
+  collection,
+  getDocs,
+  doc,
+  query,
+  orderBy,
+  where,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore"
+import { useAuth, useUser } from "../hooks"
 
-const editions = collection(db, 'editions')
-const people = collection(db, 'people')
-const users = collection(db, 'users')
+const editions = collection(db, "editions")
+const people = collection(db, "people")
+const users = collection(db, "users")
 
 const DataProvider: React.FC<Provider> = ({ children }) => {
-  const [currentEdition, setCurrentEdition] = useState<string>('95')
+  const [currentEdition, setCurrentEdition] = useState<string>("95")
 
   const [currentMovies, setCurrentMovies] = useState<any>(null)
   const [currentMoviesMap, setCurrentMoviesMap] = useState<any>(null)
@@ -19,7 +29,8 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   const [currentCategoriesMap, setCurrentCategoriesMap] = useState<any>(null)
 
   const [currentNominations] = useState<any>()
-  const [currentNominationsByCategory, setCurrentNominationsByCategory] = useState<any>()
+  const [currentNominationsByCategory, setCurrentNominationsByCategory] =
+    useState<any>()
 
   const { uid } = useUser()
 
@@ -34,21 +45,21 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
 
   async function getCategories() {
     const categoriesMap = new Map()
-    categoriesJson.forEach(doc => categoriesMap.set(doc.id, doc['en-US']))
+    categoriesJson.forEach((doc) => categoriesMap.set(doc.id, doc["en-US"]))
     setCurrentCategoriesMap(categoriesMap)
   }
 
   async function getEditionMovies() {
-    console.log('getEditionsMovies')
+    console.log("getEditionsMovies")
     const editionRef = doc(editions, currentEdition)
-    const movies = collection(editionRef, 'movies')
-    const orderedMovies = query(movies, orderBy('en-US.name'))
+    const movies = collection(editionRef, "movies")
+    const orderedMovies = query(movies, orderBy("en-US.name"))
 
     const response = await getDocs(orderedMovies)
 
     const map: any = new Map()
-    var array: any = []
-    response.forEach(doc => {
+    const array: any = []
+    response.forEach((doc) => {
       map.set(doc.id, doc.data())
       array.push(doc.data())
     })
@@ -58,14 +69,14 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   }
 
   async function getEditionNominations() {
-    console.log('getEditionsNominations')
+    console.log("getEditionsNominations")
     const editionRef = doc(editions, currentEdition)
-    const nominations = collection(editionRef, 'nominations')
+    const nominations = collection(editionRef, "nominations")
 
     const response = await getDocs(nominations)
 
     const map: any = new Map()
-    response.forEach(doc => {
+    response.forEach((doc) => {
       const data = doc.data()
       const oldValues = map.get(data.category) || []
       map.set(data.category, [data, ...oldValues])
@@ -79,15 +90,15 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   }
 
   async function getMovieNominations(movie: string) {
-    console.log('getMovieNominations')
+    console.log("getMovieNominations")
     const editionRef = doc(editions, currentEdition)
-    const nominations = collection(editionRef, 'nominations')
-    const movieNominations = query(nominations, where('movie', '==', movie))
+    const nominations = collection(editionRef, "nominations")
+    const movieNominations = query(nominations, where("movie", "==", movie))
 
     const response = await getDocs(movieNominations)
 
-    var array: any = []
-    response.forEach(doc => {
+    const array: any = []
+    response.forEach((doc) => {
       array.push(doc.data())
     })
 
@@ -106,8 +117,13 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     email?: string,
     displayName?: string,
     nickName?: string,
-    preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
-    onboarding?: boolean,
+    preferences?: {
+      poster: boolean
+      plot: boolean
+      cast: boolean
+      ratings: boolean
+    },
+    onboarding?: boolean
   ) {
     const userRef = doc(users, uid)
 
@@ -115,7 +131,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
       ...(email && { email }),
       ...(displayName && { displayName }),
       ...(nickName && { nickName }),
-      ...(preferences && { preferences }),
+      ...(preferences != null && { preferences }),
       ...(onboarding && { onboarding }),
     })
   }

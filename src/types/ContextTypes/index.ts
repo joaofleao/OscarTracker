@@ -1,14 +1,6 @@
-import { PreferencesType, User } from '../../types'
+import type { PreferencesType } from "../../types"
 
-export type AuthContextType = {
-  signIn: (email: string, password: string) => Promise<boolean>
-  signUp: (email: string, password: string, displayName: string, nickName: any) => Promise<boolean>
-  signOut: () => void
-  setUser: (user: any) => void
-  initializing: boolean
-}
-
-export type DataContextType = {
+export interface DataContextType {
   currentNominations: any | null
   currentNominationsByCategory: any | null
   currentCategoriesMap: any | null
@@ -21,19 +13,24 @@ export type DataContextType = {
     email?: string,
     displayName?: string,
     nickName?: string,
-    preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
-    onboarding?: boolean,
+    preferences?: {
+      poster: boolean
+      plot: boolean
+      cast: boolean
+      ratings: boolean
+    },
+    onboarding?: boolean
   ) => void
 }
 
-export type ThemeContextType = {
+export interface ThemeContextType {
   loadingText: string
   isLoading: boolean
   stopLoading: () => void
   startLoading: (loading: string) => void
 }
 
-export type UserContextType = {
+export interface UserContextType {
   preferences: PreferencesType
   setPreferences: (preferences: PreferencesType) => void
   email: string

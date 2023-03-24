@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from "react"
 import {
   Image,
   Text,
@@ -8,11 +8,23 @@ import {
   ListRenderItemInfo,
   TouchableOpacity,
   ImageSourcePropType,
-} from 'react-native'
-import { ButtonComponent, HeaderComponent, ModelComponent, ProgressBarComponent } from '../../../components'
-import { routes } from '../../../utils'
-import { useData } from '../../../hooks'
-import { IMDB, Rotten, poster, justin, jason, david } from '../../../assets/images'
+} from "react-native"
+import {
+  ButtonComponent,
+  HeaderComponent,
+  ModelComponent,
+  ProgressBarComponent,
+} from "../../../components"
+import { routes } from "../../../utils"
+import { useData } from "../../../hooks"
+import {
+  IMDB,
+  Rotten,
+  poster,
+  justin,
+  jason,
+  david,
+} from "../../../assets/images"
 
 function PreferencesScreen({ navigation, route }: any) {
   const scrollViewRef = useRef<FlatList>(null)
@@ -31,7 +43,7 @@ function PreferencesScreen({ navigation, route }: any) {
   })
 
   const [index, setIndex] = useState(0)
-  const { width } = Dimensions.get('window')
+  const { width } = Dimensions.get("window")
 
   const handleNext = (show: boolean) => {
     if (index === 1) setPreferences({ ...preferences, poster: show })
@@ -41,14 +53,14 @@ function PreferencesScreen({ navigation, route }: any) {
     handleForward()
   }
   const handleForward = () => {
-    if (index < 5) setIndex(index => index + 1)
+    if (index < 5) setIndex((index) => index + 1)
     else {
       navigation.navigate(routes.logged.home)
       updateUser(undefined, undefined, undefined, preferences, true)
     }
   }
   const handleBack = () => {
-    if (index > 0) setIndex(index => index - 1)
+    if (index > 0) setIndex((index) => index - 1)
   }
 
   useEffect(() => {
@@ -59,40 +71,47 @@ function PreferencesScreen({ navigation, route }: any) {
   }, [index])
 
   const castData = [
-    { name: 'Justin Long', character: 'Alvin', image: justin },
-    { name: 'Jason Lee', character: 'Dave', image: jason },
-    { name: 'David Cross', character: 'Ian', image: david },
+    { name: "Justin Long", character: "Alvin", image: justin },
+    { name: "Jason Lee", character: "Dave", image: jason },
+    { name: "David Cross", character: "Ian", image: david },
   ]
 
-  const getCast = (item: { name: string; image: ImageSourcePropType; character: string }) => {
+  const getCast = (item: {
+    name: string
+    image: ImageSourcePropType
+    character: string
+  }) => {
     return (
-      <View className='h-36'>
-        <View className='bg-zinc-800/40 rounded-xl items-center justify-center'>
+      <View className="h-36">
+        <View className="bg-zinc-800/40 rounded-xl items-center justify-center">
           <Image
             source={item.image}
             style={{ opacity: castSpoiler ? 0 : 1 }}
-            className='h-full rounded-xl aspect-[0.7]'
+            className="h-full rounded-xl aspect-[0.7]"
           />
           <Text
             style={{ opacity: castSpoiler ? 1 : 0 }}
-            className='absolute font-primaryBold text-base text-white text-center'>
+            className="absolute font-primaryBold text-base text-white text-center"
+          >
             Click to Show
           </Text>
         </View>
 
-        <View className='py-3'>
-          <View className='bg-zinc-800/40 rounded-xl'>
+        <View className="py-3">
+          <View className="bg-zinc-800/40 rounded-xl">
             <Text
               style={{ opacity: castSpoiler ? 0 : 1 }}
               numberOfLines={2}
-              className='text-white font-primaryBold text-base bg-zinc-900'>
+              className="text-white font-primaryBold text-base bg-zinc-900"
+            >
               {item.name}
             </Text>
 
             <Text
               style={{ opacity: castSpoiler ? 0 : 1 }}
               numberOfLines={2}
-              className='text-white font-primaryRegular text-sm bg-zinc-900'>
+              className="text-white font-primaryRegular text-sm bg-zinc-900"
+            >
               {item.character}
             </Text>
           </View>
@@ -104,14 +123,16 @@ function PreferencesScreen({ navigation, route }: any) {
   const screens = [
     {
       key: 0,
-      secondButton: 'Lets go!',
+      secondButton: "Lets go!",
       content: (
-        <View className='flex-1 items-center justify-center'>
-          <Text className='text-white font-primaryBold text-2xl mb-4 w-full text-center'>Welcome!</Text>
-          <Text className='text-white font-primaryBold text-2xl mb-4 w-full text-center'>
+        <View className="flex-1 items-center justify-center">
+          <Text className="text-white font-primaryBold text-2xl mb-4 w-full text-center">
+            Welcome!
+          </Text>
+          <Text className="text-white font-primaryBold text-2xl mb-4 w-full text-center">
             Time to choose your spoiler preferences
           </Text>
-          <Text className='text-white font-primaryRegular text-lg mb-12 w-full text-center '>
+          <Text className="text-white font-primaryRegular text-lg mb-12 w-full text-center ">
             You can change your preferences at any time in the settings.
           </Text>
         </View>
@@ -119,28 +140,31 @@ function PreferencesScreen({ navigation, route }: any) {
     },
     {
       key: 1,
-      firstButton: 'Of course!',
-      secondButton: 'Heh? No',
+      firstButton: "Of course!",
+      secondButton: "Heh? No",
       content: (
-        <View className='items-center flex-1'>
-          <Text className='text-white font-primaryBold text-2xl mb-4 w-full'>
+        <View className="items-center flex-1">
+          <Text className="text-white font-primaryBold text-2xl mb-4 w-full">
             Do you consider a movie's poster a spoiler?
           </Text>
-          <Text className='text-white font-primaryRegular text-base w-full'>
-            If you do, the poster will look like this until you watch the movie or click on it.
+          <Text className="text-white font-primaryRegular text-base w-full">
+            If you do, the poster will look like this until you watch the movie
+            or click on it.
           </Text>
 
           <TouchableOpacity
-            className='bg-zinc-800/40 rounded-xl items-center justify-center flex-1 w-fit my-10'
-            onPress={() => setPosterSpoiler(value => !value)}>
+            className="bg-zinc-800/40 rounded-xl items-center justify-center flex-1 w-fit my-10"
+            onPress={() => setPosterSpoiler((value) => !value)}
+          >
             <Image
               source={poster}
               style={{ opacity: posterSpoiler ? 0 : 1 }}
-              className='h-full rounded-xl aspect-[0.7]'
+              className="h-full rounded-xl aspect-[0.7]"
             />
             <Text
-              className='text-white font-primaryRegular text-base text-justify absolute'
-              style={{ opacity: posterSpoiler ? 1 : 0 }}>
+              className="text-white font-primaryRegular text-base text-justify absolute"
+              style={{ opacity: posterSpoiler ? 1 : 0 }}
+            >
               Click to reveal
             </Text>
           </TouchableOpacity>
@@ -149,25 +173,33 @@ function PreferencesScreen({ navigation, route }: any) {
     },
     {
       key: 2,
-      firstButton: 'Yep',
-      secondButton: 'Nope',
+      firstButton: "Yep",
+      secondButton: "Nope",
       content: (
-        <View className='flex-1'>
-          <Text className='text-white font-primaryBold text-2xl mb-4 w-full'>How about a movie's plot?</Text>
-          <Text className='text-white font-primaryRegular text-base mb-4  w-full'>
-            If you do, the plot will be hidden like this until you watch the movie or click on it.
+        <View className="flex-1">
+          <Text className="text-white font-primaryBold text-2xl mb-4 w-full">
+            How about a movie's plot?
           </Text>
-          <View className='flex-1 justify-center'>
-            <TouchableOpacity onPress={() => setPlotSpoiler(value => !value)}>
+          <Text className="text-white font-primaryRegular text-base mb-4  w-full">
+            If you do, the plot will be hidden like this until you watch the
+            movie or click on it.
+          </Text>
+          <View className="flex-1 justify-center">
+            <TouchableOpacity onPress={() => setPlotSpoiler((value) => !value)}>
               <Text
                 style={{ opacity: plotSpoiler ? 0 : 1 }}
-                className='text-white font-primaryRegular text-base text-justify'>
-                When an alien with amazing powers crash-lands near Mossy Bottom Farm, Shaun the Sheep goes on a mission
-                to shepherd the intergalactic visitor home before a sinister organization can capture her.
+                className="text-white font-primaryRegular text-base text-justify"
+              >
+                When an alien with amazing powers crash-lands near Mossy Bottom
+                Farm, Shaun the Sheep goes on a mission to shepherd the
+                intergalactic visitor home before a sinister organization can
+                capture her.
               </Text>
               {plotSpoiler && (
-                <View className='absolute bg-zinc-800/40 w-full h-full items-center justify-center rounded-xl'>
-                  <Text className='text-white font-primaryRegular text-base text-justify'>Click to reveal</Text>
+                <View className="absolute bg-zinc-800/40 w-full h-full items-center justify-center rounded-xl">
+                  <Text className="text-white font-primaryRegular text-base text-justify">
+                    Click to reveal
+                  </Text>
                 </View>
               )}
             </TouchableOpacity>
@@ -177,21 +209,24 @@ function PreferencesScreen({ navigation, route }: any) {
     },
     {
       key: 3,
-      firstButton: 'Yeah',
-      secondButton: 'Nah',
+      firstButton: "Yeah",
+      secondButton: "Nah",
       content: (
-        <View className='flex-1'>
-          <Text className='text-white font-primaryBold text-2xl mb-4 w-full'>
-            Ok, this one is weird, but we have to ask... Is the casting of the movie a spoiler?
+        <View className="flex-1">
+          <Text className="text-white font-primaryBold text-2xl mb-4 w-full">
+            Ok, this one is weird, but we have to ask... Is the casting of the
+            movie a spoiler?
           </Text>
-          <Text className='text-white font-primaryRegular text-base mb-4 w-full'>
-            If you do, the cast will remain hidden until you watch the movie or click on it.
+          <Text className="text-white font-primaryRegular text-base mb-4 w-full">
+            If you do, the cast will remain hidden until you watch the movie or
+            click on it.
           </Text>
 
-          <View className=' flex-1 '>
+          <View className=" flex-1 ">
             <TouchableOpacity
-              className='flex-row flex-1 justify-between'
-              onPress={() => setCastSpoiler(value => !value)}>
+              className="flex-row flex-1 justify-between"
+              onPress={() => setCastSpoiler((value) => !value)}
+            >
               {getCast(castData[0])}
               {getCast(castData[1])}
               {getCast(castData[2])}
@@ -202,37 +237,39 @@ function PreferencesScreen({ navigation, route }: any) {
     },
     {
       key: 4,
-      firstButton: 'Definitely',
-      secondButton: 'Not for me',
+      firstButton: "Definitely",
+      secondButton: "Not for me",
 
       content: (
-        <View className='flex-1'>
-          <Text className='text-white font-primaryBold text-2xl mb-4 w-full'>Last one!</Text>
-          <Text className='text-white font-primaryBold text-2xl mb-4 w-full'>
+        <View className="flex-1">
+          <Text className="text-white font-primaryBold text-2xl mb-4 w-full">
+            Last one!
+          </Text>
+          <Text className="text-white font-primaryBold text-2xl mb-4 w-full">
             And the movie ratings, IMDB and Rotten Tomatoes, are those spoilers?
           </Text>
-          <Text className='text-white font-primaryRegular text-base mb-4 w-full'>
-            If you think so, the score will not show until you've seen the movie or clicked on it.
+          <Text className="text-white font-primaryRegular text-base mb-4 w-full">
+            If you think so, the score will not show until you've seen the movie
+            or clicked on it.
           </Text>
 
-          <View className='flex-1 justify-center'>
+          <View className="flex-1 justify-center">
             <TouchableOpacity
-              className=' items-center flex-row justify-center'
-              onPress={() => setRatingsSpoiler(value => !value)}>
-              <View className='p-4 bg-zinc-800/40 justify-center items-center rounded-xl'>
-                <IMDB
-                  width={48}
-                  height={48}
-                />
+              className=" items-center flex-row justify-center"
+              onPress={() => setRatingsSpoiler((value) => !value)}
+            >
+              <View className="p-4 bg-zinc-800/40 justify-center items-center rounded-xl">
+                <IMDB width={48} height={48} />
 
-                <Text className='text-white font-primaryBold text-lg mt-3'>{ratingsSpoiler ? 'Show' : '8.0'}</Text>
+                <Text className="text-white font-primaryBold text-lg mt-3">
+                  {ratingsSpoiler ? "Show" : "8.0"}
+                </Text>
               </View>
-              <View className='ml-6 p-4 bg-zinc-800/40 justify-center items-center rounded-xl'>
-                <Rotten
-                  width={48}
-                  height={48}
-                />
-                <Text className='text-white font-primaryBold text-lg mt-3'>{ratingsSpoiler ? 'Show' : '95%'}</Text>
+              <View className="ml-6 p-4 bg-zinc-800/40 justify-center items-center rounded-xl">
+                <Rotten width={48} height={48} />
+                <Text className="text-white font-primaryBold text-lg mt-3">
+                  {ratingsSpoiler ? "Show" : "95%"}
+                </Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -241,24 +278,31 @@ function PreferencesScreen({ navigation, route }: any) {
     },
     {
       key: 5,
-      secondButton: 'Nice!',
+      secondButton: "Nice!",
 
       content: (
-        <View className='flex-1 items-center justify-center'>
-          <Text className='text-white font-primaryBold text-2xl mb-4 w-full text-center'>All Set!</Text>
-          <Text className='text-white font-primaryRegular text-lg mb-4 w-full text-center '>
-            Your spoilers will stay hidden until you watch the movie or click on the spoiler
+        <View className="flex-1 items-center justify-center">
+          <Text className="text-white font-primaryBold text-2xl mb-4 w-full text-center">
+            All Set!
+          </Text>
+          <Text className="text-white font-primaryRegular text-lg mb-4 w-full text-center ">
+            Your spoilers will stay hidden until you watch the movie or click on
+            the spoiler
           </Text>
         </View>
       ),
     },
   ]
 
-  const renderItem = ({ item }: ListRenderItemInfo<{ firstButton: string; secondButton: string; content: any }>) => {
+  const renderItem = ({
+    item,
+  }: ListRenderItemInfo<{
+    firstButton: string
+    secondButton: string
+    content: any
+  }>) => {
     return (
-      <View
-        style={{ width: width }}
-        className='px-4'>
+      <View style={{ width: width }} className="px-4">
         {item.content}
       </View>
     )
@@ -267,15 +311,12 @@ function PreferencesScreen({ navigation, route }: any) {
   return (
     <ModelComponent>
       <HeaderComponent
-        leadingButton={index !== 0 ? 'arrow-left' : ''}
-        leadingAction={handleBack}>
+        leadingButton={index !== 0 ? "arrow-left" : ""}
+        leadingAction={handleBack}
+      >
         Preferences
       </HeaderComponent>
-      <ProgressBarComponent
-        className=' mb-10'
-        total={5}
-        progress={index}
-      />
+      <ProgressBarComponent className=" mb-10" total={5} progress={index} />
       <FlatList
         ref={scrollViewRef}
         data={screens as any}
@@ -284,19 +325,19 @@ function PreferencesScreen({ navigation, route }: any) {
         scrollEnabled={false}
         renderItem={renderItem}
       />
-      <View className='items-center justify-end'>
+      <View className="items-center justify-end">
         <View>
           {screens[index].firstButton && (
             <ButtonComponent
               name={screens[index].firstButton}
-              className='w-60 mb-4'
+              className="w-60 mb-4"
               onPress={() => handleNext(false)}
             />
           )}
           {screens[index].secondButton && (
             <ButtonComponent
               name={screens[index].secondButton}
-              className=' w-60'
+              className=" w-60"
               onPress={() => handleNext(true)}
             />
           )}

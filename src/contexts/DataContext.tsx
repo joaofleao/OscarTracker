@@ -1,7 +1,7 @@
-import { createContext } from 'react'
-import { DataContextType } from '../types'
+import { createContext } from "react"
+import { type DataContextType } from "../types"
 
 const DataContext = createContext<DataContextType>({} as DataContextType)
-DataContext.displayName = 'DataContext'
+DataContext.displayName = "DataContext"
 
 export default DataContext

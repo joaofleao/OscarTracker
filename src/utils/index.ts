@@ -1,3 +1,3 @@
-import { routes } from './ScreenNames'
+import { routes } from "./ScreenNames"
 
 export { routes }

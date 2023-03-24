@@ -1,17 +1,17 @@
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import React from "react"
+import { NavigationContainer } from "@react-navigation/native"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { StatusBar } from 'react-native'
+import { SafeAreaProvider } from "react-native-safe-area-context"
+import { StatusBar } from "react-native"
 
-import { SplashScreen } from '../../screens'
-import { LoadingModalComponent } from '../../components'
-import { useAuth } from '../../hooks'
-import { ScreenTypes } from '../../types'
-import { Unlogged, Logged } from '../../routes'
+import { SplashScreen } from "../../screens"
+import { LoadingModalComponent } from "../../components"
+import { useAuth } from "../../hooks"
+import { ScreenTypes } from "../../types"
+import { Unlogged, Logged } from "../../routes"
 
-import colors from 'tailwindcss/colors'
+import colors from "tailwindcss/colors"
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 
@@ -27,12 +27,14 @@ export default function Router() {
       <StatusBar
         animated={true}
         backgroundColor={colors.zinc[900]}
-        barStyle={'light-content'}
+        barStyle={"light-content"}
       />
       <LoadingModalComponent />
       <SafeAreaProvider>
         <NavigationContainer>
-          <Stack.Navigator screenOptions={screenOptions}>{!initializing ? Logged : Unlogged}</Stack.Navigator>
+          <Stack.Navigator screenOptions={screenOptions}>
+            {!initializing ? Logged : Unlogged}
+          </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
     </SplashScreen>

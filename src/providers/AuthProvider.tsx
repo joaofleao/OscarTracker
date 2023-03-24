@@ -1,13 +1,18 @@
-import { useState, useEffect } from 'react'
-import { AuthContextType, Provider } from '../types'
-import { AuthContext } from '../contexts'
-import { useTheme, useUser } from '../hooks'
-import { auth, db } from '../services'
+import React, { useState, useEffect } from "react"
+import { type Provider } from "../types"
+import { useTheme, useUser } from "../hooks"
+import { auth, db } from "../services"
 
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User } from 'firebase/auth'
-import { doc, setDoc, collection, onSnapshot } from 'firebase/firestore'
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  type User,
+} from "firebase/auth"
+import { doc, setDoc, collection, onSnapshot } from "firebase/firestore"
+import { AuthContext } from "../contexts"
 
-const AuthProvider: React.FC<Provider> = ({ children }) => {
+const AuthProvider: React.FC<Provider> = ({ children }: any) => {
   const {
     setDisplayName,
     setEmail,
@@ -21,23 +26,25 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
   const { startLoading, stopLoading } = useTheme()
   const [initializing, setInitializing] = useState<boolean>(true)
   const [user, setUser] = useState<User | null>(null)
-  const users = collection(db, 'users')
+  const users = collection(db, "users")
 
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged((user: User | null) => {
       setUser(user)
     })
 
-    return () => unsubscribeAuth()
+    return () => {
+      unsubscribeAuth()
+    }
   }, [])
 
   useEffect(() => {
-    if (user) {
+    if (user != null) {
       setInitializing(false)
       const userRef = doc(users, user.uid)
-      const unsubscribe = onSnapshot(userRef, snap => {
+      const unsubscribe = onSnapshot(userRef, (snap) => {
         const response = snap.data()
-        if (response) {
+        if (response != null) {
           setDisplayName(response.displayName)
           setEmail(response.email)
           setEmailVerified(response.emailVerified)
@@ -48,43 +55,54 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
           setOnboarding(response.onboarding)
         }
       })
-      return () => unsubscribe()
+      return () => {
+        unsubscribe()
+      }
     }
   }, [user])
 
-  const signIn = async (email: string, password: string) => {
-    startLoading('Signin in')
+  const signIn = async (email: string, password: string): Promise<any> => {
+    startLoading("Signin in")
     return await signInWithEmailAndPassword(auth, email, password)
-      .then(response => {
+      .then((response) => {
         stopLoading()
         setUser(response.user)
         return true
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.code, error.message)
         stopLoading()
         return false
       })
   }
 
-  const signUp = async (email: string, password: string, displayName: string, nickName: string) => {
-    startLoading('Creating an Account')
+  const signUp = async (
+    email: string,
+    password: string,
+    displayName: string,
+    nickName: string
+  ): Promise<any> => {
+    startLoading("Creating an Account")
     const response = createUserWithEmailAndPassword(auth, email, password)
-      .then(response => {
-        addUser(response.user, displayName, nickName)
+      .then((response) => {
+        void addUser(response.user, displayName, nickName)
         return true
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.code, error.message)
         stopLoading()
         return false
       })
-    return response
+    return await response
   }
 
-  const addUser = async (user: User, displayName: string, nickName: string) => {
+  const addUser = async (
+    user: User,
+    displayName: string,
+    nickName: string
+  ): Promise<any> => {
     const object = {
-      email: user.email || '',
+      email: user.email === null ? "" : user.email,
       displayName,
       nickName,
       uid: user.uid,
@@ -111,48 +129,47 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         setWatchedMovies(object.movies)
         stopLoading()
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.code, error.message)
         stopLoading()
         return false
       })
   }
 
-  const signOutFunction = async () => {
-    startLoading('Signing Out')
-    const response = signOut(auth)
+  const signOutFunction = (): void => {
+    startLoading("Signing Out")
+    signOut(auth)
       .then(() => {
         setUser(null)
         setInitializing(true)
         stopLoading()
         return true
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.code, error.message)
 
         stopLoading()
         return false
       })
-    return response
   }
 
-  const updatePreferences = async () => {
-    const response = signOut(auth)
-      .then(() => {
-        setUser(null)
-        stopLoading()
-        return true
-      })
-      .catch(error => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log(errorCode, errorMessage)
+  // const updatePreferences = async (): Promise<any> => {
+  //   const response = signOut(auth)
+  //     .then(() => {
+  //       setUser(null)
+  //       stopLoading()
+  //       return true
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code
+  //       const errorMessage = error.message
+  //       console.log(errorCode, errorMessage)
 
-        stopLoading()
-        return false
-      })
-    return response
-  }
+  //       stopLoading()
+  //       return false
+  //     })
+  //   return await response
+  // }
 
   const value = {
     initializing,
@@ -160,7 +177,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
     signUp,
     signOut: signOutFunction,
     setUser,
-  } satisfies AuthContextType
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

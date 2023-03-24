@@ -1,6 +1,6 @@
-import { tmdbConfig } from './config'
+import { tmdbConfig } from "./config"
 
-import axios from 'axios'
+import axios from "axios"
 
 const api_base_url = tmdbConfig.api_base_url
 const api_key = tmdbConfig.api_key

@@ -1,13 +1,13 @@
-import { useState } from 'react'
-import { ThemeContextType } from '../types'
-import { ThemeContext } from '../contexts'
+import { useState } from "react"
+import { type ThemeContextType } from "../types"
+import { ThemeContext } from "../contexts"
 
-type Provider = {
+interface Provider {
   children?: React.ReactNode
 }
 
 const ThemeProvider: React.FC<Provider> = ({ children }) => {
-  const [loadingText, setLoadingText] = useState<string>('')
+  const [loadingText, setLoadingText] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const startLoading = (text: string) => {
@@ -16,7 +16,9 @@ const ThemeProvider: React.FC<Provider> = ({ children }) => {
   }
 
   const stopLoading = () => {
-    setTimeout(() => setIsLoading(false), 1000)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }
 
   const value = {

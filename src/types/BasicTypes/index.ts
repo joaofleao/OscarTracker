@@ -10,8 +10,8 @@ export type Nomination = {
 }
 export type Category = {
   id: string
-  'en-US': string
-  'pt-BR': string
+  "en-US": string
+  "pt-BR": string
 }
 
 export type PreferencesType = {
@@ -34,11 +34,11 @@ export type UserType = {
 
 export type BasicMovieType = {
   item: {
-    'en-US': {
+    "en-US": {
       image: string
       name: string
     }
-    'pt-BR': {
+    "pt-BR": {
       image: string
       name: string
     }

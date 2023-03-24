@@ -1,6 +1,6 @@
-import { TouchableOpacity, Text } from 'react-native'
-import { styled } from 'nativewind'
-import { Google, Facebook } from '../../assets/images'
+import { TouchableOpacity, Text } from "react-native"
+import { styled } from "nativewind"
+import { Google, Facebook } from "../../assets/images"
 
 interface SocialButtonProps {
   name: string
@@ -9,15 +9,16 @@ interface SocialButtonProps {
 
 function SocialButtonComponent({ name, onPress, ...rest }: SocialButtonProps) {
   function getIcon() {
-    if (name === 'Facebook') return <Facebook />
-    if (name === 'Google') return <Google />
+    if (name === "Facebook") return <Facebook />
+    if (name === "Google") return <Google />
   }
 
   return (
     <TouchableOpacity
       onPress={onPress}
-      className='h-10 w-10 rounded-full items-center justify-center '
-      {...rest}>
+      className="h-10 w-10 rounded-full items-center justify-center "
+      {...rest}
+    >
       {getIcon()}
     </TouchableOpacity>
   )

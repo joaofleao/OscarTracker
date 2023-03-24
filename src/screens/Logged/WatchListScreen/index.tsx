@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { Text, View, FlatList } from 'react-native'
+import React, { useEffect, useState } from "react"
+import { Text, View, FlatList } from "react-native"
 import {
   ModelComponent,
   TextInputComponent,
   NomineeCardComponent,
   SeparatorComponent,
   HeaderComponent,
-} from '../../../components'
-import { useData } from '../../../hooks'
-import { routes } from '../../../utils'
-import { BasicMovieType } from '../../../types'
+} from "../../../components"
+import { useData } from "../../../hooks"
+import { routes } from "../../../utils"
+import { BasicMovieType } from "../../../types"
 
 function WatchListScreen({ navigation, route }: any) {
-  const [search, setSearch] = useState<string>('')
+  const [search, setSearch] = useState<string>("")
   const [data, setData] = useState<[]>([])
 
   const { currentMovies } = useData()
 
   useEffect(() => {
-    if (search === '') setData(currentMovies)
+    if (search === "") setData(currentMovies)
     else {
       const filtered = currentMovies.filter((movie: any) => {
-        const nameLower = movie['en-US'].name.toLowerCase()
+        const nameLower = movie["en-US"].name.toLowerCase()
         const searchLower = search.toLowerCase()
         return nameLower.includes(searchLower)
       })
@@ -35,34 +35,32 @@ function WatchListScreen({ navigation, route }: any) {
         onPress={() =>
           navigation.navigate(routes.logged.movie, {
             id: item.imdb,
-            poster: item['en-US'].image,
-            name: item['en-US'].name,
+            poster: item["en-US"].image,
+            name: item["en-US"].name,
           })
         }
-        className='mx-5'
-        image={item['en-US'].image}
-        title={item['en-US'].name}
+        className="mx-5"
+        image={item["en-US"].image}
+        title={item["en-US"].name}
         id={item.imdb}
       />
     )
   }
 
   return (
-    <ModelComponent
-      bottom={false}
-      top={false}>
+    <ModelComponent bottom={false} top={false}>
       <HeaderComponent>Watch List</HeaderComponent>
 
       <TextInputComponent
-        className='mx-5 mb-5'
-        placeholder='Search Movie'
+        className="mx-5 mb-5"
+        placeholder="Search Movie"
         onChange={(e: any) => setSearch(e.nativeEvent.text)}
       />
 
       <FlatList
         data={data}
         renderItem={renderItem}
-        keyExtractor={item => item.imdb}
+        keyExtractor={(item) => item.imdb}
         ItemSeparatorComponent={SeparatorComponent}
         ListFooterComponent={SeparatorComponent}
       />

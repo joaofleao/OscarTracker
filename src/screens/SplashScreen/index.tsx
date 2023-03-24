@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Animated } from 'react-native'
+import React, { useEffect, useRef, useState } from "react"
+import { Animated } from "react-native"
 
 type Props = {
   isAppReady: boolean
@@ -15,18 +15,22 @@ export default function SplashScreen({ children, isAppReady }: Props) {
   )
 }
 
-const LOADING_IMAGE = 'Loading image'
-const FADE_IN_IMAGE = 'Fade in image'
-const WAIT_FOR_APP_TO_BE_READY = 'Wait for app to be ready'
-const FADE_OUT = 'Fade out'
-const HIDDEN = 'Hidden'
+const LOADING_IMAGE = "Loading image"
+const FADE_IN_IMAGE = "Fade in image"
+const WAIT_FOR_APP_TO_BE_READY = "Wait for app to be ready"
+const FADE_OUT = "Fade out"
+const HIDDEN = "Hidden"
 
 export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
   const containerOpacity = useRef(new Animated.Value(1)).current
   const imageOpacity = useRef(new Animated.Value(0)).current
 
   const [state, setState] = useState<
-    typeof LOADING_IMAGE | typeof FADE_IN_IMAGE | typeof WAIT_FOR_APP_TO_BE_READY | typeof FADE_OUT | typeof HIDDEN
+    | typeof LOADING_IMAGE
+    | typeof FADE_IN_IMAGE
+    | typeof WAIT_FOR_APP_TO_BE_READY
+    | typeof FADE_OUT
+    | typeof HIDDEN
   >(LOADING_IMAGE)
 
   useEffect(() => {
@@ -67,17 +71,18 @@ export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
   return (
     <Animated.View
       collapsable={false}
-      className='bg-zinc-900 items-center justify-center h-full '
-      style={{ opacity: containerOpacity }}>
+      className="bg-zinc-900 items-center justify-center h-full "
+      style={{ opacity: containerOpacity }}
+    >
       <Animated.Image
-        source={require('../../assets/images/Logo/Logo.png')}
+        source={require("../../assets/images/Logo/Logo.png")}
         fadeDuration={0}
         onLoad={() => {
           setState(FADE_IN_IMAGE)
         }}
-        className='w-56 h-56 mb-20'
+        className="w-56 h-56 mb-20"
         style={{ opacity: imageOpacity }}
-        resizeMode='contain'
+        resizeMode="contain"
       />
     </Animated.View>
   )
