@@ -1,5 +1,5 @@
 import { createContext } from "react"
-interface AuthContextType {
+export interface AuthContextType {
   signIn: (email: string, password: string) => Promise<boolean>
   signUp: (
     email: string,
