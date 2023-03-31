@@ -1,14 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { ButtonComponent, ToastNotificationComponent } from '../components'
-import { ToastContext } from '../contexts'
+import { ToastNotificationComponent } from '../components'
+import { ToastContext, type ToastContextType } from '../contexts'
 import { useTheme } from '../hooks'
-import { type Provider } from '../types'
-import { type ToastContextType } from '../types/ContextTypes'
 
-const ToastProvider: React.FC<Provider> = ({ children }) => {
+const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const { isLoading } = useTheme()
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
@@ -23,7 +21,7 @@ const ToastProvider: React.FC<Provider> = ({ children }) => {
     }
   }, [isLoading])
 
-  const showToast = (title: string, description: string, type: string) => {
+  const showToast = (title: string, description: string, type: string): any => {
     setTitle(title)
     setDescription(description)
     setType(type)
@@ -33,7 +31,7 @@ const ToastProvider: React.FC<Provider> = ({ children }) => {
   const windowHeight = Dimensions.get('window').height
   const popAnim = useRef(new Animated.Value(windowHeight * -1)).current
 
-  const popIn = () => {
+  const popIn = (): any => {
     Animated.timing(popAnim, {
       toValue: insets.top,
       duration: 300,
@@ -43,7 +41,7 @@ const ToastProvider: React.FC<Provider> = ({ children }) => {
     popOut()
   }
 
-  const popOut = () => {
+  const popOut = (): any => {
     setTimeout(() => {
       Animated.timing(popAnim, {
         toValue: windowHeight * -1,

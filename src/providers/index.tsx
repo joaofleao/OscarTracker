@@ -10,14 +10,14 @@ import UserProvider from './UserProvider'
 
 interface Provider {
   children?: React.ReactNode
-  contextProviders?: any
+  contextProviders?: Element[]
 }
 
-const ContextProviderComposer = ({ contextProviders, children }: Provider) => {
-  return contextProviders.reduceRight((children: any, parent: any) => React.cloneElement(parent, { children }), children)
+const ContextProviderComposer = ({ contextProviders, children }: Provider): JSX.Element => {
+  return contextProviders?.reduceRight((children: any, parent: any) => React.cloneElement(parent, { children }), children) as JSX.Element
 }
 
-const ContextProviders = ({ children }: Provider) => {
+const ContextProviders = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   return (
     <ContextProviderComposer
       contextProviders={[

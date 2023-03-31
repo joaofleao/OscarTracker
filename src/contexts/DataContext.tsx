@@ -9,9 +9,9 @@ export interface DataContextType {
   currentPeople: any | null
   currentMoviesMap: any | null
   getMovieNominations: (movie: string) => any
-  setMovieUnwatched: (movie: string) => void
-  setMovieWatched: (movie: string) => void
-  updateUser: (email?: string, displayName?: string, nickName?: string, preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean }, onboarding?: boolean) => void
+  setMovieUnwatched: (movie: string) => any
+  setMovieWatched: (movie: string) => any
+  updateUser: (email?: string, displayName?: string, nickName?: string, preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean }, onboarding?: boolean) => any
 }
 
 const DataContext = createContext<DataContextType | null>(null)
