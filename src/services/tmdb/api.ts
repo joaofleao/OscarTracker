@@ -1,6 +1,6 @@
-import { tmdbConfig } from './config'
-
 import axios from 'axios'
+
+import { tmdbConfig } from './config'
 
 const api_base_url = tmdbConfig.api_base_url
 const api_key = tmdbConfig.api_key
@@ -43,4 +43,4 @@ const getProviders = async (id: string) => {
   return response.data
 }
 
-export { getMovie, getImage, getCast, getVideos, getProviders }
+export { getCast, getImage, getMovie, getProviders, getVideos }

@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, ListRenderItemInfo, Text, TouchableOpacity, View } from 'react-native'
-import {
-  HeaderComponent,
-  ModelComponent,
-  SeparatorComponent,
-  TextInputComponent,
-  ProgressBarComponent,
-  PosterComponent,
-} from '../../../components'
-import { useData, usePersonalData, useUser, useAuth } from '../../../hooks'
+import { FlatList, type ListRenderItemInfo, Text, TouchableOpacity, View } from 'react-native'
+
+import { HeaderComponent, ModelComponent, PosterComponent, ProgressBarComponent, SeparatorComponent, TextInputComponent } from '../../../components'
+import { useAuth, useData, usePersonalData, useUser } from '../../../hooks'
 import { getImage } from '../../../services/tmdb/api'
 import { routes } from '../../../utils'
 
@@ -60,7 +54,8 @@ function HomeScreen({ navigation, route }: any) {
             poster: movie['en-US'].image,
             name: movie['en-US'].name,
           })
-        }>
+        }
+      >
         <PosterComponent
           large={category === '19'}
           spoiler={showPoster}
@@ -70,7 +65,8 @@ function HomeScreen({ navigation, route }: any) {
 
         <Text
           numberOfLines={2}
-          className='mt-2 font-primaryBold text-white text-base'>
+          className="mt-2 font-primaryBold text-white text-base"
+        >
           {text}
         </Text>
       </TouchableOpacity>
@@ -79,19 +75,18 @@ function HomeScreen({ navigation, route }: any) {
   const renderCategory = ({ item }: ListRenderItemInfo<any>) => {
     return (
       <View>
-        <View className='flex-row justify-between items-center mx-4 mb-4'>
-          <Text className='font-primaryBold text-white text-xl'>{currentCategoriesMap.get(item.key)}</Text>
+        <View className="flex-row justify-between items-center mx-4 mb-4">
+          <Text className="font-primaryBold text-white text-xl">{currentCategoriesMap.get(item.key)}</Text>
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate(routes.logged.nomination, { id: item.key, movies: item.value })}>
-            <Text className='font-primaryDefault text-zinc-600 text-sm'>see more</Text>
+          <TouchableOpacity onPress={() => navigation.navigate(routes.logged.nomination, { id: item.key, movies: item.value })}>
+            <Text className="font-primaryDefault text-zinc-600 text-sm">see more</Text>
           </TouchableOpacity>
         </View>
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
           data={item.value}
-          renderItem={movie => renderMovie(movie, item.key)}
+          renderItem={(movie) => renderMovie(movie, item.key)}
           ItemSeparatorComponent={SeparatorComponent}
           ListFooterComponent={SeparatorComponent}
           ListHeaderComponent={SeparatorComponent}
@@ -103,7 +98,8 @@ function HomeScreen({ navigation, route }: any) {
   return (
     <ModelComponent
       bottom={false}
-      top={false}>
+      top={false}
+    >
       <HeaderComponent>Home</HeaderComponent>
 
       <ProgressBarComponent
@@ -113,10 +109,12 @@ function HomeScreen({ navigation, route }: any) {
       />
 
       <TextInputComponent
-        className='mx-4 mb-5'
+        className="mx-4 mb-5"
         value={search}
-        placeholder='Search Category'
-        onChange={(e: any) => setSearch(e.nativeEvent.text)}
+        placeholder="Search Category"
+        onChange={(e: any) => {
+          setSearch(e.nativeEvent.text)
+        }}
       />
 
       <FlatList

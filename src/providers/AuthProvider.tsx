@@ -1,25 +1,16 @@
-import { useState, useEffect } from 'react'
-import { AuthContextType, Provider } from '../types'
-import { AuthContext } from '../contexts'
-import { useTheme, useUser, useToast } from '../hooks'
-import { auth, db } from '../services'
+import { useEffect, useState } from 'react'
+import { type FirebaseError } from 'firebase/app'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth'
+import { collection, doc, onSnapshot, setDoc } from 'firebase/firestore'
 
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User } from 'firebase/auth'
-import { doc, setDoc, collection, onSnapshot } from 'firebase/firestore'
-import { FirebaseError } from 'firebase/app'
+import { AuthContext } from '../contexts'
+import { useTheme, useToast, useUser } from '../hooks'
+import { auth, db } from '../services'
+import { type AuthContextType, type Provider } from '../types'
 
 const AuthProvider: React.FC<Provider> = ({ children }) => {
   const { showToast } = useToast()
-  const {
-    setDisplayName,
-    setEmail,
-    setEmailVerified,
-    setNickName,
-    setPreferences,
-    setUid,
-    setWatchedMovies,
-    setOnboarding,
-  } = useUser()
+  const { setDisplayName, setEmail, setEmailVerified, setNickName, setPreferences, setUid, setWatchedMovies, setOnboarding } = useUser()
   const { startLoading, stopLoading } = useTheme()
   const [initializing, setInitializing] = useState<boolean>(true)
   const [user, setUser] = useState<User | null>(null)
@@ -30,16 +21,18 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
       setUser(user)
     })
 
-    return () => unsubscribeAuth()
+    return () => {
+      unsubscribeAuth()
+    }
   }, [])
 
   useEffect(() => {
-    if (user) {
+    if (user != null) {
       setInitializing(false)
       const userRef = doc(users, user.uid)
-      const unsubscribe = onSnapshot(userRef, snap => {
+      const unsubscribe = onSnapshot(userRef, (snap) => {
         const response = snap.data()
-        if (response) {
+        if (response != null) {
           setDisplayName(response.displayName)
           setEmail(response.email)
           setEmailVerified(response.emailVerified)
@@ -50,14 +43,16 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
           setOnboarding(response.onboarding)
         }
       })
-      return () => unsubscribe()
+      return () => {
+        unsubscribe()
+      }
     }
   }, [user])
 
   const signIn = async (email: string, password: string) => {
     startLoading('Signin in')
     return await signInWithEmailAndPassword(auth, email, password)
-      .then(response => {
+      .then((response) => {
         stopLoading()
         setUser(response.user)
         return true
@@ -72,16 +67,16 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
   const signUp = async (email: string, password: string, displayName: string, nickName: string) => {
     startLoading('Creating an Account')
     const response = createUserWithEmailAndPassword(auth, email, password)
-      .then(response => {
+      .then((response) => {
         addUser(response.user, displayName, nickName)
         return true
       })
-      .catch(error => {
+      .catch((error) => {
         showToast(error.code, error.message, 'error')
         stopLoading()
         return false
       })
-    return response
+    return await response
   }
 
   const addUser = async (user: User, displayName: string, nickName: string) => {
@@ -113,7 +108,7 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         setWatchedMovies(object.movies)
         stopLoading()
       })
-      .catch(error => {
+      .catch((error) => {
         showToast(error.code, error.message, 'error')
         stopLoading()
         return false
@@ -129,13 +124,13 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         stopLoading()
         return true
       })
-      .catch(error => {
+      .catch((error) => {
         showToast(error.code, error.message, 'error')
 
         stopLoading()
         return false
       })
-    return response
+    return await response
   }
 
   const updatePreferences = async () => {
@@ -145,13 +140,13 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         stopLoading()
         return true
       })
-      .catch(error => {
+      .catch((error) => {
         showToast(error.code, error.message, 'error')
 
         stopLoading()
         return false
       })
-    return response
+    return await response
   }
 
   const value = {

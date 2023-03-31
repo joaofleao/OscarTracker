@@ -1,4 +1,4 @@
-export type ScreenTypes = {
+export interface ScreenTypes {
   IndexScreen: undefined
   SignInScreen: undefined
   SignUpEmailScreen: undefined

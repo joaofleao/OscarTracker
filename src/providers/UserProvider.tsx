@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { PreferencesType, Provider, UserType } from '../types'
+
 import { UserContext } from '../contexts'
-import { UserContextType } from '../types/ContextTypes'
+import { type PreferencesType, type Provider, UserType } from '../types'
+import { type UserContextType } from '../types/ContextTypes'
 
 const UserProvider: React.FC<Provider> = ({ children }) => {
   const [email, setEmail] = useState<string>('')

@@ -1,6 +1,7 @@
-import { TouchableOpacity, Text } from 'react-native'
+import { Text, TouchableOpacity } from 'react-native'
 import { styled } from 'nativewind'
-import { Google, Facebook } from '../../assets/images'
+
+import { Facebook, Google } from '../../assets/images'
 
 interface SocialButtonProps {
   name: string
@@ -16,8 +17,9 @@ function SocialButtonComponent({ name, onPress, ...rest }: SocialButtonProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className='h-10 w-10 rounded-full items-center justify-center '
-      {...rest}>
+      className="h-10 w-10 rounded-full items-center justify-center "
+      {...rest}
+    >
       {getIcon()}
     </TouchableOpacity>
   )

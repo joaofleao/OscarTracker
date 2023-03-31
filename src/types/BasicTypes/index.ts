@@ -1,27 +1,27 @@
-export type Provider = {
+export interface Provider {
   children?: React.ReactNode
 }
-export type Nomination = {
+export interface Nomination {
   category: string
   movie: string
   person?: string
   information?: string
   extra?: string
 }
-export type Category = {
+export interface Category {
   id: string
   'en-US': string
   'pt-BR': string
 }
 
-export type PreferencesType = {
+export interface PreferencesType {
   poster: boolean
   cast: boolean
   plot: boolean
   ratings: boolean
 }
 
-export type UserType = {
+export interface UserType {
   preferences: PreferencesType
   email: string
   displayName: string
@@ -32,7 +32,7 @@ export type UserType = {
   uid: string
 }
 
-export type BasicMovieType = {
+export interface BasicMovieType {
   item: {
     'en-US': {
       image: string

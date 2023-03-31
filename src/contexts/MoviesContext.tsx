@@ -1,5 +1,6 @@
 import { createContext } from 'react'
-import { MoviesContextType } from '../types'
+
+import { type MoviesContextType } from '../types'
 
 const MoviesContext = createContext<MoviesContextType>({} as MoviesContextType)
 MoviesContext.displayName = 'MoviesContext'

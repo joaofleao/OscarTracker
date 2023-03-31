@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { BasicMovieType } from '../types'
+
 import { useAuth, useData, useUser } from '../hooks'
+import { type BasicMovieType } from '../types'
 
 function usePersonalData() {
   const { currentMovies } = useData()

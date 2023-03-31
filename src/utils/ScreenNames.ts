@@ -1,4 +1,4 @@
-import { ScreenTypes } from '../types'
+import { type ScreenTypes } from '../types'
 
 export const routes = {
   unlogged: {

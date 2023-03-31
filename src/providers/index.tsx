@@ -1,22 +1,20 @@
 import React from 'react'
-import AuthProvider from './AuthProvider'
-import DataProvider from './DataProvider'
-import ThemeProvider from './ThemeProvider'
-import UserProvider from './UserProvider'
-import ToastProvider from './ToastProvider'
-import MoviesProvider from './MoviesProvider'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-type Provider = {
+import AuthProvider from './AuthProvider'
+import DataProvider from './DataProvider'
+import MoviesProvider from './MoviesProvider'
+import ThemeProvider from './ThemeProvider'
+import ToastProvider from './ToastProvider'
+import UserProvider from './UserProvider'
+
+interface Provider {
   children?: React.ReactNode
   contextProviders?: any
 }
 
 const ContextProviderComposer = ({ contextProviders, children }: Provider) => {
-  return contextProviders.reduceRight(
-    (children: any, parent: any) => React.cloneElement(parent, { children }),
-    children,
-  )
+  return contextProviders.reduceRight((children: any, parent: any) => React.cloneElement(parent, { children }), children)
 }
 
 const ContextProviders = ({ children }: Provider) => {
@@ -30,7 +28,8 @@ const ContextProviders = ({ children }: Provider) => {
         <AuthProvider key={'auth_provider'} />,
         <MoviesProvider key={'movies_provider'} />,
         <DataProvider key={'data_provider'} />,
-      ]}>
+      ]}
+    >
       {children}
     </ContextProviderComposer>
   )

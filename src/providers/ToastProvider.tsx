@@ -1,11 +1,12 @@
-import { useState, useRef, useEffect } from 'react'
-import { Provider } from '../types'
-import { ToastContext } from '../contexts'
-import { ToastContextType } from '../types/ContextTypes'
-import { ButtonComponent, ToastNotificationComponent } from '../components'
-import { Dimensions, Animated } from 'react-native'
+import { useEffect, useRef, useState } from 'react'
+import { Animated, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
+import { ButtonComponent, ToastNotificationComponent } from '../components'
+import { ToastContext } from '../contexts'
 import { useTheme } from '../hooks'
+import { type Provider } from '../types'
+import { type ToastContextType } from '../types/ContextTypes'
 
 const ToastProvider: React.FC<Provider> = ({ children }) => {
   const { isLoading } = useTheme()
