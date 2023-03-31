@@ -1,9 +1,14 @@
 import { useContext } from 'react'
 
-import { UserContext } from '../contexts'
+import { UserContext, type UserContextType } from '../contexts'
 
-const useUser = () => {
-  return useContext(UserContext)
+const useUser = (): UserContextType => {
+  const useUserContext = useContext(UserContext)
+
+  if (useUserContext == null) {
+    throw new Error('useUser has to be used within <UserContext.Provider>')
+  }
+  return useUserContext
 }
 
 export default useUser
