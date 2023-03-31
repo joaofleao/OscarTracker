@@ -1,17 +1,16 @@
-import { useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { arrayRemove, arrayUnion, collection, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore'
 
-import { DataContext } from '../contexts'
-import { useAuth, useUser } from '../hooks'
+import { DataContext, type DataContextType } from '../contexts'
+import { useUser } from '../hooks'
 import { db } from '../services'
-import { type DataContextType, type Provider } from '../types'
-import categoriesJson from '../utils/dictionary/categories.json'
+import { categoriesJson } from '../utils'
 
 const editions = collection(db, 'editions')
 const users = collection(db, 'users')
 
-const DataProvider: React.FC<Provider> = ({ children }) => {
-  const [currentEdition, setCurrentEdition] = useState<string>('95')
+const DataProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
+  const [currentEdition] = useState<string>('95')
 
   const [currentMovies, setCurrentMovies] = useState<any>(null)
   const [currentMoviesMap, setCurrentMoviesMap] = useState<any>(null)
@@ -29,22 +28,22 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
   const { uid } = useUser()
 
   useMemo(() => {
-    async function fetchData() {
-      getCategories()
-      await getEditionMovies()
-      await getEditionNominations()
-      await getEditionPeople()
+    const fetchData = async (): Promise<void> => {
+      void getCategories()
+      void getEditionMovies()
+      void getEditionNominations()
+      void getEditionPeople()
     }
-    if (uid) fetchData()
+    if (uid != null) void fetchData()
   }, [uid])
 
-  async function getCategories() {
+  async function getCategories(): Promise<void> {
     const categoriesMap = new Map()
     categoriesJson.forEach((doc) => categoriesMap.set(doc.id, doc['en-US']))
     setCurrentCategoriesMap(categoriesMap)
   }
 
-  async function getEditionMovies() {
+  async function getEditionMovies(): Promise<void> {
     console.log('edition movies fetched')
     const movies = collection(editionRef, 'movies')
     const orderedMovies = query(movies, orderBy('en-US.name'))
@@ -62,7 +61,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     setCurrentMoviesMap(map)
   }
 
-  async function getEditionPeople() {
+  async function getEditionPeople(): Promise<void> {
     console.log('edition people fetched')
     const people = collection(editionRef, 'people')
     const orderedPeople = query(people, orderBy('name'))
@@ -77,7 +76,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     setCurrentPeopleMap(map)
   }
 
-  async function getEditionNominations() {
+  async function getEditionNominations(): Promise<void> {
     console.log('edition nominations fetched')
     const nominations = collection(editionRef, 'nominations')
 
@@ -86,7 +85,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     const map: any = new Map()
     response.forEach((doc) => {
       const data = doc.data()
-      const oldValues = map.get(data.category) || []
+      const oldValues = map.get(data.category) ?? []
       map.set(data.category, [data, ...oldValues])
     })
 
@@ -99,7 +98,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     setCurrentNominationsByCategory(ordered)
   }
 
-  async function getMovieNominations(movie: string) {
+  async function getMovieNominations(movie: string): Promise<any> {
     console.log('movie nominations fetched')
     const nominations = collection(editionRef, 'nominations')
     const movieNominations = query(nominations, where('movie', '==', movie))
@@ -114,30 +113,30 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     return array
   }
 
-  async function setMovieUnwatched(movie: string) {
+  async function setMovieUnwatched(movie: string): Promise<void> {
     const userRef = doc(users, uid)
 
-    updateDoc(userRef, {
+    void updateDoc(userRef, {
       movies: arrayRemove(movie),
     })
   }
 
-  async function updateUser(email?: string, displayName?: string, nickName?: string, preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean }, onboarding?: boolean) {
+  async function updateUser(email?: string, displayName?: string, nickName?: string, preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean }, onboarding?: boolean): Promise<void> {
     const userRef = doc(users, uid)
 
-    updateDoc(userRef, {
-      ...(email && { email }),
-      ...(displayName && { displayName }),
-      ...(nickName && { nickName }),
+    void updateDoc(userRef, {
+      ...(email != null && { email }),
+      ...(displayName != null && { displayName }),
+      ...(nickName != null && { nickName }),
       ...(preferences != null && { preferences }),
-      ...(onboarding && { onboarding }),
+      ...(onboarding != null && { onboarding }),
     })
   }
 
-  async function setMovieWatched(movie: string) {
+  async function setMovieWatched(movie: string): Promise<void> {
     const userRef = doc(users, uid)
 
-    updateDoc(userRef, {
+    void updateDoc(userRef, {
       movies: arrayUnion(movie),
     })
   }

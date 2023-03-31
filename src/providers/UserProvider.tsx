@@ -1,10 +1,9 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
-import { UserContext } from '../contexts'
-import { type PreferencesType, type Provider, UserType } from '../types'
-import { type UserContextType } from '../types/ContextTypes'
+import { UserContext, type UserContextType } from '../contexts'
+import { type PreferencesType } from '../types'
 
-const UserProvider: React.FC<Provider> = ({ children }) => {
+const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const [email, setEmail] = useState<string>('')
   const [displayName, setDisplayName] = useState<string>('')
   const [emailVerified, setEmailVerified] = useState<boolean>(false)
