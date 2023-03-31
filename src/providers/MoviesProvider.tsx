@@ -5,16 +5,16 @@ import * as tmdb from '../services/tmdb/api'
 
 const MoviesProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const getMovie = async (id: string): Promise<any> => {
-    return tmdb.getMovie(id)
+    return await tmdb.getMovie(id)
   }
   const getCast = async (id: string): Promise<any> => {
-    return tmdb.getCast(id)
+    return await tmdb.getCast(id)
   }
   const getTrailer = async (id: string): Promise<any> => {
-    return tmdb.getVideos(id)
+    return await tmdb.getVideos(id)
   }
   const getProviders = async (id: string): Promise<any> => {
-    return tmdb.getProviders(id)
+    return await tmdb.getProviders(id)
   }
 
   const value = { getMovie, getCast, getTrailer, getProviders } satisfies MoviesContextType

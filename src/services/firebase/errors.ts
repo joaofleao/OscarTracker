@@ -1,10 +1,12 @@
+import { type FirebaseError } from 'firebase/app'
+
 interface Error {
-  code: string
-  message: string
-  name: string
+  type: string
+  title: string
+  description: string
 }
 
-const getError = (response: Error) => {
+const getError = (response: FirebaseError): Error => {
   if (response.code === 'auth/invalid-email')
     return {
       type: 'danger',
