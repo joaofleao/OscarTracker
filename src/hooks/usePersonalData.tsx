@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react'
-
-import { useAuth, useData, useUser } from '../hooks'
+import { useData, useUser } from '../hooks'
 import { type BasicMovieType } from '../types'
 
-function usePersonalData() {
+interface PersonalDataType {
+  isWatched: (imdb: string) => boolean
+  totalMovies: () => number
+  totalWatchedMovies: () => number
+  watchedMoviesInCategory: (categoryMovies: BasicMovieType[]) => number
+  uniqueMovies: (categoryMovies: BasicMovieType[]) => number
+}
+
+const usePersonalData = (): PersonalDataType => {
   const { currentMovies } = useData()
   const { watchedMovies } = useUser()
 
   const totalMovies = (): number => {
-    if (currentMovies) return currentMovies.length
+    if (currentMovies != null) return currentMovies.length
     return 0
   }
   const totalWatchedMovies = (): number => {

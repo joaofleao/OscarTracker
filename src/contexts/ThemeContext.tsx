@@ -1,8 +1,13 @@
 import { createContext } from 'react'
 
-import { type ThemeContextType } from '../types'
+export interface ThemeContextType {
+  loadingText: string
+  isLoading: boolean
+  stopLoading: () => void
+  startLoading: (loading: string) => void
+}
 
-const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType)
+const ThemeContext = createContext<ThemeContextType | null>(null)
 ThemeContext.displayName = 'ThemeContext'
 
 export default ThemeContext
