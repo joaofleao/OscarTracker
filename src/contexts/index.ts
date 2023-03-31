@@ -1,4 +1,4 @@
-export { default as AuthContext } from './AuthContext'
+export { default as AuthContext, type AuthContextType } from './AuthContext'
 export { default as DataContext } from './DataContext'
 export { default as MoviesContext } from './MoviesContext'
 export { default as ThemeContext } from './ThemeContext'

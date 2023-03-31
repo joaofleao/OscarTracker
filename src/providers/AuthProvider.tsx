@@ -1,26 +1,26 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { type FirebaseError } from 'firebase/app'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth'
 import { collection, doc, onSnapshot, setDoc } from 'firebase/firestore'
 
-import { AuthContext } from '../contexts'
+import { AuthContext, type AuthContextType } from '../contexts'
 import { useTheme, useToast, useUser } from '../hooks'
 import { auth, db } from '../services'
-import { type AuthContextType, type Provider } from '../types'
 
-const AuthProvider: React.FC<Provider> = ({ children }) => {
+const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const { showToast } = useToast()
   const { setDisplayName, setEmail, setEmailVerified, setNickName, setPreferences, setUid, setWatchedMovies, setOnboarding } = useUser()
   const { startLoading, stopLoading } = useTheme()
+
   const [initializing, setInitializing] = useState<boolean>(true)
   const [user, setUser] = useState<User | null>(null)
+
   const users = collection(db, 'users')
 
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged((user: User | null) => {
       setUser(user)
     })
-
     return () => {
       unsubscribeAuth()
     }
@@ -49,39 +49,35 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
     }
   }, [user])
 
-  const signIn = async (email: string, password: string) => {
+  const showError = (error: FirebaseError): void => {
+    showToast(error.code, error.message, 'error')
+  }
+
+  const signIn = async (email: string, password: string): Promise<void> => {
     startLoading('Signin in')
-    return await signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        stopLoading()
         setUser(response.user)
-        return true
       })
-      .catch((error: FirebaseError) => {
-        stopLoading()
-        showToast(error.code, error.message, 'error')
-        return false
-      })
+      .catch(showError)
+      .finally(stopLoading)
   }
 
-  const signUp = async (email: string, password: string, displayName: string, nickName: string) => {
+  const signUp = async (email: string, password: string, displayName: string, nickName: string): Promise<void> => {
     startLoading('Creating an Account')
-    const response = createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        addUser(response.user, displayName, nickName)
-        return true
+        void addUser(response.user, displayName, nickName)
       })
-      .catch((error) => {
-        showToast(error.code, error.message, 'error')
-        stopLoading()
-        return false
-      })
-    return await response
+      .catch(showError)
+      .finally(stopLoading)
   }
 
-  const addUser = async (user: User, displayName: string, nickName: string) => {
+  const addUser = async (user: User, displayName: string, nickName: string): Promise<void> => {
+    const userRef = doc(users, user.uid)
+
     const object = {
-      email: user.email || '',
+      email: user.email ?? '',
       displayName,
       nickName,
       uid: user.uid,
@@ -94,7 +90,6 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         ratings: false,
       },
     }
-    const userRef = doc(users, user.uid)
 
     await setDoc(userRef, object)
       .then(() => {
@@ -106,47 +101,20 @@ const AuthProvider: React.FC<Provider> = ({ children }) => {
         setPreferences(object.preferences)
         setUid(object.uid)
         setWatchedMovies(object.movies)
-        stopLoading()
       })
-      .catch((error) => {
-        showToast(error.code, error.message, 'error')
-        stopLoading()
-        return false
-      })
+      .catch(showError)
+      .finally(stopLoading)
   }
 
-  const signOutFunction = async () => {
+  const signOutFunction = async (): Promise<void> => {
     startLoading('Signing Out')
-    const response = signOut(auth)
+    await signOut(auth)
       .then(() => {
         setUser(null)
         setInitializing(true)
-        stopLoading()
-        return true
       })
-      .catch((error) => {
-        showToast(error.code, error.message, 'error')
-
-        stopLoading()
-        return false
-      })
-    return await response
-  }
-
-  const updatePreferences = async () => {
-    const response = signOut(auth)
-      .then(() => {
-        setUser(null)
-        stopLoading()
-        return true
-      })
-      .catch((error) => {
-        showToast(error.code, error.message, 'error')
-
-        stopLoading()
-        return false
-      })
-    return await response
+      .catch(showError)
+      .finally(stopLoading)
   }
 
   const value = {
