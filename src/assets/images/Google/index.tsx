@@ -1,21 +1,24 @@
 import * as React from 'react'
-import Svg, { G, Path } from 'react-native-svg'
+import { View } from 'react-native'
+import Svg, { G, Path, type SvgProps } from 'react-native-svg'
 
-interface IconProps {
-  width?: number
-  height?: number
+interface GoogleProps extends SvgProps {
+  width?: number | string
+  height?: number | string
 }
 
-function Google({ width = 40, height = 40, ...rest }: IconProps) {
+const Google = ({ height, width, ...props }: GoogleProps): JSX.Element => {
+  const originalWidth = 40
+  const originalHeight = 40
+  const aspectRatio = originalWidth / originalHeight
   return (
-    <Svg
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-      fill="none"
-      {...rest}
-    >
-      <G clipPath="url(#clip0_1063_706)">
+    <View style={{ height, width, aspectRatio }}>
+      <Svg
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${originalWidth} ${originalHeight}`}
+        {...props}
+      >
         <Path
           d="M19.9999 0C31.0462 0 40 8.95499 40 20.0001C40 31.0464 31.0462 40 19.9999 40C8.95362 40 0 31.0462 0 20.0001C0 8.95499 8.95376 0 19.9999 0Z"
           fill="#E7E7E7"
@@ -38,8 +41,9 @@ function Google({ width = 40, height = 40, ...rest }: IconProps) {
             fill="#FBBC05"
           />
         </G>
-      </G>
-    </Svg>
+      </Svg>
+    </View>
   )
 }
+
 export default Google
