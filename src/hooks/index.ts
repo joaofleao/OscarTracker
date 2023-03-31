@@ -1,9 +1,9 @@
 import useAuth from './useAuth'
-import useTheme from './useTheme'
 import useData from './useData'
-import usePersonalData from './usePersonalData'
-import useUser from './useUser'
-import useToast from './useToast'
 import useMovies from './useMovies'
+import usePersonalData from './usePersonalData'
+import useTheme from './useTheme'
+import useToast from './useToast'
+import useUser from './useUser'
 
-export { useAuth, useTheme, useData, usePersonalData, useUser, useToast, useMovies }
+export { useAuth, useData, useMovies, usePersonalData, useTheme, useToast, useUser }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { FlatList } from 'react-native'
-import { HeaderComponent, ModelComponent, SeparatorComponent, NomineeCardComponent } from '../../../components'
+
+import { HeaderComponent, ModelComponent, NomineeCardComponent, SeparatorComponent } from '../../../components'
 import { useData } from '../../../hooks'
 import { routes } from '../../../utils'
 
@@ -29,7 +30,7 @@ function NominationScreen({ navigation, route }: any) {
             name: movie['en-US'].name,
           })
         }
-        className='mx-4'
+        className="mx-4"
         image={image}
         title={title}
         information={information}
@@ -42,14 +43,15 @@ function NominationScreen({ navigation, route }: any) {
     <ModelComponent>
       <HeaderComponent
         leadingAction={() => navigation.goBack()}
-        leadingButton={'arrow-left'}>
+        leadingButton={'arrow-left'}
+      >
         {currentCategoriesMap.get(id)}
       </HeaderComponent>
 
       <FlatList
         data={movies}
         renderItem={renderMovie}
-        keyExtractor={item => item.information}
+        keyExtractor={(item) => item.information}
         ItemSeparatorComponent={SeparatorComponent}
         ListFooterComponent={SeparatorComponent}
       />

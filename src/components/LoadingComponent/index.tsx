@@ -3,7 +3,7 @@ import LottieView from 'lottie-react-native'
 
 import { dots, movie } from '../../assets/animations'
 
-type LoadingComponentProps = {
+interface LoadingComponentProps {
   animation?: string
   speed?: number
   size?: number

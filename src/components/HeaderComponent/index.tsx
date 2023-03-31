@@ -1,7 +1,8 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { styled } from 'nativewind'
-import { IconComponent } from '../../components'
 import colors from 'tailwindcss/colors'
+
+import { IconComponent } from '../../components'
 
 interface HeaderProps {
   children?: string
@@ -11,38 +12,34 @@ interface HeaderProps {
   trailingAction?: () => void
 }
 
-function HeaderComponent({
-  children,
-  leadingAction,
-  leadingButton,
-  trailingAction,
-  trailingButton,
-  ...rest
-}: HeaderProps) {
+function HeaderComponent({ children, leadingAction, leadingButton, trailingAction, trailingButton, ...rest }: HeaderProps) {
   const getButton = (action?: () => void, button?: string) => {
-    if (action && button)
+    if (action != null && button)
       return (
         <TouchableOpacity
-          className='w-8 h-8 justify-center items-center rounded-lg'
-          onPress={action}>
+          className="w-8 h-8 justify-center items-center rounded-lg"
+          onPress={action}
+        >
           <IconComponent
-            className='text-amber-500'
+            className="text-amber-500"
             name={button}
             size={24}
           />
         </TouchableOpacity>
       )
-    else return <View className='w-8 h-8 justify-center items-center' />
+    else return <View className="w-8 h-8 justify-center items-center" />
   }
   return (
     <View
-      className='flex-row justify-between items-center py-5 px-4'
-      {...rest}>
+      className="flex-row justify-between items-center py-5 px-4"
+      {...rest}
+    >
       {getButton(leadingAction, leadingButton)}
       <Text
-        className=' flex-1 text-white text-lg mx-6 font-primaryRegular text-center '
-        lineBreakMode='middle'
-        numberOfLines={1}>
+        className=" flex-1 text-white text-lg mx-6 font-primaryRegular text-center "
+        lineBreakMode="middle"
+        numberOfLines={1}
+      >
         {children}
       </Text>
       {getButton(trailingAction, trailingButton)}

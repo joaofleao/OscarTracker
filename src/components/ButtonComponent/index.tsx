@@ -1,8 +1,8 @@
-import { TouchableOpacity, Text, View } from 'react-native'
-import { IconComponent } from '../../components'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { styled } from 'nativewind'
-
 import colors from 'tailwindcss/colors'
+
+import { IconComponent } from '../../components'
 
 interface ButtonProps {
   appearance?: 'primary' | 'secondary' | 'dark' | 'light'
@@ -38,8 +38,9 @@ function ButtonComponent({ name, onPress, variant = 'filled', iconPositon, icon,
         ${outlined && 'border-solid border-2 border-amber-500'}
         ${filled && 'bg-amber-500'}
         `}
-      {...rest}>
-      <View className='flex-row justify-center items-center '>
+      {...rest}
+    >
+      <View className="flex-row justify-center items-center ">
         {icon && iconPositon === 'leading' && (
           <IconComponent
             name={icon}
@@ -52,7 +53,8 @@ function ButtonComponent({ name, onPress, variant = 'filled', iconPositon, icon,
         <Text
           className={`text-lg font-primaryBold text-center flex-1`}
           style={{ color: getColor() }}
-          numberOfLines={1}>
+          numberOfLines={1}
+        >
           {name}
         </Text>
 

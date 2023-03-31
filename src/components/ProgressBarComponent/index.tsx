@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Text, View, Animated } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { Animated, Text, View } from 'react-native'
 import { styled } from 'nativewind'
 
 interface ProgressBarProps {
@@ -28,38 +28,42 @@ function ProgressBarComponent({ total, progress, animated, ...rest }: ProgressBa
   if (animated)
     return (
       <View
-        className='flex-row justify-between mx-4 items-center'
-        {...rest}>
+        className="flex-row justify-between mx-4 items-center"
+        {...rest}
+      >
         <View>
-          <Text className='text-zinc-600 mr-3 font-primaryRegular '>{progress}</Text>
+          <Text className="text-zinc-600 mr-3 font-primaryRegular ">{progress}</Text>
         </View>
-        <View className='bg-zinc-800 h-2 flex-1 rounded-3xl overflow-hidden'>
+        <View className="bg-zinc-800 h-2 flex-1 rounded-3xl overflow-hidden">
           {animatedValue && (
             <Animated.View
-              onLayout={e => setWidth(e.nativeEvent.layout.width)}
+              onLayout={(e) => {
+                setWidth(e.nativeEvent.layout.width)
+              }}
               style={{ transform: [{ translateX: animatedValue.current }] }}
-              className='bg-amber-500 h-full w-full rounded-3xl absolute'
+              className="bg-amber-500 h-full w-full rounded-3xl absolute"
             />
           )}
         </View>
-        <Text className='text-zinc-600 ml-4 font-primaryRegular '>{total}</Text>
+        <Text className="text-zinc-600 ml-4 font-primaryRegular ">{total}</Text>
       </View>
     )
   else
     return (
       <View
-        className='flex-row justify-between mx-4 items-center'
-        {...rest}>
+        className="flex-row justify-between mx-4 items-center"
+        {...rest}
+      >
         <View>
-          <Text className='text-zinc-600 mr-3 font-primaryRegular '>{progress}</Text>
+          <Text className="text-zinc-600 mr-3 font-primaryRegular ">{progress}</Text>
         </View>
-        <View className='bg-zinc-800 h-2 flex-1 rounded-3xl overflow-hidden'>
+        <View className="bg-zinc-800 h-2 flex-1 rounded-3xl overflow-hidden">
           <View
             style={{ width: `${(progress / total) * 100}%` }}
-            className='bg-amber-500 h-full rounded-3xl absolute'
+            className="bg-amber-500 h-full rounded-3xl absolute"
           />
         </View>
-        <Text className='text-zinc-600 ml-4 font-primaryRegular '>{total}</Text>
+        <Text className="text-zinc-600 ml-4 font-primaryRegular ">{total}</Text>
       </View>
     )
 }

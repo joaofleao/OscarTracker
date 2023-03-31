@@ -1,6 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
 import { HeaderComponent } from '../../components'
 
 interface ModelProps {
@@ -22,8 +23,9 @@ function ModelComponent({ children, top = true, bottom = true, left = true, righ
 
   return (
     <View
-      className='flex-1 bg-zinc-900 '
-      style={margins}>
+      className="flex-1 bg-zinc-900 "
+      style={margins}
+    >
       {children}
     </View>
   )

@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { ThemeContextType } from '../types'
-import { ThemeContext } from '../contexts'
 
-type Provider = {
+import { ThemeContext } from '../contexts'
+import { type ThemeContextType } from '../types'
+
+interface Provider {
   children?: React.ReactNode
 }
 
@@ -16,7 +17,9 @@ const ThemeProvider: React.FC<Provider> = ({ children }) => {
   }
 
   const stopLoading = () => {
-    setTimeout(() => setIsLoading(false), 1000)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }
 
   const value = {

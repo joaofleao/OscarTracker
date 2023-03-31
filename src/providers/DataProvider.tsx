@@ -1,10 +1,11 @@
-import { DataContextType, Provider } from '../types'
-import { useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
+import { arrayRemove, arrayUnion, collection, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore'
+
 import { DataContext } from '../contexts'
-import { db } from '../services'
-import categoriesJson from '../utils/dictionary/categories.json'
-import { collection, getDocs, doc, query, orderBy, where, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
 import { useAuth, useUser } from '../hooks'
+import { db } from '../services'
+import { type DataContextType, type Provider } from '../types'
+import categoriesJson from '../utils/dictionary/categories.json'
 
 const editions = collection(db, 'editions')
 const users = collection(db, 'users')
@@ -39,7 +40,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
 
   async function getCategories() {
     const categoriesMap = new Map()
-    categoriesJson.forEach(doc => categoriesMap.set(doc.id, doc['en-US']))
+    categoriesJson.forEach((doc) => categoriesMap.set(doc.id, doc['en-US']))
     setCurrentCategoriesMap(categoriesMap)
   }
 
@@ -51,8 +52,8 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     const response = await getDocs(orderedMovies)
 
     const map: any = new Map()
-    var array: any = []
-    response.forEach(doc => {
+    const array: any = []
+    response.forEach((doc) => {
       map.set(doc.id, doc.data())
       array.push(doc.data())
     })
@@ -67,8 +68,8 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     const orderedPeople = query(people, orderBy('name'))
     const response = await getDocs(orderedPeople)
     const map: any = new Map()
-    var array: any = []
-    response.forEach(doc => {
+    const array: any = []
+    response.forEach((doc) => {
       map.set(doc.id, doc.data())
       array.push(doc.data())
     })
@@ -83,7 +84,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     const response = await getDocs(nominations)
 
     const map: any = new Map()
-    response.forEach(doc => {
+    response.forEach((doc) => {
       const data = doc.data()
       const oldValues = map.get(data.category) || []
       map.set(data.category, [data, ...oldValues])
@@ -93,9 +94,7 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
       return { key: item[0], value: item[1] }
     })
 
-    const ordered = array.sort(
-      (a, b) => categoriesOrder.indexOf(Number(a.key)) - categoriesOrder.indexOf(Number(b.key)),
-    )
+    const ordered = array.sort((a, b) => categoriesOrder.indexOf(Number(a.key)) - categoriesOrder.indexOf(Number(b.key)))
 
     setCurrentNominationsByCategory(ordered)
   }
@@ -107,8 +106,8 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
 
     const response = await getDocs(movieNominations)
 
-    var array: any = []
-    response.forEach(doc => {
+    const array: any = []
+    response.forEach((doc) => {
       array.push(doc.data())
     })
 
@@ -123,20 +122,14 @@ const DataProvider: React.FC<Provider> = ({ children }) => {
     })
   }
 
-  async function updateUser(
-    email?: string,
-    displayName?: string,
-    nickName?: string,
-    preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
-    onboarding?: boolean,
-  ) {
+  async function updateUser(email?: string, displayName?: string, nickName?: string, preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean }, onboarding?: boolean) {
     const userRef = doc(users, uid)
 
     updateDoc(userRef, {
       ...(email && { email }),
       ...(displayName && { displayName }),
       ...(nickName && { nickName }),
-      ...(preferences && { preferences }),
+      ...(preferences != null && { preferences }),
       ...(onboarding && { onboarding }),
     })
   }

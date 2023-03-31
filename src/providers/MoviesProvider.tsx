@@ -1,7 +1,7 @@
-import { Provider } from '../types'
 import { MoviesContext } from '../contexts'
-import { MoviesContextType } from '../types/ContextTypes'
 import * as tmdb from '../services/tmdb/api'
+import { type Provider } from '../types'
+import { type MoviesContextType } from '../types/ContextTypes'
 
 const MoviesProvider: React.FC<Provider> = ({ children }) => {
   const getMovie = async (id: string) => {

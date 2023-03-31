@@ -1,6 +1,6 @@
-import { PreferencesType, User } from '../../types'
+import { type PreferencesType, User } from '../../types'
 
-export type AuthContextType = {
+export interface AuthContextType {
   signIn: (email: string, password: string) => Promise<boolean>
   signUp: (email: string, password: string, displayName: string, nickName: any) => Promise<boolean>
   signOut: () => void
@@ -8,7 +8,7 @@ export type AuthContextType = {
   initializing: boolean
 }
 
-export type DataContextType = {
+export interface DataContextType {
   currentNominations: any | null
   currentNominationsByCategory: any | null
   currentCategoriesMap: any | null
@@ -19,23 +19,17 @@ export type DataContextType = {
   getMovieNominations: (movie: string) => any
   setMovieUnwatched: (movie: string) => void
   setMovieWatched: (movie: string) => void
-  updateUser: (
-    email?: string,
-    displayName?: string,
-    nickName?: string,
-    preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
-    onboarding?: boolean,
-  ) => void
+  updateUser: (email?: string, displayName?: string, nickName?: string, preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean }, onboarding?: boolean) => void
 }
 
-export type ThemeContextType = {
+export interface ThemeContextType {
   loadingText: string
   isLoading: boolean
   stopLoading: () => void
   startLoading: (loading: string) => void
 }
 
-export type UserContextType = {
+export interface UserContextType {
   preferences: PreferencesType
   setPreferences: (preferences: PreferencesType) => void
   email: string
@@ -54,10 +48,10 @@ export type UserContextType = {
   setOnboarding: (onboarding: boolean) => void
 }
 
-export type ToastContextType = {
+export interface ToastContextType {
   showToast: (message: string, description: string, type: 'success' | 'error') => void
 }
-export type MoviesContextType = {
+export interface MoviesContextType {
   getMovie: (id: string) => Promise<any>
   getCast: (id: string) => Promise<any>
   getTrailer: (id: string) => Promise<any>
