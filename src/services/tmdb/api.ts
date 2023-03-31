@@ -2,43 +2,43 @@ import axios from 'axios'
 
 import { tmdbConfig } from './config'
 
-const api_base_url = tmdbConfig.api_base_url
-const api_key = tmdbConfig.api_key
-const image_base_url = tmdbConfig.image_base_url
+const apiBaseUrl = tmdbConfig.api_base_url
+const apiKey = tmdbConfig.api_key
+const imageBaseUrl = tmdbConfig.image_base_url
 
 const api = axios.create({
-  baseURL: api_base_url,
+  baseURL: apiBaseUrl,
   timeout: 60000,
 })
 
-const getImage = (id: string) => {
-  return image_base_url + id
+const getImage = (id: string): any => {
+  return imageBaseUrl + id
 }
 
-const getMovie = async (id: string) => {
+const getMovie = async (id: string): Promise<any> => {
   const response = await api.get(`movie/${id}`, {
-    params: { api_key, language: 'en-US' },
+    params: { apiKey, language: 'en-US' },
   })
   return response.data
 }
 
-const getCast = async (id: string) => {
+const getCast = async (id: string): Promise<any> => {
   const response = await api.get(`movie/${id}/credits`, {
-    params: { api_key, language: 'en-US' },
+    params: { apiKey, language: 'en-US' },
   })
   return response.data
 }
 
-const getVideos = async (id: string) => {
+const getVideos = async (id: string): Promise<any> => {
   const response = await api.get(`movie/${id}/videos`, {
-    params: { api_key, language: 'en-US' },
+    params: { apiKey, language: 'en-US' },
   })
   return response.data
 }
 
-const getProviders = async (id: string) => {
+const getProviders = async (id: string): Promise<any> => {
   const response = await api.get(`movie/${id}/watch/providers`, {
-    params: { api_key, language: 'en-US' },
+    params: { apiKey, language: 'en-US' },
   })
   return response.data
 }
