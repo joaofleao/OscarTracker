@@ -3,7 +3,7 @@ import { Text, View } from 'react-native'
 
 import { Logo } from '../../assets/images'
 
-function LogoComponent() {
+const LogoComponent = (): JSX.Element => {
   return (
     <View className="flex-row mb-20 w-full justify-center">
       <Logo />

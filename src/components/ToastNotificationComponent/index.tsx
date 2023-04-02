@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Animated, Dimensions, Text, TouchableOpacity, View } from 'react-native'
+import React from 'react'
+import { Animated, Text, TouchableOpacity, View } from 'react-native'
 
 import { IconComponent } from '../../components'
 
@@ -10,16 +10,16 @@ type ToastNotificationProps = React.ComponentProps<typeof View> & {
   position: Animated.Value
 }
 
-function ToastNotificationComponent(props: ToastNotificationProps) {
+const ToastNotificationComponent = ({ title, description, type, position }: ToastNotificationProps): JSX.Element => {
   return (
     <Animated.View
-      style={{ transform: [{ translateY: props.position }] }}
-      className={`mx-5 p-4 rounded-xl flex-row items-center justify-between z-20 absolute ${props.type === 'success' ? 'bg-green-600' : 'bg-red-600'}
+      style={{ transform: [{ translateY: position }] }}
+      className={`mx-5 p-4 rounded-xl flex-row items-center justify-between z-20 absolute ${type === 'success' ? 'bg-green-600' : 'bg-red-600'}
       }`}
     >
       <View className="flex-row items-center flex-1 ">
         <IconComponent
-          name={props.type === 'success' ? 'check-circle' : 'alert-circle'}
+          name={type === 'success' ? 'check-circle' : 'alert-circle'}
           className="text-white pr-4"
           size={30}
         />
@@ -29,14 +29,14 @@ function ToastNotificationComponent(props: ToastNotificationProps) {
             numberOfLines={2}
             className="text-white text-base font-primaryBold"
           >
-            {props.title}
+            {title}
           </Text>
-          {props.description && (
+          {description != null && (
             <Text
               numberOfLines={2}
               className="text-white/80 text-sm font-primaryRegular"
             >
-              {props.description}
+              {description}
             </Text>
           )}
         </View>

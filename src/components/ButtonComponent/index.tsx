@@ -1,10 +1,10 @@
-import { Text, TouchableOpacity, View } from 'react-native'
+import React, { Text, TouchableOpacity, View } from 'react-native'
 import { styled } from 'nativewind'
 import colors from 'tailwindcss/colors'
 
 import { IconComponent } from '../../components'
 
-interface ButtonProps {
+interface ButtonProps extends TouchableOpacity {
   appearance?: 'primary' | 'secondary' | 'dark' | 'light'
   name?: string
   size?: 'small' | 'medium' | 'big' | 'full'
@@ -16,12 +16,12 @@ interface ButtonProps {
   iconPositon?: 'trailing' | 'leading'
 }
 
-function ButtonComponent({ name, onPress, variant = 'filled', iconPositon, icon, ...rest }: ButtonProps) {
+const ButtonComponent = ({ name, variant = 'filled', iconPositon, icon, ...props }: ButtonProps): JSX.Element => {
   const plain = variant === 'plain'
   const outlined = variant === 'outlined'
   const filled = variant === 'filled'
 
-  function getColor() {
+  const getColor = (): string => {
     if (plain) return colors.amber[500]
     if (outlined) return colors.amber[500]
     if (filled) return colors.zinc[900]
@@ -30,23 +30,22 @@ function ButtonComponent({ name, onPress, variant = 'filled', iconPositon, icon,
 
   return (
     <TouchableOpacity
-      onPress={onPress}
       className={` justify-center py-3
-        ${icon && iconPositon === undefined ? 'px-0' : 'px-4'}
-        ${name ? 'rounded-3xl' : 'rounded-2xl '}
-        ${plain && ''}
-        ${outlined && 'border-solid border-2 border-amber-500'}
-        ${filled && 'bg-amber-500'}
+        ${icon != null && iconPositon === undefined ? 'px-0' : 'px-4'}
+        ${name != null ? 'rounded-3xl' : 'rounded-2xl '}
+        ${plain ? '' : ''}
+        ${outlined ? 'border-solid border-2 border-amber-500' : ''}
+        ${filled ? 'bg-amber-500' : ''}
         `}
-      {...rest}
+      {...props}
     >
       <View className="flex-row justify-center items-center ">
-        {icon && iconPositon === 'leading' && (
+        {icon != null && iconPositon === 'leading' && (
           <IconComponent
             name={icon}
             size={24}
             color={getColor()}
-            className={name && 'mr-3'}
+            className={name != null ? 'mr-3' : ''}
           />
         )}
 
@@ -58,12 +57,12 @@ function ButtonComponent({ name, onPress, variant = 'filled', iconPositon, icon,
           {name}
         </Text>
 
-        {icon && iconPositon === 'trailing' && (
+        {icon != null && iconPositon === 'trailing' && (
           <IconComponent
             name={icon}
             size={24}
             color={getColor()}
-            className={name && 'ml-3'}
+            className={name != null ? 'ml-3' : ''}
           />
         )}
       </View>

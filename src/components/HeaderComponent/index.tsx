@@ -1,10 +1,9 @@
-import { Text, TouchableOpacity, View } from 'react-native'
+import React, { Text, TouchableOpacity, View } from 'react-native'
 import { styled } from 'nativewind'
-import colors from 'tailwindcss/colors'
 
 import { IconComponent } from '../../components'
 
-interface HeaderProps {
+interface HeaderProps extends View {
   children?: string
   leadingButton?: string
   trailingButton?: string
@@ -12,9 +11,9 @@ interface HeaderProps {
   trailingAction?: () => void
 }
 
-function HeaderComponent({ children, leadingAction, leadingButton, trailingAction, trailingButton, ...rest }: HeaderProps) {
-  const getButton = (action?: () => void, button?: string) => {
-    if (action != null && button)
+const HeaderComponent = ({ children, leadingAction, leadingButton, trailingAction, trailingButton, ...rest }: HeaderProps): JSX.Element => {
+  const getButton = (action?: () => void, button?: string): JSX.Element => {
+    if (action != null && button != null)
       return (
         <TouchableOpacity
           className="w-8 h-8 justify-center items-center rounded-lg"

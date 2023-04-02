@@ -41,7 +41,9 @@ function SignInScreen({ navigation }: any) {
           <ButtonComponent
             name="Sign In"
             className="w-60 mb-5"
-            onPress={async () => { await signIn(formattedEmail, password); }}
+            onPress={async () => {
+              await signIn(formattedEmail, password)
+            }}
           />
           <ButtonComponent
             name="Register"

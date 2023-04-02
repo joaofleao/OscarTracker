@@ -1,3 +1,4 @@
+import React from 'react'
 import { Text, TouchableOpacity } from 'react-native'
 import { styled } from 'nativewind'
 
@@ -8,17 +9,18 @@ interface SocialButtonProps {
   onPress?: () => void
 }
 
-function SocialButtonComponent({ name, onPress, ...rest }: SocialButtonProps) {
-  function getIcon() {
+const SocialButtonComponent = ({ name, onPress, ...props }: SocialButtonProps): JSX.Element => {
+  const getIcon = (): JSX.Element => {
     if (name === 'Facebook') return <Facebook />
     if (name === 'Google') return <Google />
+    return <Text>{name}</Text>
   }
 
   return (
     <TouchableOpacity
       onPress={onPress}
       className="h-10 w-10 rounded-full items-center justify-center "
-      {...rest}
+      {...props}
     >
       {getIcon()}
     </TouchableOpacity>
