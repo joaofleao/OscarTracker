@@ -8,7 +8,7 @@ interface ProgressBarProps {
   animated?: boolean
 }
 
-function ProgressBarComponent({ total, progress, animated, ...rest }: ProgressBarProps) {
+const ProgressBarComponent = ({ total, progress, animated, ...props }: ProgressBarProps): JSX.Element => {
   const animatedValue = useRef(new Animated.Value(-1000))
   const reactive = useRef(new Animated.Value(-1000)).current
   const [width, setWidth] = useState(0)
@@ -22,20 +22,20 @@ function ProgressBarComponent({ total, progress, animated, ...rest }: ProgressBa
   }, [])
 
   useEffect(() => {
-    reactive.setValue(-width + (width * progress) / total || 1)
+    reactive.setValue(-width + (width * progress) / total)
   }, [progress, width])
 
-  if (animated)
+  if (animated != null && animated)
     return (
       <View
         className="flex-row justify-between mx-4 items-center"
-        {...rest}
+        {...props}
       >
         <View>
           <Text className="text-zinc-600 mr-3 font-primaryRegular ">{progress}</Text>
         </View>
         <View className="bg-zinc-800 h-2 flex-1 rounded-3xl overflow-hidden">
-          {animatedValue && (
+          {animatedValue != null && (
             <Animated.View
               onLayout={(e) => {
                 setWidth(e.nativeEvent.layout.width)
@@ -52,7 +52,7 @@ function ProgressBarComponent({ total, progress, animated, ...rest }: ProgressBa
     return (
       <View
         className="flex-row justify-between mx-4 items-center"
-        {...rest}
+        {...props}
       >
         <View>
           <Text className="text-zinc-600 mr-3 font-primaryRegular ">{progress}</Text>

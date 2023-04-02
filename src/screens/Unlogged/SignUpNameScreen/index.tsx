@@ -12,7 +12,9 @@ function SignUpNameScreen({ navigation, route }: any) {
 
   const nameValid = name.split(' ').length >= 2 && name.split(' ')[0].length > 0 && name.split(' ')[1].length > 0
 
-  const handleNext = async () => { await signUp(email, password, name, nickName); }
+  const handleNext = async () => {
+    await signUp(email, password, name, nickName)
+  }
 
   return (
     <ModelComponent>

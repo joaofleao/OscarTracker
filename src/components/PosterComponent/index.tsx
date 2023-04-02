@@ -9,7 +9,7 @@ interface PosterProps {
   large?: boolean
 }
 
-function PosterComponent({ image, isWatched, spoiler, large = false }: PosterProps) {
+const PosterComponent = ({ image, isWatched, spoiler, large = false }: PosterProps): JSX.Element => {
   const width = large ? 158 : 106
   const height = large ? 236 : 158
 

@@ -1,10 +1,9 @@
-import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
+import React, { Text, TouchableOpacity, View } from 'react-native'
 import { styled } from 'nativewind'
-import colors from 'tailwindcss/colors'
 
 import { usePersonalData, useUser } from '../../hooks'
 import { getImage } from '../../services/tmdb/api'
-import { IconComponent, PosterComponent } from '..'
+import { PosterComponent } from '..'
 
 interface ButtonProps {
   image: string
@@ -15,7 +14,7 @@ interface ButtonProps {
   onPress: () => void
 }
 
-function NomineeCardComponent({ image, title, id, information, extra, onPress, ...rest }: ButtonProps) {
+const NomineeCardComponent = ({ image, title, id, information, extra, onPress, ...rest }: ButtonProps): JSX.Element => {
   const { preferences } = useUser()
   const { isWatched } = usePersonalData()
 
@@ -39,7 +38,7 @@ function NomineeCardComponent({ image, title, id, information, extra, onPress, .
           >
             {title}
           </Text>
-          {information && (
+          {information != null && (
             <Text
               numberOfLines={2}
               className={`ml-4 text-base font-primaryRegular text-zinc-600`}
@@ -47,7 +46,7 @@ function NomineeCardComponent({ image, title, id, information, extra, onPress, .
               {information}
             </Text>
           )}
-          {extra && (
+          {extra != null && (
             <Text
               numberOfLines={2}
               className={`ml-4 text-base font-primaryRegular text-amber-500`}

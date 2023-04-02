@@ -8,7 +8,7 @@ type SpoilerComponentProps = React.ComponentProps<typeof View> & {
   text?: string
 }
 
-function SocialButtonComponent({ children, show, watched, text, ...rest }: SpoilerComponentProps) {
+const SocialButtonComponent = ({ children, show, watched, text, ...rest }: SpoilerComponentProps): JSX.Element => {
   const [hidden, setHidden] = useState<boolean>(false)
   const animatedValue = useRef(new Animated.Value(0)).current
 
@@ -35,7 +35,7 @@ function SocialButtonComponent({ children, show, watched, text, ...rest }: Spoil
           className="w-full h-full absolute bg-[#1e1e21] justify-center items-center"
           style={{ transform: [{ translateY: animatedValue }] }}
         >
-          <Text className="text-white font-primaryBold text-center px-1">{text || 'Click to show'}</Text>
+          <Text className="text-white font-primaryBold text-center px-1">{text != null || 'Click to show'}</Text>
         </Animated.View>
       )}
     </Pressable>

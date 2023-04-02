@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Modal, Text, View } from 'react-native'
 
 import { useTheme } from '../../hooks'
 import { LoadingComponent } from '..'
 
-function LoadingScreen() {
+const LoadingScreen = (): JSX.Element => {
   const { loadingText, isLoading } = useTheme()
 
   return (

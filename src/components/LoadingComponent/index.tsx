@@ -9,7 +9,7 @@ interface LoadingComponentProps {
   size?: number
 }
 
-const LoadingComponent = ({ animation = 'dots', size = 30 }: LoadingComponentProps) => {
+const LoadingComponent = ({ animation = 'dots', size = 30 }: LoadingComponentProps): JSX.Element => {
   const render = animation === 'dots' ? dots : movie
   const speed = animation === 'dots' ? 1 : 0.5
   return (

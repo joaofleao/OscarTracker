@@ -2,16 +2,14 @@ import React from 'react'
 import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { HeaderComponent } from '../../components'
-
-interface ModelProps {
+interface ModelProps extends View {
   top?: boolean
   bottom?: boolean
   left?: boolean
   right?: boolean
   children: React.ReactNode
 }
-function ModelComponent({ children, top = true, bottom = true, left = true, right = true, ...rest }: ModelProps) {
+const ModelComponent = ({ children, top = true, bottom = true, left = true, right = true, ...props }: ModelProps): JSX.Element => {
   const insets = useSafeAreaInsets()
 
   const margins = {
@@ -25,6 +23,7 @@ function ModelComponent({ children, top = true, bottom = true, left = true, righ
     <View
       className="flex-1 bg-zinc-900 "
       style={margins}
+      {...props}
     >
       {children}
     </View>
