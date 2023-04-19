@@ -3,8 +3,9 @@ import { Text, View } from 'react-native'
 
 import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
 import { useAuth } from '../../../hooks'
+import { type SignUpNameScreenProps } from '../../../types'
 
-function SignUpNameScreen({ navigation, route }: any) {
+const SignUpNameScreen = ({ navigation, route }: SignUpNameScreenProps): JSX.Element => {
   const [name, setName] = useState<string>('')
   const [nickName, setNickName] = useState<string>('')
   const { signUp } = useAuth()
@@ -12,14 +13,16 @@ function SignUpNameScreen({ navigation, route }: any) {
 
   const nameValid = name.split(' ').length >= 2 && name.split(' ')[0].length > 0 && name.split(' ')[1].length > 0
 
-  const handleNext = async () => {
-    await signUp(email, password, name, nickName)
+  const handleNext = (): void => {
+    signUp(email, password, name, nickName)
   }
 
   return (
     <ModelComponent>
       <HeaderComponent
-        leadingAction={() => navigation.goBack()}
+        leadingAction={() => {
+          navigation.goBack()
+        }}
         leadingButton="arrow-left"
       >
         Register

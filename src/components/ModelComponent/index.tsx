@@ -1,8 +1,8 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, type ViewProps } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-interface ModelProps extends View {
+interface ModelProps extends ViewProps {
   top?: boolean
   bottom?: boolean
   left?: boolean

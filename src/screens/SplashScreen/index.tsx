@@ -6,7 +6,7 @@ interface Props {
   children: React.ReactNode
 }
 
-export default function SplashScreen({ children, isAppReady }: Props) {
+const SplashScreen = ({ children, isAppReady }: Props): JSX.Element => {
   return (
     <>
       <Splash isAppReady={isAppReady} />
@@ -21,7 +21,7 @@ const WAIT_FOR_APP_TO_BE_READY = 'Wait for app to be ready'
 const FADE_OUT = 'Fade out'
 const HIDDEN = 'Hidden'
 
-export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
+export const Splash = ({ isAppReady }: { isAppReady: boolean }): JSX.Element | null => {
   const containerOpacity = useRef(new Animated.Value(1)).current
   const imageOpacity = useRef(new Animated.Value(0)).current
 
@@ -81,3 +81,5 @@ export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
     </Animated.View>
   )
 }
+
+export default SplashScreen

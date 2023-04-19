@@ -12,6 +12,7 @@ module.exports = {
   },
   plugins: ['react', 'simple-import-sort'],
   rules: {
+    'react/no-unescaped-entities': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
 

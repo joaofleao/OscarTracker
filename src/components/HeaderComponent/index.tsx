@@ -1,9 +1,9 @@
-import React, { Text, TouchableOpacity, View } from 'react-native'
+import React, { Text, TouchableOpacity, View, type ViewProps } from 'react-native'
 import { styled } from 'nativewind'
 
 import { IconComponent } from '../../components'
 
-interface HeaderProps extends View {
+interface HeaderProps extends ViewProps {
   children?: string
   leadingButton?: string
   trailingButton?: string
@@ -11,9 +11,19 @@ interface HeaderProps extends View {
   trailingAction?: () => void
 }
 
-const HeaderComponent = ({ children, leadingAction, leadingButton, trailingAction, trailingButton, ...rest }: HeaderProps): JSX.Element => {
+const defaultValue = {
+  children: '',
+  leadingButton: '',
+  trailingButton: '',
+  leadingAction: () => {},
+  trailingAction: () => {},
+}
+
+const HeaderComponent = (props: HeaderProps): JSX.Element => {
+  const { children, leadingAction, leadingButton, trailingAction, trailingButton, ...rest } = props
+
   const getButton = (action?: () => void, button?: string): JSX.Element => {
-    if (action != null && button != null)
+    if (action != null && button !== '' && button != null)
       return (
         <TouchableOpacity
           className="w-8 h-8 justify-center items-center rounded-lg"
@@ -46,4 +56,5 @@ const HeaderComponent = ({ children, leadingAction, leadingButton, trailingActio
   )
 }
 
+HeaderComponent.defaultProps = defaultValue
 export default styled(HeaderComponent)

@@ -16,7 +16,7 @@ const screenOptions = {
   headerShown: false,
 }
 
-export default function Router() {
+const Router = (): JSX.Element => {
   const { initializing } = useAuth()
 
   return (
@@ -33,3 +33,5 @@ export default function Router() {
     </SplashScreen>
   )
 }
+
+export default Router

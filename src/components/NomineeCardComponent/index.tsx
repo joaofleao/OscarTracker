@@ -1,29 +1,27 @@
-import React, { Text, TouchableOpacity, View } from 'react-native'
+import React, { Text, TouchableOpacity, type TouchableOpacityProps, View } from 'react-native'
 import { styled } from 'nativewind'
 
 import { usePersonalData, useUser } from '../../hooks'
 import { getImage } from '../../services/tmdb/api'
 import { PosterComponent } from '..'
 
-interface ButtonProps {
+interface ButtonProps extends TouchableOpacityProps {
   image: string
   title: string
   information?: string
   extra?: string
   id: string
-  onPress: () => void
 }
 
-const NomineeCardComponent = ({ image, title, id, information, extra, onPress, ...rest }: ButtonProps): JSX.Element => {
+const NomineeCardComponent = ({ image, title, id, information, extra, ...props }: ButtonProps): JSX.Element => {
   const { preferences } = useUser()
   const { isWatched } = usePersonalData()
 
   return (
     <TouchableOpacity
       delayPressIn={200}
-      onPress={onPress}
       className="justify-center "
-      {...rest}
+      {...props}
     >
       <View className="flex-row ">
         <PosterComponent

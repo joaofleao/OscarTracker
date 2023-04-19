@@ -6,7 +6,7 @@ import packageJson from '../../../../package.json'
 import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
 import { useAuth, useData, useUser } from '../../../hooks'
 
-function ProfileScreen() {
+const ProfileScreen = (): JSX.Element => {
   const { signOut } = useAuth()
   const user = useUser()
   const { updateUser } = useData()
@@ -21,7 +21,7 @@ function ProfileScreen() {
 
   const [editing, setEditing] = useState<boolean>(false)
 
-  const handleEdit = () => {
+  const handleEdit = (): any => {
     if (editing) {
       updateUser(user.email, displayName, nickName, { poster, plot, cast, ratings }, undefined)
       setEditing(false)

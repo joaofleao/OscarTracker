@@ -1,10 +1,10 @@
-import React, { Text, TouchableOpacity, View } from 'react-native'
+import React, { Text, TouchableOpacity, type TouchableOpacityProps, View } from 'react-native'
 import { styled } from 'nativewind'
 import colors from 'tailwindcss/colors'
 
 import { IconComponent } from '../../components'
 
-interface ButtonProps extends TouchableOpacity {
+interface ButtonProps extends TouchableOpacityProps {
   appearance?: 'primary' | 'secondary' | 'dark' | 'light'
   name?: string
   size?: 'small' | 'medium' | 'big' | 'full'

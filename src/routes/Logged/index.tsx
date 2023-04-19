@@ -56,11 +56,11 @@ const tabs = [
   },
 ]
 
-function TabNavigator() {
+const TabNavigator = (): JSX.Element => {
   const tabOffsetValue = useRef(new Animated.Value(0)).current
   const getWidth = (Dimensions.get('window').width - 56) / tabs.length
 
-  const renderTab = (name: string, component: any, position: number, icon: string) => {
+  const renderTab = (name: string, component: any, position: number, icon: string): JSX.Element => {
     return (
       <Tab.Screen
         key={name}

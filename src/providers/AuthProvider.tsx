@@ -53,9 +53,9 @@ const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     showToast(error.code, error.message, 'error')
   }
 
-  const signIn = async (email: string, password: string): Promise<void> => {
+  const signIn = (email: string, password: string): void => {
     startLoading('Signin in')
-    await signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
         setUser(response.user)
       })
@@ -63,17 +63,17 @@ const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
       .finally(stopLoading)
   }
 
-  const signUp = async (email: string, password: string, displayName: string, nickName: string): Promise<void> => {
+  const signUp = (email: string, password: string, displayName: string, nickName: string): void => {
     startLoading('Creating an Account')
     createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        void addUser(response.user, displayName, nickName)
+        addUser(response.user, displayName, nickName)
       })
       .catch(showError)
       .finally(stopLoading)
   }
 
-  const addUser = async (user: User, displayName: string, nickName: string): Promise<void> => {
+  const addUser = (user: User, displayName: string, nickName: string): void => {
     const userRef = doc(users, user.uid)
 
     const object = {
@@ -91,7 +91,7 @@ const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
       },
     }
 
-    await setDoc(userRef, object)
+    setDoc(userRef, object)
       .then(() => {
         setUser(user)
         setDisplayName(object.displayName)
@@ -106,9 +106,9 @@ const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
       .finally(stopLoading)
   }
 
-  const signOutFunction = async (): Promise<void> => {
+  const signOutFunction = (): void => {
     startLoading('Signing Out')
-    await signOut(auth)
+    signOut(auth)
       .then(() => {
         setUser(null)
         setInitializing(true)

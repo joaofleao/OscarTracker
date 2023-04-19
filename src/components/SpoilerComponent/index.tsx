@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Animated, Pressable, Text, type View } from 'react-native'
+import { Animated, Pressable, type PressableProps, Text } from 'react-native'
 
-type SpoilerComponentProps = React.ComponentProps<typeof View> & {
+interface SpoilerComponentProps extends PressableProps {
   children: any
   show: boolean
   watched: boolean

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Animated, Easing, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { Animated, Easing, Text, TextInput, type TextInputProps, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
 import { IconComponent } from '../../components'
 
-interface TextInputProps extends TextInput {
+interface InputProps extends TextInputProps {
   label?: string
   errorText?: string | null
   type?: 'password' | 'email' | 'text'
@@ -15,7 +15,7 @@ interface TextInputProps extends TextInput {
   value?: string
 }
 
-const TextInputComponent = ({ label, errorText, type, value, className, onBlur, onFocus, validation, ...props }: TextInputProps): JSX.Element => {
+const TextInputComponent = ({ label, errorText, type, value, className, onBlur, onFocus, validation, ...props }: InputProps): JSX.Element => {
   const [isFocused, setIsFocused] = useState(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState(type === 'password')
   const [showError, setShowError] = useState<boolean>(false)

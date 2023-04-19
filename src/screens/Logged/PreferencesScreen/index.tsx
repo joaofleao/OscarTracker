@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Dimensions, FlatList, Image, type ImageSourcePropType, type ListRenderItemInfo, Platform, Text, TouchableOpacity, View } from 'react-native'
 
-import { david, IMDB, jason, justin, poster, Rotten } from '../../../assets/images'
+import { david, IMDB, jason, justin, poster } from '../../../assets/images'
 import { ButtonComponent, HeaderComponent, ModelComponent, ProgressBarComponent } from '../../../components'
 import { useData } from '../../../hooks'
+import { type PreferencesScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
-function PreferencesScreen({ navigation, route }: any) {
+const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element => {
   const scrollViewRef = useRef<FlatList>(null)
   const { updateUser } = useData()
 
@@ -25,21 +26,21 @@ function PreferencesScreen({ navigation, route }: any) {
   const [index, setIndex] = useState(0)
   const { width } = Dimensions.get('window')
 
-  const handleNext = (show: boolean) => {
+  const handleNext = (show: boolean): void => {
     if (index === 1) setPreferences({ ...preferences, poster: show })
     if (index === 2) setPreferences({ ...preferences, plot: show })
     if (index === 3) setPreferences({ ...preferences, cast: show })
     if (index === 4) setPreferences({ ...preferences, ratings: show })
     handleForward()
   }
-  const handleForward = () => {
+  const handleForward = (): void => {
     if (index < 5) setIndex((index) => index + 1)
     else {
       navigation.navigate(routes.logged.home)
       updateUser(undefined, undefined, undefined, preferences, true)
     }
   }
-  const handleBack = () => {
+  const handleBack = (): void => {
     if (index > 0) setIndex((index) => index - 1)
   }
 
@@ -56,45 +57,43 @@ function PreferencesScreen({ navigation, route }: any) {
     { name: 'David Cross', character: 'Ian', image: david },
   ]
 
-  const getCast = (item: { name: string; image: ImageSourcePropType; character: string }) => {
-    return (
-      <View className="h-36">
-        <View className="bg-zinc-800/40 rounded-xl items-center justify-center">
-          <Image
-            source={item.image}
-            style={{ opacity: castSpoiler ? 0 : 1 }}
-            className="h-full rounded-xl aspect-[0.7]"
-          />
+  const getCast = (item: { name: string; image: ImageSourcePropType; character: string }): JSX.Element => (
+    <View className="h-36">
+      <View className="bg-zinc-800/40 rounded-xl items-center justify-center">
+        <Image
+          source={item.image}
+          style={{ opacity: castSpoiler ? 0 : 1 }}
+          className="h-full rounded-xl aspect-[0.7]"
+        />
+        <Text
+          style={{ opacity: castSpoiler ? 1 : 0 }}
+          className="absolute font-primaryBold text-base text-white text-center"
+        >
+          Click to Show
+        </Text>
+      </View>
+
+      <View className="py-3">
+        <View className="bg-zinc-800/40 rounded-xl">
           <Text
-            style={{ opacity: castSpoiler ? 1 : 0 }}
-            className="absolute font-primaryBold text-base text-white text-center"
+            style={{ opacity: castSpoiler ? 0 : 1 }}
+            numberOfLines={2}
+            className="text-white font-primaryBold text-base bg-zinc-900"
           >
-            Click to Show
+            {item.name}
+          </Text>
+
+          <Text
+            style={{ opacity: castSpoiler ? 0 : 1 }}
+            numberOfLines={2}
+            className="text-white font-primaryRegular text-sm bg-zinc-900"
+          >
+            {item.character}
           </Text>
         </View>
-
-        <View className="py-3">
-          <View className="bg-zinc-800/40 rounded-xl">
-            <Text
-              style={{ opacity: castSpoiler ? 0 : 1 }}
-              numberOfLines={2}
-              className="text-white font-primaryBold text-base bg-zinc-900"
-            >
-              {item.name}
-            </Text>
-
-            <Text
-              style={{ opacity: castSpoiler ? 0 : 1 }}
-              numberOfLines={2}
-              className="text-white font-primaryRegular text-sm bg-zinc-900"
-            >
-              {item.character}
-            </Text>
-          </View>
-        </View>
       </View>
-    )
-  }
+    </View>
+  )
 
   const screens = [
     {
@@ -218,13 +217,6 @@ function PreferencesScreen({ navigation, route }: any) {
 
                 <Text className="text-white font-primaryBold text-lg mt-3">{ratingsSpoiler ? 'Show' : '8.0'}</Text>
               </View>
-              <View className="ml-6 p-4 bg-zinc-800/40 justify-center items-center rounded-xl">
-                <Rotten
-                  width={48}
-                  height={48}
-                />
-                <Text className="text-white font-primaryBold text-lg mt-3">{ratingsSpoiler ? 'Show' : '95%'}</Text>
-              </View>
             </TouchableOpacity>
           </View>
         </View>
@@ -243,16 +235,14 @@ function PreferencesScreen({ navigation, route }: any) {
     },
   ]
 
-  const renderItem = ({ item }: ListRenderItemInfo<{ firstButton: string; secondButton: string; content: any }>) => {
-    return (
-      <View
-        style={{ width }}
-        className="px-4"
-      >
-        {item.content}
-      </View>
-    )
-  }
+  const renderItem = ({ item }: ListRenderItemInfo<{ firstButton: string; secondButton: string; content: any }>): JSX.Element => (
+    <View
+      style={{ width }}
+      className="px-4"
+    >
+      {item.content}
+    </View>
+  )
 
   return (
     <ModelComponent>
@@ -275,8 +265,8 @@ function PreferencesScreen({ navigation, route }: any) {
         scrollEnabled={false}
         renderItem={renderItem}
       />
-      <View className={`items-center justify-end ${Platform.OS === 'android' && 'mb-6'}`}>
-        {screens[index].firstButton && (
+      <View className={`items-center justify-end ${Platform.OS === 'android' ? 'mb-6' : ''}`}>
+        {screens[index].firstButton != null && (
           <ButtonComponent
             name={screens[index].firstButton}
             className="w-60 mb-4"
@@ -285,7 +275,7 @@ function PreferencesScreen({ navigation, route }: any) {
             }}
           />
         )}
-        {screens[index].secondButton && (
+        {screens[index].secondButton != null && (
           <ButtonComponent
             name={screens[index].secondButton}
             className="w-60"
