@@ -17,28 +17,28 @@ const getImage = (id: string): any => {
 
 const getMovie = async (id: string): Promise<any> => {
   const response = await api.get(`movie/${id}`, {
-    params: { apiKey, language: 'en-US' },
+    params: { api_key: apiKey, language: 'en-US' },
   })
   return response.data
 }
 
 const getCast = async (id: string): Promise<any> => {
   const response = await api.get(`movie/${id}/credits`, {
-    params: { apiKey, language: 'en-US' },
+    params: { api_key: apiKey, language: 'en-US' },
   })
   return response.data
 }
 
 const getVideos = async (id: string): Promise<any> => {
   const response = await api.get(`movie/${id}/videos`, {
-    params: { apiKey, language: 'en-US' },
+    params: { api_key: apiKey, language: 'en-US' },
   })
   return response.data
 }
 
 const getProviders = async (id: string): Promise<any> => {
   const response = await api.get(`movie/${id}/watch/providers`, {
-    params: { apiKey, language: 'en-US' },
+    params: { api_key: apiKey, language: 'en-US' },
   })
   return response.data
 }

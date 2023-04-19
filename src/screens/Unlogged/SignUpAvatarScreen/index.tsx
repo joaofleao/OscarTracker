@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Text, View } from 'react-native'
 
 import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
+import { type SignUpAvatarScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
-function SignUpAvatarScreen({ navigation, route }: any) {
-  const [avatar, setAvatar] = useState<string>('')
-
-  const handleNext = () =>
-    navigation.navigate(routes.unlogged.signUpName, {
-      ...route.params,
-    })
+const SignUpAvatarScreen = ({ navigation, route }: SignUpAvatarScreenProps): JSX.Element => {
+  const handleNext = (): void => {
+    navigation.navigate(routes.unlogged.signUpName)
+  }
 
   return (
     <ModelComponent>
       <View className="flex-1 mx-4 justify-between">
         <HeaderComponent
-          leadingAction={() => navigation.goBack()}
+          leadingAction={() => {
+            navigation.goBack()
+          }}
           leadingButton="arrow-left"
         >
           Register

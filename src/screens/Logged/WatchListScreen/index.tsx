@@ -3,10 +3,10 @@ import { FlatList } from 'react-native'
 
 import { HeaderComponent, ModelComponent, NomineeCardComponent, SeparatorComponent, TextInputComponent } from '../../../components'
 import { useData } from '../../../hooks'
-import { type BasicMovieType } from '../../../types'
+import { type BasicMovieType, type WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
-function WatchListScreen({ navigation, route }: any) {
+function WatchListScreen({ navigation, route }: WatchListScreenProps): JSX.Element {
   const [search, setSearch] = useState<string>('')
   const [data, setData] = useState<[]>([])
 
@@ -24,16 +24,16 @@ function WatchListScreen({ navigation, route }: any) {
     }
   }, [search, currentMovies])
 
-  const renderItem = ({ item }: BasicMovieType) => {
+  const renderItem = ({ item }: BasicMovieType): JSX.Element => {
     return (
       <NomineeCardComponent
-        onPress={() =>
+        onPress={() => {
           navigation.navigate(routes.logged.movie, {
             id: item.imdb,
             poster: item['en-US'].image,
             name: item['en-US'].name,
           })
-        }
+        }}
         className="mx-4"
         image={item['en-US'].image}
         title={item['en-US'].name}

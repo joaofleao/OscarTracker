@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 
 import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
+import { type SignUpPasswordScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
-function SignUpPasswordScreen({ navigation, route }: any) {
+const SignUpPasswordScreen = ({ navigation, route }: SignUpPasswordScreenProps): JSX.Element => {
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
   const isValid = password === confirmPassword && password.length > 0
@@ -14,7 +15,7 @@ function SignUpPasswordScreen({ navigation, route }: any) {
   const oneDigits = /(?=.*[0-9])/.test(password)
   const lowerCase = /(?=.*[a-z])/.test(password)
 
-  const getError = () => {
+  const getError = (): string => {
     let message = ''
     if (!oneUpperCase) message = message + 'one uppercase, '
     if (!specialCase) message = message + 'one special char, '
@@ -24,16 +25,19 @@ function SignUpPasswordScreen({ navigation, route }: any) {
     return message
   }
 
-  const handleNext = () =>
+  const handleNext = (): void => {
     navigation.navigate(routes.unlogged.signUpName, {
       ...route.params,
       password,
     })
+  }
 
   return (
     <ModelComponent>
       <HeaderComponent
-        leadingAction={() => navigation.goBack()}
+        leadingAction={() => {
+          navigation.goBack()
+        }}
         leadingButton="arrow-left"
       >
         Register

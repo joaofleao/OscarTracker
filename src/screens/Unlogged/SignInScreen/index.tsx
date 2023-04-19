@@ -3,9 +3,10 @@ import { View } from 'react-native'
 
 import { ButtonComponent, LogoComponent, ModelComponent, TextInputComponent } from '../../../components'
 import { useAuth } from '../../../hooks'
+import { type SignInScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
-function SignInScreen({ navigation }: any) {
+const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
   const { signIn } = useAuth()
 
   const [email, setEmail] = useState<string>('')
@@ -41,14 +42,16 @@ function SignInScreen({ navigation }: any) {
           <ButtonComponent
             name="Sign In"
             className="w-60 mb-5"
-            onPress={async () => {
-              await signIn(formattedEmail, password)
+            onPress={() => {
+              signIn(formattedEmail, password)
             }}
           />
           <ButtonComponent
             name="Register"
             className="w-60"
-            onPress={() => navigation.navigate(routes.unlogged.signUpEmail)}
+            onPress={() => {
+              navigation.navigate(routes.unlogged.signUpEmail)
+            }}
           />
         </View>
 

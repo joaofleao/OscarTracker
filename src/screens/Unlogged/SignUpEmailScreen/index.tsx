@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 
 import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
+import { type SignUpEmailScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
-function SignUpEmailScreen({ navigation }: any) {
+const SignUpEmailScreen = ({ navigation }: SignUpEmailScreenProps): JSX.Element => {
   const [email, setEmail] = useState<string>('')
 
-  const emailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+  const emailValid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)
 
-  const handleNext = () =>
+  const handleNext = (): void => {
     navigation.navigate(routes.unlogged.signUpPassword, {
       email,
     })
+  }
 
   return (
     <ModelComponent>
       <HeaderComponent
-        leadingAction={() => navigation.goBack()}
+        leadingAction={() => {
+          navigation.goBack()
+        }}
         leadingButton="arrow-left"
       >
         Register

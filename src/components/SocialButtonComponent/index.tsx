@@ -1,10 +1,10 @@
 import React from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, type TouchableOpacityProps } from 'react-native'
 import { styled } from 'nativewind'
 
 import { Facebook, Google } from '../../assets/images'
 
-interface SocialButtonProps {
+interface SocialButtonProps extends TouchableOpacityProps {
   name: string
   onPress?: () => void
 }

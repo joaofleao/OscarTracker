@@ -1,9 +1,9 @@
 import React from 'react'
-import { Animated, Text, TouchableOpacity, View } from 'react-native'
+import { Animated, Text, TouchableOpacity, View, type ViewProps } from 'react-native'
 
 import { IconComponent } from '../../components'
 
-type ToastNotificationProps = React.ComponentProps<typeof View> & {
+interface ToastNotificationProps extends ViewProps {
   title: string
   description: string
   type: string

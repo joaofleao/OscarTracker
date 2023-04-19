@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Animated, Text, View } from 'react-native'
+import { Animated, Text, View, type ViewProps } from 'react-native'
 import { styled } from 'nativewind'
 
-interface ProgressBarProps {
+interface ProgressBarProps extends ViewProps {
   total: number
   progress: number
   animated?: boolean

@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { SignInScreen, SignUpAvatarScreen, SignUpEmailScreen, SignUpNameScreen, SignUpPasswordScreen } from '../../screens'
 import { type ScreenTypes } from '../../types'
 import { routes } from '../../utils'
