@@ -1,3 +1,4 @@
+import categoriesJson from './dictionary/categories.json'
 import { routes } from './ScreenNames'
 
-export { routes }
+export { categoriesJson, routes }

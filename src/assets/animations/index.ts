@@ -1,4 +1,2 @@
-import dots from './dots.json'
-import movie from './movie.json'
-
-export { dots, movie }
+export { default as dots } from './dots.json'
+export { default as movie } from './movie.json'

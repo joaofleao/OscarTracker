@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Animated } from 'react-native'
 
-type Props = {
+interface Props {
   isAppReady: boolean
   children: React.ReactNode
 }
 
-export default function SplashScreen({ children, isAppReady }: Props) {
+const SplashScreen = ({ children, isAppReady }: Props): JSX.Element => {
   return (
     <>
       <Splash isAppReady={isAppReady} />
@@ -21,13 +21,11 @@ const WAIT_FOR_APP_TO_BE_READY = 'Wait for app to be ready'
 const FADE_OUT = 'Fade out'
 const HIDDEN = 'Hidden'
 
-export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
+export const Splash = ({ isAppReady }: { isAppReady: boolean }): JSX.Element | null => {
   const containerOpacity = useRef(new Animated.Value(1)).current
   const imageOpacity = useRef(new Animated.Value(0)).current
 
-  const [state, setState] = useState<
-    typeof LOADING_IMAGE | typeof FADE_IN_IMAGE | typeof WAIT_FOR_APP_TO_BE_READY | typeof FADE_OUT | typeof HIDDEN
-  >(LOADING_IMAGE)
+  const [state, setState] = useState<typeof LOADING_IMAGE | typeof FADE_IN_IMAGE | typeof WAIT_FOR_APP_TO_BE_READY | typeof FADE_OUT | typeof HIDDEN>(LOADING_IMAGE)
 
   useEffect(() => {
     if (state === FADE_IN_IMAGE) {
@@ -67,18 +65,21 @@ export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
   return (
     <Animated.View
       collapsable={false}
-      className='bg-zinc-900 items-center justify-center h-full '
-      style={{ opacity: containerOpacity }}>
+      className="bg-zinc-900 items-center justify-center h-full "
+      style={{ opacity: containerOpacity }}
+    >
       <Animated.Image
         source={require('../../assets/images/Logo/Logo.png')}
         fadeDuration={0}
         onLoad={() => {
           setState(FADE_IN_IMAGE)
         }}
-        className='w-56 h-56 mb-20'
+        className="w-56 h-56 mb-20"
         style={{ opacity: imageOpacity }}
-        resizeMode='contain'
+        resizeMode="contain"
       />
     </Animated.View>
   )
 }
+
+export default SplashScreen

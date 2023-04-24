@@ -1,7 +1,13 @@
 import { createContext } from 'react'
-import { MoviesContextType } from '../types'
 
-const MoviesContext = createContext<MoviesContextType>({} as MoviesContextType)
+export interface MoviesContextType {
+  getMovie: (id: string) => Promise<any>
+  getCast: (id: string) => Promise<any>
+  getTrailer: (id: string) => Promise<any>
+  getProviders: (id: string) => Promise<any>
+}
+
+const MoviesContext = createContext<MoviesContextType | null>(null)
 MoviesContext.displayName = 'MoviesContext'
 
 export default MoviesContext

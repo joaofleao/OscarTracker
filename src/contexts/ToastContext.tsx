@@ -1,7 +1,10 @@
 import { createContext } from 'react'
-import { ToastContextType } from '../types'
 
-const ToastContext = createContext<ToastContextType>({} as ToastContextType)
+export interface ToastContextType {
+  showToast: (message: string, description: string, type: 'success' | 'error') => void
+}
+
+const ToastContext = createContext<ToastContextType | null>(null)
 ToastContext.displayName = 'ToastContext'
 
 export default ToastContext

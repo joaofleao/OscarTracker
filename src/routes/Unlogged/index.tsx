@@ -1,13 +1,9 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import {
-  SignInScreen,
-  SignUpPasswordScreen,
-  SignUpEmailScreen,
-  SignUpNameScreen,
-  SignUpAvatarScreen,
-} from '../../screens'
+import React from 'react'
+
+import { SignInScreen, SignUpAvatarScreen, SignUpEmailScreen, SignUpNameScreen, SignUpPasswordScreen } from '../../screens'
+import { type ScreenTypes } from '../../types'
 import { routes } from '../../utils'
-import { ScreenTypes } from '../../types'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 

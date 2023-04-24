@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
-import {
-  ModelComponent,
-  TextInputComponent,
-  NomineeCardComponent,
-  SeparatorComponent,
-  HeaderComponent,
-} from '../../../components'
-import { useData } from '../../../hooks'
-import { routes } from '../../../utils'
-import { BasicMovieType } from '../../../types'
 
-function WatchListScreen({ navigation, route }: any) {
+import { HeaderComponent, ModelComponent, NomineeCardComponent, SeparatorComponent, TextInputComponent } from '../../../components'
+import { useData } from '../../../hooks'
+import { type BasicMovieType, type WatchListScreenProps } from '../../../types'
+import { routes } from '../../../utils'
+
+function WatchListScreen({ navigation, route }: WatchListScreenProps): JSX.Element {
   const [search, setSearch] = useState<string>('')
   const [data, setData] = useState<[]>([])
 
@@ -29,17 +24,17 @@ function WatchListScreen({ navigation, route }: any) {
     }
   }, [search, currentMovies])
 
-  const renderItem = ({ item }: BasicMovieType) => {
+  const renderItem = ({ item }: BasicMovieType): JSX.Element => {
     return (
       <NomineeCardComponent
-        onPress={() =>
+        onPress={() => {
           navigation.navigate(routes.logged.movie, {
             id: item.imdb,
             poster: item['en-US'].image,
             name: item['en-US'].name,
           })
-        }
-        className='mx-4'
+        }}
+        className="mx-4"
         image={item['en-US'].image}
         title={item['en-US'].name}
         id={item.imdb}
@@ -50,19 +45,22 @@ function WatchListScreen({ navigation, route }: any) {
   return (
     <ModelComponent
       bottom={false}
-      top={false}>
+      top={false}
+    >
       <HeaderComponent>Watch List</HeaderComponent>
 
       <TextInputComponent
-        className='mx-4 mb-5'
-        placeholder='Search Movie'
-        onChange={(e: any) => setSearch(e.nativeEvent.text)}
+        className="mx-4 mb-5"
+        placeholder="Search Movie"
+        onChange={(e: any) => {
+          setSearch(e.nativeEvent.text)
+        }}
       />
 
       <FlatList
         data={data}
         renderItem={renderItem}
-        keyExtractor={item => item.imdb}
+        keyExtractor={(item) => item.imdb}
         ItemSeparatorComponent={SeparatorComponent}
         ListFooterComponent={SeparatorComponent}
       />

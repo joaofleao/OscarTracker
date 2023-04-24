@@ -1,20 +1,13 @@
 import React, { useRef } from 'react'
-import { Dimensions, Animated, View, Platform } from 'react-native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { Animated, Dimensions, Platform, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-import { routes } from '../../utils'
 import { IconComponent, ModelComponent } from '../../components'
-import {
-  HomeScreen,
-  ProfileScreen,
-  WatchListScreen,
-  MovieScreen,
-  PreferencesScreen,
-  NominationScreen,
-} from '../../screens'
-import { ScreenTypes } from '../../types'
+import { HomeScreen, MovieScreen, NominationScreen, PreferencesScreen, ProfileScreen, WatchListScreen } from '../../screens'
+import { type ScreenTypes } from '../../types'
+import { routes } from '../../utils'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 const Tab = createBottomTabNavigator()
@@ -63,11 +56,11 @@ const tabs = [
   },
 ]
 
-function TabNavigator() {
+const TabNavigator = (): JSX.Element => {
   const tabOffsetValue = useRef(new Animated.Value(0)).current
   const getWidth = (Dimensions.get('window').width - 56) / tabs.length
 
-  const renderTab = (name: string, component: any, position: number, icon: string) => {
+  const renderTab = (name: string, component: any, position: number, icon: string): JSX.Element => {
     return (
       <Tab.Screen
         key={name}
@@ -78,7 +71,7 @@ function TabNavigator() {
           tabBarIcon: ({ focused }) => (
             <IconComponent
               name={focused ? icon.concat('-filled') : icon}
-              className='absolute font text-2xl'
+              className="absolute font text-2xl"
               style={{ color: focused ? colors.amber[500] : colors.stone[700] }}
             />
           ),
@@ -103,9 +96,10 @@ function TabNavigator() {
       </Tab.Navigator>
 
       <Animated.View
-        className='w-1.5 h-1.5 relative bottom-8 left-7 rounded-full'
-        style={{ marginLeft: (getWidth - 6) / 2, transform: [{ translateX: tabOffsetValue }] }}>
-        <View className='bg-amber-500 w-full h-full absolute rounded-full' />
+        className="w-1.5 h-1.5 relative bottom-8 left-7 rounded-full"
+        style={{ marginLeft: (getWidth - 6) / 2, transform: [{ translateX: tabOffsetValue }] }}
+      >
+        <View className="bg-amber-500 w-full h-full absolute rounded-full" />
       </Animated.View>
     </ModelComponent>
   )

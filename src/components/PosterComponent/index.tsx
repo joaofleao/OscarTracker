@@ -1,5 +1,6 @@
 import React from 'react'
 import { Image, View } from 'react-native'
+
 import { IconComponent } from '../../components'
 interface PosterProps {
   image: string
@@ -8,28 +9,28 @@ interface PosterProps {
   large?: boolean
 }
 
-function PosterComponent({ image, isWatched, spoiler, large = false }: PosterProps) {
+const PosterComponent = ({ image, isWatched, spoiler, large = false }: PosterProps): JSX.Element => {
   const width = large ? 158 : 106
   const height = large ? 236 : 158
 
   const getPoster = (
     <Image
       source={{ uri: image }}
-      className='absolute w-full h-full rounded-xl'
-      resizeMode='cover'
+      className="absolute w-full h-full rounded-xl"
+      resizeMode="cover"
     />
   )
   const getCover = (
     <View
-      style={{ width: width, height: height }}
-      className='absolute rounded-xl bg-zinc-900/80 items-center justify-center'
+      style={{ width, height }}
+      className="absolute rounded-xl bg-zinc-900/80 items-center justify-center"
     />
   )
   const getIcon = (
-    <View className='absolute rounded-xl bg-amber-500 p-2 justify-center items-center'>
+    <View className="absolute rounded-xl bg-amber-500 p-2 justify-center items-center">
       <IconComponent
-        name='eye-off'
-        className='color-zinc-900'
+        name="eye-off"
+        className="color-zinc-900"
         size={18}
       />
     </View>
@@ -37,8 +38,9 @@ function PosterComponent({ image, isWatched, spoiler, large = false }: PosterPro
 
   return (
     <View
-      style={{ width: width, height: height }}
-      className='items-center justify-center bg-zinc-700/20 rounded-xl relative'>
+      style={{ width, height }}
+      className="items-center justify-center bg-zinc-700/20 rounded-xl relative"
+    >
       {(isWatched || spoiler) && getPoster}
       {!isWatched && spoiler && getCover}
       {!isWatched && getIcon}
