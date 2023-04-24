@@ -1,19 +1,19 @@
-import { Provider } from '../types'
-import { MoviesContext } from '../contexts'
-import { MoviesContextType } from '../types/ContextTypes'
+import React from 'react'
+
+import { MoviesContext, type MoviesContextType } from '../contexts'
 import * as tmdb from '../services/tmdb/api'
 
-const MoviesProvider: React.FC<Provider> = ({ children }) => {
-  const getMovie = async (id: string) => {
+const MoviesProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
+  const getMovie = async (id: string): Promise<any> => {
     return await tmdb.getMovie(id)
   }
-  const getCast = async (id: string) => {
+  const getCast = async (id: string): Promise<any> => {
     return await tmdb.getCast(id)
   }
-  const getTrailer = async (id: string) => {
+  const getTrailer = async (id: string): Promise<any> => {
     return await tmdb.getVideos(id)
   }
-  const getProviders = async (id: string) => {
+  const getProviders = async (id: string): Promise<any> => {
     return await tmdb.getProviders(id)
   }
 

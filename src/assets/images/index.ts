@@ -1,11 +1,8 @@
-import Logo from './Logo'
-import Google from './Google'
-import Facebook from './Facebook'
-import Rotten from './Rotten'
-import IMDB from './IMDB'
-const poster = require('./Onboarding/en-us.jpg')
-const justin = require('./Onboarding/justin_long.jpeg')
-const jason = require('./Onboarding/jason_lee.jpeg')
-const david = require('./Onboarding/david_cross.jpeg')
-
-export { Logo, Google, Facebook, Rotten, IMDB, poster, justin, jason, david }
+export { default as Facebook } from './Facebook'
+export { default as Google } from './Google'
+export { default as IMDB } from './IMDB'
+export { default as Logo } from './Logo'
+export { default as david } from './Onboarding/david_cross.jpeg'
+export { default as poster } from './Onboarding/en-us.jpg'
+export { default as jason } from './Onboarding/jason_lee.jpeg'
+export { default as justin } from './Onboarding/justin_long.jpeg'

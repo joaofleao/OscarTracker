@@ -1,40 +1,42 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { View, Text, TouchableOpacity, Animated, Dimensions } from 'react-native'
+import React from 'react'
+import { Animated, Text, TouchableOpacity, View, type ViewProps } from 'react-native'
+
 import { IconComponent } from '../../components'
 
-type ToastNotificationProps = React.ComponentProps<typeof View> & {
+interface ToastNotificationProps extends ViewProps {
   title: string
   description: string
   type: string
   position: Animated.Value
 }
 
-function ToastNotificationComponent(props: ToastNotificationProps) {
+const ToastNotificationComponent = ({ title, description, type, position }: ToastNotificationProps): JSX.Element => {
   return (
     <Animated.View
-      style={{ transform: [{ translateY: props.position }] }}
-      className={`mx-5 p-4 rounded-xl flex-row items-center justify-between z-20 absolute ${
-        props.type === 'success' ? 'bg-green-600' : 'bg-red-600'
-      }
-      }`}>
-      <View className='flex-row items-center flex-1 '>
+      style={{ transform: [{ translateY: position }] }}
+      className={`mx-5 p-4 rounded-xl flex-row items-center justify-between z-20 absolute ${type === 'success' ? 'bg-green-600' : 'bg-red-600'}
+      }`}
+    >
+      <View className="flex-row items-center flex-1 ">
         <IconComponent
-          name={props.type === 'success' ? 'check-circle' : 'alert-circle'}
-          className='text-white pr-4'
+          name={type === 'success' ? 'check-circle' : 'alert-circle'}
+          className="text-white pr-4"
           size={30}
         />
 
-        <View className='flex-1'>
+        <View className="flex-1">
           <Text
             numberOfLines={2}
-            className='text-white text-base font-primaryBold'>
-            {props.title}
+            className="text-white text-base font-primaryBold"
+          >
+            {title}
           </Text>
-          {props.description && (
+          {description != null && (
             <Text
               numberOfLines={2}
-              className='text-white/80 text-sm font-primaryRegular'>
-              {props.description}
+              className="text-white/80 text-sm font-primaryRegular"
+            >
+              {description}
             </Text>
           )}
         </View>
@@ -42,8 +44,8 @@ function ToastNotificationComponent(props: ToastNotificationProps) {
 
       <TouchableOpacity>
         <IconComponent
-          name='x'
-          className='text-white pl-4'
+          name="x"
+          className="text-white pl-4"
           size={24}
         />
       </TouchableOpacity>

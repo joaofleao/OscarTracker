@@ -1,53 +1,54 @@
-import { TouchableOpacity, Text, View, ImageBackground } from 'react-native'
+import React, { Text, TouchableOpacity, type TouchableOpacityProps, View } from 'react-native'
 import { styled } from 'nativewind'
-import { getImage } from '../../services/tmdb/api'
-import { useUser, usePersonalData } from '../../hooks'
-import { IconComponent, PosterComponent } from '..'
-import colors from 'tailwindcss/colors'
 
-interface ButtonProps {
+import { usePersonalData, useUser } from '../../hooks'
+import { getImage } from '../../services/tmdb/api'
+import { PosterComponent } from '..'
+
+interface ButtonProps extends TouchableOpacityProps {
   image: string
   title: string
   information?: string
   extra?: string
   id: string
-  onPress: () => void
 }
 
-
-function NomineeCardComponent({ image, title, id, information, extra, onPress, ...rest }: ButtonProps) {
+const NomineeCardComponent = ({ image, title, id, information, extra, ...props }: ButtonProps): JSX.Element => {
   const { preferences } = useUser()
   const { isWatched } = usePersonalData()
 
   return (
     <TouchableOpacity
       delayPressIn={200}
-      onPress={onPress}
-      className='justify-center '
-      {...rest}>
-      <View className='flex-row '>
+      className="justify-center "
+      {...props}
+    >
+      <View className="flex-row ">
         <PosterComponent
           image={getImage(image)}
           isWatched={isWatched(id)}
           spoiler={preferences.poster}
         />
-        <View className='flex-1'>
+        <View className="flex-1">
           <Text
             numberOfLines={3}
-            className={`ml-4 text-lg font-primaryBold text-white`}>
+            className={`ml-4 text-lg font-primaryBold text-white`}
+          >
             {title}
           </Text>
-          {information && (
+          {information != null && (
             <Text
               numberOfLines={2}
-              className={`ml-4 text-base font-primaryRegular text-zinc-600`}>
+              className={`ml-4 text-base font-primaryRegular text-zinc-600`}
+            >
               {information}
             </Text>
           )}
-          {extra && (
+          {extra != null && (
             <Text
               numberOfLines={2}
-              className={`ml-4 text-base font-primaryRegular text-amber-500`}>
+              className={`ml-4 text-base font-primaryRegular text-amber-500`}
+            >
               {extra}
             </Text>
           )}

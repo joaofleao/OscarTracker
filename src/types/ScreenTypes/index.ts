@@ -1,4 +1,7 @@
-export type ScreenTypes = {
+import { type ParamListBase } from '@react-navigation/native'
+import { type NativeStackScreenProps } from '@react-navigation/native-stack'
+
+export interface ScreenTypes extends ParamListBase {
   IndexScreen: undefined
   SignInScreen: undefined
   SignUpEmailScreen: undefined
@@ -11,9 +14,7 @@ export type ScreenTypes = {
   }
   PreferencesScreen: undefined
   SignUpAvatarScreen: undefined
-  HomeScreen: {
-    filter?: string
-  }
+  HomeScreen: undefined
   WatchListScreen: undefined
   ProfileScreen: undefined
   MovieScreen: {
@@ -25,3 +26,14 @@ export type ScreenTypes = {
     id: string
   }
 }
+
+export type HomeScreenProps = NativeStackScreenProps<ScreenTypes, 'HomeScreen'>
+export type MovieScreenProps = NativeStackScreenProps<ScreenTypes, 'MovieScreen'>
+export type PreferencesScreenProps = NativeStackScreenProps<ScreenTypes, 'PreferencesScreen'>
+export type NominationScreenProps = NativeStackScreenProps<ScreenTypes, 'NominationScreen'>
+export type SignInScreenProps = NativeStackScreenProps<ScreenTypes, 'SignInScreen'>
+export type WatchListScreenProps = NativeStackScreenProps<ScreenTypes, 'WatchListScreen'>
+export type SignUpAvatarScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpAvatarScreen'>
+export type SignUpEmailScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpEmailScreen'>
+export type SignUpPasswordScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpPasswordScreen'>
+export type SignUpNameScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpNameScreen'>

@@ -1,11 +1,12 @@
-import { View } from 'react-native'
+import React from 'react'
+import { View, type ViewProps } from 'react-native'
 import { styled } from 'nativewind'
 
-function SeparatorComponent({ ...rest }) {
+const SeparatorComponent = (props: ViewProps): JSX.Element => {
   return (
     <View
       className={`w-5 h-5`}
-      {...rest}
+      {...props}
     />
   )
 }

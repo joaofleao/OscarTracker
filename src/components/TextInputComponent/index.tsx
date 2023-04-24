@@ -1,17 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Text, TextInput, View, Animated, Easing, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
+import { Animated, Easing, Text, TextInput, type TextInputProps, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import colors from 'tailwindcss/colors'
+
 import { IconComponent } from '../../components'
 
-type TextInputProps = React.ComponentProps<typeof TextInput> & {
+interface InputProps extends TextInputProps {
   label?: string
   errorText?: string | null
   type?: 'password' | 'email' | 'text'
   validation?: boolean
+  className?: string
+  onBlur?: (event: any) => void
+  onFocus?: (event: any) => void
+  value?: string
 }
 
-function TextInputComponent(props: TextInputProps) {
-  const { label, errorText, type, value, className, onBlur, onFocus, validation, ...restOfProps } = props
+const TextInputComponent = ({ label, errorText, type, value, className, onBlur, onFocus, validation, ...props }: InputProps): JSX.Element => {
   const [isFocused, setIsFocused] = useState(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState(type === 'password')
   const [showError, setShowError] = useState<boolean>(false)
@@ -21,7 +25,7 @@ function TextInputComponent(props: TextInputProps) {
 
   useEffect(() => {
     Animated.timing(focusAnim, {
-      toValue: isFocused || !!value ? 1 : 0,
+      toValue: isFocused || value != null ? 1 : 0,
       duration: 150,
       easing: Easing.bezier(0.4, 0, 0.2, 1),
       useNativeDriver: true,
@@ -30,56 +34,63 @@ function TextInputComponent(props: TextInputProps) {
 
   useEffect(() => {
     const userTyping = setTimeout(() => {
-      if (validation !== undefined && !validation && value && value.length > 0) {
+      if (validation !== undefined && !validation && value != null && value.length > 0) {
         setShowError(true)
       } else setShowError(false)
     }, 1000)
-    return () => clearTimeout(userTyping)
+    return () => {
+      clearTimeout(userTyping)
+    }
   }, [value])
 
-  let color = isFocused ? colors.amber[500] : colors.stone[400]
+  const color = isFocused ? colors.amber[500] : colors.stone[400]
 
-  const getHelperText = () => {
-    if (showError && errorText)
+  const getHelperText = (): JSX.Element => {
+    if (showError && errorText != null)
       return (
-        <View className='flex-row mt-2 ml-2'>
+        <View className="flex-row mt-2 ml-2">
           <IconComponent
-            name='alert-circle'
-            className='text-red-500 mt-1'
+            name="alert-circle"
+            className="text-red-500 mt-1"
             size={14}
           />
-          <Text className='font-primaryRegular ml-1 text-sm text-red-500'>{errorText}</Text>
+          <Text className="font-primaryRegular ml-1 text-sm text-red-500">{errorText}</Text>
         </View>
       )
+    return <></>
   }
 
   return (
-    <View className={`mt-5 ${className} `}>
-      <View className='flex-row justify-center items-center bg-zinc-500/10 rounded-2xl'>
+    <View className={`mt-5 ${className != null ? className : ''} `}>
+      <View className="flex-row justify-center items-center bg-zinc-500/10 rounded-2xl">
         <TextInput
           placeholderTextColor={colors.stone[600]}
           secureTextEntry={isPasswordVisible}
-          autoCapitalize='none'
-          className='px-4 text-white font-primaryRegular text-base h-12 pb-2 flex-1'
+          autoCapitalize="none"
+          className="px-4 text-white font-primaryRegular text-base h-12 pb-2 flex-1"
           ref={inputRef}
-          {...restOfProps}
+          {...props}
           value={value}
-          onBlur={event => {
+          onBlur={(event) => {
             setIsFocused(false)
             onBlur?.(event)
           }}
-          onFocus={event => {
+          onFocus={(event) => {
             setIsFocused(true)
             onFocus?.(event)
           }}
         />
         {type === 'password' && (
-          <TouchableOpacity onPress={() => setIsPasswordVisible(value => !value)}>
+          <TouchableOpacity
+            onPress={() => {
+              setIsPasswordVisible((value) => !value)
+            }}
+          >
             <IconComponent
               name={isPasswordVisible ? 'eye' : 'eye-off'}
               size={24}
               color={colors.amber[500]}
-              className='mx-3 leading-6'
+              className="mx-3 leading-6"
             />
           </TouchableOpacity>
         )}
@@ -87,7 +98,7 @@ function TextInputComponent(props: TextInputProps) {
 
       <TouchableWithoutFeedback onPress={() => inputRef.current?.focus()}>
         <Animated.View
-          className='absolute flex-1 w-full'
+          className="absolute flex-1 w-full"
           style={{
             transform: [
               {
@@ -109,10 +120,12 @@ function TextInputComponent(props: TextInputProps) {
                 }),
               },
             ],
-          }}>
+          }}
+        >
           <Text
-            className='font-primaryRegular text-base text-white'
-            style={{ color }}>
+            className="font-primaryRegular text-base text-white"
+            style={{ color }}
+          >
             {label}
           </Text>
         </Animated.View>

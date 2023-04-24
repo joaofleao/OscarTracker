@@ -1,11 +1,3 @@
-export type {
-  DataContextType,
-  AuthContextType,
-  ThemeContextType,
-  UserContextType,
-  ToastContextType,
-  MoviesContextType,
-} from './ContextTypes'
-export type { ScreenTypes } from './ScreenTypes'
-export type { Provider, Nomination, Category, BasicMovieType, UserType, PreferencesType } from './BasicTypes'
+export type { BasicMovieType, Category, Nomination, PreferencesType, Provider, UserType } from './BasicTypes'
+export type { HomeScreenProps, MovieScreenProps, NominationScreenProps, PreferencesScreenProps, ScreenTypes, SignInScreenProps, SignUpAvatarScreenProps, SignUpEmailScreenProps, SignUpNameScreenProps, SignUpPasswordScreenProps, WatchListScreenProps } from './ScreenTypes'
 export type { User } from 'firebase/auth'

@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, ListRenderItemInfo, Text, TouchableOpacity, View } from 'react-native'
-import {
-  HeaderComponent,
-  ModelComponent,
-  SeparatorComponent,
-  TextInputComponent,
-  ProgressBarComponent,
-  PosterComponent,
-} from '../../../components'
-import { useData, usePersonalData, useUser, useAuth } from '../../../hooks'
+import { FlatList, type ListRenderItemInfo, Text, TouchableOpacity, View } from 'react-native'
+
+import { HeaderComponent, ModelComponent, PosterComponent, ProgressBarComponent, SeparatorComponent, TextInputComponent } from '../../../components'
+import { useData, usePersonalData, useUser } from '../../../hooks'
 import { getImage } from '../../../services/tmdb/api'
+import { type HomeScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
-function HomeScreen({ navigation, route }: any) {
+const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
   const { currentNominationsByCategory, currentCategoriesMap, currentMoviesMap, currentPeopleMap } = useData()
-  const { isWatched, totalMovies, totalWatchedMovies, watchedMoviesInCategory, uniqueMovies } = usePersonalData()
+  const { isWatched, totalMovies, totalWatchedMovies } = usePersonalData()
   const { preferences, onboarding } = useUser()
-  const filter = route.params?.filter || ''
   const [search, setSearch] = useState<string>('')
   const [data, setData] = useState<[]>([])
 
@@ -37,30 +31,26 @@ function HomeScreen({ navigation, route }: any) {
     }
   }, [search, currentNominationsByCategory])
 
-  useEffect(() => {
-    setSearch(filter)
-  }, [filter])
-
-  const renderMovie = ({ item }: any, category: any) => {
+  const renderMovie = ({ item }: any, category: any): any => {
     const movie = currentMoviesMap?.get(item.movie)
     const person = currentPeopleMap?.get(item.person)
     const watched = isWatched(movie.imdb)
 
-    const showPoster = person ? true : preferences.poster
-    const image = person ? getImage(person.image) : getImage(movie['en-US'].image)
-
-    const text = person ? person.name : movie['en-US'].name
+    const showPoster = person != null ? true : preferences.poster
+    const image = person != null ? getImage(person.image) : getImage(movie['en-US'].image)
+    const text = person != null ? person.name : movie['en-US'].name
 
     return (
       <TouchableOpacity
         className={category === '19' ? 'w-[158px]' : 'w-[106px]'}
-        onPress={() =>
+        onPress={() => {
           navigation.navigate(routes.logged.movie, {
             id: movie.imdb,
             poster: movie['en-US'].image,
             name: movie['en-US'].name,
           })
-        }>
+        }}
+      >
         <PosterComponent
           large={category === '19'}
           spoiler={showPoster}
@@ -70,28 +60,32 @@ function HomeScreen({ navigation, route }: any) {
 
         <Text
           numberOfLines={2}
-          className='mt-2 font-primaryBold text-white text-base'>
+          className="mt-2 font-primaryBold text-white text-base"
+        >
           {text}
         </Text>
       </TouchableOpacity>
     )
   }
-  const renderCategory = ({ item }: ListRenderItemInfo<any>) => {
+  const renderCategory = ({ item }: ListRenderItemInfo<any>): JSX.Element => {
     return (
       <View>
-        <View className='flex-row justify-between items-center mx-4 mb-4'>
-          <Text className='font-primaryBold text-white text-xl'>{currentCategoriesMap.get(item.key)}</Text>
+        <View className="flex-row justify-between items-center mx-4 mb-4">
+          <Text className="font-primaryBold text-white text-xl">{currentCategoriesMap.get(item.key)}</Text>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate(routes.logged.nomination, { id: item.key, movies: item.value })}>
-            <Text className='font-primaryDefault text-zinc-600 text-sm'>see more</Text>
+            onPress={() => {
+              navigation.navigate(routes.logged.nomination, { id: item.key, movies: item.value })
+            }}
+          >
+            <Text className="font-primaryDefault text-zinc-600 text-sm">see more</Text>
           </TouchableOpacity>
         </View>
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
           data={item.value}
-          renderItem={movie => renderMovie(movie, item.key)}
+          renderItem={(movie) => renderMovie(movie, item.key)}
           ItemSeparatorComponent={SeparatorComponent}
           ListFooterComponent={SeparatorComponent}
           ListHeaderComponent={SeparatorComponent}
@@ -103,7 +97,8 @@ function HomeScreen({ navigation, route }: any) {
   return (
     <ModelComponent
       bottom={false}
-      top={false}>
+      top={false}
+    >
       <HeaderComponent>Home</HeaderComponent>
 
       <ProgressBarComponent
@@ -113,10 +108,12 @@ function HomeScreen({ navigation, route }: any) {
       />
 
       <TextInputComponent
-        className='mx-4 mb-5'
+        className="mx-4 mb-5"
         value={search}
-        placeholder='Search Category'
-        onChange={(e: any) => setSearch(e.nativeEvent.text)}
+        placeholder="Search Category"
+        onChange={(e: any) => {
+          setSearch(e.nativeEvent.text)
+        }}
       />
 
       <FlatList
