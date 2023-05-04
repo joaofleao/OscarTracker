@@ -268,7 +268,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
       <View className={`items-center justify-end ${Platform.OS === 'android' ? 'mb-6' : ''}`}>
         {screens[index].firstButton != null && (
           <ButtonComponent
-            name={screens[index].firstButton}
+            label={screens[index].firstButton}
             className="w-60 mb-4"
             onPress={() => {
               handleNext(false)
@@ -277,7 +277,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
         )}
         {screens[index].secondButton != null && (
           <ButtonComponent
-            name={screens[index].secondButton}
+            label={screens[index].secondButton}
             className="w-60"
             onPress={() => {
               handleNext(true)

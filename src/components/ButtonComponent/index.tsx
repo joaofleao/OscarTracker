@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Animated, type PressableProps } from 'react-native'
 
 import { LoadingComponent } from '../../components'
@@ -28,7 +28,7 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
   const scaleAnimation = useRef(new Animated.Value(0)).current;
   const opacityAnimation = useRef(new Animated.Value(0)).current;
   const scale = scaleAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.95] });
-  const opacity = opacityAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.8] });
+  const opacity = opacityAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.4] });
 
   const onPressIn = (): void => {
     Animated.spring(scaleAnimation, {
@@ -37,7 +37,7 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
       useNativeDriver: true,
     }).start();
     Animated.spring(opacityAnimation, {
-      toValue: 1,
+      toValue: 0.5,
       useNativeDriver: true,
     }).start();
   };
@@ -52,6 +52,22 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
       useNativeDriver: true,
     }).start();
   };
+
+  useEffect(() => {
+    if (disabled) {
+      Animated.spring(opacityAnimation, {
+        toValue: 1,
+        useNativeDriver: true,
+      }).start();
+    }
+    else {
+      Animated.spring(opacityAnimation, {
+        toValue: 0,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [disabled])
+
 
   return (
     <Animated.View style={{ transform: [{ scale }], opacity }}>

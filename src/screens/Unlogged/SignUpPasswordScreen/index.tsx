@@ -73,7 +73,7 @@ const SignUpPasswordScreen = ({ navigation, route }: SignUpPasswordScreenProps):
         <View className="flex-1 items-center justify-end">
           <ButtonComponent
             disabled={!(isValid && oneUpperCase && specialCase && oneDigits && lowerCase)}
-            name="Next"
+            label="Next"
             className="w-60"
             onPress={handleNext}
           />

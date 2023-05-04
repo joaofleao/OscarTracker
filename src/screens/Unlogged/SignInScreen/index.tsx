@@ -40,18 +40,16 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
 
         <View className="items-center">
           <ButtonComponent
-            name="Sign In"
-            className="w-60 mb-5"
-            onPress={() => {
-              signIn(formattedEmail, password)
-            }}
+            label="Log In"
+            variant='primary'
+            disabled={formattedEmail === '' || password === ''}
+            onPress={() => { signIn(formattedEmail, password) }}
           />
+
           <ButtonComponent
-            name="Register"
-            className="w-60"
-            onPress={() => {
-              navigation.navigate(routes.unlogged.signUpEmail)
-            }}
+            label="New here?"
+            variant='text'
+            onPress={() => { navigation.navigate(routes.unlogged.signUpEmail) }}
           />
         </View>
 
