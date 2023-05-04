@@ -56,7 +56,7 @@ const SignUpNameScreen = ({ navigation, route }: SignUpNameScreenProps): JSX.Ele
 
         <View className="flex-1 items-center justify-end my-4">
           <ButtonComponent
-            name="Next"
+            label="Next"
             className="w-60"
             onPress={handleNext}
           />

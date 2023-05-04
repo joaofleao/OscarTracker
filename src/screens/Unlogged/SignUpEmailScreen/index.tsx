@@ -47,7 +47,7 @@ const SignUpEmailScreen = ({ navigation }: SignUpEmailScreenProps): JSX.Element 
 
         <View className="flex-1 items-center justify-end">
           <ButtonComponent
-            name="Next"
+            label="Next"
             disabled={!emailValid}
             className="w-60"
             onPress={handleNext}

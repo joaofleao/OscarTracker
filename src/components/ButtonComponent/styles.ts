@@ -4,37 +4,24 @@ import { IconComponent } from '../../components'
 import type { StyledProps } from '../../types'
 
 interface Props extends StyledProps {
-  disabled: boolean
   variant: 'primary' | 'secondary' | 'outlined' | 'text'
   width: 'fit' | 'fixed' | 'full'
   scale: any
 }
 
 const getBackgroundColor = (props: Props): string => {
-  if (props.variant === 'primary') {
-    if (props.disabled) return props.theme.palette.primary.shades.shade30
-    return props.theme.palette.primary.default
-  }
-  if (props.variant === 'secondary') {
-    return props.theme.palette.primary.shades.shade5
-  }
+  if (props.variant === 'primary') return props.theme.palette.primary.default
+  if (props.variant === 'secondary') return props.theme.palette.primary.shades.shade5
   return 'transparent'
 }
 
 const getContentColor = (props: Props): string => {
-  if (props.variant === 'primary') {
-    if (props.disabled) return props.theme.palette.background.default
-    return props.theme.palette.text.inverse
-  }
-  if (props.disabled) return props.theme.palette.primary.shades.shade15
+  if (props.variant === 'primary') return props.theme.palette.text.inverse
   return props.theme.palette.primary.default
 }
 
 const getBorder = (props: Props): string => {
-  if (props.variant === 'outlined') {
-    if (props.disabled) return props.theme.palette.primary.shades.shade15
-    return props.theme.palette.primary.default
-  }
+  if (props.variant === 'outlined') return props.theme.palette.primary.default
   return 'transparent'
 }
 const getWidth = (props: Props): string => {
@@ -62,7 +49,6 @@ export const Label = styled.Text((props: Props) => ({
   color: getContentColor(props),
   maxWidth: '80%',
   textAlign: 'center',
-  backgroundColor: 'red',
 }))
 
 export const Icon = styled(IconComponent)((props: Props) => ({
