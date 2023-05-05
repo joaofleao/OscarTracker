@@ -4,7 +4,7 @@
   "layers": [
     {
       "ty": 4,
-      "nm": "Shape Layer 3",
+      "nm": "Dot",
       "mn": "",
       "sr": 1,
       "st": 0,
@@ -126,7 +126,7 @@
     },
     {
       "ty": 4,
-      "nm": "Shape Layer 2",
+      "nm": "Dot",
       "mn": "",
       "sr": 1,
       "st": 0,
@@ -254,7 +254,7 @@
     },
     {
       "ty": 4,
-      "nm": "Shape Layer 1",
+      "nm": "Dot",
       "mn": "",
       "sr": 1,
       "st": 0,
