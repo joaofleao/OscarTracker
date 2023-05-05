@@ -69,7 +69,7 @@ const ProfileScreen = (): JSX.Element => {
           className="mx-4 mb-8"
           editable={false}
           label="Email (not editable)"
-          onChangeText={() => {}}
+          onChangeText={() => { }}
         />
 
         <Text className="mx-4 mb-5 text-white text-xl font-primaryRegular">Spoiler Preferences</Text>
@@ -134,7 +134,7 @@ const ProfileScreen = (): JSX.Element => {
         </View>
 
         <ButtonComponent
-          name="Log Out"
+          label="Log Out"
           variant="outlined"
           className="mx-4 mb-5"
           onPress={signOut}

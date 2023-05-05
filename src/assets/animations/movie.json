@@ -4,7 +4,7 @@
   "layers": [
     {
       "ty": 4,
-      "nm": "Shape Layer 12",
+      "nm": "WheelHole",
       "mn": "",
       "sr": 1,
       "st": 0,
@@ -116,7 +116,7 @@
     },
     {
       "ty": 4,
-      "nm": "Shape Layer 11",
+      "nm": "WheelHole",
       "mn": "",
       "sr": 1,
       "st": 0,
@@ -228,7 +228,7 @@
     },
     {
       "ty": 4,
-      "nm": "Shape Layer 10",
+      "nm": "WheelHole",
       "mn": "",
       "sr": 1,
       "st": 0,
@@ -340,7 +340,7 @@
     },
     {
       "ty": 4,
-      "nm": "Shape Layer 9",
+      "nm": "WheelHole",
       "mn": "",
       "sr": 1,
       "st": 0,
@@ -452,7 +452,7 @@
     },
     {
       "ty": 4,
-      "nm": "Shape Layer 5",
+      "nm": "WheelHole",
       "mn": "",
       "sr": 1,
       "st": 0,
@@ -564,7 +564,7 @@
     },
     {
       "ty": 4,
-      "nm": "Shape Layer 7",
+      "nm": "WheelHole",
       "mn": "",
       "sr": 1,
       "st": 0,
@@ -641,7 +641,7 @@
     },
     {
       "ty": 4,
-      "nm": "Shape Layer 1",
+      "nm": "Wheel",
       "mn": "",
       "sr": 1,
       "st": 0,
