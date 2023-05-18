@@ -58,14 +58,12 @@ export const Label = styled.Text((props: Props) => ({
   color: getContentColor(props),
   maxWidth: '80%',
   textAlign: 'center',
-  backgroundColor: 'red',
 }))
 
 export const Icon = styled(IconComponent)((props: Props) => ({
   color: getContentColor(props),
   fontSize: props.theme.typography.size.font20,
   lineHeight: props.theme.typography.size.font20,
-  backgroundColor: 'blue',
   marginRight: props.name !== null && props.iconPositon === 'leading' && props.theme.spacing.space8,
   marginLeft: props.name !== null && props.iconPositon === 'trailing' && props.theme.spacing.space8,
 }))
