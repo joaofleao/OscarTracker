@@ -1,6 +1,6 @@
 import React from 'react'
 import LottieView from 'lottie-react-native'
-import { useTheme } from 'styled-components'
+import { useTheme } from 'styled-components/native'
 
 import { circle, dots, movie } from '../../assets/animations'
 import { type ThemeType } from '../../types'

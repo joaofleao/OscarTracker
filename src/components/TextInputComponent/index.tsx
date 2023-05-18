@@ -67,7 +67,7 @@ const TextInputComponent = ({ label, errorText, type, value, className, onBlur, 
           placeholderTextColor={colors.stone[600]}
           secureTextEntry={isPasswordVisible}
           autoCapitalize="none"
-          className="px-4 text-white font-primaryRegular text-base h-12 pb-2 flex-1"
+          className="px-4 text-white font-primaryRegular text-base leading-4 h-12 pb-2 flex-1"
           ref={inputRef}
           {...props}
           value={value}

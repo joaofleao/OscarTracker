@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 
 import { ButtonComponent, LogoComponent, ModelComponent, TextInputComponent } from '../../../components'
 import { useAuth } from '../../../hooks'
@@ -28,27 +28,34 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
           }}
         />
 
-        <TextInputComponent
-          className="mb-10 mx-4"
-          label="Password"
-          type="password"
-          value={password}
-          onChangeText={(text) => {
-            setPassword(text)
-          }}
-        />
+
+        <View className="mb-12 mx-4 ">
+          <TextInputComponent
+            className="mb-2"
+            label="Password"
+            type="password"
+            value={password}
+            onChangeText={(text) => {
+              setPassword(text)
+            }}
+          />
+          <TouchableOpacity className="items-end ">
+            <Text className="font-primaryBold text-xs text-amber-500 ">Forgot password?</Text>
+          </TouchableOpacity>
+        </View>
 
         <View className="items-center">
           <ButtonComponent
-            label="Log In"
+            label="Sign In"
             variant='primary'
             disabled={formattedEmail === '' || password === ''}
             onPress={() => { signIn(formattedEmail, password) }}
+            style={{ marginBottom: 12 }}
           />
 
           <ButtonComponent
             label="New here?"
-            variant='text'
+            variant='secondary'
             onPress={() => { navigation.navigate(routes.unlogged.signUpEmail) }}
           />
         </View>

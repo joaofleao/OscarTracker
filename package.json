@@ -30,7 +30,7 @@
     "react-native-screens": "^3.18.2",
     "react-native-svg": "^13.6.0",
     "react-native-vector-icons": "^9.2.0",
-    "styled-components": "^5.3.10"
+    "styled-components": "^6.0.0-rc.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

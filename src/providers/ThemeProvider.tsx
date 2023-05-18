@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ThemeProvider as StyledComponentsProvider } from 'styled-components'
+import { ThemeProvider as StyledComponentsProvider } from 'styled-components/native'
 
 import { ThemeContext, type ThemeContextType } from '../contexts'
 import { getTheme } from '../styles'
