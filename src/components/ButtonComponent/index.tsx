@@ -20,6 +20,7 @@ const defaultValue = {
   disabled: false,
   loading: false,
   iconPositon: 'leading',
+  icon: "chevron-right"
 }
 
 const ButtonComponent = (props: ButtonProps): JSX.Element => {
@@ -73,6 +74,8 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
     <Animated.View style={{ transform: [{ scale }], opacity }}>
       <Styled.Button
         width={width}
+        iconPositon={iconPositon}
+        icon={icon}
         variant={variant}
         disabled={disabled}
         onPressIn={onPressIn}
@@ -86,6 +89,7 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
             {icon != null && iconPositon === 'leading' && (
               <Styled.Icon
                 name={icon}
+                iconPositon={iconPositon}
                 size={18}
                 variant={variant}
                 disabled={disabled}
@@ -103,6 +107,7 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
             {icon != null && iconPositon === 'trailing' && (
               <Styled.Icon
                 name={icon}
+                iconPositon={iconPositon}
                 width={24}
                 height={24}
                 variant={variant}

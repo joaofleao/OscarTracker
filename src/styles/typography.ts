@@ -15,19 +15,19 @@ export interface TypographyType {
   }
 
   size: {
-    font12: number
-    font14: number
-    font16: number
-    font18: number
-    font20: number
-    font24: number
-    font30: number
-    font36: number
-    font48: number
-    font60: number
-    font72: number
-    font96: number
-    font128: number
+    font12: string
+    font14: string
+    font16: string
+    font18: string
+    font20: string
+    font24: string
+    font30: string
+    font36: string
+    font48: string
+    font60: string
+    font72: string
+    font96: string
+    font128: string
   }
 }
 
@@ -47,18 +47,18 @@ export const typography = {
     light: 'Spartan-Light',
   },
   size: {
-    font12: 12,
-    font14: 14,
-    font16: 16,
-    font18: 18,
-    font20: 20,
-    font24: 24,
-    font30: 30,
-    font36: 36,
-    font48: 48,
-    font60: 60,
-    font72: 72,
-    font96: 96,
-    font128: 128,
+    font12: '12px',
+    font14: '14px',
+    font16: '16px',
+    font18: '18px',
+    font20: '20px',
+    font24: '24px',
+    font30: '30px',
+    font36: '36px',
+    font48: '48px',
+    font60: '60px',
+    font72: '72px',
+    font96: '96px',
+    font128: '128px',
   },
 } satisfies TypographyType
