@@ -20,7 +20,6 @@ const defaultValue = {
   disabled: false,
   loading: false,
   iconPositon: 'leading',
-  icon: "chevron-right"
 }
 
 const ButtonComponent = (props: ButtonProps): JSX.Element => {
