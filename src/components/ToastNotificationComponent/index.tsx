@@ -31,14 +31,7 @@ const ToastNotificationComponent = ({ title, description, type, position }: Toas
           >
             {title}
           </Text>
-          {description != null && (
-            <Text
-              numberOfLines={2}
-              className="text-white/80 text-sm font-primaryRegular"
-            >
-              {description}
-            </Text>
-          )}
+          {description != null && <Text className="text-white/80 text-sm font-primaryRegular">{description}</Text>}
         </View>
       </View>
 

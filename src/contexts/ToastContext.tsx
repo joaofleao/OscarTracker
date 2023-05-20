@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 
 export interface ToastContextType {
-  showToast: (message: string, description: string, type: 'success' | 'error') => void
+  showToast: (title: string, description: string, type: 'success' | 'error', instant: boolean) => void
 }
 
 const ToastContext = createContext<ToastContextType | null>(null)

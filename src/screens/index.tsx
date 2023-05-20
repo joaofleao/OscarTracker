@@ -1,6 +1,7 @@
 export { default as SplashScreen } from './SplashScreen'
 
 // Unlogged
+export { default as ForgotPasswordScreen } from './Unlogged/ForgotPasswordScreen'
 export { default as SignInScreen } from './Unlogged/SignInScreen'
 export { default as SignUpAvatarScreen } from './Unlogged/SignUpAvatarScreen'
 export { default as SignUpEmailScreen } from './Unlogged/SignUpEmailScreen'

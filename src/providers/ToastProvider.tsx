@@ -21,11 +21,12 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
     }
   }, [isLoading])
 
-  const showToast = (title: string, description: string, type: string): any => {
+  const showToast = (title: string, description: string, type: 'success' | 'error', instant: boolean): void => {
     setTitle(title)
     setDescription(description)
     setType(type)
     setToast(true)
+    if (instant) popIn()
   }
 
   const windowHeight = Dimensions.get('window').height
@@ -48,7 +49,7 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
         duration: 300,
         useNativeDriver: true,
       }).start()
-    }, 2000)
+    }, 6000)
   }
 
   const value = {

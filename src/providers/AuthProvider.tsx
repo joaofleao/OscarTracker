@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { type FirebaseError } from 'firebase/app'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth'
+import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth'
 import { collection, doc, onSnapshot, setDoc } from 'firebase/firestore'
 
 import { AuthContext, type AuthContextType } from '../contexts'
@@ -50,7 +50,7 @@ const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
   }, [user])
 
   const showError = (error: FirebaseError): void => {
-    showToast(error.code, error.message, 'error')
+    showToast(error.code, error.message, 'error', false)
   }
 
   const signIn = (email: string, password: string): void => {
@@ -116,6 +116,13 @@ const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
       .catch(showError)
       .finally(stopLoading)
   }
+  const recoverPassword = (email: string): void => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        showToast('Email Sent', 'You will recieve an email to recover the password if your account exists.', 'success', true)
+      })
+      .catch(showError)
+  }
 
   const value = {
     initializing,
@@ -123,6 +130,7 @@ const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     signUp,
     signOut: signOutFunction,
     setUser,
+    recoverPassword,
   } satisfies AuthContextType
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
