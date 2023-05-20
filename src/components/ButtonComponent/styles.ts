@@ -7,6 +7,9 @@ interface Props extends StyledProps {
   variant: 'primary' | 'secondary' | 'outlined' | 'text'
   width: 'fit' | 'fixed' | 'full'
   scale: any
+  iconPositon: 'trailing' | 'leading'
+  icon: string
+  name: string
 }
 
 const getBackgroundColor = (props: Props): string => {
@@ -22,6 +25,7 @@ const getContentColor = (props: Props): string => {
 
 const getBorder = (props: Props): string => {
   if (props.variant === 'outlined') return props.theme.palette.primary.default
+
   return 'transparent'
 }
 const getWidth = (props: Props): string => {
@@ -29,12 +33,18 @@ const getWidth = (props: Props): string => {
   if (props.width === 'fixed') return props.theme.spacing.space256
   return '100%'
 }
+const getHorizontalPadding = (props: Props): any => {
+  if (props.icon != null && props.iconPositon === 'leading') return { paddingRight: props.theme.spacing.space24, paddingLeft: props.theme.spacing.space20 }
+  if (props.icon != null && props.iconPositon === 'trailing') return { paddingRight: props.theme.spacing.space20, paddingLeft: props.theme.spacing.space24 }
+  return { paddingHorizontal: props.theme.spacing.space24 }
+}
 
 export const Button = styled.Pressable((props: Props) => ({
   background: getBackgroundColor(props),
   border: getBorder(props),
-  padding: props.theme.spacing.space20,
-  borderRadius: props.theme.spacing.space24,
+  paddingVertical: props.theme.spacing.space16,
+  ...getHorizontalPadding(props),
+  borderRadius: props.theme.spacing.space20,
   width: getWidth(props),
   justifyContent: 'center',
   alignItems: 'center',
@@ -43,9 +53,8 @@ export const Button = styled.Pressable((props: Props) => ({
 
 export const Label = styled.Text((props: Props) => ({
   fontFamily: props.theme.typography.primary.bold,
-  fontSize: props.theme.typography.size.font18,
-  lineHeight: props.theme.typography.size.font24,
-  marginHorizontal: props.theme.spacing.space12,
+  fontSize: props.theme.typography.size.font16,
+  lineHeight: props.theme.typography.size.font20,
   color: getContentColor(props),
   maxWidth: '80%',
   textAlign: 'center',
@@ -53,6 +62,8 @@ export const Label = styled.Text((props: Props) => ({
 
 export const Icon = styled(IconComponent)((props: Props) => ({
   color: getContentColor(props),
-  fontSize: props.theme.typography.size.font24,
-  lineHeight: props.theme.typography.size.font24,
+  fontSize: props.theme.typography.size.font20,
+  lineHeight: props.theme.typography.size.font20,
+  marginRight: props.name !== null && props.iconPositon === 'leading' && props.theme.spacing.space8,
+  marginLeft: props.name !== null && props.iconPositon === 'trailing' && props.theme.spacing.space8,
 }))
