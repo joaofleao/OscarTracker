@@ -5,6 +5,9 @@ export interface ScreenTypes extends ParamListBase {
   IndexScreen: undefined
   SignInScreen: undefined
   SignUpEmailScreen: undefined
+  ForgotPasswordScreen: {
+    email: string | undefined
+  }
   SignUpPasswordScreen: {
     email: string
   }
@@ -37,3 +40,4 @@ export type SignUpAvatarScreenProps = NativeStackScreenProps<ScreenTypes, 'SignU
 export type SignUpEmailScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpEmailScreen'>
 export type SignUpPasswordScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpPasswordScreen'>
 export type SignUpNameScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpNameScreen'>
+export type ForgotPasswordScreenProps = NativeStackScreenProps<ScreenTypes, 'ForgotPasswordScreen'>

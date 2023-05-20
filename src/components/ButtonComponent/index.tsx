@@ -25,73 +25,79 @@ const defaultValue = {
 const ButtonComponent = (props: ButtonProps): JSX.Element => {
   const { label, width, variant, disabled, loading, icon, iconPositon, ...rest } = props
 
-  const scaleAnimation = useRef(new Animated.Value(0)).current;
-  const opacityAnimation = useRef(new Animated.Value(0)).current;
-  const scale = scaleAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.95] });
-  const opacity = opacityAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.4] });
+  const scaleAnimation = useRef(new Animated.Value(0)).current
+  const opacityAnimation = useRef(new Animated.Value(0)).current
+  const scale = scaleAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.95] })
+  const opacity = opacityAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.4] })
 
   const onPressIn = (): void => {
     Animated.spring(scaleAnimation, {
       toValue: 1,
       speed: 200,
       useNativeDriver: true,
-    }).start();
+    }).start()
     Animated.spring(opacityAnimation, {
       toValue: 0.5,
       useNativeDriver: true,
-    }).start();
-  };
+    }).start()
+  }
   const onPressOut = (): void => {
     Animated.spring(scaleAnimation, {
       toValue: 0,
       speed: 200,
       useNativeDriver: true,
-    }).start();
+    }).start()
     Animated.spring(opacityAnimation, {
       toValue: 0,
       useNativeDriver: true,
-    }).start();
-  };
+    }).start()
+  }
 
   useEffect(() => {
     if (disabled) {
       Animated.spring(opacityAnimation, {
         toValue: 1,
         useNativeDriver: true,
-      }).start();
-    }
-    else {
+      }).start()
+    } else {
       Animated.spring(opacityAnimation, {
         toValue: 0,
         useNativeDriver: true,
-      }).start();
+      }).start()
     }
   }, [disabled])
-
 
   return (
     <Animated.View style={{ transform: [{ scale }], opacity }}>
       <Styled.Button
         width={width}
+        iconPositon={iconPositon}
+        icon={icon}
         variant={variant}
         disabled={disabled}
         onPressIn={onPressIn}
         onPressOut={onPressOut}
         {...rest}
       >
-        {loading ?
-          <LoadingComponent disabled={disabled} animation={'circle'} size={24} type={variant === 'primary' ? 'secondary' : 'primary'} />
-          :
+        {loading ? (
+          <LoadingComponent
+            disabled={disabled}
+            animation={'circle'}
+            size={24}
+            type={variant === 'primary' ? 'secondary' : 'primary'}
+          />
+        ) : (
           <>
             {icon != null && iconPositon === 'leading' && (
               <Styled.Icon
                 name={icon}
+                iconPositon={iconPositon}
                 size={18}
                 variant={variant}
                 disabled={disabled}
               />
             )}
-            {label != null &&
+            {label != null && (
               <Styled.Label
                 numberOfLines={1}
                 variant={variant}
@@ -99,17 +105,19 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
               >
                 {label}
               </Styled.Label>
-            }
+            )}
             {icon != null && iconPositon === 'trailing' && (
               <Styled.Icon
                 name={icon}
+                iconPositon={iconPositon}
                 width={24}
                 height={24}
                 variant={variant}
                 disabled={disabled}
               />
             )}
-          </>}
+          </>
+        )}
       </Styled.Button>
     </Animated.View>
   )
@@ -118,4 +126,3 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
 ButtonComponent.defaultProps = defaultValue
 
 export default ButtonComponent
-
