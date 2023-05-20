@@ -5,6 +5,8 @@ export interface AuthContextType {
   signUp: (email: string, password: string, displayName: string, nickName: any) => void
   signOut: () => void
   setUser: (user: any) => void
+  recoverPassword: (email: string) => void
+
   initializing: boolean
 }
 

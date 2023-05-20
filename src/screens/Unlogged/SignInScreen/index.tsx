@@ -28,7 +28,6 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
           }}
         />
 
-
         <View className="mb-12 mx-4 ">
           <TextInputComponent
             className="mb-2"
@@ -39,24 +38,34 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
               setPassword(text)
             }}
           />
-          <TouchableOpacity className="items-end ">
-            <Text className="font-primaryBold text-xs text-amber-500 ">Forgot password?</Text>
-          </TouchableOpacity>
+          <View className="items-end">
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(routes.unlogged.forgotPassword, { email })
+              }}
+            >
+              <Text className="font-primaryBold p-2 text-xs text-amber-500 ">Forgot password?</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         <View className="items-center">
           <ButtonComponent
             label="Sign In"
-            variant='primary'
+            variant="primary"
             disabled={formattedEmail === '' || password === ''}
-            onPress={() => { signIn(formattedEmail, password) }}
+            onPress={() => {
+              signIn(formattedEmail, password)
+            }}
             style={{ marginBottom: 12 }}
           />
 
           <ButtonComponent
             label="New here?"
-            variant='secondary'
-            onPress={() => { navigation.navigate(routes.unlogged.signUpEmail) }}
+            variant="secondary"
+            onPress={() => {
+              navigation.navigate(routes.unlogged.signUpEmail)
+            }}
           />
         </View>
 

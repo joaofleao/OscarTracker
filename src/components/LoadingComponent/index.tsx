@@ -45,7 +45,6 @@ const LoadingComponent = ({ animation = 'dots', size, type = 'primary', disabled
   const speed = getSpeed(animation)
   const theme = useTheme() as ThemeType
 
-
   const colorPrimary = getColorPrimary(type, disabled, theme)
   const colorSecondary = getColorSecondary(type, disabled, theme)
 
@@ -57,14 +56,12 @@ const LoadingComponent = ({ animation = 'dots', size, type = 'primary', disabled
       speed={speed}
       loop={true}
       colorFilters={[
+        { keypath: 'Wheel', color: colorPrimary },
+        { keypath: 'WheelHole', color: colorSecondary },
 
-        { keypath: "Wheel", color: colorPrimary },
-        { keypath: "WheelHole", color: colorSecondary },
+        { keypath: 'Circle', color: colorPrimary },
 
-        { keypath: "Circle", color: colorPrimary },
-
-        { keypath: "Dot", color: colorPrimary },
-
+        { keypath: 'Dot', color: colorPrimary },
       ]}
     />
   )
