@@ -20,13 +20,11 @@ const SignUpNameScreen = ({ navigation, route }: SignUpNameScreenProps): JSX.Ele
   return (
     <ModelComponent>
       <HeaderComponent
-        leadingAction={() => {
-          navigation.goBack()
-        }}
+        leadingAction={navigation.goBack}
         leadingButton="arrow-left"
-      >
-        Register
-      </HeaderComponent>
+        title="Register"
+        align="left"
+      />
       <View className="flex-1 mx-4">
         <View className="flex-1 justify-center">
           <Text className="text-white font-primaryRegular text-2xl mb-4">How would you like to be called?</Text>

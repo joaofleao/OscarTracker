@@ -19,13 +19,13 @@ const SignUpEmailScreen = ({ navigation }: SignUpEmailScreenProps): JSX.Element 
   return (
     <ModelComponent>
       <HeaderComponent
-        leadingAction={() => {
-          navigation.goBack()
-        }}
+        leadingAction={navigation.goBack}
         leadingButton="arrow-left"
-      >
-        Register
-      </HeaderComponent>
+        title="Register"
+        align="left"
+        description="Here are the 2022 Oscar Nominations"
+        bigHeader
+      />
 
       <View className="flex-1 mx-4">
         <View className="flex-1 justify-center">

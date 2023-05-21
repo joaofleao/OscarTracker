@@ -47,7 +47,12 @@ function WatchListScreen({ navigation, route }: WatchListScreenProps): JSX.Eleme
       bottom={false}
       top={false}
     >
-      <HeaderComponent>Watch List</HeaderComponent>
+      <HeaderComponent
+        title="Watch List"
+        bigHeader
+        align="left"
+        description="Here are the 2022 nominees"
+      />
 
       <TextInputComponent
         className="mx-4 mb-5"

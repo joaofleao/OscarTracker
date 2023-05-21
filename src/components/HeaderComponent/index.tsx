@@ -1,60 +1,88 @@
-import React, { Text, TouchableOpacity, View, type ViewProps } from 'react-native'
-import { styled } from 'nativewind'
+import React from 'react'
+import { type ViewProps } from 'react-native'
 
-import { IconComponent } from '../../components'
-
+import ButtonComponent from '../ButtonComponent'
+import * as Styled from './styles'
 interface HeaderProps extends ViewProps {
-  children?: string
+  title?: string
+  description?: string
   leadingButton?: string
   trailingButton?: string
   leadingAction?: () => void
   trailingAction?: () => void
+  align: 'left' | 'center' | 'right'
+  bigHeader: boolean
 }
 
 const defaultValue = {
-  children: '',
-  leadingButton: '',
-  trailingButton: '',
-  leadingAction: () => {},
-  trailingAction: () => {},
+  align: 'center',
+  bigHeader: false,
 }
 
 const HeaderComponent = (props: HeaderProps): JSX.Element => {
-  const { children, leadingAction, leadingButton, trailingAction, trailingButton, ...rest } = props
+  const { description, bigHeader, title, leadingAction, leadingButton, trailingAction, trailingButton, align, ...rest } = props
+  const hasLeadingButton = (leadingButton !== undefined && leadingAction !== undefined && leadingButton !== '') || false
+  const hasTrailingButton = (trailingButton !== undefined && trailingAction !== undefined && trailingButton !== '') || false
+  const hasTitle = (title !== undefined && title !== '') || false
+  const hasDescription = (description !== undefined && description !== '') || false
 
-  const getButton = (action?: () => void, button?: string): JSX.Element => {
-    if (action != null && button !== '' && button != null)
-      return (
-        <TouchableOpacity
-          className="w-8 h-8 justify-center items-center rounded-lg"
-          onPress={action}
-        >
-          <IconComponent
-            className="text-amber-500"
-            name={button}
-            size={24}
-          />
-        </TouchableOpacity>
-      )
-    else return <View className="w-8 h-8 justify-center items-center" />
-  }
   return (
-    <View
-      className="flex-row justify-between items-center py-5 px-4"
-      {...rest}
-    >
-      {getButton(leadingAction, leadingButton)}
-      <Text
-        className=" flex-1 text-white text-lg mx-6 font-primaryRegular text-center "
-        lineBreakMode="middle"
-        numberOfLines={1}
-      >
-        {children}
-      </Text>
-      {getButton(trailingAction, trailingButton)}
-    </View>
+    <Styled.Container {...rest}>
+      {align === 'center' && !hasLeadingButton && hasTrailingButton && <Styled.ButtonContainer />}
+      {hasLeadingButton && (
+        <Styled.ButtonContainer>
+          <ButtonComponent
+            icon={leadingButton}
+            onPress={leadingAction}
+            width="fit"
+            variant="secondary"
+          />
+        </Styled.ButtonContainer>
+      )}
+      {(hasTitle || hasDescription) && (
+        <Styled.TextContainer
+          bigHeader={bigHeader}
+          align={align}
+          leadingButton={hasLeadingButton}
+          trailingButton={hasTrailingButton}
+        >
+          {hasTitle && (
+            <Styled.Title
+              align={align}
+              bigHeader={bigHeader}
+              numberOfLines={!bigHeader ? 2 : 0}
+            >
+              {title}
+            </Styled.Title>
+          )}
+
+          {hasDescription && (
+            <Styled.Description
+              align={align}
+              bigHeader={bigHeader}
+              numberOfLines={!bigHeader ? 2 : 0}
+            >
+              {description}
+            </Styled.Description>
+          )}
+        </Styled.TextContainer>
+      )}
+      {align === 'center' && !hasTrailingButton && hasLeadingButton && <Styled.ButtonContainer />}
+
+      {hasTrailingButton && (
+        <Styled.ButtonContainer>
+          <ButtonComponent
+            icon={trailingButton}
+            onPress={trailingAction}
+            width="fit"
+            variant="secondary"
+          />
+        </Styled.ButtonContainer>
+      )}
+    </Styled.Container>
   )
 }
 
 HeaderComponent.defaultProps = defaultValue
-export default styled(HeaderComponent)
+
+export default HeaderComponent
