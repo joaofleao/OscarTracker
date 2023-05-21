@@ -45,13 +45,10 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
   return (
     <ModelComponent>
       <HeaderComponent
-        leadingAction={() => {
-          navigation.goBack()
-        }}
+        leadingAction={navigation.goBack}
         leadingButton={'arrow-left'}
-      >
-        {currentCategoriesMap.get(id)}
-      </HeaderComponent>
+        title={currentCategoriesMap.get(id)}
+      />
 
       <FlatList
         data={movies}
