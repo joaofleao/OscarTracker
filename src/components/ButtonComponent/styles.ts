@@ -4,6 +4,7 @@ import { IconComponent } from '../../components'
 import type { StyledProps } from '../../types'
 
 interface Props extends StyledProps {
+  label: string
   variant: 'primary' | 'secondary' | 'outlined' | 'text'
   width: 'fit' | 'fixed' | 'full'
   scale: any
@@ -34,12 +35,13 @@ const getWidth = (props: Props): string => {
   return '100%'
 }
 const getHorizontalPadding = (props: Props): any => {
-  if (props.icon != null && props.iconPositon === 'leading') return { paddingRight: props.theme.spacing.space24, paddingLeft: props.theme.spacing.space20 }
-  if (props.icon != null && props.iconPositon === 'trailing') return { paddingRight: props.theme.spacing.space20, paddingLeft: props.theme.spacing.space24 }
+  if (props.label !== null) return { paddingHorizontal: props.theme.spacing.space16 }
+  if (props.icon !== null && props.iconPositon === 'leading') return { paddingRight: props.theme.spacing.space24, paddingLeft: props.theme.spacing.space20 }
+  if (props.icon !== null && props.iconPositon === 'trailing') return { paddingRight: props.theme.spacing.space20, paddingLeft: props.theme.spacing.space24 }
   return { paddingHorizontal: props.theme.spacing.space24 }
 }
 
-export const Button = styled.Pressable((props: Props) => ({
+export const Pressable = styled.Pressable((props: Props) => ({
   background: getBackgroundColor(props),
   border: getBorder(props),
   paddingVertical: props.theme.spacing.space16,
@@ -64,6 +66,6 @@ export const Icon = styled(IconComponent)((props: Props) => ({
   color: getContentColor(props),
   fontSize: props.theme.typography.size.font20,
   lineHeight: props.theme.typography.size.font20,
-  marginRight: props.name !== null && props.iconPositon === 'leading' && props.theme.spacing.space8,
-  marginLeft: props.name !== null && props.iconPositon === 'trailing' && props.theme.spacing.space8,
+  marginRight: props.name !== null && props.iconPositon === 'leading' && props.label === null && props.theme.spacing.space8,
+  marginLeft: props.name !== null && props.iconPositon === 'trailing' && props.label === null && props.theme.spacing.space8,
 }))
