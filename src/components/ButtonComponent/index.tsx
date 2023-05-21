@@ -69,7 +69,7 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
 
   return (
     <Animated.View style={{ transform: [{ scale }], opacity }}>
-      <Styled.Button
+      <Styled.Pressable
         width={width}
         iconPositon={iconPositon}
         icon={icon}
@@ -90,6 +90,7 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
           <>
             {icon != null && iconPositon === 'leading' && (
               <Styled.Icon
+                label={label}
                 name={icon}
                 iconPositon={iconPositon}
                 size={18}
@@ -108,6 +109,7 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
             )}
             {icon != null && iconPositon === 'trailing' && (
               <Styled.Icon
+                label={label}
                 name={icon}
                 iconPositon={iconPositon}
                 width={24}
@@ -118,7 +120,7 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
             )}
           </>
         )}
-      </Styled.Button>
+      </Styled.Pressable>
     </Animated.View>
   )
 }

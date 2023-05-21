@@ -36,13 +36,13 @@ const ProfileScreen = (): JSX.Element => {
       bottom={false}
     >
       <HeaderComponent
-        trailingAction={() => {
-          handleEdit()
-        }}
+        title="Profile"
+        trailingAction={handleEdit}
         trailingButton={editing ? 'check' : 'edit-2'}
-      >
-        Profile
-      </HeaderComponent>
+        bigHeader
+        align="left"
+        description={user.email}
+      />
       <ScrollView>
         <Text className="mx-4 mb-5 text-white font-primaryRegular text-xl">Personal Information</Text>
 
@@ -63,13 +63,6 @@ const ProfileScreen = (): JSX.Element => {
           onChangeText={(text) => {
             setNickname(text)
           }}
-        />
-        <TextInputComponent
-          value={user.email}
-          className="mx-4 mb-8"
-          editable={false}
-          label="Email (not editable)"
-          onChangeText={() => {}}
         />
 
         <Text className="mx-4 mb-5 text-white text-xl font-primaryRegular">Spoiler Preferences</Text>

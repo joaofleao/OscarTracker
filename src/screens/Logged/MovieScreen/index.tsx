@@ -99,10 +99,9 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   return (
     <ModelComponent>
       <HeaderComponent
-        leadingAction={() => {
-          navigation.goBack()
-        }}
+        leadingAction={navigation.goBack}
         leadingButton="arrow-left"
+        align="left"
       />
       <ScrollView>
         <View className="items-center">

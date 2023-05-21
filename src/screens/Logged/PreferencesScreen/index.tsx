@@ -99,6 +99,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
     {
       key: 0,
       secondButton: 'Lets go!',
+      title: 'Spoiler Settings',
       content: (
         <View className="flex-1 items-center justify-center">
           <Text className="text-white font-primaryBold text-2xl mb-4 w-full text-center">Welcome!</Text>
@@ -111,6 +112,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
       key: 1,
       firstButton: 'Of course!',
       secondButton: 'Heh? No',
+      title: 'Poster',
       content: (
         <View className="items-center flex-1">
           <Text className="text-white font-primaryBold text-2xl mb-4 w-full">Do you consider a movie's poster a spoiler?</Text>
@@ -141,6 +143,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
       key: 2,
       firstButton: 'Yep',
       secondButton: 'Nope',
+      title: 'Plot',
       content: (
         <View className="flex-1">
           <Text className="text-white font-primaryBold text-2xl mb-4 w-full">How about a movie's plot?</Text>
@@ -171,6 +174,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
       key: 3,
       firstButton: 'Yeah',
       secondButton: 'Nah',
+      title: 'Casting',
       content: (
         <View className="flex-1">
           <Text className="text-white font-primaryBold text-2xl mb-4 w-full">Ok, this one is weird, but we have to ask... Is the casting of the movie a spoiler?</Text>
@@ -195,6 +199,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
       key: 4,
       firstButton: 'Definitely',
       secondButton: 'Not for me',
+      title: 'Ratings',
 
       content: (
         <View className="flex-1">
@@ -225,7 +230,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
     {
       key: 5,
       secondButton: 'Nice!',
-
+      title: 'Spoiler Settings',
       content: (
         <View className="flex-1 items-center justify-center">
           <Text className="text-white font-primaryBold text-2xl mb-4 w-full text-center">All Set!</Text>
@@ -249,9 +254,9 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
       <HeaderComponent
         leadingButton={index !== 0 ? 'arrow-left' : ''}
         leadingAction={handleBack}
-      >
-        Preferences
-      </HeaderComponent>
+        title="Preferences"
+        description={screens[index].title}
+      />
       <ProgressBarComponent
         className=" mb-10"
         total={5}

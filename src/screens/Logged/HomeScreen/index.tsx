@@ -99,7 +99,12 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
       bottom={false}
       top={false}
     >
-      <HeaderComponent>Home</HeaderComponent>
+      <HeaderComponent
+        title="Welcome Back!"
+        bigHeader
+        align="left"
+        description="Here are the 2022 nominations"
+      />
 
       <ProgressBarComponent
         animated={false}

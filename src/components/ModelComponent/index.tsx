@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, type ViewProps } from 'react-native'
+import { Platform, View, type ViewProps } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 interface ModelProps extends ViewProps {
@@ -11,10 +11,11 @@ interface ModelProps extends ViewProps {
 }
 const ModelComponent = ({ children, top = true, bottom = true, left = true, right = true, ...props }: ModelProps): JSX.Element => {
   const insets = useSafeAreaInsets()
+  const isAndroid = Platform.OS === 'android'
 
   const margins = {
-    paddingTop: top ? insets.top : 0,
-    paddingBottom: bottom ? insets.bottom : 0,
+    paddingTop: top ? (isAndroid ? 16 : insets.top) : 0,
+    paddingBottom: bottom ? (isAndroid ? 24 : insets.bottom) : 0,
     paddingLeft: left ? insets.left : 0,
     paddingRight: right ? insets.right : 0,
   }

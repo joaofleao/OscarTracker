@@ -1,11 +1,14 @@
 import React from 'react'
-import { Router } from './src/routes'
-import ContextProviders from './src/providers'
 
-export default function App() {
+import ContextProviders from './src/providers'
+import { Router } from './src/routes'
+
+const App = (): JSX.Element => {
   return (
     <ContextProviders>
       <Router />
     </ContextProviders>
   )
 }
+
+export default App

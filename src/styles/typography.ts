@@ -20,14 +20,20 @@ export interface TypographyType {
     font16: string
     font18: string
     font20: string
+    font22: string
     font24: string
-    font30: string
+    font26: string
+    font28: string
+    font32: string
     font36: string
+    font42: string
     font48: string
+    font54: string
     font60: string
-    font72: string
-    font96: string
-    font128: string
+    font68: string
+    font76: string
+    font84: string
+    font92: string
   }
 }
 
@@ -52,13 +58,19 @@ export const typography = {
     font16: '16px',
     font18: '18px',
     font20: '20px',
+    font22: '22px',
     font24: '24px',
-    font30: '30px',
+    font26: '26px',
+    font28: '28px',
+    font32: '32px',
     font36: '36px',
+    font42: '42px',
     font48: '48px',
+    font54: '54px',
     font60: '60px',
-    font72: '72px',
-    font96: '96px',
-    font128: '128px',
+    font68: '68px',
+    font76: '76px',
+    font84: '84px',
+    font92: '92px',
   },
 } satisfies TypographyType
