@@ -20,13 +20,11 @@ const ForgotPasswordScreen = ({ navigation, route }: ForgotPasswordScreenProps):
   return (
     <ModelComponent>
       <HeaderComponent
-        leadingAction={() => {
-          navigation.goBack()
-        }}
+        leadingAction={navigation.goBack}
         leadingButton="arrow-left"
-      >
-        Forgot Password
-      </HeaderComponent>
+        title="Forgot Password"
+        align="left"
+      />
       <View className="flex-1 mx-4">
         <View className="flex-1 justify-center">
           <Text className="text-white font-primaryRegular text-2xl mb-4">Don't worry, it happens!</Text>
