@@ -21,10 +21,10 @@ const defaultValue = {
 
 const HeaderComponent = (props: HeaderProps): JSX.Element => {
   const { description, bigHeader, title, leadingAction, leadingButton, trailingAction, trailingButton, align, ...rest } = props
-  const hasLeadingButton = (leadingButton !== undefined && leadingAction !== undefined) || false
-  const hasTrailingButton = (trailingButton !== undefined && trailingAction !== undefined) || false
-  const hasTitle = title !== undefined || false
-  const hasDescription = description !== undefined || false
+  const hasLeadingButton = (leadingButton !== undefined && leadingAction !== undefined && leadingButton !== '') || false
+  const hasTrailingButton = (trailingButton !== undefined && trailingAction !== undefined && trailingButton !== '') || false
+  const hasTitle = (title !== undefined && title !== '') || false
+  const hasDescription = (description !== undefined && description !== '') || false
 
   return (
     <Styled.Container {...rest}>
@@ -41,6 +41,7 @@ const HeaderComponent = (props: HeaderProps): JSX.Element => {
       )}
       {(hasTitle || hasDescription) && (
         <Styled.TextContainer
+          bigHeader={bigHeader}
           align={align}
           leadingButton={hasLeadingButton}
           trailingButton={hasTrailingButton}
@@ -49,7 +50,7 @@ const HeaderComponent = (props: HeaderProps): JSX.Element => {
             <Styled.Title
               align={align}
               bigHeader={bigHeader}
-              numberOfLines={!bigHeader && 2}
+              numberOfLines={!bigHeader ? 2 : 0}
             >
               {title}
             </Styled.Title>
@@ -59,7 +60,7 @@ const HeaderComponent = (props: HeaderProps): JSX.Element => {
             <Styled.Description
               align={align}
               bigHeader={bigHeader}
-              numberOfLines={!bigHeader && 2}
+              numberOfLines={!bigHeader ? 2 : 0}
             >
               {description}
             </Styled.Description>
