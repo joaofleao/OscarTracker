@@ -8,9 +8,12 @@ import { categoriesJson } from '../utils'
 
 const editions = collection(db, 'editions')
 const users = collection(db, 'users')
+const annoucements = collection(db, 'annoucements')
 
 const DataProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const [currentEdition] = useState<string>('95')
+
+  const [news, setNews] = useState<any>(null)
 
   const [currentMovies, setCurrentMovies] = useState<any>(null)
   const [currentMoviesMap, setCurrentMoviesMap] = useState<any>(null)
@@ -21,6 +24,7 @@ const DataProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
 
   const [currentNominations] = useState<any>()
   const [currentNominationsByCategory, setCurrentNominationsByCategory] = useState<any>()
+
   const editionRef = doc(editions, currentEdition)
 
   const categoriesOrder = [19, 2, 0, 3, 1, 9, 4, 17, 18, 20, 21, 22, 7, 8, 12, 15, 16, 5, 6, 10, 11, 13, 14]
@@ -33,6 +37,7 @@ const DataProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
       void getEditionMovies()
       void getEditionNominations()
       void getEditionPeople()
+      void getAnnoucements()
     }
     if (uid != null) void fetchData()
   }, [uid])
@@ -74,6 +79,14 @@ const DataProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     })
     setCurrentPeople(array)
     setCurrentPeopleMap(map)
+  }
+  async function getAnnoucements(): Promise<void> {
+    console.log('annoucements fetched')
+    const orderedAnnoucements = query(annoucements, orderBy('date'))
+    const response = await getDocs(orderedAnnoucements)
+    const array: any = []
+    response.forEach((doc) => array.push(doc.data()))
+    setNews(array)
   }
 
   async function getEditionNominations(): Promise<void> {
@@ -146,6 +159,7 @@ const DataProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     currentNominationsByCategory,
     currentCategoriesMap,
     currentPeopleMap,
+    news,
     currentPeople,
     currentMovies,
     currentMoviesMap,
