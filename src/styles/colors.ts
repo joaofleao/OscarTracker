@@ -10,7 +10,7 @@ export interface BasicPaletteType {
   default: ColorType
   hover: ColorType
   active: ColorType
-  background: {
+  shades: {
     default: ColorType
     dark: ColorType
     light: ColorType
@@ -39,6 +39,7 @@ export interface PaletteType {
     container: ColorType
     foreground: ColorType
     disabled: ColorType
+    backdrop: ColorType
   }
   text: {
     default: ColorType
@@ -57,7 +58,7 @@ export interface SimplifiedBasicPaletteType {
   default: string
   hover: string
   active: string
-  background: {
+  shades: {
     default: string
     light: string
     dark: string
@@ -86,6 +87,7 @@ export interface SimplifiedPaletteType {
     container: string
     foreground: string
     disabled: string
+    backdrop: string
   }
   text: {
     default: string
@@ -207,6 +209,13 @@ const background = {
     light: '#2B2B2F',
     name: 'Background Disabled',
   },
+  backdrop: {
+    alpha: 0.7,
+    dark: '#000000',
+    highContrast: '#000000',
+    light: '#000000',
+    name: 'Background Backdrop',
+  },
 }
 
 const text = {
@@ -269,27 +278,27 @@ const neutral = {
     light: '#F1F1F1',
     name: 'Neutral Active',
   },
-  background: {
+  shades: {
     default: {
       alpha: 0.1,
       dark: '#DBDBDB',
       highContrast: '#DBDBDB',
       light: '#DBDBDB',
-      name: 'Neutral Background Default',
+      name: 'Neutral shades Default',
     },
     light: {
       alpha: 0.05,
       dark: '#DBDBDB',
       highContrast: '#DBDBDB',
       light: '#DBDBDB',
-      name: 'Neutral Background Light',
+      name: 'Neutral shades Light',
     },
     dark: {
       alpha: 0.15,
       dark: '#DBDBDB',
       highContrast: '#DBDBDB',
       light: '#DBDBDB',
-      name: 'Neutral Background Dark',
+      name: 'Neutral shades Dark',
     },
   },
 }
@@ -316,27 +325,27 @@ const positive = {
     light: '#064E3B',
     name: 'Positive Active',
   },
-  background: {
+  shades: {
     default: {
       alpha: 0.1,
       dark: '#047857',
       highContrast: '#047857',
       light: '#047857',
-      name: 'Positive Background Default',
+      name: 'Positive Shades Default',
     },
     light: {
       alpha: 0.05,
       dark: '#047857',
       highContrast: '#047857',
       light: '#047857',
-      name: 'Positive Background Light',
+      name: 'Positive Shades Light',
     },
     dark: {
       alpha: 0.15,
       dark: '#047857',
       highContrast: '#047857',
       light: '#047857',
-      name: 'Positive Background Dark',
+      name: 'Positive Shades Dark',
     },
   },
 }
@@ -363,27 +372,27 @@ const warning = {
     light: '#92400E',
     name: 'Warning Active',
   },
-  background: {
+  shades: {
     default: {
       alpha: 0.1,
       dark: '#D97706',
       highContrast: '#D97706',
       light: '#D97706',
-      name: 'Warning Background Default',
+      name: 'Warning Shades Default',
     },
     light: {
       alpha: 0.05,
       dark: '#D97706',
       highContrast: '#D97706',
       light: '#D97706',
-      name: 'Warning Background Light',
+      name: 'Warning Shades Light',
     },
     dark: {
       alpha: 0.15,
       dark: '#D97706',
       highContrast: '#D97706',
       light: '#D97706',
-      name: 'Warning Background Dark',
+      name: 'Warning Shades Dark',
     },
   },
 }
@@ -410,27 +419,27 @@ const negative = {
     light: '#881337',
     name: 'Negative Active',
   },
-  background: {
+  shades: {
     default: {
       alpha: 0.1,
       dark: '#BE123C',
       highContrast: '#BE123C',
       light: '#BE123C',
-      name: 'Negative Background Default',
+      name: 'Negative Shades Default',
     },
     light: {
       alpha: 0.05,
       dark: '#BE123C',
       highContrast: '#BE123C',
       light: '#BE123C',
-      name: 'Negative Background Light',
+      name: 'Negative Shades Light',
     },
     dark: {
       alpha: 0.15,
       dark: '#BE123C',
       highContrast: '#BE123C',
       light: '#BE123C',
-      name: 'Negative Background Dark',
+      name: 'Negative Shades Dark',
     },
   },
 }

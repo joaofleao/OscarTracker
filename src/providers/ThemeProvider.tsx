@@ -10,6 +10,8 @@ const ThemeProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [mode] = useState<ModeType>('dark')
 
+  const theme = getTheme(mode)
+
   const startLoading = (text: string): void => {
     setLoadingText(text)
     setIsLoading(true)
@@ -26,11 +28,12 @@ const ThemeProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
     loadingText,
     stopLoading,
     startLoading,
+    theme,
   } satisfies ThemeContextType
 
   return (
     <ThemeContext.Provider value={value}>
-      <StyledComponentsProvider theme={getTheme(mode)}>{children}</StyledComponentsProvider>
+      <StyledComponentsProvider theme={theme}>{children}</StyledComponentsProvider>
     </ThemeContext.Provider>
   )
 }

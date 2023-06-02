@@ -192,7 +192,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
         <View className="mt-4">
           <Text className="mx-4 mb-2 font-primaryBold text-white text-xl">Where to Watch</Text>
 
-          {movieProviders.length > 0 ? (
+          {movieProviders?.length > 0 ? (
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}

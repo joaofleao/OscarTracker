@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, type ListRenderItemInfo, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Linking, type ListRenderItemInfo, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
-import { HeaderComponent, ModelComponent, PosterComponent, ProgressBarComponent, SeparatorComponent, TextInputComponent } from '../../../components'
+import packageJson from '../../../../package.json'
+import { HeaderComponent, ModalComponent, ModelComponent, PosterComponent, ProgressBarComponent, SeparatorComponent, TextInputComponent } from '../../../components'
 import { useData, usePersonalData, useUser } from '../../../hooks'
 import { getImage } from '../../../services/tmdb/api'
 import { type HomeScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
 const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
-  const { currentNominationsByCategory, currentCategoriesMap, currentMoviesMap, currentPeopleMap } = useData()
+  const { currentNominationsByCategory, currentCategoriesMap, currentMoviesMap, currentPeopleMap, news } = useData()
   const { isWatched, totalMovies, totalWatchedMovies } = usePersonalData()
   const { preferences, onboarding } = useUser()
   const [search, setSearch] = useState<string>('')
   const [data, setData] = useState<[]>([])
+
+  const [modal, setModal] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (news != null && news[0].version !== packageJson.version) setModal(true)
+  }, [news])
 
   useEffect(() => {
     if (!onboarding) navigation.navigate(routes.logged.preferences)
@@ -41,7 +48,7 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
     const text = person != null ? person.name : movie['en-US'].name
 
     return (
-      <TouchableOpacity
+      <Pressable
         className={category === '19' ? 'w-[158px]' : 'w-[106px]'}
         onPress={() => {
           navigation.navigate(routes.logged.movie, {
@@ -64,7 +71,7 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
         >
           {text}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
     )
   }
   const renderCategory = ({ item }: ListRenderItemInfo<any>): JSX.Element => {
@@ -75,7 +82,7 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate(routes.logged.nomination, { id: item.key, movies: item.value })
+              navigation.navigate(routes.logged.nomination, { id: item.key })
             }}
           >
             <Text className="font-primaryDefault text-zinc-600 text-sm">see more</Text>
@@ -94,6 +101,37 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
     )
   }
 
+  const newVersionModal = (): JSX.Element => {
+    const update = news[0]
+    return (
+      <ModalComponent
+        title={update.title}
+        description={update.description}
+        visible={modal}
+        confirmLabel={'Update to '.concat(update.version)}
+        onConfirm={() => {
+          void Linking.openURL(update.url)
+        }}
+      >
+        <View style={{ flex: 1, maxHeight: 200 }}>
+          <ScrollView
+            indicatorStyle="white"
+            contentContainerStyle={{ paddingRight: 20 }}
+          >
+            {update.updates.map((update: string) => (
+              <Text
+                key={update}
+                className="font-primaryBold text-white text-base mb-2"
+              >
+                {update}
+              </Text>
+            ))}
+          </ScrollView>
+        </View>
+      </ModalComponent>
+    )
+  }
+
   return (
     <ModelComponent
       bottom={false}
@@ -105,6 +143,8 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
         align="left"
         description="Here are the 2022 nominations"
       />
+
+      {modal && newVersionModal()}
 
       <ProgressBarComponent
         animated={false}

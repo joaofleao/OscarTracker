@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-import { IconComponent } from '../../components'
+import IconComponent from '../../assets/icons'
 import type { StyledProps } from '../../types'
 
 interface Props extends StyledProps {
