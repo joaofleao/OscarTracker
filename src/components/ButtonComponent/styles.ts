@@ -1,12 +1,13 @@
 import styled from 'styled-components/native'
 
-import { IconComponent } from '../../components'
+import IconComponent from '../../assets/icons'
 import type { StyledProps } from '../../types'
 
 interface Props extends StyledProps {
   label: string
   variant: 'primary' | 'secondary' | 'outlined' | 'text'
   width: 'fit' | 'fixed' | 'full'
+  scale: any
   iconPositon: 'trailing' | 'leading'
   icon: string
   name: string
@@ -47,7 +48,6 @@ export const Pressable = styled.Pressable((props: Props) => ({
   ...getHorizontalPadding(props),
   borderRadius: props.theme.spacing.space20,
   width: getWidth(props),
-  alignSelf: 'flex-start',
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'row',

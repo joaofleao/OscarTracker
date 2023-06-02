@@ -1,6 +1,5 @@
 import styled from 'styled-components/native'
 
-import { ButtonComponent } from '../../components'
 import type { StyledProps } from '../../types'
 
 interface Props extends StyledProps {
@@ -48,7 +47,4 @@ export const Description = styled.Text((props: Props) => ({
 
 export const Footer = styled.View((props: Props) => ({
   alignItems: 'center',
-}))
-export const Button = styled(ButtonComponent)((props: Props) => ({
-  marginTop: props.theme.spacing.space20,
 }))
