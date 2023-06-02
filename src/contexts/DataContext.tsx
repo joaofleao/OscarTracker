@@ -5,6 +5,7 @@ export interface DataContextType {
   currentNominationsByCategory: any | null
   currentCategoriesMap: any | null
   currentMovies: any | null
+  news: any | null
   currentPeopleMap: any | null
   currentPeople: any | null
   currentMoviesMap: any | null
