@@ -2,6 +2,7 @@ import React from 'react'
 import { Modal, type ModalProps } from 'react-native'
 
 import { ButtonComponent } from '../../components'
+import { useTheme } from '../../hooks'
 import * as Styled from './styles'
 
 interface Props extends ModalProps {
@@ -25,6 +26,7 @@ const defaultValue = {
 
 const ModalComponent = (props: Props): JSX.Element => {
   const { closeButton, title, visible, description, loading, onConfirm, confirmLabel, onCancel, cancelLabel, children, ...rest } = props
+  const { theme } = useTheme()
 
   return (
     <Modal
@@ -55,7 +57,8 @@ const ModalComponent = (props: Props): JSX.Element => {
 
           <Styled.Footer>
             {cancelLabel != null && onCancel != null && (
-              <Styled.Button
+              <ButtonComponent
+                style={{ marginTop: theme.spacing.space20 }}
                 variant="secondary"
                 onPress={onCancel}
                 label={cancelLabel}
@@ -63,7 +66,8 @@ const ModalComponent = (props: Props): JSX.Element => {
             )}
 
             {confirmLabel != null && onConfirm != null && (
-              <Styled.Button
+              <ButtonComponent
+                style={{ marginTop: theme.spacing.space20 }}
                 onPress={onConfirm}
                 label={confirmLabel}
               />

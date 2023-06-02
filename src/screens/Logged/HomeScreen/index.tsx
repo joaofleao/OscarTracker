@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Linking, type ListRenderItemInfo, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Linking, type ListRenderItemInfo, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import packageJson from '../../../../package.json'
 import { HeaderComponent, ModalComponent, ModelComponent, PosterComponent, ProgressBarComponent, SeparatorComponent, TextInputComponent } from '../../../components'
@@ -48,7 +48,7 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
     const text = person != null ? person.name : movie['en-US'].name
 
     return (
-      <TouchableOpacity
+      <Pressable
         className={category === '19' ? 'w-[158px]' : 'w-[106px]'}
         onPress={() => {
           navigation.navigate(routes.logged.movie, {
@@ -71,7 +71,7 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
         >
           {text}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
     )
   }
   const renderCategory = ({ item }: ListRenderItemInfo<any>): JSX.Element => {

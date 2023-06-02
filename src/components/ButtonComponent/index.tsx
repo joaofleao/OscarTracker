@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Animated, type PressableProps } from 'react-native'
 
 import { LoadingComponent } from '../../components'
 import * as Styled from './styles'
 
-interface Props extends PressableProps {
+interface ButtonProps extends PressableProps {
   label?: string
   width: 'fit' | 'fixed' | 'full'
   variant: 'primary' | 'secondary' | 'outlined' | 'text'
@@ -22,11 +22,11 @@ const defaultValue = {
   iconPositon: 'leading',
 }
 
-const ButtonComponent = (props: Props): JSX.Element => {
+const ButtonComponent = (props: ButtonProps): JSX.Element => {
   const { label, width, variant, disabled, loading, icon, iconPositon, ...rest } = props
 
-  const scaleAnimation = React.useRef(new Animated.Value(0)).current
-  const opacityAnimation = React.useRef(new Animated.Value(0)).current
+  const scaleAnimation = useRef(new Animated.Value(0)).current
+  const opacityAnimation = useRef(new Animated.Value(0)).current
   const scale = scaleAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.95] })
   const opacity = opacityAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.4] })
 
@@ -53,7 +53,7 @@ const ButtonComponent = (props: Props): JSX.Element => {
     }).start()
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (disabled) {
       Animated.spring(opacityAnimation, {
         toValue: 1,
