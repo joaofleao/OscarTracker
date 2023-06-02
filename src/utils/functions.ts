@@ -36,6 +36,7 @@ export const getPalette = (mode: ModeType, palette: PaletteType): SimplifiedPale
       container: getRgba(palette.background.container[mode], palette.background.container.alpha),
       foreground: getRgba(palette.background.foreground[mode], palette.background.foreground.alpha),
       disabled: getRgba(palette.background.disabled[mode], palette.background.disabled.alpha),
+      backdrop: getRgba(palette.background.backdrop[mode], palette.background.backdrop.alpha),
     },
     text: {
       default: getRgba(palette.text.default[mode], palette.text.default.alpha),
@@ -48,40 +49,40 @@ export const getPalette = (mode: ModeType, palette: PaletteType): SimplifiedPale
       default: getRgba(palette.neutral.default[mode], palette.neutral.default.alpha),
       hover: getRgba(palette.neutral.hover[mode], palette.neutral.hover.alpha),
       active: getRgba(palette.neutral.active[mode], palette.neutral.active.alpha),
-      background: {
-        default: getRgba(palette.neutral.background.default[mode], palette.neutral.background.default.alpha),
-        light: getRgba(palette.neutral.background.light[mode], palette.neutral.background.light.alpha),
-        dark: getRgba(palette.neutral.background.dark[mode], palette.neutral.background.dark.alpha),
+      shades: {
+        default: getRgba(palette.neutral.shades.default[mode], palette.neutral.shades.default.alpha),
+        light: getRgba(palette.neutral.shades.light[mode], palette.neutral.shades.light.alpha),
+        dark: getRgba(palette.neutral.shades.dark[mode], palette.neutral.shades.dark.alpha),
       },
     },
     positive: {
       default: getRgba(palette.positive.default[mode], palette.positive.default.alpha),
       hover: getRgba(palette.positive.hover[mode], palette.positive.hover.alpha),
       active: getRgba(palette.positive.active[mode], palette.positive.active.alpha),
-      background: {
-        default: getRgba(palette.positive.background.default[mode], palette.positive.background.default.alpha),
-        light: getRgba(palette.positive.background.light[mode], palette.positive.background.light.alpha),
-        dark: getRgba(palette.positive.background.dark[mode], palette.positive.background.dark.alpha),
+      shades: {
+        default: getRgba(palette.positive.shades.default[mode], palette.positive.shades.default.alpha),
+        light: getRgba(palette.positive.shades.light[mode], palette.positive.shades.light.alpha),
+        dark: getRgba(palette.positive.shades.dark[mode], palette.positive.shades.dark.alpha),
       },
     },
     warning: {
       default: getRgba(palette.warning.default[mode], palette.warning.default.alpha),
       hover: getRgba(palette.warning.hover[mode], palette.warning.hover.alpha),
       active: getRgba(palette.warning.active[mode], palette.warning.active.alpha),
-      background: {
-        default: getRgba(palette.warning.background.default[mode], palette.warning.background.default.alpha),
-        light: getRgba(palette.warning.background.light[mode], palette.warning.background.light.alpha),
-        dark: getRgba(palette.warning.background.dark[mode], palette.warning.background.dark.alpha),
+      shades: {
+        default: getRgba(palette.warning.shades.default[mode], palette.warning.shades.default.alpha),
+        light: getRgba(palette.warning.shades.light[mode], palette.warning.shades.light.alpha),
+        dark: getRgba(palette.warning.shades.dark[mode], palette.warning.shades.dark.alpha),
       },
     },
     negative: {
       default: getRgba(palette.negative.default[mode], palette.negative.default.alpha),
       hover: getRgba(palette.negative.hover[mode], palette.negative.hover.alpha),
       active: getRgba(palette.negative.active[mode], palette.negative.active.alpha),
-      background: {
-        default: getRgba(palette.negative.background.default[mode], palette.negative.background.default.alpha),
-        light: getRgba(palette.negative.background.light[mode], palette.negative.background.light.alpha),
-        dark: getRgba(palette.negative.background.dark[mode], palette.negative.background.dark.alpha),
+      shades: {
+        default: getRgba(palette.negative.shades.default[mode], palette.negative.shades.default.alpha),
+        light: getRgba(palette.negative.shades.light[mode], palette.negative.shades.light.alpha),
+        dark: getRgba(palette.negative.shades.dark[mode], palette.negative.shades.dark.alpha),
       },
     },
   }
