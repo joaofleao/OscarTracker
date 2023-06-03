@@ -10,8 +10,8 @@ interface Props extends ViewProps {
   trailingButton?: string
   leadingAction?: () => void
   trailingAction?: () => void
-  align: 'left' | 'center' | 'right'
-  bigHeader: boolean
+  align?: 'left' | 'center' | 'right'
+  bigHeader?: boolean
 }
 
 const defaultValue = {
@@ -20,7 +20,7 @@ const defaultValue = {
 }
 
 const HeaderComponent = (props: Props): JSX.Element => {
-  const { description, bigHeader, title, leadingAction, leadingButton, trailingAction, trailingButton, align, ...rest } = props
+  const { description, bigHeader, title, leadingAction, leadingButton, trailingAction, trailingButton, align, ...rest } = { ...defaultValue, ...props }
   const hasLeadingButton = (leadingButton !== undefined && leadingAction !== undefined && leadingButton !== '') || false
   const hasTrailingButton = (trailingButton !== undefined && trailingAction !== undefined && trailingButton !== '') || false
   const hasTitle = (title !== undefined && title !== '') || false
@@ -50,7 +50,7 @@ const HeaderComponent = (props: Props): JSX.Element => {
             <Styled.Title
               align={align}
               bigHeader={bigHeader}
-              numberOfLines={!bigHeader ? 2 : 0}
+              numberOfLines={bigHeader ? 2 : 0}
             >
               {title}
             </Styled.Title>
@@ -60,7 +60,7 @@ const HeaderComponent = (props: Props): JSX.Element => {
             <Styled.Description
               align={align}
               bigHeader={bigHeader}
-              numberOfLines={!bigHeader ? 2 : 0}
+              numberOfLines={bigHeader ? 2 : 0}
             >
               {description}
             </Styled.Description>
@@ -82,7 +82,5 @@ const HeaderComponent = (props: Props): JSX.Element => {
     </Styled.Container>
   )
 }
-
-HeaderComponent.defaultProps = defaultValue
 
 export default HeaderComponent

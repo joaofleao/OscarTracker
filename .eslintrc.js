@@ -12,6 +12,8 @@ module.exports = {
   },
   plugins: ['react', 'simple-import-sort'],
   rules: {
+    'react/prop-types': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     'react/no-unescaped-entities': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',

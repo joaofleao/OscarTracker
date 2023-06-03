@@ -1,8 +1,9 @@
 import React from 'react'
-import { Modal, Text, View } from 'react-native'
+import { Modal } from 'react-native'
 
+import { LoadingComponent } from '../../components'
 import { useTheme } from '../../hooks'
-import { LoadingComponent } from '..'
+import * as Styled from './styles'
 
 const LoadingScreen = (): JSX.Element => {
   const { loadingText, isLoading } = useTheme()
@@ -13,13 +14,13 @@ const LoadingScreen = (): JSX.Element => {
       transparent={true}
       animationType="fade"
     >
-      <View className="items-center justify-center flex-1 bg-zinc-900">
+      <Styled.Container>
         <LoadingComponent
           animation="movie"
-          size={100}
+          size={120}
         />
-        <Text className="text-white font-primaryBold text-lg mt-4">{loadingText}</Text>
-      </View>
+        <Styled.Description>{loadingText}</Styled.Description>
+      </Styled.Container>
     </Modal>
   )
 }
