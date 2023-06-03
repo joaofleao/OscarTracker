@@ -1,17 +1,17 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { Animated, type PressableProps } from 'react-native'
 
 import { LoadingComponent } from '../../components'
 import * as Styled from './styles'
 
-interface ButtonProps extends PressableProps {
+interface Props extends PressableProps {
   label?: string
-  width: 'fit' | 'fixed' | 'full'
-  variant: 'primary' | 'secondary' | 'outlined' | 'text'
-  disabled: boolean
-  loading: boolean
+  width?: 'fit' | 'fixed' | 'full'
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text'
+  disabled?: boolean
+  loading?: boolean
   icon?: string
-  iconPositon: 'trailing' | 'leading'
+  iconPositon?: 'trailing' | 'leading'
 }
 
 const defaultValue = {
@@ -22,11 +22,11 @@ const defaultValue = {
   iconPositon: 'leading',
 }
 
-const ButtonComponent = (props: ButtonProps): JSX.Element => {
-  const { label, width, variant, disabled, loading, icon, iconPositon, ...rest } = props
+const ButtonComponent = (props: Props): JSX.Element => {
+  const { label, width, variant, disabled, loading, icon, iconPositon, ...rest } = { ...defaultValue, ...props }
 
-  const scaleAnimation = useRef(new Animated.Value(0)).current
-  const opacityAnimation = useRef(new Animated.Value(0)).current
+  const scaleAnimation = React.useRef(new Animated.Value(0)).current
+  const opacityAnimation = React.useRef(new Animated.Value(0)).current
   const scale = scaleAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.95] })
   const opacity = opacityAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.4] })
 
@@ -53,7 +53,7 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
     }).start()
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (disabled) {
       Animated.spring(opacityAnimation, {
         toValue: 1,
@@ -124,7 +124,5 @@ const ButtonComponent = (props: ButtonProps): JSX.Element => {
     </Animated.View>
   )
 }
-
-ButtonComponent.defaultProps = defaultValue
 
 export default ButtonComponent
