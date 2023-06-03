@@ -30,11 +30,11 @@ module.exports = {
           },
           {
             group: ['**/utils/*'],
-            message: 'Do not import each screen separetely. Import from the index file in the screens folder',
+            message: 'Do not import each method separetely. Import from the index file in the screens folder',
           },
           {
-            group: ['**/hooks/*'],
-            message: 'Do not import each screen separetely. Import from the index file in the screens folder',
+            group: ['**/feature/*'],
+            message: 'Do not import each feature separetely. Import from the index file in the screens folder',
           },
         ],
       },

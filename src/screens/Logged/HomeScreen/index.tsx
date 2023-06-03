@@ -3,7 +3,7 @@ import { FlatList, Linking, type ListRenderItemInfo, Pressable, ScrollView, Text
 
 import packageJson from '../../../../package.json'
 import { HeaderComponent, ModalComponent, ModelComponent, PosterComponent, ProgressBarComponent, SeparatorComponent, TextInputComponent } from '../../../components'
-import { useData, usePersonalData, useUser } from '../../../hooks'
+import { useData, usePersonalData, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type HomeScreenProps } from '../../../types'
 import { routes } from '../../../utils'

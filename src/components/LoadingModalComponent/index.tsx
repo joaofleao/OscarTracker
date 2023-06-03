@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, Text, View } from 'react-native'
 
-import { useTheme } from '../../hooks'
+import { useTheme } from '../../features'
 import { LoadingComponent } from '..'
 
 const LoadingScreen = (): JSX.Element => {

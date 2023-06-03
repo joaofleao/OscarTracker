@@ -3,7 +3,7 @@ import { FlatList, Image, Linking, type ListRenderItemInfo, Platform, ScrollView
 
 import { IMDB } from '../../../assets/images'
 import { HeaderComponent, IconComponent, ModelComponent, SeparatorComponent, SpoilerComponent } from '../../../components'
-import { useData, useMovies, useUser } from '../../../hooks'
+import { useData, useMovies, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type MovieScreenProps, type Nomination } from '../../../types'
 import { routes } from '../../../utils'

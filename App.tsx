@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ContextProviders from './src/providers'
+import ContextProviders from './src/features'
 import { Router } from './src/routes'
 
 const App = (): JSX.Element => {

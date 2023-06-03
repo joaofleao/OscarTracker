@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { ThemeProvider as StyledComponentsProvider } from 'styled-components/native'
 
-import { ThemeContext, type ThemeContextType } from '../contexts'
-import { getTheme } from '../styles'
-import type { ModeType } from '../types'
+import { getTheme } from '../../styles'
+import type { ModeType } from '../../types'
+import ThemeContext, { type ThemeContextType } from './ThemeContext'
 
 const ThemeProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const [loadingText, setLoadingText] = useState<string>('')

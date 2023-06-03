@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import { type ThemeType } from '../types'
+import { type ThemeType } from '../../types'
 
 export interface ThemeContextType {
   loadingText: string

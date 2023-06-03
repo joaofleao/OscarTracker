@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { MoviesContext, type MoviesContextType } from '../contexts'
-import * as tmdb from '../services/tmdb/api'
+import * as tmdb from '../../services/tmdb/api'
+import MoviesContext, { type MoviesContextType } from './MoviesContext'
 
 const MoviesProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const getMovie = async (id: string): Promise<any> => {

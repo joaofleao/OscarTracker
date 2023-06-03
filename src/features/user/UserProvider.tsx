@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import { UserContext, type UserContextType } from '../contexts'
-import { type PreferencesType } from '../types'
+import { type PreferencesType } from '../../types'
+import UserContext, { type UserContextType } from './UserContext'
 
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const [email, setEmail] = useState<string>('')

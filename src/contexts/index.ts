@@ -1,6 +1,0 @@
-export { default as AuthContext, type AuthContextType } from './AuthContext'
-export { default as DataContext, type DataContextType } from './DataContext'
-export { default as MoviesContext, type MoviesContextType } from './MoviesContext'
-export { default as ThemeContext, type ThemeContextType } from './ThemeContext'
-export { default as ToastContext, type ToastContextType } from './ToastContext'
-export { default as UserContext, type UserContextType } from './UserContext'

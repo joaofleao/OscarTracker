@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 
 import { ButtonComponent, LogoComponent, ModelComponent, TextInputComponent } from '../../../components'
-import { useAuth } from '../../../hooks'
+import { useAuth } from '../../../features'
 import { type SignInScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 

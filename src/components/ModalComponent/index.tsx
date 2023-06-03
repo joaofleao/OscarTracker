@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal, type ModalProps } from 'react-native'
 
 import { ButtonComponent } from '../../components'
-import { useTheme } from '../../hooks'
+import { useTheme } from '../../features'
 import * as Styled from './styles'
 
 interface Props extends ModalProps {

@@ -1,7 +1,7 @@
 import React, { Text, TouchableOpacity, type TouchableOpacityProps, View } from 'react-native'
 import { styled } from 'nativewind'
 
-import { usePersonalData, useUser } from '../../hooks'
+import { usePersonalData, useUser } from '../../features'
 import { getImage } from '../../services/tmdb/api'
 import { PosterComponent } from '..'
 

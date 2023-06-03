@@ -3,7 +3,7 @@ import { StatusBar } from 'react-native'
 import colors from 'tailwindcss/colors'
 
 import { LoadingModalComponent } from '../../components'
-import { useAuth } from '../../hooks'
+import { useAuth } from '../../features'
 import { Logged, Unlogged } from '../../routes'
 import { SplashScreen } from '../../screens'
 import { type ScreenTypes } from '../../types'
