@@ -4,7 +4,7 @@ import colors from 'tailwindcss/colors'
 
 import packageJson from '../../../../package.json'
 import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
-import { useAuth, useData, useUser } from '../../../hooks'
+import { useAuth, useData, useUser } from '../../../features'
 
 const ProfileScreen = (): JSX.Element => {
   const { signOut } = useAuth()

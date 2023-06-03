@@ -2,7 +2,7 @@ import React from 'react'
 import { FlatList } from 'react-native'
 
 import { HeaderComponent, ModelComponent, NomineeCardComponent, SeparatorComponent } from '../../../components'
-import { useData } from '../../../hooks'
+import { useData } from '../../../features'
 import { type NominationScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 

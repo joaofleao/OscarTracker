@@ -3,9 +3,9 @@ import { type FirebaseError } from 'firebase/app'
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth'
 import { collection, doc, onSnapshot, setDoc } from 'firebase/firestore'
 
-import { AuthContext, type AuthContextType } from '../contexts'
-import { useTheme, useToast, useUser } from '../hooks'
-import { auth, db } from '../services'
+import { useTheme, useToast, useUser } from '../../features'
+import { auth, db } from '../../services'
+import AuthContext, { type AuthContextType } from './AuthContext'
 
 const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const { showToast } = useToast()

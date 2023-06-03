@@ -1,5 +1,5 @@
-import { useData, useUser } from '../hooks'
-import { type BasicMovieType } from '../types'
+import { useData, useUser } from '../../features'
+import { type BasicMovieType } from '../../types'
 
 interface PersonalDataType {
   isWatched: (imdb: string) => boolean

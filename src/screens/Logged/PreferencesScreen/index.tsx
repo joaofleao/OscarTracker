@@ -3,7 +3,7 @@ import { Dimensions, FlatList, Image, type ImageSourcePropType, type ListRenderI
 
 import { david, IMDB, jason, justin, poster } from '../../../assets/images'
 import { ButtonComponent, HeaderComponent, ModelComponent, ProgressBarComponent } from '../../../components'
-import { useData } from '../../../hooks'
+import { useData } from '../../../features'
 import { type PreferencesScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 

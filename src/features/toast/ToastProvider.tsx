@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { ToastNotificationComponent } from '../components'
-import { ToastContext, type ToastContextType } from '../contexts'
-import { useTheme } from '../hooks'
+import { ToastNotificationComponent } from '../../components'
+import { useTheme } from '../../features'
+import ToastContext, { type ToastContextType } from './ToastContext'
 
 const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const { isLoading } = useTheme()

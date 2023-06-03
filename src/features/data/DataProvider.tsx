@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react'
 import { arrayRemove, arrayUnion, collection, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore'
 
-import { DataContext, type DataContextType } from '../contexts'
-import { useUser } from '../hooks'
-import { db } from '../services'
-import { categoriesJson } from '../utils'
+import { useUser } from '../../features'
+import { db } from '../../services'
+import { categoriesJson } from '../../utils'
+import DataContext, { type DataContextType } from './DataContext'
 
 const editions = collection(db, 'editions')
 const users = collection(db, 'users')

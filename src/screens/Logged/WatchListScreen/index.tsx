@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
 import { HeaderComponent, ModelComponent, NomineeCardComponent, SeparatorComponent, TextInputComponent } from '../../../components'
-import { useData } from '../../../hooks'
+import { useData } from '../../../features'
 import { type BasicMovieType, type WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 

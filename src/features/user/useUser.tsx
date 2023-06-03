@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { UserContext, type UserContextType } from '../contexts'
+import UserContext, { type UserContextType } from './UserContext'
 
 const useUser = (): UserContextType => {
   const useUserContext = useContext(UserContext)
