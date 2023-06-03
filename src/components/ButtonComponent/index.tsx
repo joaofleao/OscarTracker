@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { Animated, type PressableProps } from 'react-native'
 
 import { LoadingComponent } from '../../components'
@@ -25,8 +25,8 @@ const defaultValue = {
 const ButtonComponent = (props: Props): JSX.Element => {
   const { label, width, variant, disabled, loading, icon, iconPositon, ...rest } = { ...defaultValue, ...props }
 
-  const scaleAnimation = useRef(new Animated.Value(0)).current
-  const opacityAnimation = useRef(new Animated.Value(0)).current
+  const scaleAnimation = React.useRef(new Animated.Value(0)).current
+  const opacityAnimation = React.useRef(new Animated.Value(0)).current
   const scale = scaleAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.95] })
   const opacity = opacityAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0.4] })
 
@@ -53,7 +53,7 @@ const ButtonComponent = (props: Props): JSX.Element => {
     }).start()
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (disabled) {
       Animated.spring(opacityAnimation, {
         toValue: 1,

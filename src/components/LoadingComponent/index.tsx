@@ -1,5 +1,5 @@
+import React from 'react'
 import LottieView from 'lottie-react-native'
-import React from 'react-native'
 import { useTheme } from 'styled-components/native'
 
 import type { ThemeType } from '../../types'
