@@ -19,14 +19,13 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
       popIn()
       setToast(false)
     }
-  }, [isLoading])
+  }, [isLoading, toast])
 
-  const showToast = (title: string, description: string, type: 'success' | 'error', instant: boolean): void => {
+  const showToast = (title: string, description: string, type: 'success' | 'error'): void => {
     setTitle(title)
     setDescription(description)
     setType(type)
     setToast(true)
-    if (instant) popIn()
   }
 
   const windowHeight = Dimensions.get('window').height
