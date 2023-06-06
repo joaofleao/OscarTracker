@@ -1,53 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { type FirebaseError } from 'firebase/app'
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth'
-import { collection, doc, onSnapshot, setDoc } from 'firebase/firestore'
+import { collection, doc, setDoc } from 'firebase/firestore'
 
 import { useTheme, useToast, useUser } from '../../features'
 import { auth, db } from '../../services'
 import AuthContext, { type AuthContextType } from './AuthContext'
 
-const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
+const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => {
   const { showToast } = useToast()
-  const { setDisplayName, setEmail, setEmailVerified, setNickName, setPreferences, setUid, setWatchedMovies, setOnboarding } = useUser()
+  const { setIsLogged, setUid } = useUser()
   const { startLoading, stopLoading } = useTheme()
 
   const [initializing, setInitializing] = useState<boolean>(true)
-  const [user, setUser] = useState<User | null>(null)
 
   const users = collection(db, 'users')
 
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged((user: User | null) => {
-      setUser(user)
+      if (user !== null) {
+        setUid(user.uid)
+        setIsLogged(true)
+      }
+      setInitializing(false)
     })
     return () => {
       unsubscribeAuth()
     }
   }, [])
-
-  useEffect(() => {
-    if (user != null) {
-      setInitializing(false)
-      const userRef = doc(users, user.uid)
-      const unsubscribe = onSnapshot(userRef, (snap) => {
-        const response = snap.data()
-        if (response != null) {
-          setDisplayName(response.displayName)
-          setEmail(response.email)
-          setEmailVerified(response.emailVerified)
-          setNickName(response.nickName)
-          setPreferences(response.preferences)
-          setUid(response.uid)
-          setWatchedMovies(response.movies)
-          setOnboarding(response.onboarding)
-        }
-      })
-      return () => {
-        unsubscribe()
-      }
-    }
-  }, [user])
 
   const showError = (error: FirebaseError): void => {
     showToast(error.code, error.message, 'error', false)
@@ -57,7 +37,7 @@ const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     startLoading('Signin in')
     signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        setUser(response.user)
+        setUid(response.user.uid)
       })
       .catch(showError)
       .finally(stopLoading)
@@ -93,14 +73,7 @@ const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
 
     setDoc(userRef, object)
       .then(() => {
-        setUser(user)
-        setDisplayName(object.displayName)
-        setEmail(object.email)
-        setEmailVerified(object.emailVerified)
-        setNickName(object.nickName)
-        setPreferences(object.preferences)
-        setUid(object.uid)
-        setWatchedMovies(object.movies)
+        setUid(user.uid)
       })
       .catch(showError)
       .finally(stopLoading)
@@ -110,8 +83,7 @@ const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     startLoading('Signing Out')
     signOut(auth)
       .then(() => {
-        setUser(null)
-        setInitializing(true)
+        setIsLogged(false)
       })
       .catch(showError)
       .finally(stopLoading)
@@ -129,7 +101,6 @@ const AuthProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     signIn,
     signUp,
     signOut: signOutFunction,
-    setUser,
     recoverPassword,
   } satisfies AuthContextType
 
