@@ -19,6 +19,8 @@ export interface UserContextType {
   setUid: (uid: string) => void
   onboarding: boolean
   setOnboarding: (onboarding: boolean) => void
+  isLogged: boolean
+  setIsLogged: (isLogged: boolean) => void
 }
 
 const UserContext = createContext<UserContextType | null>(null)

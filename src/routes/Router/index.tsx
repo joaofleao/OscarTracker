@@ -3,7 +3,7 @@ import { StatusBar } from 'react-native'
 import colors from 'tailwindcss/colors'
 
 import { LoadingModalComponent } from '../../components'
-import { useAuth } from '../../features'
+import { useAuth, useUser } from '../../features'
 import { Logged, Unlogged } from '../../routes'
 import { SplashScreen } from '../../screens'
 import { type ScreenTypes } from '../../types'
@@ -18,9 +18,10 @@ const screenOptions = {
 
 const Router = (): JSX.Element => {
   const { initializing } = useAuth()
+  const { isLogged } = useUser()
 
   return (
-    <SplashScreen isAppReady={true}>
+    <SplashScreen isAppReady={!initializing}>
       <StatusBar
         animated={true}
         backgroundColor={colors.zinc[900]}
@@ -28,7 +29,7 @@ const Router = (): JSX.Element => {
       />
       <LoadingModalComponent />
       <NavigationContainer>
-        <Stack.Navigator screenOptions={screenOptions}>{!initializing ? Logged : Unlogged}</Stack.Navigator>
+        <Stack.Navigator screenOptions={screenOptions}>{isLogged ? Logged : Unlogged}</Stack.Navigator>
       </NavigationContainer>
     </SplashScreen>
   )
