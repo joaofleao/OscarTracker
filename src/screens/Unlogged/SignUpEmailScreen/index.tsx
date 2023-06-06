@@ -23,8 +23,6 @@ const SignUpEmailScreen = ({ navigation }: SignUpEmailScreenProps): JSX.Element 
         leadingButton="arrow-left"
         title="Register"
         align="left"
-        description="Here are the 2022 Oscar Nominations"
-        bigHeader
       />
 
       <View className="flex-1 mx-4">

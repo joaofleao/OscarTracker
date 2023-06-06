@@ -30,7 +30,7 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   }, [])
 
   const showError = (error: FirebaseError): void => {
-    showToast(error.code, error.message, 'error', false)
+    showToast(error.code, error.message, 'error')
   }
 
   const signIn = (email: string, password: string): void => {
@@ -91,7 +91,7 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   const recoverPassword = (email: string): void => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        showToast('Email Sent', 'You will recieve an email to recover the password if your account exists.', 'success', true)
+        showToast('Email Sent', 'You will recieve an email to recover the password if your account exists.', 'success')
       })
       .catch(showError)
   }
