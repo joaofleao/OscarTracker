@@ -1,8 +1,8 @@
 import React from 'react'
 import LottieView from 'lottie-react-native'
-import { useTheme } from 'styled-components/native'
 
 import { circle, dots, movie } from '../../assets/animations'
+import { useTheme } from '../../features'
 import { type ThemeType } from '../../types'
 
 interface LoadingComponentProps {
@@ -43,7 +43,7 @@ const getColorSecondary = (type: string, disabled: boolean, theme: ThemeType): s
 const LoadingComponent = ({ animation = 'dots', size, type = 'primary', disabled = false }: LoadingComponentProps): JSX.Element => {
   const render = getAnimation(animation)
   const speed = getSpeed(animation)
-  const theme = useTheme() as ThemeType
+  const { theme } = useTheme()
 
   const colorPrimary = getColorPrimary(type, disabled, theme)
   const colorSecondary = getColorSecondary(type, disabled, theme)

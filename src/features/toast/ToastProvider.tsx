@@ -3,11 +3,11 @@ import { Animated, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { ToastNotificationComponent } from '../../components'
-import { useTheme } from '../../features'
+import { useLoading } from '../../features'
 import ToastContext, { type ToastContextType } from './ToastContext'
 
 const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const { isLoading } = useTheme()
+  const { isLoading } = useLoading()
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [type, setType] = useState<string>('')

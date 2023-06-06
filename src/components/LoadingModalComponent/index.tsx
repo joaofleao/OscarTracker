@@ -1,11 +1,11 @@
 import React from 'react'
 import { Modal, Text, View } from 'react-native'
 
-import { useTheme } from '../../features'
+import { useLoading } from '../../features'
 import { LoadingComponent } from '..'
 
 const LoadingScreen = (): JSX.Element => {
-  const { loadingText, isLoading } = useTheme()
+  const { loadingText, isLoading } = useLoading()
 
   return (
     <Modal
