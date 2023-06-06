@@ -3,11 +3,9 @@ import { createContext } from 'react'
 import { type ThemeType } from '../../types'
 
 export interface ThemeContextType {
-  loadingText: string
-  isLoading: boolean
-  stopLoading: () => void
-  startLoading: (loading: string) => void
   theme: ThemeType
+  mode: 'dark' | 'light' | 'highContrast'
+  setMode: (mode: 'dark' | 'light' | 'highContrast') => void
 }
 
 const ThemeContext = createContext<ThemeContextType | null>(null)

@@ -3,14 +3,14 @@ import { type FirebaseError } from 'firebase/app'
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth'
 import { collection, doc, setDoc } from 'firebase/firestore'
 
-import { useTheme, useToast, useUser } from '../../features'
+import { useLoading, useToast, useUser } from '../../features'
 import { auth, db } from '../../services'
 import AuthContext, { type AuthContextType } from './AuthContext'
 
 const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => {
   const { showToast } = useToast()
   const { setIsLogged, setUid } = useUser()
-  const { startLoading, stopLoading } = useTheme()
+  const { startLoading, stopLoading } = useLoading()
 
   const [initializing, setInitializing] = useState<boolean>(true)
 

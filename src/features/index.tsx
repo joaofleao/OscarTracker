@@ -3,6 +3,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import AuthProvider from './auth/AuthProvider'
 import DataProvider from './data/DataProvider'
+import LoadingProvider from './loading/LoadingProvider'
 import MoviesProvider from './movies/MoviesProvider'
 import ThemeProvider from './theme/ThemeProvider'
 import ToastProvider from './toast/ToastProvider'
@@ -10,7 +11,7 @@ import UserProvider from './user/UserProvider'
 
 export { default as useAuth } from './auth/useAuth'
 export { default as useData } from './data/useData'
-// export { default as useLoading } from './loading/useLoading'
+export { default as useLoading } from './loading/useLoading'
 export { default as useMovies } from './movies/useMovies'
 export { default as usePersonalData } from './personalData/usePersonalData'
 export { default as useTheme } from './theme/useTheme'
@@ -32,6 +33,7 @@ const ContextProviders = ({ children }: { children?: React.ReactNode }): JSX.Ele
       contextProviders={[
         <SafeAreaProvider key={'safe_provider'} />,
         <ThemeProvider key={'theme_provider'} />,
+        <LoadingProvider key={'loading_provider'} />,
         <ToastProvider key={'toast_provider'} />,
         <UserProvider key={'user_provider'} />,
         <AuthProvider key={'auth_provider'} />,
