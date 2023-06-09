@@ -29,7 +29,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
       const cast = await getCast(id)
       const providers = await getProviders(id)
 
-      setMovieProviders(() => providers.results?.BR?.flatrate.filter((provider: any) => provider.provider_id !== 1796))
+      setMovieProviders(() => providers.results.BR.flatrate.filter((provider: any) => provider.provider_id !== 1796))
       setMovieData(movie)
       setMovieCast(cast.cast.slice(0, 10))
     }
