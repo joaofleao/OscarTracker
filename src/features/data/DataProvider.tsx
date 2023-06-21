@@ -29,18 +29,18 @@ const DataProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
 
   const categoriesOrder = [19, 2, 0, 3, 1, 9, 4, 17, 18, 20, 21, 22, 7, 8, 12, 15, 16, 5, 6, 10, 11, 13, 14]
 
-  const { uid } = useUser()
+  const { isLogged, uid } = useUser()
 
   useMemo(() => {
-    const fetchData = async (): Promise<void> => {
+    const fetchFirebaseData = async (): Promise<void> => {
       void getCategories()
       void getEditionMovies()
       void getEditionNominations()
       void getEditionPeople()
       void getAnnoucements()
     }
-    if (uid != null) void fetchData()
-  }, [uid])
+    if (isLogged) void fetchFirebaseData()
+  }, [isLogged])
 
   async function getCategories(): Promise<void> {
     const categoriesMap = new Map()
