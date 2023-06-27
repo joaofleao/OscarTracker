@@ -14,6 +14,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   const [categories, setCategories] = React.useState<EditionContextType['categories']>({})
   const [edition, setEdition] = React.useState<EditionContextType['edition']>('95')
   const [movies, setMovies] = React.useState<EditionContextType['movies']>({})
+  const [totalMovies, setTotalMovies] = React.useState<EditionContextType['totalMovies']>(0)
   const [people, setPeople] = React.useState<EditionContextType['people']>({})
   const [nominations, setNominations] = React.useState<EditionContextType['nominations']>({})
   const user = useUser()
@@ -65,6 +66,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
       map[doc.id] = doc.data() as BasicMovieType
     })
 
+    setTotalMovies(response.size)
     setMovies(map)
   }
 
@@ -123,6 +125,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   const value = {
     edition,
     setEdition,
+    totalMovies,
 
     categories,
     movies,

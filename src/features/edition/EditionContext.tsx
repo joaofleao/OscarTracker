@@ -5,6 +5,7 @@ import type { BasicMovieType, Category, Nomination, PersonType } from '../../typ
 export interface EditionContextType {
   edition: string
   setEdition: (edition: string) => void
+  totalMovies: number
 
   categories: Record<string, Category>
   movies: Record<string, BasicMovieType>
