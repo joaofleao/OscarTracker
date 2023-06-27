@@ -1,5 +1,5 @@
 export type { SpacingType } from '../styles/spacing'
-export type { Announcement, BasicMovieType, Category, Nomination, PersonType, PreferencesType, Provider, UserType } from './DataTypes'
+export type { Announcement, BasicMovieType, Category, Nomination, PersonType, PreferencesType, Provider, TMDBPerson, UserType } from './DataTypes'
 export type { ForgotPasswordScreenProps, HomeScreenProps, MovieScreenProps, NominationScreenProps, PreferencesScreenProps, ScreenTypes, SignInScreenProps, SignUpAvatarScreenProps, SignUpEmailScreenProps, SignUpNameScreenProps, SignUpPasswordScreenProps, WatchListScreenProps } from './ScreenTypes'
 export type { ModeType, StyledProps, ThemeType } from './ThemeTypes'
 export type { CastType } from './tmdb/CastTypes'

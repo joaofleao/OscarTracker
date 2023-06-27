@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Image, Linking, type ListRenderItemInfo, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, Linking, type ListRenderItemInfo, Platform, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import { IMDB } from '../../../assets/images'
 import { HeaderComponent, IconComponent, ModelComponent, SeparatorComponent, SpoilerComponent } from '../../../components'
 import { useEdition, useMovies, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
-import { type MovieScreenProps, type Nomination } from '../../../types'
+import { type MovieScreenProps, type Nomination, type TMDBPerson } from '../../../types'
 import { routes } from '../../../utils'
 
 const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
@@ -30,7 +30,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
       const cast = await movies.getCast(id)
       const providers = await movies.getProviders(id)
 
-      setMovieProviders(() => providers.results.BR.flatrate.filter((provider: any) => provider.provider_id !== 1796))
+      setMovieProviders(() => providers.results?.BR?.flatrate?.filter((provider: any) => provider.provider_id !== 1796))
       setMovieData(movie)
       setMovieCast(cast.cast.slice(0, 10))
     }
@@ -50,12 +50,18 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
     }
   }
 
-  const renderCast = ({ item }: ListRenderItemInfo<any>): JSX.Element => (
+  const renderCast = ({ item }: ListRenderItemInfo<TMDBPerson>): JSX.Element => (
     <SpoilerComponent
       show={user.preferences.cast}
       watched={watched}
+      className="flex-1"
     >
-      <View className="w-[106px]">
+      <Pressable
+        onPress={() => {
+          void Linking.openURL(`https://www.themoviedb.org/person/${item.id}`)
+        }}
+        className="w-[106px] "
+      >
         <View className="justify-center items-center ">
           <Text className="absolute text-white text-center">No Image</Text>
 
@@ -64,19 +70,21 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
             className="w-[106px] h-[158px] rounded-xl bg-zinc-800/40"
           />
         </View>
+
         <Text
           numberOfLines={2}
-          className="mt-3 font-primaryBold text-white text-base w-[full] flex-1"
+          className="mt-3 font-primaryBold text-white text-base w-[full]"
         >
           {item.name}
         </Text>
+
         <Text
           numberOfLines={1}
-          className=" font-primaryRegular text-white text-sm w-[full] flex-1"
+          className="mt-2 font-primaryRegular text-white text-sm w-[full] "
         >
           {item.character}
         </Text>
-      </View>
+      </Pressable>
     </SpoilerComponent>
   )
 

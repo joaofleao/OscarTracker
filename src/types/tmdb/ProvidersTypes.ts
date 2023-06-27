@@ -6,7 +6,7 @@ export interface Provider {
 }
 export interface Result {
   link: string
-  flatrate: Provider[]
+  flatrate: Provider[] | undefined
   rent: Provider[]
   buy: Provider[]
 }
