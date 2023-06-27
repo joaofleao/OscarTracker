@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 
 import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
-import { useAuth } from '../../../hooks'
+import { useAuth } from '../../../features'
 import { type ForgotPasswordScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -10,10 +10,10 @@ const ForgotPasswordScreen = ({ navigation, route }: ForgotPasswordScreenProps):
   const { email } = route.params
   const [recoveryEmail, setRecoveryEmail] = useState<string>(email ?? '')
 
-  const { recoverPassword } = useAuth()
+  const auth = useAuth()
 
   const handleSendEmail = (): void => {
-    recoverPassword(recoveryEmail)
+    auth.recoverPassword(recoveryEmail)
     navigation.navigate(routes.unlogged.signIn)
   }
 

@@ -2,29 +2,29 @@ import React, { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
 import { HeaderComponent, ModelComponent, NomineeCardComponent, SeparatorComponent, TextInputComponent } from '../../../components'
-import { useData } from '../../../hooks'
-import { type BasicMovieType, type WatchListScreenProps } from '../../../types'
+import { useEdition } from '../../../features'
+import type { BasicMovieType, WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
 function WatchListScreen({ navigation, route }: WatchListScreenProps): JSX.Element {
   const [search, setSearch] = useState<string>('')
-  const [data, setData] = useState<[]>([])
+  const [data, setData] = useState<any>([])
 
-  const { currentMovies } = useData()
+  const edition = useEdition()
 
   useEffect(() => {
-    if (search === '') setData(currentMovies)
+    if (search === '') setData(Object.values(edition.movies))
     else {
-      const filtered = currentMovies.filter((movie: any) => {
+      const filtered = Object.values(edition.movies).filter((movie: any) => {
         const nameLower = movie['en-US'].name.toLowerCase()
         const searchLower = search.toLowerCase()
         return nameLower.includes(searchLower)
       })
       setData(filtered)
     }
-  }, [search, currentMovies])
+  }, [search, edition.movies])
 
-  const renderItem = ({ item }: BasicMovieType): JSX.Element => {
+  const renderItem = ({ item }: { item: BasicMovieType }): JSX.Element => {
     return (
       <NomineeCardComponent
         onPress={() => {

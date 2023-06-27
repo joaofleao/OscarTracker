@@ -3,33 +3,34 @@ import { FlatList, Image, Linking, type ListRenderItemInfo, Platform, ScrollView
 
 import { IMDB } from '../../../assets/images'
 import { HeaderComponent, IconComponent, ModelComponent, SeparatorComponent, SpoilerComponent } from '../../../components'
-import { useData, useMovies, useUser } from '../../../hooks'
+import { useEdition, useMovies, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type MovieScreenProps, type Nomination } from '../../../types'
 import { routes } from '../../../utils'
 
 const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   const { id, name, poster } = route.params
-  const { watchedMovies, preferences } = useUser()
   const [watched, setWatched] = useState<boolean>(false)
   const [movieData, setMovieData] = useState<any>([])
   const [movieCast, setMovieCast] = useState<any>([])
   const [movieProviders, setMovieProviders] = useState<any>([])
   const [nominations, setNominations] = useState<Nomination[]>([])
-  const { getMovieNominations, currentCategoriesMap, setMovieUnwatched, setMovieWatched } = useData()
-  const { getMovie, getCast, getProviders } = useMovies()
+
+  const edition = useEdition()
+  const user = useUser()
+  const movies = useMovies()
 
   const imdbLink = `https://www.imdb.com/title/${id}`
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const nominations = await getMovieNominations(id)
+      const nominations = await edition.getNominations(id)
       setNominations(nominations)
-      const movie = await getMovie(id)
-      const cast = await getCast(id)
-      const providers = await getProviders(id)
+      const movie = await movies.getMovie(id)
+      const cast = await movies.getCast(id)
+      const providers = await movies.getProviders(id)
 
-      setMovieProviders(() => providers.results?.BR?.flatrate.filter((provider: any) => provider.provider_id !== 1796))
+      setMovieProviders(() => providers.results.BR.flatrate.filter((provider: any) => provider.provider_id !== 1796))
       setMovieData(movie)
       setMovieCast(cast.cast.slice(0, 10))
     }
@@ -37,21 +38,21 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   }, [])
 
   useEffect(() => {
-    const value = watchedMovies.includes(id) || false
+    const value = user.watchedMovies.includes(id) || false
     setWatched(value)
-  }, [watchedMovies])
+  }, [user.watchedMovies])
 
   const markAsWatched = (current: boolean): void => {
     if (current) {
-      setMovieUnwatched(id)
+      user.setMovieUnwatched(id)
     } else {
-      setMovieWatched(id)
+      user.setMovieWatched(id)
     }
   }
 
   const renderCast = ({ item }: ListRenderItemInfo<any>): JSX.Element => (
     <SpoilerComponent
-      show={preferences.cast}
+      show={user.preferences.cast}
       watched={watched}
     >
       <View className="w-[106px]">
@@ -86,7 +87,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
       }}
       className="bg-amber-500 rounded-2xl py-2 px-4 items-center justify-center"
     >
-      <Text className="text-zinc-900 font-primaryBold text-base">{currentCategoriesMap.get(item.category)}</Text>
+      <Text className="text-zinc-900 font-primaryBold text-base">{edition.categories[item.category]['en-US']}</Text>
     </TouchableOpacity>
   )
   const renderProvider = ({ item }: ListRenderItemInfo<any>): JSX.Element => (
@@ -106,7 +107,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
       <ScrollView>
         <View className="items-center">
           <SpoilerComponent
-            show={preferences.poster}
+            show={user.preferences.poster}
             watched={watched}
           >
             <Image
@@ -127,7 +128,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
             </View>
             <SpoilerComponent
               text="Show Score"
-              show={preferences.ratings}
+              show={user.preferences.ratings}
               watched={watched}
             >
               <View className=" px-2 py-4 bg-zinc-800/40 justify-center items-center rounded-xl w-20">
@@ -211,7 +212,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
         <View className="mt-4 mx-4">
           <Text className="mb-2 font-primaryBold text-white text-xl">Plot</Text>
           <SpoilerComponent
-            show={preferences.plot}
+            show={user.preferences.plot}
             watched={watched}
           >
             <Text className="font-primaryRegular text-white text-base text-justify">{movieData.overview}</Text>

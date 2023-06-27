@@ -4,12 +4,13 @@ export interface Provider {
 export interface Nomination {
   category: string
   movie: string
-  person?: string
-  information?: string
-  extra?: string
+  person: string | undefined
+  information: string | undefined
+  extra: string | undefined
 }
 export interface Category {
   id: string
+  order: number
   'en-US': string
   'pt-BR': string
 }
@@ -33,16 +34,29 @@ export interface UserType {
 }
 
 export interface BasicMovieType {
-  item: {
-    'en-US': {
-      image: string
-      name: string
-    }
-    'pt-BR': {
-      image: string
-      name: string
-    }
-    imdb: string
-    tmdb: string
+  'en-US': {
+    image: string
+    name: string
   }
+  'pt-BR': {
+    image: string
+    name: string
+  }
+  imdb: string
+  tmdb: string
+}
+export interface PersonType {
+  image: string
+  name: string
+  imdb: string
+  tmdb: string
+}
+
+export interface Announcement {
+  date: Date
+  description: string
+  title: string
+  updates: string[]
+  version: string
+  url: string
 }

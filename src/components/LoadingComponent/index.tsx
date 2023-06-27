@@ -1,8 +1,7 @@
 import React from 'react'
 import LottieView from 'lottie-react-native'
-import { useTheme } from 'styled-components/native'
 
-import type { ThemeType } from '../../types'
+import { useTheme } from '../../features'
 import { getAnimation, getColorPrimary, getColorSecondary, getSpeed } from './utils'
 
 interface Props {
@@ -24,10 +23,10 @@ const LoadingComponent = (propArgs: Props): JSX.Element => {
 
   const render = getAnimation(animation)
   const speed = getSpeed(animation)
-  const theme = useTheme() as ThemeType
+  const theme = useTheme()
 
-  const colorPrimary = getColorPrimary(type, disabled, theme)
-  const colorSecondary = getColorSecondary(type, disabled, theme)
+  const colorPrimary = getColorPrimary(type, disabled, theme.theme)
+  const colorSecondary = getColorSecondary(type, disabled, theme.theme)
 
   return (
     <LottieView

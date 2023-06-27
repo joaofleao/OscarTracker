@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { ToastNotificationComponent } from '../components'
-import { ToastContext, type ToastContextType } from '../contexts'
-import { useTheme } from '../hooks'
+import { ToastNotificationComponent } from '../../components'
+import { useLoading } from '../../features'
+import ToastContext, { type ToastContextType } from './ToastContext'
 
 const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const { isLoading } = useTheme()
+  const loading = useLoading()
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [type, setType] = useState<string>('')
@@ -15,18 +15,17 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
   const insets = useSafeAreaInsets()
 
   useEffect(() => {
-    if (!isLoading && toast) {
+    if (!loading.isActive && toast) {
       popIn()
       setToast(false)
     }
-  }, [isLoading])
+  }, [loading.isActive, toast])
 
-  const showToast = (title: string, description: string, type: 'success' | 'error', instant: boolean): void => {
+  const showToast = (title: string, description: string, type: 'success' | 'error'): void => {
     setTitle(title)
     setDescription(description)
     setType(type)
     setToast(true)
-    if (instant) popIn()
   }
 
   const windowHeight = Dimensions.get('window').height
