@@ -1,5 +1,5 @@
-import { useData, useUser } from '../../features'
-import { type BasicMovieType } from '../../types'
+import { useEdition, useUser } from '../../features'
+import type { BasicMovieType } from '../../types'
 
 interface PersonalDataType {
   isWatched: (imdb: string) => boolean
@@ -10,12 +10,11 @@ interface PersonalDataType {
 }
 
 const usePersonalData = (): PersonalDataType => {
-  const { currentMovies } = useData()
+  const edition = useEdition()
   const { watchedMovies } = useUser()
 
   const totalMovies = (): number => {
-    if (currentMovies != null) return currentMovies.length
-    return 0
+    return Object.values(edition.movies).length
   }
   const totalWatchedMovies = (): number => {
     return watchedMovies.length

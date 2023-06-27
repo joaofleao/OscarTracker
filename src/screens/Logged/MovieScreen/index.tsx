@@ -3,7 +3,7 @@ import { FlatList, Image, Linking, type ListRenderItemInfo, Platform, ScrollView
 
 import { IMDB } from '../../../assets/images'
 import { HeaderComponent, IconComponent, ModelComponent, SeparatorComponent, SpoilerComponent } from '../../../components'
-import { useData, useMovies, useUser } from '../../../features'
+import { useEdition, useMovies, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type MovieScreenProps, type Nomination } from '../../../types'
 import { routes } from '../../../utils'
@@ -16,18 +16,20 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   const [movieCast, setMovieCast] = useState<any>([])
   const [movieProviders, setMovieProviders] = useState<any>([])
   const [nominations, setNominations] = useState<Nomination[]>([])
-  const { getMovieNominations, currentCategoriesMap, setMovieUnwatched, setMovieWatched } = useData()
-  const { getMovie, getCast, getProviders } = useMovies()
+
+  const edition = useEdition()
+  const user = useUser()
+  const movies = useMovies()
 
   const imdbLink = `https://www.imdb.com/title/${id}`
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const nominations = await getMovieNominations(id)
+      const nominations = await edition.getNominations(id)
       setNominations(nominations)
-      const movie = await getMovie(id)
-      const cast = await getCast(id)
-      const providers = await getProviders(id)
+      const movie = await movies.getMovie(id)
+      const cast = await movies.getCast(id)
+      const providers = await movies.getProviders(id)
 
       setMovieProviders(() => providers.results.BR.flatrate.filter((provider: any) => provider.provider_id !== 1796))
       setMovieData(movie)
@@ -43,9 +45,9 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
 
   const markAsWatched = (current: boolean): void => {
     if (current) {
-      setMovieUnwatched(id)
+      user.setMovieUnwatched(id)
     } else {
-      setMovieWatched(id)
+      user.setMovieWatched(id)
     }
   }
 
@@ -86,7 +88,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
       }}
       className="bg-amber-500 rounded-2xl py-2 px-4 items-center justify-center"
     >
-      <Text className="text-zinc-900 font-primaryBold text-base">{currentCategoriesMap.get(item.category)}</Text>
+      <Text className="text-zinc-900 font-primaryBold text-base">{edition.categories[item.category]['en-US']}</Text>
     </TouchableOpacity>
   )
   const renderProvider = ({ item }: ListRenderItemInfo<any>): JSX.Element => (

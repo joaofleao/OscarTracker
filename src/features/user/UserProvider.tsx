@@ -1,18 +1,23 @@
 import React from 'react'
-import { collection, doc, onSnapshot } from 'firebase/firestore'
+import { Linking, ScrollView, Text, View } from 'react-native'
+import { arrayRemove, arrayUnion, collection, doc, getDocs, onSnapshot, orderBy, query, updateDoc } from 'firebase/firestore'
 
+import packageJson from '../../../package.json'
+import { ModalComponent } from '../../components'
 import { db } from '../../services'
-import { type PreferencesType } from '../../types'
+import type { Announcement, PreferencesType } from '../../types'
 import UserContext, { type UserContextType } from './UserContext'
 
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const users = collection(db, 'users')
+  const usersCollection = collection(db, 'users')
+  const annoucementsCollection = collection(db, 'annoucements')
   const [isLogged, setIsLogged] = React.useState<boolean>(false)
 
   const [email, setEmail] = React.useState<string>('')
   const [displayName, setDisplayName] = React.useState<string>('')
   const [emailVerified, setEmailVerified] = React.useState<boolean>(false)
   const [onboarding, setOnboarding] = React.useState<boolean>(true)
+  const [announcements, setAnnouncements] = React.useState<Announcement[]>([])
   const [nickName, setNickName] = React.useState<string>('')
   const [watchedMovies, setWatchedMovies] = React.useState<string[]>([])
   const [uid, setUid] = React.useState<string>('')
@@ -23,9 +28,15 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     ratings: false,
   })
 
+  const [modal, setModal] = React.useState<boolean>(false)
+
+  React.useEffect(() => {
+    if (announcements.length > 0 && announcements[0].version !== packageJson.version) setModal(true)
+  }, [announcements])
+
   React.useEffect(() => {
     if (isLogged) {
-      const userRef = doc(users, uid)
+      const userRef = doc(usersCollection, uid)
       const unsubscribe = onSnapshot(userRef, (snap) => {
         const response = snap.data()
         if (response !== undefined) {
@@ -41,32 +52,106 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
       })
       return () => {
         unsubscribe()
+        void getAnnoucements()
       }
     }
   }, [isLogged])
 
+  async function getAnnoucements(): Promise<void> {
+    console.log(`\x1b[33mFirebase \x1b[0m- \x1b[32mAnnoucements fetched`)
+
+    const orderedAnnoucements = query(annoucementsCollection, orderBy('date'))
+    const response = await getDocs(orderedAnnoucements)
+    const array: any = []
+    response.forEach((doc) => array.push(doc.data()))
+    setAnnouncements(array)
+  }
+
+  async function updateUser(email?: string, displayName?: string, nickName?: string, preferences?: PreferencesType, onboarding?: boolean): Promise<void> {
+    const userRef = doc(usersCollection, uid)
+
+    void updateDoc(userRef, {
+      ...(email !== null && { email }),
+      ...(displayName !== null && { displayName }),
+      ...(nickName !== null && { nickName }),
+      ...(preferences !== null && { preferences }),
+      ...(onboarding !== null && { onboarding }),
+    })
+  }
+
+  async function setMovieUnwatched(movie: string): Promise<void> {
+    const userRef = doc(usersCollection, uid)
+
+    void updateDoc(userRef, {
+      movies: arrayRemove(movie),
+    })
+  }
+
+  async function setMovieWatched(movie: string): Promise<void> {
+    const userRef = doc(usersCollection, uid)
+
+    void updateDoc(userRef, {
+      movies: arrayUnion(movie),
+    })
+  }
+
   const value = {
     preferences,
-    setPreferences,
     email,
-    setEmail,
     displayName,
-    setDisplayName,
     emailVerified,
-    setEmailVerified,
     nickName,
-    setNickName,
     watchedMovies,
-    setWatchedMovies,
+    onboarding,
     uid,
     setUid,
     isLogged,
     setIsLogged,
-    onboarding,
-    setOnboarding,
+
+    announcements,
+
+    updateUser,
+    setMovieUnwatched,
+    setMovieWatched,
   } satisfies UserContextType
 
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>
+  const newVersionModal = (): JSX.Element => {
+    const update = announcements[0]
+    return (
+      <ModalComponent
+        title={update.title}
+        description={update.description}
+        visible={modal}
+        confirmLabel={'Update to '.concat(update.version)}
+        onConfirm={() => {
+          void Linking.openURL(update.url)
+        }}
+      >
+        <View style={{ flex: 1, maxHeight: 200 }}>
+          <ScrollView
+            indicatorStyle="white"
+            contentContainerStyle={{ paddingRight: 20 }}
+          >
+            {update.updates.map((update: string) => (
+              <Text
+                key={update}
+                className="font-primaryBold text-white text-base mb-2"
+              >
+                {update}
+              </Text>
+            ))}
+          </ScrollView>
+        </View>
+      </ModalComponent>
+    )
+  }
+
+  return (
+    <UserContext.Provider value={value}>
+      {modal && newVersionModal()}
+      {children}
+    </UserContext.Provider>
+  )
 }
 
 export default UserProvider

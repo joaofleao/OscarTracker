@@ -4,12 +4,11 @@ import colors from 'tailwindcss/colors'
 
 import packageJson from '../../../../package.json'
 import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
-import { useAuth, useData, useUser } from '../../../features'
+import { useAuth, useUser } from '../../../features'
 
 const ProfileScreen = (): JSX.Element => {
-  const { signOut } = useAuth()
+  const auth = useAuth()
   const user = useUser()
-  const { updateUser } = useData()
 
   const [displayName, setDisplayName] = useState<string>(user.displayName)
   const [nickName, setNickname] = useState<string>(user.nickName)
@@ -23,7 +22,7 @@ const ProfileScreen = (): JSX.Element => {
 
   const handleEdit = (): any => {
     if (editing) {
-      updateUser(user.email, displayName, nickName, { poster, plot, cast, ratings }, undefined)
+      user.updateUser(user.email, displayName, nickName, { poster, plot, cast, ratings }, undefined)
       setEditing(false)
     } else {
       setEditing(true)
@@ -130,7 +129,7 @@ const ProfileScreen = (): JSX.Element => {
           label="Log Out"
           variant="outlined"
           className="mx-4 mb-5"
-          onPress={signOut}
+          onPress={auth.signOut}
         />
       </ScrollView>
     </ModelComponent>
