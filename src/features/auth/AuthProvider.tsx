@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { type FirebaseError } from 'firebase/app'
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth'
+import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut as firebaseSignOut, type User } from 'firebase/auth'
 import { collection, doc, setDoc } from 'firebase/firestore'
 
 import { useLoading, useToast, useUser } from '../../features'
@@ -79,15 +79,16 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
       .finally(stopLoading)
   }
 
-  const signOutFunction = (): void => {
+  const signOut = (): void => {
     startLoading('Signing Out')
-    signOut(auth)
+    firebaseSignOut(auth)
       .then(() => {
         setIsLogged(false)
       })
       .catch(showError)
       .finally(stopLoading)
   }
+
   const recoverPassword = (email: string): void => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
@@ -100,7 +101,7 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
     initializing,
     signIn,
     signUp,
-    signOut: signOutFunction,
+    signOut,
     recoverPassword,
   } satisfies AuthContextType
 
