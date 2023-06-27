@@ -3,13 +3,13 @@ import { Dimensions, FlatList, Image, type ImageSourcePropType, type ListRenderI
 
 import { david, IMDB, jason, justin, poster } from '../../../assets/images'
 import { ButtonComponent, HeaderComponent, ModelComponent, ProgressBarComponent } from '../../../components'
-import { useData } from '../../../hooks'
+import { useUser } from '../../../features'
 import { type PreferencesScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
 const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element => {
   const scrollViewRef = useRef<FlatList>(null)
-  const { updateUser } = useData()
+  const user = useUser()
 
   const [ratingsSpoiler, setRatingsSpoiler] = useState(true)
   const [castSpoiler, setCastSpoiler] = useState(true)
@@ -37,7 +37,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
     if (index < 5) setIndex((index) => index + 1)
     else {
       navigation.navigate(routes.logged.home)
-      updateUser(undefined, undefined, undefined, preferences, true)
+      user.updateUser(undefined, undefined, undefined, preferences, true)
     }
   }
   const handleBack = (): void => {
