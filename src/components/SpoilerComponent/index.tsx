@@ -22,11 +22,11 @@ const SocialButtonComponent = ({ children, show, watched, text, ...rest }: Spoil
 
   return (
     <Pressable
-      {...rest}
       className="h-fit w-fit items-center justify-center rounded-xl overflow-hidden relative"
       onPress={() => {
         setHidden((value) => !value)
       }}
+      {...rest}
     >
       {children}
 
