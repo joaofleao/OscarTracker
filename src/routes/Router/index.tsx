@@ -17,11 +17,11 @@ const screenOptions = {
 }
 
 const Router = (): JSX.Element => {
-  const { initializing } = useAuth()
-  const { isLogged } = useUser()
+  const auth = useAuth()
+  const user = useUser()
 
   return (
-    <SplashScreen isAppReady={!initializing}>
+    <SplashScreen isAppReady={!auth.initializing}>
       <StatusBar
         animated={true}
         backgroundColor={colors.zinc[900]}
@@ -29,7 +29,7 @@ const Router = (): JSX.Element => {
       />
       <LoadingModalComponent />
       <NavigationContainer>
-        <Stack.Navigator screenOptions={screenOptions}>{isLogged ? Logged : Unlogged}</Stack.Navigator>
+        <Stack.Navigator screenOptions={screenOptions}>{user.isLogged ? Logged : Unlogged}</Stack.Navigator>
       </NavigationContainer>
     </SplashScreen>
   )

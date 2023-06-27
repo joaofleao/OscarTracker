@@ -8,19 +8,19 @@ import { auth, db } from '../../services'
 import AuthContext, { type AuthContextType } from './AuthContext'
 
 const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => {
-  const { showToast } = useToast()
-  const { setIsLogged, setUid } = useUser()
-  const { startLoading, stopLoading } = useLoading()
+  const toast = useToast()
+  const user = useUser()
+  const loading = useLoading()
 
   const [initializing, setInitializing] = useState<boolean>(true)
 
   const users = collection(db, 'users')
 
   useEffect(() => {
-    const unsubscribeAuth = auth.onAuthStateChanged((user: User | null) => {
-      if (user !== null) {
-        setUid(user.uid)
-        setIsLogged(true)
+    const unsubscribeAuth = auth.onAuthStateChanged((data: User | null) => {
+      if (data !== null) {
+        user.setUid(data.uid)
+        user.setIsLogged(true)
       }
       setInitializing(false)
     })
@@ -30,38 +30,38 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   }, [])
 
   const showError = (error: FirebaseError): void => {
-    showToast(error.code, error.message, 'error')
+    toast.showToast(error.code, error.message, 'error')
   }
 
   const signIn = (email: string, password: string): void => {
-    startLoading('Signin in')
+    loading.start('Signin in')
     signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        setUid(response.user.uid)
+        user.setUid(response.user.uid)
       })
       .catch(showError)
-      .finally(stopLoading)
+      .finally(loading.stop)
   }
 
   const signUp = (email: string, password: string, displayName: string, nickName: string): void => {
-    startLoading('Creating an Account')
+    loading.start('Creating an Account')
     createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
         addUser(response.user, displayName, nickName)
       })
       .catch(showError)
-      .finally(stopLoading)
+      .finally(loading.stop)
   }
 
-  const addUser = (user: User, displayName: string, nickName: string): void => {
-    const userRef = doc(users, user.uid)
+  const addUser = (newUser: User, displayName: string, nickName: string): void => {
+    const userRef = doc(users, newUser.uid)
 
     const object = {
-      email: user.email ?? '',
+      email: newUser.email ?? '',
       displayName,
       nickName,
-      uid: user.uid,
-      emailVerified: user.emailVerified,
+      uid: newUser.uid,
+      emailVerified: newUser.emailVerified,
       movies: [],
       preferences: {
         poster: false,
@@ -73,26 +73,26 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
 
     setDoc(userRef, object)
       .then(() => {
-        setUid(user.uid)
+        user.setUid(newUser.uid)
       })
       .catch(showError)
-      .finally(stopLoading)
+      .finally(loading.stop)
   }
 
   const signOut = (): void => {
-    startLoading('Signing Out')
+    loading.start('Signing Out')
     firebaseSignOut(auth)
       .then(() => {
-        setIsLogged(false)
+        user.setIsLogged(false)
       })
       .catch(showError)
-      .finally(stopLoading)
+      .finally(loading.stop)
   }
 
   const recoverPassword = (email: string): void => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        showToast('Email Sent', 'You will recieve an email to recover the password if your account exists.', 'success')
+        toast.showToast('Email Sent', 'You will recieve an email to recover the password if your account exists.', 'success')
       })
       .catch(showError)
   }

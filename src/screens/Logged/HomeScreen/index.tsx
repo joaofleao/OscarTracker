@@ -2,7 +2,7 @@ import React from 'react'
 import { FlatList, type ListRenderItemInfo, Pressable, Text, TouchableOpacity, View } from 'react-native'
 
 import { HeaderComponent, ModelComponent, PosterComponent, ProgressBarComponent, SeparatorComponent } from '../../../components'
-import { useEdition, usePersonalData, useUser } from '../../../features'
+import { useEdition, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type HomeScreenProps, type Nomination } from '../../../types'
 import { routes } from '../../../utils'
@@ -10,13 +10,12 @@ import { routes } from '../../../utils'
 const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
   const edition = useEdition()
 
-  const { isWatched, totalMovies, totalWatchedMovies } = usePersonalData()
   const user = useUser()
 
   const renderMovie = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
     const movie = edition.movies[item.movie]
     const person = edition.people[item.person ?? '']
-    const watched = isWatched(movie?.imdb)
+    const watched = user.watchedMovies.includes(movie?.imdb)
 
     const showPoster = person != null ? true : user.preferences.poster
     const image = person != null ? getImage(person.image) : getImage(movie?.['en-US'].image)
@@ -88,8 +87,8 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
 
       <ProgressBarComponent
         animated={false}
-        progress={totalWatchedMovies()}
-        total={totalMovies()}
+        progress={user.watchedMovies.length}
+        total={edition.totalMovies}
         className="mb-8"
       />
 

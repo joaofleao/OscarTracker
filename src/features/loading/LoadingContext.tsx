@@ -1,10 +1,10 @@
 import { createContext } from 'react'
 
 export interface LoadingContextType {
-  loadingText: string
-  isLoading: boolean
-  stopLoading: () => void
-  startLoading: (loading: string) => void
+  text: string
+  isActive: boolean
+  stop: () => void
+  start: (loading: string) => void
 }
 
 const LoadingContext = createContext<LoadingContextType | null>(null)

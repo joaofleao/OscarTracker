@@ -10,7 +10,6 @@ import { routes } from '../../../utils'
 
 const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   const { id, name, poster } = route.params
-  const { watchedMovies, preferences } = useUser()
   const [watched, setWatched] = useState<boolean>(false)
   const [movieData, setMovieData] = useState<any>([])
   const [movieCast, setMovieCast] = useState<any>([])
@@ -39,9 +38,9 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   }, [])
 
   useEffect(() => {
-    const value = watchedMovies.includes(id) || false
+    const value = user.watchedMovies.includes(id) || false
     setWatched(value)
-  }, [watchedMovies])
+  }, [user.watchedMovies])
 
   const markAsWatched = (current: boolean): void => {
     if (current) {
@@ -53,7 +52,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
 
   const renderCast = ({ item }: ListRenderItemInfo<any>): JSX.Element => (
     <SpoilerComponent
-      show={preferences.cast}
+      show={user.preferences.cast}
       watched={watched}
     >
       <View className="w-[106px]">
@@ -108,7 +107,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
       <ScrollView>
         <View className="items-center">
           <SpoilerComponent
-            show={preferences.poster}
+            show={user.preferences.poster}
             watched={watched}
           >
             <Image
@@ -129,7 +128,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
             </View>
             <SpoilerComponent
               text="Show Score"
-              show={preferences.ratings}
+              show={user.preferences.ratings}
               watched={watched}
             >
               <View className=" px-2 py-4 bg-zinc-800/40 justify-center items-center rounded-xl w-20">
@@ -213,7 +212,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
         <View className="mt-4 mx-4">
           <Text className="mb-2 font-primaryBold text-white text-xl">Plot</Text>
           <SpoilerComponent
-            show={preferences.plot}
+            show={user.preferences.plot}
             watched={watched}
           >
             <Text className="font-primaryRegular text-white text-base text-justify">{movieData.overview}</Text>

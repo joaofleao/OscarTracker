@@ -1,7 +1,7 @@
 import React, { Text, TouchableOpacity, type TouchableOpacityProps, View } from 'react-native'
 import { styled } from 'nativewind'
 
-import { usePersonalData, useUser } from '../../features'
+import { useUser } from '../../features'
 import { getImage } from '../../services/tmdb/api'
 import { PosterComponent } from '..'
 
@@ -14,8 +14,7 @@ interface ButtonProps extends TouchableOpacityProps {
 }
 
 const NomineeCardComponent = ({ image, title, id, information, extra, ...props }: ButtonProps): JSX.Element => {
-  const { preferences } = useUser()
-  const { isWatched } = usePersonalData()
+  const user = useUser()
 
   return (
     <TouchableOpacity
@@ -26,8 +25,8 @@ const NomineeCardComponent = ({ image, title, id, information, extra, ...props }
       <View className="flex-row ">
         <PosterComponent
           image={getImage(image)}
-          isWatched={isWatched(id)}
-          spoiler={preferences.poster}
+          isWatched={user.watchedMovies.includes(id)}
+          spoiler={user.preferences.poster}
         />
         <View className="flex-1">
           <Text

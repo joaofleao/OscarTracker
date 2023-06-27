@@ -9,7 +9,7 @@ import { routes } from '../../../utils'
 
 const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element => {
   const scrollViewRef = useRef<FlatList>(null)
-  const { updateUser } = useUser()
+  const user = useUser()
 
   const [ratingsSpoiler, setRatingsSpoiler] = useState(true)
   const [castSpoiler, setCastSpoiler] = useState(true)
@@ -37,7 +37,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
     if (index < 5) setIndex((index) => index + 1)
     else {
       navigation.navigate(routes.logged.home)
-      updateUser(undefined, undefined, undefined, preferences, true)
+      user.updateUser(undefined, undefined, undefined, preferences, true)
     }
   }
   const handleBack = (): void => {
