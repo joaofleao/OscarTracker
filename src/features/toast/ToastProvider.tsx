@@ -7,7 +7,7 @@ import { useLoading } from '../../features'
 import ToastContext, { type ToastContextType } from './ToastContext'
 
 const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const { isLoading } = useLoading()
+  const loading = useLoading()
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [type, setType] = useState<string>('')
@@ -15,11 +15,11 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
   const insets = useSafeAreaInsets()
 
   useEffect(() => {
-    if (!isLoading && toast) {
+    if (!loading.isActive && toast) {
       popIn()
       setToast(false)
     }
-  }, [isLoading, toast])
+  }, [loading.isActive, toast])
 
   const showToast = (title: string, description: string, type: 'success' | 'error'): void => {
     setTitle(title)

@@ -3,25 +3,25 @@ import React, { useState } from 'react'
 import LoadingContext, { type LoadingContextType } from './LoadingContext'
 
 const LoadingProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const [loadingText, setLoadingText] = useState<string>('')
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [text, setText] = useState<string>('')
+  const [isActive, setIsActive] = useState<boolean>(false)
 
-  const startLoading = (text: string): void => {
-    setLoadingText(text)
-    setIsLoading(true)
+  const start = (text: string): void => {
+    setText(text)
+    setIsActive(true)
   }
 
-  const stopLoading = (): void => {
+  const stop = (): void => {
     setTimeout(() => {
-      setIsLoading(false)
+      setIsActive(false)
     }, 1000)
   }
 
   const value = {
-    isLoading,
-    loadingText,
-    stopLoading,
-    startLoading,
+    text,
+    isActive,
+    stop,
+    start,
   } satisfies LoadingContextType
 
   return <LoadingContext.Provider value={value}>{children}</LoadingContext.Provider>

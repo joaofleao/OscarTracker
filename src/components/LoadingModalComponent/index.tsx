@@ -6,11 +6,11 @@ import { useLoading } from '../../features'
 import * as Styled from './styles'
 
 const LoadingScreen = (): JSX.Element => {
-  const { loadingText, isLoading } = useLoading()
+  const loading = useLoading()
 
   return (
     <Modal
-      visible={isLoading}
+      visible={loading.isActive}
       transparent={true}
       animationType="fade"
     >
@@ -19,7 +19,7 @@ const LoadingScreen = (): JSX.Element => {
           animation="movie"
           size={120}
         />
-        <Styled.Description>{loadingText}</Styled.Description>
+        <Styled.Description>{loading.text}</Styled.Description>
       </Styled.Container>
     </Modal>
   )

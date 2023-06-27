@@ -10,10 +10,10 @@ const ForgotPasswordScreen = ({ navigation, route }: ForgotPasswordScreenProps):
   const { email } = route.params
   const [recoveryEmail, setRecoveryEmail] = useState<string>(email ?? '')
 
-  const { recoverPassword } = useAuth()
+  const auth = useAuth()
 
   const handleSendEmail = (): void => {
-    recoverPassword(recoveryEmail)
+    auth.recoverPassword(recoveryEmail)
     navigation.navigate(routes.unlogged.signIn)
   }
 

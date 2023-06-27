@@ -8,13 +8,13 @@ import { type SignUpNameScreenProps } from '../../../types'
 const SignUpNameScreen = ({ navigation, route }: SignUpNameScreenProps): JSX.Element => {
   const [name, setName] = useState<string>('')
   const [nickName, setNickName] = useState<string>('')
-  const { signUp } = useAuth()
+  const auth = useAuth()
   const { email, password } = route.params
 
   const nameValid = name.split(' ').length >= 2 && name.split(' ')[0].length > 0 && name.split(' ')[1].length > 0
 
   const handleNext = (): void => {
-    signUp(email, password, name, nickName)
+    auth.signUp(email, password, name, nickName)
   }
 
   return (
