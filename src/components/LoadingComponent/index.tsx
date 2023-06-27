@@ -1,46 +1,26 @@
 import React from 'react'
 import LottieView from 'lottie-react-native'
 
-import { circle, dots, movie } from '../../assets/animations'
 import { useTheme } from '../../features'
-import { type ThemeType } from '../../types'
+import { getAnimation, getColorPrimary, getColorSecondary, getSpeed } from './utils'
 
-interface LoadingComponentProps {
-  animation?: string
+interface Props {
+  animation?: 'dots' | 'movie' | 'circle'
   size?: number
   disabled?: boolean
   type?: 'primary' | 'secondary'
 }
 
-const getAnimation = (animation: string): any => {
-  if (animation === 'movie') return movie
-  if (animation === 'circle') return circle
-  return dots
+const defaultValue = {
+  animation: 'dots',
+  size: 120,
+  type: 'primary',
+  disabled: false,
 }
 
-const getSpeed = (animation: string): number => {
-  if (animation === 'movie') return 0.5
-  if (animation === 'circle') return 1.5
-  return 1
-}
+const LoadingComponent = (propArgs: Props): JSX.Element => {
+  const { animation, size, type, disabled } = { ...defaultValue, ...propArgs }
 
-const getColorPrimary = (type: string, disabled: boolean, theme: ThemeType): string => {
-  if (type === 'primary') {
-    if (disabled) return theme.palette.primary.shades.shade30
-    else return theme.palette.primary.default
-  }
-  return theme.palette.text.inverse
-}
-
-const getColorSecondary = (type: string, disabled: boolean, theme: ThemeType): string => {
-  if (type === 'primary') {
-    return theme.palette.text.inverse
-  }
-  if (disabled) return theme.palette.primary.shades.shade30
-  return theme.palette.primary.default
-}
-
-const LoadingComponent = ({ animation = 'dots', size, type = 'primary', disabled = false }: LoadingComponentProps): JSX.Element => {
   const render = getAnimation(animation)
   const speed = getSpeed(animation)
   const { theme } = useTheme()
@@ -58,9 +38,7 @@ const LoadingComponent = ({ animation = 'dots', size, type = 'primary', disabled
       colorFilters={[
         { keypath: 'Wheel', color: colorPrimary },
         { keypath: 'WheelHole', color: colorSecondary },
-
         { keypath: 'Circle', color: colorPrimary },
-
         { keypath: 'Dot', color: colorPrimary },
       ]}
     />
