@@ -35,10 +35,10 @@ const getWidth = (props: Props): string => {
   return '100%'
 }
 const getHorizontalPadding = (props: Props): any => {
-  if (props.label !== null) return { paddingHorizontal: props.theme.spacings.space16 }
-  if (props.icon !== null && props.iconPositon === 'leading') return { paddingRight: props.theme.spacings.space24, paddingLeft: props.theme.spacings.space20 }
-  if (props.icon !== null && props.iconPositon === 'trailing') return { paddingRight: props.theme.spacings.space20, paddingLeft: props.theme.spacings.space24 }
-  return { paddingHorizontal: props.theme.spacings.space24 }
+  if (props.label !== null) return { paddingHorizontal: props.theme.spacings.space9 }
+  if (props.icon !== null && props.iconPositon === 'leading') return { paddingRight: props.theme.spacings.space11, paddingLeft: props.theme.spacings.space10 }
+  if (props.icon !== null && props.iconPositon === 'trailing') return { paddingRight: props.theme.spacings.space10, paddingLeft: props.theme.spacings.space11 }
+  return { paddingHorizontal: props.theme.spacings.space11 }
 }
 
 export const Pressable = styled.Pressable((props: Props) => ({
@@ -66,6 +66,6 @@ export const Icon = styled(IconComponent)((props: Props) => ({
   color: getContentColor(props),
   fontSize: props.theme.typography.sizes.fontSize5,
   lineHeight: props.theme.typography.sizes.fontSize5,
-  marginRight: props.name !== null && props.iconPositon === 'leading' && props.label === null && props.theme.spacings.space8,
-  marginLeft: props.name !== null && props.iconPositon === 'trailing' && props.label === null && props.theme.spacings.space8,
+  marginRight: props.name !== null && props.iconPositon === 'leading' && props.label === null && props.theme.spacings.space5,
+  marginLeft: props.name !== null && props.iconPositon === 'trailing' && props.label === null && props.theme.spacings.space5,
 }))
