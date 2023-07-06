@@ -1,7 +1,7 @@
 import React from 'react'
 import { type ViewProps } from 'react-native'
 
-import ButtonComponent from '../ButtonComponent'
+import Button from '../Button'
 import * as Styled from './styles'
 interface Props extends ViewProps {
   title?: string
@@ -31,7 +31,7 @@ const HeaderComponent = (props: Props): JSX.Element => {
       {align === 'center' && !hasLeadingButton && hasTrailingButton && <Styled.ButtonContainer />}
       {hasLeadingButton && (
         <Styled.ButtonContainer>
-          <ButtonComponent
+          <Button
             icon={leadingButton}
             onPress={leadingAction}
             width="fit"
@@ -71,7 +71,7 @@ const HeaderComponent = (props: Props): JSX.Element => {
 
       {hasTrailingButton && (
         <Styled.ButtonContainer>
-          <ButtonComponent
+          <Button
             icon={trailingButton}
             onPress={trailingAction}
             width="fit"

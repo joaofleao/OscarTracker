@@ -19,6 +19,6 @@ export const Container = styled.View((props: Props) => ({
 export const Description = styled.Text((props: Props) => ({
   color: props.theme.palette.text.default,
   fontFamily: props.theme.typography.primary.bold,
-  fontSize: props.theme.typography.size.font20,
-  marginTop: props.theme.spacing.space20,
+  fontSize: props.theme.typography.sizes.fontSize5,
+  marginTop: props.theme.spacings.space5,
 }))

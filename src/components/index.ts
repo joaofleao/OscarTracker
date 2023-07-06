@@ -1,5 +1,5 @@
 export { default as IconComponent } from '../assets/icons'
-export { default as ButtonComponent } from './ButtonComponent'
+export { default as Button } from './Button'
 export { default as HeaderComponent } from './HeaderComponent'
 export { default as LoadingComponent } from './LoadingComponent'
 export { default as LoadingModalComponent } from './LoadingModalComponent'
