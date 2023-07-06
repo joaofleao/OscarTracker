@@ -1,4 +1,4 @@
-export interface Provider {
+export interface WatchProvider {
   display_priority: number
   logo_path: string
   provider_id: number
@@ -6,9 +6,9 @@ export interface Provider {
 }
 export interface Result {
   link: string
-  flatrate: Provider[] | undefined
-  rent: Provider[]
-  buy: Provider[]
+  flatrate: WatchProvider[] | undefined
+  rent: WatchProvider[]
+  buy: WatchProvider[]
 }
 
 export interface ProvidersType {
