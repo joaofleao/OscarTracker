@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
+import { Button, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
 import { type SignUpEmailScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -44,7 +44,7 @@ const SignUpEmailScreen = ({ navigation }: SignUpEmailScreenProps): JSX.Element 
         </View>
 
         <View className="flex-1 items-center justify-end">
-          <ButtonComponent
+          <Button
             label="Next"
             disabled={!emailValid}
             className="w-60"

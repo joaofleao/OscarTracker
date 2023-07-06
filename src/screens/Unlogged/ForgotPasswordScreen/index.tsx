@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
+import { Button, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
 import { useAuth } from '../../../features'
 import { type ForgotPasswordScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -44,7 +44,7 @@ const ForgotPasswordScreen = ({ navigation, route }: ForgotPasswordScreenProps):
         </View>
 
         <View className="flex-1 items-center justify-end my-4">
-          <ButtonComponent
+          <Button
             label="Send email"
             className="w-60"
             onPress={handleSendEmail}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
+import { Button, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
 import { type SignUpAvatarScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -35,7 +35,7 @@ const SignUpAvatarScreen = ({ navigation, route }: SignUpAvatarScreenProps): JSX
         <View className="flex-1" />
 
         <View className="items-center justify-center my-4 ">
-          <ButtonComponent
+          <Button
             label="Next"
             className="w-60"
             onPress={handleNext}

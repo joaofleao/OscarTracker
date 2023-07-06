@@ -3,7 +3,7 @@ import { ScrollView, Switch, Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
 import packageJson from '../../../../package.json'
-import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
+import { Button, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
 import { useAuth, useUser } from '../../../features'
 
 const ProfileScreen = (): JSX.Element => {
@@ -125,7 +125,7 @@ const ProfileScreen = (): JSX.Element => {
           <Text className="text-amber-500 text-base font-primaryRegular">{packageJson.version}</Text>
         </View>
 
-        <ButtonComponent
+        <Button
           label="Log Out"
           variant="outlined"
           className="mx-4 mb-5"
