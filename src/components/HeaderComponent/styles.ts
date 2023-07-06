@@ -13,24 +13,24 @@ export const Container = styled.View((props: Props) => ({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  paddingHorizontal: props.theme.spacing.space20,
+  paddingHorizontal: props.theme.spacings.space10,
   minHeight: 54,
-  paddingTop: props.theme.spacing.space12,
-  paddingBottom: props.theme.spacing.space12,
+  paddingTop: props.theme.spacings.space12,
+  paddingBottom: props.theme.spacings.space12,
 }))
 
 export const Title = styled.Text((props: Props) => ({
   color: props.theme.palette.text.default,
-  fontSize: props.bigHeader ? props.theme.typography.size.font26 : props.theme.typography.size.font20,
-  lineHeight: props.bigHeader ? props.theme.typography.size.font42 : props.theme.typography.size.font26,
+  fontSize: props.bigHeader ? props.theme.typography.sizes.fontSize8 : props.theme.typography.sizes.fontSize5,
+  lineHeight: props.bigHeader ? props.theme.typography.sizes.fontSize12 : props.theme.typography.sizes.fontSize8,
   fontFamily: props.theme.typography.primary.semibold,
   textAlign: props.align,
 }))
 
 export const Description = styled.Text((props: Props) => ({
   color: props.theme.palette.text.light,
-  fontSize: props.bigHeader ? props.theme.typography.size.font20 : props.theme.typography.size.font16,
-  lineHeight: props.bigHeader ? props.theme.typography.size.font32 : props.theme.typography.size.font26,
+  fontSize: props.bigHeader ? props.theme.typography.sizes.fontSize5 : props.theme.typography.sizes.fontSize3,
+  lineHeight: props.bigHeader ? props.theme.typography.sizes.fontSize10 : props.theme.typography.sizes.fontSize8,
   fontFamily: props.theme.typography.primary.medium,
   textAlign: props.align,
 }))
@@ -41,7 +41,6 @@ export const TextContainer = styled.View((props: Props) => ({
   flex: 1,
   minHeight: 54,
   justifyContent: 'center',
-  paddingBottom: props.bigHeader && props.theme.spacing.space32,
 }))
 
 export const ButtonContainer = styled.View((props: Props) => ({
