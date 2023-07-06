@@ -1,14 +1,18 @@
 import type { ModeType, ThemeType } from '../types'
-import { functions } from '../utils'
 import { palette } from './colors'
-import { spacing } from './spacing'
+import { radius } from './radius'
+import { sizes } from './sizes'
+import { spacings } from './spacings'
 import { typography } from './typography'
+import { getPalette } from './utils'
 
 export const getTheme = (mode: ModeType): ThemeType => {
   const theme = {
-    palette: functions.getPalette(mode, palette),
-    spacing,
+    palette: getPalette(mode, palette),
+    spacings,
     typography,
+    radius,
+    sizes,
   } satisfies ThemeType
   return theme
 }
