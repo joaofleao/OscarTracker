@@ -58,7 +58,7 @@ const ModalComponent = (props: Props): JSX.Element => {
           <Styled.Footer>
             {cancelLabel != null && onCancel != null && (
               <Button
-                style={{ marginTop: theme.theme.spacings.space20 }}
+                style={{ marginTop: theme.spacings.space20 }}
                 variant="secondary"
                 onPress={onCancel}
                 label={cancelLabel}
@@ -67,7 +67,7 @@ const ModalComponent = (props: Props): JSX.Element => {
 
             {confirmLabel != null && onConfirm != null && (
               <Button
-                style={{ marginTop: theme.theme.spacings.space20 }}
+                style={{ marginTop: theme.spacings.space20 }}
                 onPress={onConfirm}
                 label={confirmLabel}
               />
