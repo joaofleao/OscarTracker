@@ -25,8 +25,8 @@ const LoadingComponent = (propArgs: Props): JSX.Element => {
   const speed = getSpeed(animation)
   const theme = useTheme()
 
-  const colorPrimary = getColorPrimary(type, disabled, theme.theme)
-  const colorSecondary = getColorSecondary(type, disabled, theme.theme)
+  const colorPrimary = getColorPrimary(type, disabled, theme)
+  const colorSecondary = getColorSecondary(type, disabled, theme)
 
   return (
     <LottieView
