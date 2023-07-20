@@ -2,7 +2,7 @@ import React from 'react'
 
 import * as Styled from './styles'
 
-export interface MarginProps {
+export interface WrapperProps {
   mt?: string
   mb?: string
   mr?: string
@@ -12,7 +12,7 @@ export interface MarginProps {
   mh?: string
 }
 
-export interface WrapperProps extends MarginProps {
+export interface WrapperInternalProps extends WrapperProps {
   children: JSX.Element
 }
 
@@ -23,10 +23,10 @@ const defaultValue = {
   ml: '0px',
 }
 
-const Button = (props: WrapperProps): JSX.Element => {
+const Wrapper = (props: WrapperInternalProps): JSX.Element => {
   const { children, ...rest } = { ...defaultValue, ...props }
 
   return <Styled.Wrapper {...rest}>{children}</Styled.Wrapper>
 }
 
-export default Button
+export default Wrapper
