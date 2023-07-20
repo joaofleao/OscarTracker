@@ -3,7 +3,8 @@ import { type ViewProps } from 'react-native'
 
 import Button from '../Button'
 import * as Styled from './styles'
-interface Props extends ViewProps {
+
+export interface HeaderProps extends ViewProps {
   title?: string
   description?: string
   leadingButton?: string
@@ -19,7 +20,7 @@ const defaultValue = {
   bigHeader: false,
 }
 
-const HeaderComponent = (props: Props): JSX.Element => {
+const Header = (props: HeaderProps): JSX.Element => {
   const { description, bigHeader, title, leadingAction, leadingButton, trailingAction, trailingButton, align, ...rest } = { ...defaultValue, ...props }
   const hasLeadingButton = (leadingButton !== undefined && leadingAction !== undefined && leadingButton !== '') || false
   const hasTrailingButton = (trailingButton !== undefined && trailingAction !== undefined && trailingButton !== '') || false
@@ -83,4 +84,4 @@ const HeaderComponent = (props: Props): JSX.Element => {
   )
 }
 
-export default HeaderComponent
+export default Header

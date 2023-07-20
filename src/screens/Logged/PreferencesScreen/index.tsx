@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Dimensions, FlatList, Image, type ImageSourcePropType, type ListRenderItemInfo, Platform, Text, TouchableOpacity, View } from 'react-native'
 
 import { david, IMDB, jason, justin, poster } from '../../../assets/images'
-import { Button, HeaderComponent, ModelComponent, ProgressBarComponent } from '../../../components'
+import { Button, Header, ModelComponent, ProgressBarComponent } from '../../../components'
 import { useUser } from '../../../features'
 import { type PreferencesScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -251,7 +251,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
 
   return (
     <ModelComponent>
-      <HeaderComponent
+      <Header
         leadingButton={index !== 0 ? 'arrow-left' : ''}
         leadingAction={handleBack}
         title="Preferences"

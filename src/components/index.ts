@@ -1,6 +1,6 @@
 export { default as IconComponent } from '../assets/icons'
 export { default as Button } from './Button'
-export { default as HeaderComponent } from './HeaderComponent'
+export { default as Header } from './Header'
 export { default as LoadingComponent } from './LoadingComponent'
 export { default as LoadingModalComponent } from './LoadingModalComponent'
 export { default as LogoComponent } from './LogoComponent'
