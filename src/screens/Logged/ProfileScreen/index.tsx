@@ -3,7 +3,7 @@ import { ScrollView, Switch, Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
 import packageJson from '../../../../package.json'
-import { Button, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
+import { Button, Header, ModelComponent, TextInputComponent } from '../../../components'
 import { useAuth, useUser } from '../../../features'
 
 const ProfileScreen = (): JSX.Element => {
@@ -34,7 +34,7 @@ const ProfileScreen = (): JSX.Element => {
       top={false}
       bottom={false}
     >
-      <HeaderComponent
+      <Header
         title="Profile"
         trailingAction={handleEdit}
         trailingButton={editing ? 'check' : 'edit-2'}
