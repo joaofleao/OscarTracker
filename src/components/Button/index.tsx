@@ -1,9 +1,9 @@
 import React from 'react'
 
-import Wrapper, { type MarginProps } from '../Wrapper'
-import CustomButton, { type ButtonProps } from './Button'
+import Wrapper, { type WrapperProps } from '../Wrapper'
+import ButtonComponent, { type ButtonProps } from './Button'
 
-const Button = (props: ButtonProps & MarginProps): JSX.Element => {
+const Button = (props: ButtonProps & WrapperProps): JSX.Element => {
   const { mt, mv, mh, mb, mr, ml, ...rest } = props
   return (
     <Wrapper
@@ -14,9 +14,10 @@ const Button = (props: ButtonProps & MarginProps): JSX.Element => {
       mr={mr}
       ml={ml}
     >
-      <CustomButton {...rest} />
+      <ButtonComponent {...rest} />
     </Wrapper>
   )
 }
 
 export default Button
+export type { ButtonProps }
