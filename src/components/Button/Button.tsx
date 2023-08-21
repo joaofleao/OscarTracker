@@ -1,10 +1,10 @@
 import React from 'react'
 import { Animated, type PressableProps } from 'react-native'
 
-import { LoadingComponent } from '../../components'
+import { LoadingComponent } from '../index'
 import * as Styled from './styles'
 
-interface Props extends PressableProps {
+export interface ButtonProps extends PressableProps {
   label?: string
   width?: 'fit' | 'fixed' | 'full'
   variant?: 'primary' | 'secondary' | 'outlined' | 'text'
@@ -22,7 +22,7 @@ const defaultValue = {
   iconPositon: 'leading',
 }
 
-const ButtonComponent = (props: Props): JSX.Element => {
+const Button = (props: ButtonProps): JSX.Element => {
   const { label, width, variant, disabled, loading, icon, iconPositon, ...rest } = { ...defaultValue, ...props }
 
   const scaleAnimation = React.useRef(new Animated.Value(0)).current
@@ -125,4 +125,4 @@ const ButtonComponent = (props: Props): JSX.Element => {
   )
 }
 
-export default ButtonComponent
+export default Button

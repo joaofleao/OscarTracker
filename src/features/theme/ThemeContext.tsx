@@ -2,8 +2,7 @@ import { createContext } from 'react'
 
 import type { ModeType, ThemeType } from '../../types'
 
-export interface ThemeContextType {
-  theme: ThemeType
+export interface ThemeContextType extends ThemeType {
   mode: ModeType
   setMode: (mode: ModeType) => void
 }

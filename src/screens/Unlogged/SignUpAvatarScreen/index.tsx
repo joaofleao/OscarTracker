@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-import { ButtonComponent, HeaderComponent, ModelComponent, TextInputComponent } from '../../../components'
+import { Button, Header, ModelComponent, TextInputComponent } from '../../../components'
 import { type SignUpAvatarScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -13,14 +13,14 @@ const SignUpAvatarScreen = ({ navigation, route }: SignUpAvatarScreenProps): JSX
   return (
     <ModelComponent>
       <View className="flex-1 mx-4 justify-between">
-        <HeaderComponent
+        <Header
           leadingAction={() => {
             navigation.goBack()
           }}
           leadingButton="arrow-left"
         >
           Register
-        </HeaderComponent>
+        </Header>
 
         <View className="flex-1 justify-center">
           <Text className="text-white font-primaryRegular text-2xl mb-4">Now let’s wrap it up with a cool profile picture</Text>
@@ -35,7 +35,7 @@ const SignUpAvatarScreen = ({ navigation, route }: SignUpAvatarScreenProps): JSX
         <View className="flex-1" />
 
         <View className="items-center justify-center my-4 ">
-          <ButtonComponent
+          <Button
             label="Next"
             className="w-60"
             onPress={handleNext}

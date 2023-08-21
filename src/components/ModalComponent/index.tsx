@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, type ModalProps } from 'react-native'
 
-import { ButtonComponent } from '../../components'
+import { Button } from '../../components'
 import { useTheme } from '../../features'
 import * as Styled from './styles'
 
@@ -44,7 +44,7 @@ const ModalComponent = (props: Props): JSX.Element => {
               {title}
             </Styled.Title>
             {(closeButton ?? false) && onCancel != null && (
-              <ButtonComponent
+              <Button
                 icon="x"
                 variant="secondary"
                 width="fit"
@@ -57,8 +57,8 @@ const ModalComponent = (props: Props): JSX.Element => {
 
           <Styled.Footer>
             {cancelLabel != null && onCancel != null && (
-              <ButtonComponent
-                style={{ marginTop: theme.theme.spacing.space20 }}
+              <Button
+                style={{ marginTop: theme.spacings.space20 }}
                 variant="secondary"
                 onPress={onCancel}
                 label={cancelLabel}
@@ -66,8 +66,8 @@ const ModalComponent = (props: Props): JSX.Element => {
             )}
 
             {confirmLabel != null && onConfirm != null && (
-              <ButtonComponent
-                style={{ marginTop: theme.theme.spacing.space20 }}
+              <Button
+                style={{ marginTop: theme.spacings.space20 }}
                 onPress={onConfirm}
                 label={confirmLabel}
               />

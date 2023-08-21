@@ -10,7 +10,7 @@ const ThemeProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
   const theme = getTheme(mode)
 
   const value = {
-    theme,
+    ...theme,
     mode,
     setMode,
   } satisfies ThemeContextType
