@@ -1,7 +1,7 @@
 import React from 'react'
 import { FlatList } from 'react-native'
 
-import { HeaderComponent, ModelComponent, NomineeCardComponent, SeparatorComponent } from '../../../components'
+import { Header, ModelComponent, NomineeCardComponent, SeparatorComponent } from '../../../components'
 import { useEdition } from '../../../features'
 import { type NominationScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -43,7 +43,7 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
   }
   return (
     <ModelComponent>
-      <HeaderComponent
+      <Header
         leadingAction={navigation.goBack}
         leadingButton={'arrow-left'}
         title={edition.categories[id]['en-US']}

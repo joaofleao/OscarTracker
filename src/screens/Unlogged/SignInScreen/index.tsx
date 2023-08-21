@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-import { ButtonComponent, LogoComponent, ModelComponent, TextInputComponent } from '../../../components'
-import { useAuth } from '../../../features'
+import { Button, LogoComponent, ModelComponent, TextInputComponent } from '../../../components'
+import { useAuth, useTheme } from '../../../features'
 import { type SignInScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
 const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
   const auth = useAuth()
+  const theme = useTheme()
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -50,17 +51,17 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
         </View>
 
         <View className="items-center">
-          <ButtonComponent
+          <Button
             label="Sign In"
             variant="primary"
             disabled={formattedEmail === '' || password === ''}
             onPress={() => {
               auth.signIn(formattedEmail, password)
             }}
-            style={{ marginBottom: 12 }}
+            mb={theme.spacings.space7}
           />
 
-          <ButtonComponent
+          <Button
             label="New here?"
             variant="secondary"
             onPress={() => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
-import { HeaderComponent, ModelComponent, NomineeCardComponent, SeparatorComponent, TextInputComponent } from '../../../components'
+import { Header, ModelComponent, NomineeCardComponent, SeparatorComponent, TextInputComponent } from '../../../components'
 import { useEdition } from '../../../features'
 import type { BasicMovieType, WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -47,7 +47,7 @@ function WatchListScreen({ navigation, route }: WatchListScreenProps): JSX.Eleme
       bottom={false}
       top={false}
     >
-      <HeaderComponent
+      <Header
         title="Watch List"
         bigHeader
         align="left"

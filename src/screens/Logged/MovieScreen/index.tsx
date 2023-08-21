@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, Image, Linking, type ListRenderItemInfo, Platform, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import { IMDB } from '../../../assets/images'
-import { HeaderComponent, IconComponent, ModelComponent, SeparatorComponent, SpoilerComponent } from '../../../components'
+import { Header, IconComponent, ModelComponent, SeparatorComponent, SpoilerComponent } from '../../../components'
 import { useEdition, useMovies, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type MovieScreenProps, type Nomination, type TMDBPerson } from '../../../types'
@@ -107,7 +107,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
 
   return (
     <ModelComponent>
-      <HeaderComponent
+      <Header
         leadingAction={navigation.goBack}
         leadingButton="arrow-left"
         align="left"
