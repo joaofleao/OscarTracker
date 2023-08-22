@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-import { Button, Logo, ModelComponent, TextInputComponent } from '../../../components'
+import { Button, Global, Logo, TextInputComponent } from '../../../components'
 import { useAuth, useTheme } from '../../../features'
 import { type SignInScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -16,7 +16,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
   const formattedEmail = email.replace(/[^a-zA-Z0-9@.]/g, '')
 
   return (
-    <ModelComponent>
+    <Global.Screen>
       <View className="justify-center  flex-1">
         <View className="items-center">
           <Logo mb="40px" />
@@ -89,7 +89,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
           </View> */}
         </View>
       </View>
-    </ModelComponent>
+    </Global.Screen>
   )
 }
 
