@@ -1,7 +1,7 @@
 import React from 'react'
 import { Animated, type PressableProps } from 'react-native'
 
-import { LoadingComponent } from '../index'
+import { Loading } from '../index'
 import * as Styled from './styles'
 
 export interface ButtonProps extends PressableProps {
@@ -80,7 +80,7 @@ const Button = (props: ButtonProps): JSX.Element => {
         {...rest}
       >
         {loading ? (
-          <LoadingComponent
+          <Loading
             disabled={disabled}
             animation={'circle'}
             size={24}
