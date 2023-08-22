@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { Animated, Dimensions, Platform, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-import { IconComponent, ModelComponent } from '../../components'
+import { IconComponent } from '../../components'
 import { HomeScreen, MovieScreen, NominationScreen, PreferencesScreen, ProfileScreen, WatchListScreen } from '../../screens'
 import { type ScreenTypes } from '../../types'
 import { routes } from '../../utils'
@@ -18,8 +18,8 @@ const screenOptionsIos = {
   tabBarStyle: {
     paddingHorizontal: 28,
     paddingTop: 20,
-    marginBottom: 10,
     borderTopWidth: 1,
+
     borderTopColor: colors.zinc[800],
     backgroundColor: colors.zinc[900],
   },
@@ -31,7 +31,6 @@ const screenOptionsAndroid = {
     paddingHorizontal: 28,
     paddingTop: 20,
     elevation: 0,
-    marginBottom: 40,
     borderTopWidth: 1,
     borderTopColor: colors.zinc[800],
     backgroundColor: colors.zinc[900],
@@ -88,20 +87,19 @@ const TabNavigator = (): JSX.Element => {
     )
   }
   return (
-    <ModelComponent bottom={false}>
+    <View style={{ flex: 1 }}>
       <Tab.Navigator screenOptions={Platform.OS === 'ios' ? screenOptionsIos : screenOptionsAndroid}>
         {tabs.map((item, i) => {
           return renderTab(item.name, item.component, i * getWidth, item.icon)
         })}
       </Tab.Navigator>
-
       <Animated.View
-        className="w-1.5 h-1.5 relative bottom-8 left-7 rounded-full"
+        className="w-1.5 h-1.5 absolute bottom-8 left-7 rounded-full "
         style={{ marginLeft: (getWidth - 6) / 2, transform: [{ translateX: tabOffsetValue }] }}
       >
         <View className="bg-amber-500 w-full h-full absolute rounded-full" />
       </Animated.View>
-    </ModelComponent>
+    </View>
   )
 }
 
