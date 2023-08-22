@@ -3,7 +3,7 @@ import { Linking, ScrollView, Text, View } from 'react-native'
 import { arrayRemove, arrayUnion, collection, doc, getDocs, onSnapshot, orderBy, query, updateDoc } from 'firebase/firestore'
 
 import packageJson from '../../../package.json'
-import { ModalComponent } from '../../components'
+import { Modal } from '../../components'
 import { db } from '../../services'
 import type { Announcement, PreferencesType } from '../../types'
 import UserContext, { type UserContextType } from './UserContext'
@@ -118,7 +118,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
   const newVersionModal = (): JSX.Element => {
     const update = announcements[0]
     return (
-      <ModalComponent
+      <Modal
         title={update.title}
         description={update.description}
         visible={modal}
@@ -142,7 +142,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
             ))}
           </ScrollView>
         </View>
-      </ModalComponent>
+      </Modal>
     )
   }
 
