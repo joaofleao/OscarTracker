@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
-import { Header, ModelComponent, NomineeCardComponent, SeparatorComponent, TextInputComponent } from '../../../components'
+import { Header, Model, NomineeCardComponent, SeparatorComponent, TextInputComponent } from '../../../components'
 import { useEdition } from '../../../features'
 import type { BasicMovieType, WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -43,7 +43,7 @@ function WatchListScreen({ navigation, route }: WatchListScreenProps): JSX.Eleme
   }
 
   return (
-    <ModelComponent
+    <Model
       bottom={false}
       top={false}
     >
@@ -69,7 +69,7 @@ function WatchListScreen({ navigation, route }: WatchListScreenProps): JSX.Eleme
         ItemSeparatorComponent={SeparatorComponent}
         ListFooterComponent={SeparatorComponent}
       />
-    </ModelComponent>
+    </Model>
   )
 }
 

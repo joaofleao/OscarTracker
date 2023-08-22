@@ -9,7 +9,7 @@ interface ModelProps extends ViewProps {
   right?: boolean
   children: React.ReactNode
 }
-const ModelComponent = ({ children, top = true, bottom = true, left = true, right = true, ...props }: ModelProps): JSX.Element => {
+const Model = ({ children, top = true, bottom = true, left = true, right = true, ...props }: ModelProps): JSX.Element => {
   const insets = useSafeAreaInsets()
   const isAndroid = Platform.OS === 'android'
 
@@ -31,4 +31,4 @@ const ModelComponent = ({ children, top = true, bottom = true, left = true, righ
   )
 }
 
-export default ModelComponent
+export default Model
