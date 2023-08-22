@@ -1,11 +1,11 @@
 import React from 'react'
 import { Modal } from 'react-native'
 
-import { LoadingComponent } from '../../components'
+import { Loading } from '../../components'
 import { useLoading } from '../../features'
 import * as Styled from './styles'
 
-const LoadingScreen = (): JSX.Element => {
+const LoadingModal = (): JSX.Element => {
   const loading = useLoading()
 
   return (
@@ -15,7 +15,7 @@ const LoadingScreen = (): JSX.Element => {
       animationType="fade"
     >
       <Styled.Container>
-        <LoadingComponent
+        <Loading
           animation="movie"
           size={120}
         />
@@ -25,4 +25,4 @@ const LoadingScreen = (): JSX.Element => {
   )
 }
 
-export default LoadingScreen
+export default LoadingModal

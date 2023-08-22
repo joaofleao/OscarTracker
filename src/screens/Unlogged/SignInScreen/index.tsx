@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-import { Button, LogoComponent, ModelComponent, TextInputComponent } from '../../../components'
+import { Button, Logo, ModelComponent, TextInputComponent } from '../../../components'
 import { useAuth, useTheme } from '../../../features'
 import { type SignInScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -17,8 +17,10 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
 
   return (
     <ModelComponent>
-      <View className="justify-center flex-1">
-        <LogoComponent />
+      <View className="justify-center  flex-1">
+        <View className="items-center">
+          <Logo mb="40px" />
+        </View>
 
         <TextInputComponent
           className="mb-5 mx-4"
