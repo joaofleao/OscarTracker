@@ -4,7 +4,7 @@ import LottieView from 'lottie-react-native'
 import { useTheme } from '../../features'
 import { getAnimation, getColorPrimary, getColorSecondary, getSpeed } from './utils'
 
-interface Props {
+export interface LoadingProps {
   animation?: 'dots' | 'movie' | 'circle'
   size?: number
   disabled?: boolean
@@ -18,7 +18,7 @@ const defaultValue = {
   disabled: false,
 }
 
-const LoadingComponent = (propArgs: Props): JSX.Element => {
+const Loading = (propArgs: LoadingProps): JSX.Element => {
   const { animation, size, type, disabled } = { ...defaultValue, ...propArgs }
 
   const render = getAnimation(animation)
@@ -45,4 +45,4 @@ const LoadingComponent = (propArgs: Props): JSX.Element => {
   )
 }
 
-export default LoadingComponent
+export default Loading
