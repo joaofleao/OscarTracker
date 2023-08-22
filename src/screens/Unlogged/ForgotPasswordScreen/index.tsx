@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { Button, Header, Model, TextInputComponent } from '../../../components'
+import { Button, Global, Header, TextInputComponent } from '../../../components'
 import { useAuth } from '../../../features'
 import { type ForgotPasswordScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -18,7 +18,7 @@ const ForgotPasswordScreen = ({ navigation, route }: ForgotPasswordScreenProps):
   }
 
   return (
-    <Model>
+    <Global.Screen>
       <Header
         leadingAction={navigation.goBack}
         leadingButton="arrow-left"
@@ -51,7 +51,7 @@ const ForgotPasswordScreen = ({ navigation, route }: ForgotPasswordScreenProps):
           />
         </View>
       </View>
-    </Model>
+    </Global.Screen>
   )
 }
 

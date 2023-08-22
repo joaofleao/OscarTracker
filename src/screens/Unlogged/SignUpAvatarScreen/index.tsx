@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-import { Button, Header, Model, TextInputComponent } from '../../../components'
+import { Button, Global, Header, TextInputComponent } from '../../../components'
 import { type SignUpAvatarScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -11,7 +11,7 @@ const SignUpAvatarScreen = ({ navigation, route }: SignUpAvatarScreenProps): JSX
   }
 
   return (
-    <Model>
+    <Global.Screen>
       <View className="flex-1 mx-4 justify-between">
         <Header
           leadingAction={() => {
@@ -42,7 +42,7 @@ const SignUpAvatarScreen = ({ navigation, route }: SignUpAvatarScreenProps): JSX
           />
         </View>
       </View>
-    </Model>
+    </Global.Screen>
   )
 }
 
