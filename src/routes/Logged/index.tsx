@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { Animated, Dimensions, Platform, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-import { IconComponent, ModelComponent } from '../../components'
+import { IconComponent, Model } from '../../components'
 import { HomeScreen, MovieScreen, NominationScreen, PreferencesScreen, ProfileScreen, WatchListScreen } from '../../screens'
 import { type ScreenTypes } from '../../types'
 import { routes } from '../../utils'
@@ -88,7 +88,7 @@ const TabNavigator = (): JSX.Element => {
     )
   }
   return (
-    <ModelComponent bottom={false}>
+    <Model bottom={false}>
       <Tab.Navigator screenOptions={Platform.OS === 'ios' ? screenOptionsIos : screenOptionsAndroid}>
         {tabs.map((item, i) => {
           return renderTab(item.name, item.component, i * getWidth, item.icon)
@@ -101,7 +101,7 @@ const TabNavigator = (): JSX.Element => {
       >
         <View className="bg-amber-500 w-full h-full absolute rounded-full" />
       </Animated.View>
-    </ModelComponent>
+    </Model>
   )
 }
 

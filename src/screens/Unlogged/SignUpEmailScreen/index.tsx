@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { Button, Header, ModelComponent, TextInputComponent } from '../../../components'
+import { Button, Header, Model, TextInputComponent } from '../../../components'
 import { type SignUpEmailScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -17,7 +17,7 @@ const SignUpEmailScreen = ({ navigation }: SignUpEmailScreenProps): JSX.Element 
   }
 
   return (
-    <ModelComponent>
+    <Model>
       <Header
         leadingAction={navigation.goBack}
         leadingButton="arrow-left"
@@ -52,7 +52,7 @@ const SignUpEmailScreen = ({ navigation }: SignUpEmailScreenProps): JSX.Element 
           />
         </View>
       </View>
-    </ModelComponent>
+    </Model>
   )
 }
 
