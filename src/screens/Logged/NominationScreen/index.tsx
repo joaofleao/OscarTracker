@@ -1,7 +1,7 @@
 import React from 'react'
 import { FlatList } from 'react-native'
 
-import { Header, Model, NomineeCardComponent, SeparatorComponent } from '../../../components'
+import { Global, Header, NomineeCardComponent, SeparatorComponent } from '../../../components'
 import { useEdition } from '../../../features'
 import { type NominationScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -42,7 +42,7 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
     )
   }
   return (
-    <Model>
+    <Global.Screen>
       <Header
         leadingAction={navigation.goBack}
         leadingButton={'arrow-left'}
@@ -56,7 +56,7 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
         ItemSeparatorComponent={SeparatorComponent}
         ListFooterComponent={SeparatorComponent}
       />
-    </Model>
+    </Global.Screen>
   )
 }
 

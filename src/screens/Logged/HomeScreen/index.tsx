@@ -1,7 +1,7 @@
 import React from 'react'
 import { FlatList, type ListRenderItemInfo, Pressable, Text, TouchableOpacity, View } from 'react-native'
 
-import { Header, Model, PosterComponent, ProgressBarComponent, SeparatorComponent } from '../../../components'
+import { Global, Header, PosterComponent, ProgressBarComponent, SeparatorComponent } from '../../../components'
 import { useEdition, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type HomeScreenProps, type Nomination } from '../../../types'
@@ -74,10 +74,7 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
   )
 
   return (
-    <Model
-      bottom={false}
-      top={false}
-    >
+    <Global.Screen>
       <Header
         title="Welcome Back!"
         bigHeader
@@ -98,7 +95,7 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
         ItemSeparatorComponent={SeparatorComponent}
         ListFooterComponent={SeparatorComponent}
       />
-    </Model>
+    </Global.Screen>
   )
 }
 

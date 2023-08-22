@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { Button, Header, Model, TextInputComponent } from '../../../components'
+import { Button, Global, Header, TextInputComponent } from '../../../components'
 import { type SignUpPasswordScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -33,7 +33,7 @@ const SignUpPasswordScreen = ({ navigation, route }: SignUpPasswordScreenProps):
   }
 
   return (
-    <Model>
+    <Global.Screen>
       <Header
         leadingAction={navigation.goBack}
         leadingButton="arrow-left"
@@ -77,7 +77,7 @@ const SignUpPasswordScreen = ({ navigation, route }: SignUpPasswordScreenProps):
           />
         </View>
       </View>
-    </Model>
+    </Global.Screen>
   )
 }
 
