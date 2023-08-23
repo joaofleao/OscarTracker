@@ -24,3 +24,8 @@ export const Wrapper = styled.View((props: WrapperProps) => ({
   marginTop: props.mt ?? props.mv ?? '0px',
   marginBottom: props.mb ?? props.mv ?? '0px',
 }))
+
+export const Separator = styled.View((props: StyledProps) => ({
+  width: props.theme.sizes.size10,
+  height: props.theme.sizes.size10,
+}))

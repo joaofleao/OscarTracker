@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, Image, Linking, type ListRenderItemInfo, Platform, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import { IMDB } from '../../../assets/images'
-import { Global, Header, IconComponent, SeparatorComponent, SpoilerComponent } from '../../../components'
+import { Global, Header, IconComponent, SpoilerComponent } from '../../../components'
 import { useEdition, useMovies, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type MovieScreenProps, type Nomination, type TMDBPerson } from '../../../types'
@@ -192,9 +192,9 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
             data={nominations}
             renderItem={(item) => renderItem(item)}
             keyExtractor={(item) => `${item.category}${item.person != null ? item.person : ''}${item.information != null ? item.information : ''}`}
-            ItemSeparatorComponent={SeparatorComponent}
-            ListHeaderComponent={SeparatorComponent}
-            ListFooterComponent={SeparatorComponent}
+            ItemSeparatorComponent={Global.Separator}
+            ListHeaderComponent={Global.Separator}
+            ListFooterComponent={Global.Separator}
           />
         </View>
 
@@ -208,9 +208,9 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
               data={movieProviders}
               renderItem={(item) => renderProvider(item)}
               keyExtractor={(item) => item.provider_id.toString()}
-              ItemSeparatorComponent={SeparatorComponent}
-              ListHeaderComponent={SeparatorComponent}
-              ListFooterComponent={SeparatorComponent}
+              ItemSeparatorComponent={Global.Separator}
+              ListHeaderComponent={Global.Separator}
+              ListFooterComponent={Global.Separator}
             />
           ) : (
             <Text className="mx-4 font-primaryRegular text-white text-base text-justify">No streaming services available</Text>
@@ -235,9 +235,9 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
             showsHorizontalScrollIndicator={false}
             data={movieCast}
             renderItem={renderCast}
-            ItemSeparatorComponent={SeparatorComponent}
-            ListFooterComponent={SeparatorComponent}
-            ListHeaderComponent={SeparatorComponent}
+            ItemSeparatorComponent={Global.Separator}
+            ListFooterComponent={Global.Separator}
+            ListHeaderComponent={Global.Separator}
           />
         </View>
 

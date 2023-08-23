@@ -1,7 +1,7 @@
 import React from 'react'
 import { FlatList, type ListRenderItemInfo, Pressable, Text, TouchableOpacity, View } from 'react-native'
 
-import { Global, Header, Poster, ProgressBar, SeparatorComponent } from '../../../components'
+import { Global, Header, Poster, ProgressBar } from '../../../components'
 import { useEdition, useTheme, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type HomeScreenProps, type Nomination } from '../../../types'
@@ -70,9 +70,9 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
         showsHorizontalScrollIndicator={false}
         data={edition.nominations[item[0]]}
         renderItem={renderMovie}
-        ItemSeparatorComponent={SeparatorComponent}
-        ListFooterComponent={SeparatorComponent}
-        ListHeaderComponent={SeparatorComponent}
+        ItemSeparatorComponent={Global.Separator}
+        ListFooterComponent={Global.Separator}
+        ListHeaderComponent={Global.Separator}
       />
     </View>
   )
@@ -96,8 +96,8 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
       <FlatList
         data={Object.entries(edition.categories)}
         renderItem={renderCategory}
-        ItemSeparatorComponent={SeparatorComponent}
-        ListFooterComponent={SeparatorComponent}
+        ItemSeparatorComponent={Global.Separator}
+        ListFooterComponent={Global.Separator}
       />
     </Global.Screen>
   )
