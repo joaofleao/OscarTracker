@@ -1,7 +1,7 @@
 import React from 'react'
 import { FlatList } from 'react-native'
 
-import { Global, Header, NomineeCard, SeparatorComponent } from '../../../components'
+import { Global, Header, NomineeCard } from '../../../components'
 import { useEdition, useTheme } from '../../../features'
 import { type NominationScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -56,8 +56,8 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
         data={movies}
         renderItem={renderMovie}
         keyExtractor={(item) => `${item.movie}${item.person ?? ''} ${item.information ?? ''}${item.extra ?? ''}`}
-        ItemSeparatorComponent={SeparatorComponent}
-        ListFooterComponent={SeparatorComponent}
+        ItemSeparatorComponent={Global.Separator}
+        ListFooterComponent={Global.Separator}
       />
     </Global.Screen>
   )

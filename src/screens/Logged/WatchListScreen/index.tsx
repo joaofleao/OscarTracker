@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
-import { Global, Header, NomineeCard, SeparatorComponent, TextInputComponent } from '../../../components'
+import { Global, Header, NomineeCard, TextInputComponent } from '../../../components'
 import { useEdition, useTheme } from '../../../features'
 import type { BasicMovieType, WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -65,8 +65,8 @@ function WatchListScreen({ navigation, route }: WatchListScreenProps): JSX.Eleme
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.imdb}
-        ItemSeparatorComponent={SeparatorComponent}
-        ListFooterComponent={SeparatorComponent}
+        ItemSeparatorComponent={Global.Separator}
+        ListFooterComponent={Global.Separator}
       />
     </Global.Screen>
   )
