@@ -1,7 +1,7 @@
 import React from 'react'
 import { FlatList, type ListRenderItemInfo, Pressable, Text, TouchableOpacity, View } from 'react-native'
 
-import { Global, Header, PosterComponent, ProgressBarComponent, SeparatorComponent } from '../../../components'
+import { Global, Header, Postert, ProgressBarComponent, SeparatorComponent } from '../../../components'
 import { useEdition, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type HomeScreenProps, type Nomination } from '../../../types'
@@ -32,7 +32,7 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
           })
         }}
       >
-        <PosterComponent
+        <Postert
           large={item.category === 'picture'}
           spoiler={showPoster}
           image={image}
