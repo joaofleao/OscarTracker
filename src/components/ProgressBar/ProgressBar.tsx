@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Text, View, type ViewProps } from 'react-native'
 import { styled } from 'nativewind'
 
-interface ProgressBarProps extends ViewProps {
+export interface ProgressBarProps extends ViewProps {
   total: number
   progress: number
   animated?: boolean
 }
 
-const ProgressBarComponent = ({ total, progress, animated, ...props }: ProgressBarProps): JSX.Element => {
+const ProgressBar = ({ total, progress, animated, ...props }: ProgressBarProps): JSX.Element => {
   const animatedValue = useRef(new Animated.Value(-1000))
   const reactive = useRef(new Animated.Value(-1000)).current
   const [width, setWidth] = useState(0)
@@ -68,4 +68,4 @@ const ProgressBarComponent = ({ total, progress, animated, ...props }: ProgressB
     )
 }
 
-export default styled(ProgressBarComponent)
+export default styled(ProgressBar)
