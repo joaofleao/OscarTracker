@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { ToastNotificationComponent } from '../../components'
+import { ToastNotification } from '../../components'
 import { useLoading } from '../../features'
 import ToastContext, { type ToastContextType } from './ToastContext'
 
@@ -57,7 +57,7 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
 
   return (
     <ToastContext.Provider value={value}>
-      <ToastNotificationComponent
+      <ToastNotification
         title={title}
         description={description}
         type={type}
