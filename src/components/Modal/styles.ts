@@ -22,11 +22,11 @@ export const Modal = styled.View((props: Props) => ({
   maxHeight: '80%',
 }))
 
-export const HeaderContent = styled.View((props: Props) => ({
+export const HeaderContent = styled.View({
   alignItems: 'center',
   justifyContent: 'space-between',
   flexDirection: 'row',
-}))
+})
 
 export const Title = styled.Text((props: Props) => ({
   fontFamily: props.theme.typography.primary.bold,
@@ -45,6 +45,6 @@ export const Description = styled.Text((props: Props) => ({
   marginVertical: props.theme.spacings.space10,
 }))
 
-export const Footer = styled.View((props: Props) => ({
+export const Footer = styled.View({
   alignItems: 'center',
-}))
+})
