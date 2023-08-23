@@ -1,11 +1,11 @@
 import React from 'react'
-import { Modal, type ModalProps } from 'react-native'
+import { Modal as RNModal, type ModalProps as RNModalProps } from 'react-native'
 
-import { Button } from '../../components'
 import { useTheme } from '../../features'
+import { Button } from '..'
 import * as Styled from './styles'
 
-interface Props extends ModalProps {
+export interface ModalProps extends RNModalProps {
   title: string
   visible: boolean
   description: string
@@ -18,18 +18,18 @@ interface Props extends ModalProps {
   onClose?: () => void
 }
 
-const defaultValue = {
+const defaultValue: Partial<ModalProps> = {
   visible: true,
   loading: false,
   closeButton: false,
 }
 
-const ModalComponent = (props: Props): JSX.Element => {
-  const { closeButton, title, visible, description, loading, onConfirm, confirmLabel, onCancel, cancelLabel, children, ...rest } = props
+const Modal = (props: ModalProps): JSX.Element => {
+  const { closeButton, title, visible, description, loading, onConfirm, confirmLabel, onCancel, cancelLabel, children, ...rest } = { ...props, ...defaultValue }
   const theme = useTheme()
 
   return (
-    <Modal
+    <RNModal
       visible={visible}
       animationType="fade"
       transparent={true}
@@ -75,10 +75,8 @@ const ModalComponent = (props: Props): JSX.Element => {
           </Styled.Footer>
         </Styled.Modal>
       </Styled.Background>
-    </Modal>
+    </RNModal>
   )
 }
 
-ModalComponent.defaultProps = defaultValue
-
-export default ModalComponent
+export default Modal
