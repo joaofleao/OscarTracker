@@ -71,11 +71,11 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     const userRef = doc(usersCollection, uid)
 
     void updateDoc(userRef, {
-      ...(email !== null && { email }),
-      ...(displayName !== null && { displayName }),
-      ...(nickName !== null && { nickName }),
-      ...(preferences !== null && { preferences }),
-      ...(onboarding !== null && { onboarding }),
+      ...(email != null && { email }),
+      ...(displayName != null && { displayName }),
+      ...(nickName != null && { nickName }),
+      ...(preferences != null && { preferences }),
+      ...(onboarding != null && { onboarding }),
     })
   }
 

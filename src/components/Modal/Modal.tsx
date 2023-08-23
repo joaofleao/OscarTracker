@@ -9,7 +9,7 @@ export interface ModalProps extends RNModalProps {
   title: string
   visible: boolean
   description: string
-  loading: boolean
+  loading?: boolean
   onConfirm?: () => void
   confirmLabel?: string
   onCancel?: () => void
