@@ -1,12 +1,12 @@
 import React from 'react'
 
-import Wrapper, { type WrapperProps } from '../Wrapper'
+import { Global } from '../../components'
 import LogoComponent from './Logo'
 
-const Logo = (props: WrapperProps): JSX.Element => {
+const Logo = (props: Global.WrapperProps): JSX.Element => {
   const { mt, mv, mh, mb, mr, ml, ...rest } = props
   return (
-    <Wrapper
+    <Global.Wrapper
       mt={mt}
       mv={mv}
       mh={mh}
@@ -15,7 +15,7 @@ const Logo = (props: WrapperProps): JSX.Element => {
       ml={ml}
     >
       <LogoComponent {...rest} />
-    </Wrapper>
+    </Global.Wrapper>
   )
 }
 

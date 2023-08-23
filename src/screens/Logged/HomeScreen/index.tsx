@@ -1,16 +1,20 @@
 import React from 'react'
 import { FlatList, type ListRenderItemInfo, Pressable, Text, TouchableOpacity, View } from 'react-native'
 
-import { Global, Header, Postert, ProgressBarComponent, SeparatorComponent } from '../../../components'
-import { useEdition, useUser } from '../../../features'
+import { Global, Header, Poster, ProgressBar, SeparatorComponent } from '../../../components'
+import { useEdition, useTheme, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type HomeScreenProps, type Nomination } from '../../../types'
 import { routes } from '../../../utils'
 
 const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
   const edition = useEdition()
-
+  const theme = useTheme()
   const user = useUser()
+
+  React.useEffect(() => {
+    if (!user.onboarding) navigation.navigate(routes.logged.preferences)
+  }, [user.onboarding])
 
   const renderMovie = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
     const movie = edition.movies[item.movie]
@@ -32,7 +36,7 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
           })
         }}
       >
-        <Postert
+        <Poster
           large={item.category === 'picture'}
           spoiler={showPoster}
           image={image}
@@ -82,11 +86,11 @@ const HomeScreen = ({ navigation, route }: HomeScreenProps): JSX.Element => {
         description="Here are the 2022 nominations"
       />
 
-      <ProgressBarComponent
-        animated={false}
+      <ProgressBar
         progress={user.watchedMovies.length}
         total={edition.totalMovies}
-        className="mb-8"
+        mh={theme.sizes.size10}
+        mb={theme.sizes.size10}
       />
 
       <FlatList

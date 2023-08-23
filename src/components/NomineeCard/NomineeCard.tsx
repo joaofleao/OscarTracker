@@ -2,7 +2,7 @@ import React, { type TouchableOpacityProps } from 'react-native'
 
 import { useUser } from '../../features'
 import { getImage } from '../../services/tmdb/api'
-import { Postert } from '..'
+import { Poster } from '..'
 import * as Styled from './styles'
 
 export interface NomineeCardProps extends TouchableOpacityProps {
@@ -23,7 +23,7 @@ const NomineeCard = (props: NomineeCardProps): JSX.Element => {
       delayPressIn={200}
       {...rest}
     >
-      <Postert
+      <Poster
         image={getImage(image)}
         isWatched={user.watchedMovies.includes(id)}
         spoiler={user.preferences.poster}

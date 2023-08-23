@@ -2,14 +2,15 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Dimensions, FlatList, Image, type ImageSourcePropType, type ListRenderItemInfo, Platform, Text, TouchableOpacity, View } from 'react-native'
 
 import { david, IMDB, jason, justin, poster } from '../../../assets/images'
-import { Button, Global, Header, ProgressBarComponent } from '../../../components'
-import { useUser } from '../../../features'
+import { Button, Global, Header, ProgressBar } from '../../../components'
+import { useTheme, useUser } from '../../../features'
 import { type PreferencesScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
 const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element => {
   const scrollViewRef = useRef<FlatList>(null)
   const user = useUser()
+  const theme = useTheme()
 
   const [ratingsSpoiler, setRatingsSpoiler] = useState(true)
   const [castSpoiler, setCastSpoiler] = useState(true)
@@ -102,8 +103,10 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
       title: 'Spoiler Settings',
       content: (
         <View className="flex-1 items-center justify-center">
-          <Text className="text-white font-primaryBold text-2xl mb-4 w-full text-center">Welcome!</Text>
-          <Text className="text-white font-primaryBold text-2xl mb-4 w-full text-center">Time to choose your spoiler preferences</Text>
+          <View className="w-full mb-10">
+            <Text className="text-white font-primaryBold text-4xl mb-4 w-full text-center">Welcome!</Text>
+            <Text className="text-white font-primaryBold text-2xl mb-4 w-full text-center">Time to choose your spoiler preferences</Text>
+          </View>
           <Text className="text-white font-primaryRegular text-lg mb-12 w-full text-center ">You can change your preferences at any time in the settings.</Text>
         </View>
       ),
@@ -257,11 +260,14 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
         title="Preferences"
         description={screens[index].title}
       />
-      <ProgressBarComponent
-        className=" mb-10"
+
+      <ProgressBar
         total={5}
         progress={index}
+        mh={theme.sizes.size10}
+        mb={theme.sizes.size15}
       />
+
       <FlatList
         ref={scrollViewRef}
         data={screens as any}
@@ -273,8 +279,9 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
       <View className={`items-center justify-end ${Platform.OS === 'android' ? 'mb-6' : ''}`}>
         {screens[index].firstButton != null && (
           <Button
+            variant="secondary"
             label={screens[index].firstButton}
-            className="w-60 mb-4"
+            mb={theme.sizes.size8}
             onPress={() => {
               handleNext(false)
             }}
@@ -283,7 +290,6 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
         {screens[index].secondButton != null && (
           <Button
             label={screens[index].secondButton}
-            className="w-60"
             onPress={() => {
               handleNext(true)
             }}
