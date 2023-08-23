@@ -17,9 +17,9 @@ const screenOptionsIos = {
   tabBarShowLabel: false,
   tabBarStyle: {
     paddingHorizontal: 28,
-    paddingTop: 20,
+    paddingTop: 10,
     borderTopWidth: 1,
-
+    height: 100,
     borderTopColor: colors.zinc[800],
     backgroundColor: colors.zinc[900],
   },
@@ -70,7 +70,7 @@ const TabNavigator = (): JSX.Element => {
           tabBarIcon: ({ focused }) => (
             <IconComponent
               name={focused ? icon.concat('-filled') : icon}
-              className="absolute font text-2xl"
+              size={24}
               style={{ color: focused ? colors.amber[500] : colors.stone[700] }}
             />
           ),
