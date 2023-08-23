@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, Image, Linking, type ListRenderItemInfo, Platform, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import { IMDB } from '../../../assets/images'
-import { Global, Header, IconComponent, SpoilerComponent } from '../../../components'
-import { useEdition, useMovies, useUser } from '../../../features'
+import { Global, Header, IconComponent, Spoiler } from '../../../components'
+import { useEdition, useMovies, useTheme, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type MovieScreenProps, type Nomination, type TMDBPerson } from '../../../types'
 import { routes } from '../../../utils'
@@ -19,6 +19,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   const edition = useEdition()
   const user = useUser()
   const movies = useMovies()
+  const theme = useTheme()
 
   const imdbLink = `https://www.imdb.com/title/${id}`
 
@@ -51,7 +52,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   }
 
   const renderCast = ({ item }: ListRenderItemInfo<TMDBPerson>): JSX.Element => (
-    <SpoilerComponent
+    <Spoiler
       show={user.preferences.cast}
       watched={watched}
       className="flex-1"
@@ -85,7 +86,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
           {item.character}
         </Text>
       </Pressable>
-    </SpoilerComponent>
+    </Spoiler>
   )
 
   const renderItem = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => (
@@ -114,15 +115,16 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
       />
       <ScrollView>
         <View className="items-center">
-          <SpoilerComponent
+          <Spoiler
             show={user.preferences.poster}
             watched={watched}
+            text="Show Poster"
           >
             <Image
               className="w-[228px] h-[338px] rounded-xl"
               source={{ uri: getImage(poster) }}
             />
-          </SpoilerComponent>
+          </Spoiler>
 
           <Text className="mx-4 mt-4 font-primaryBold text-white text-2xl text-center">{name}</Text>
           <View className=" flex-row justify-center mt-4">
@@ -130,11 +132,11 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
               <IconComponent
                 name="clock"
                 size={30}
-                className="text-amber-500"
+                color={theme.palette.primary.default}
               />
               <Text className="text-white font-primaryBold text-base mt-2">{movieData.runtime}</Text>
             </View>
-            <SpoilerComponent
+            <Spoiler
               text="Show Score"
               show={user.preferences.ratings}
               watched={watched}
@@ -143,16 +145,16 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
                 <IconComponent
                   name="star"
                   size={30}
-                  className="text-amber-500"
+                  color={theme.palette.primary.default}
                 />
                 <Text className="text-white font-primaryBold text-base mt-2">{movieData.vote_average != null && Math.round(movieData.vote_average * 10) / 10}</Text>
               </View>
-            </SpoilerComponent>
+            </Spoiler>
             <View className="ml-6 px-2 py-4 bg-zinc-800/40 justify-center items-center rounded-xl w-20">
               <IconComponent
                 name="globe"
                 size={30}
-                className="text-amber-500"
+                color={theme.palette.primary.default}
               />
               <Text className="text-white font-primaryBold text-base mt-2">{movieData.original_language}</Text>
             </View>
@@ -219,12 +221,12 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
 
         <View className="mt-4 mx-4">
           <Text className="mb-2 font-primaryBold text-white text-xl">Plot</Text>
-          <SpoilerComponent
+          <Spoiler
             show={user.preferences.plot}
             watched={watched}
           >
             <Text className="font-primaryRegular text-white text-base text-justify">{movieData.overview}</Text>
-          </SpoilerComponent>
+          </Spoiler>
         </View>
 
         <View className="mt-4">
