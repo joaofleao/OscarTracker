@@ -14,18 +14,21 @@ export const Content = styled.View((props: StyledProps) => ({
 
 export const Title = styled.Text((props: StyledProps) => ({
   fontSize: props.theme.typography.sizes.fontSize4,
+  lineHeight: props.theme.typography.sizes.fontSize9,
   fontFamily: props.theme.typography.primary.bold,
   color: props.theme.palette.text.default,
 }))
 
 export const Information = styled.Text((props: StyledProps) => ({
   fontSize: props.theme.typography.sizes.fontSize3,
+  lineHeight: props.theme.typography.sizes.fontSize7,
   fontFamily: props.theme.typography.primary.regular,
   color: props.theme.palette.text.light,
 }))
 
 export const Extra = styled.Text((props: StyledProps) => ({
   fontSize: props.theme.typography.sizes.fontSize3,
+  lineHeight: props.theme.typography.sizes.fontSize7,
   fontFamily: props.theme.typography.primary.regular,
   color: props.theme.palette.primary.default,
 }))
