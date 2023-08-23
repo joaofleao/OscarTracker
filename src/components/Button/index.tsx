@@ -1,12 +1,12 @@
 import React from 'react'
 
-import Wrapper, { type WrapperProps } from '../Wrapper'
+import { Global } from '../../components'
 import ButtonComponent, { type ButtonProps } from './Button'
 
-const Button = (props: ButtonProps & WrapperProps): JSX.Element => {
+const Button = (props: ButtonProps & Global.WrapperProps): JSX.Element => {
   const { mt, mv, mh, mb, mr, ml, ...rest } = props
   return (
-    <Wrapper
+    <Global.Wrapper
       mt={mt}
       mv={mv}
       mh={mh}
@@ -15,7 +15,7 @@ const Button = (props: ButtonProps & WrapperProps): JSX.Element => {
       ml={ml}
     >
       <ButtonComponent {...rest} />
-    </Wrapper>
+    </Global.Wrapper>
   )
 }
 
