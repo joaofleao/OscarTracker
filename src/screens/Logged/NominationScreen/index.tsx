@@ -1,8 +1,8 @@
 import React from 'react'
 import { FlatList } from 'react-native'
 
-import { Global, Header, NomineeCardComponent, SeparatorComponent } from '../../../components'
-import { useEdition } from '../../../features'
+import { Global, Header, NomineeCard, SeparatorComponent } from '../../../components'
+import { useEdition, useTheme } from '../../../features'
 import { type NominationScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -10,6 +10,8 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
   const { id } = route.params
 
   const edition = useEdition()
+  const theme = useTheme()
+
   const movies = edition.nominations[id]
 
   const renderMovie = ({ item }: any): JSX.Element => {
@@ -24,7 +26,8 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
     const extra = person != null ? movie['en-US'].name : item.category === '18' ? movie['en-US'].name : item.extra
 
     return (
-      <NomineeCardComponent
+      <NomineeCard
+        mh={theme.sizes.size10}
         onPress={() => {
           navigation.navigate(routes.logged.movie, {
             id: movie.imdb,
