@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { Global } from '../../components'
-import ButtonComponent, { type ButtonProps } from './Button'
+import ProgressBarComponent, { type ProgressBarProps } from './ProgressBar'
 
-const Button = (props: ButtonProps & Global.WrapperProps): JSX.Element => {
+const ProgressBar = (props: ProgressBarProps & Global.WrapperProps): JSX.Element => {
   const { mt, mv, mh, mb, mr, ml, ...rest } = props
   return (
     <Global.Wrapper
@@ -14,10 +14,10 @@ const Button = (props: ButtonProps & Global.WrapperProps): JSX.Element => {
       mr={mr}
       ml={ml}
     >
-      <ButtonComponent {...rest} />
+      <ProgressBarComponent {...rest} />
     </Global.Wrapper>
   )
 }
 
-export default Button
-export type { ButtonProps }
+export default ProgressBar
+export type { ProgressBarProps }

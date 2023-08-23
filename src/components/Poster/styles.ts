@@ -7,7 +7,7 @@ interface ImageProps extends StyledProps {
   width: number
   height: number
 }
-export const Container = styled.TouchableOpacity((props: ImageProps) => ({
+export const Container = styled.View((props: ImageProps) => ({
   width: props.width,
   height: props.height,
   alignItems: 'center',
