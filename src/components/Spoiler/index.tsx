@@ -1,45 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Animated, Pressable, type PressableProps, Text } from 'react-native'
+import React from 'react'
 
-interface SpoilerComponentProps extends PressableProps {
-  children: any
-  show: boolean
-  watched: boolean
-  text?: string
-}
+import { Global } from '../../components'
+import SpoilerComponent, { type SpoilerProps } from './Spoiler'
 
-const Spoiler = ({ children, show, watched, text, ...rest }: SpoilerComponentProps): JSX.Element => {
-  const [hidden, setHidden] = useState<boolean>(false)
-  const animatedValue = useRef(new Animated.Value(0)).current
-
-  useEffect(() => {
-    Animated.timing(animatedValue, {
-      toValue: hidden ? -400 : 0,
-      duration: 200,
-      useNativeDriver: true,
-    }).start()
-  }, [hidden])
-
+const Spoiler = (props: SpoilerProps & Global.WrapperProps): JSX.Element => {
+  const { mt, mv, mh, mb, mr, ml, ...rest } = props
   return (
-    <Pressable
-      className="h-fit w-fit items-center justify-center rounded-xl overflow-hidden relative"
-      onPress={() => {
-        setHidden((value) => !value)
-      }}
-      {...rest}
+    <Global.Wrapper
+      mt={mt}
+      mv={mv}
+      mh={mh}
+      mb={mb}
+      mr={mr}
+      ml={ml}
     >
-      {children}
-
-      {!watched && !show && (
-        <Animated.View
-          className="w-full h-full absolute bg-[#1e1e21] justify-center items-center"
-          style={{ transform: [{ translateY: animatedValue }] }}
-        >
-          <Text className="text-white font-primaryBold text-center px-1">{text != null || 'Click to show'}</Text>
-        </Animated.View>
-      )}
-    </Pressable>
+      <SpoilerComponent {...rest} />
+    </Global.Wrapper>
   )
 }
 
 export default Spoiler
+export type { SpoilerProps }

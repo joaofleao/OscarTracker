@@ -117,6 +117,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
           <Spoiler
             show={user.preferences.poster}
             watched={watched}
+            text="Show Poster"
           >
             <Image
               className="w-[228px] h-[338px] rounded-xl"

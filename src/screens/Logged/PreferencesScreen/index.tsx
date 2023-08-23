@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Dimensions, FlatList, Image, type ImageSourcePropType, type ListRenderItemInfo, Platform, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, FlatList, Image, type ImageSourcePropType, type ListRenderItemInfo, Platform, Text, View } from 'react-native'
 
-import { david, IMDB, jason, justin, poster } from '../../../assets/images'
-import { Button, Global, Header, ProgressBar } from '../../../components'
+import { david, jason, justin, poster } from '../../../assets/images'
+import { Button, Global, Header, IconComponent, ProgressBar, Spoiler } from '../../../components'
 import { useTheme, useUser } from '../../../features'
 import { type PreferencesScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -11,11 +11,6 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
   const scrollViewRef = useRef<FlatList>(null)
   const user = useUser()
   const theme = useTheme()
-
-  const [ratingsSpoiler, setRatingsSpoiler] = useState(true)
-  const [castSpoiler, setCastSpoiler] = useState(true)
-  const [plotSpoiler, setPlotSpoiler] = useState(true)
-  const [posterSpoiler, setPosterSpoiler] = useState(true)
 
   const [preferences, setPreferences] = useState({
     poster: true,
@@ -59,25 +54,17 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
   ]
 
   const getCast = (item: { name: string; image: ImageSourcePropType; character: string }): JSX.Element => (
-    <View className="h-36">
+    <Spoiler>
       <View className="bg-zinc-800/40 rounded-xl items-center justify-center">
         <Image
           source={item.image}
-          style={{ opacity: castSpoiler ? 0 : 1 }}
-          className="h-full rounded-xl aspect-[0.7]"
+          className="w-[106px] h-[158px] rounded-xl bg-zinc-800/40"
         />
-        <Text
-          style={{ opacity: castSpoiler ? 1 : 0 }}
-          className="absolute font-primaryBold text-base text-white text-center"
-        >
-          Click to Show
-        </Text>
       </View>
 
       <View className="py-3">
         <View className="bg-zinc-800/40 rounded-xl">
           <Text
-            style={{ opacity: castSpoiler ? 0 : 1 }}
             numberOfLines={2}
             className="text-white font-primaryBold text-base bg-zinc-900"
           >
@@ -85,7 +72,6 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
           </Text>
 
           <Text
-            style={{ opacity: castSpoiler ? 0 : 1 }}
             numberOfLines={2}
             className="text-white font-primaryRegular text-sm bg-zinc-900"
           >
@@ -93,7 +79,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
           </Text>
         </View>
       </View>
-    </View>
+    </Spoiler>
   )
 
   const screens = [
@@ -119,26 +105,14 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
       content: (
         <View className="items-center flex-1">
           <Text className="text-white font-primaryBold text-2xl mb-4 w-full">Do you consider a movie's poster a spoiler?</Text>
-          <Text className="text-white font-primaryRegular text-base w-full">If you do, the poster will look like this until you watch the movie or click on it.</Text>
+          <Text className="text-white font-primaryRegular text-base w-full mb-4">If you do, the poster will look like this until you watch the movie or click on it.</Text>
 
-          <TouchableOpacity
-            className="bg-zinc-800/40 rounded-xl items-center justify-center flex-1 w-fit my-10"
-            onPress={() => {
-              setPosterSpoiler((value) => !value)
-            }}
-          >
+          <Spoiler>
             <Image
+              className="w-[228px] h-[338px] rounded-xl"
               source={poster}
-              style={{ opacity: posterSpoiler ? 0 : 1 }}
-              className="h-full rounded-xl aspect-[0.7]"
             />
-            <Text
-              className="text-white font-primaryRegular text-base text-justify absolute"
-              style={{ opacity: posterSpoiler ? 1 : 0 }}
-            >
-              Click to reveal
-            </Text>
-          </TouchableOpacity>
+          </Spoiler>
         </View>
       ),
     },
@@ -152,23 +126,9 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
           <Text className="text-white font-primaryBold text-2xl mb-4 w-full">How about a movie's plot?</Text>
           <Text className="text-white font-primaryRegular text-base mb-4  w-full">If you do, the plot will be hidden like this until you watch the movie or click on it.</Text>
           <View className="flex-1 justify-center">
-            <TouchableOpacity
-              onPress={() => {
-                setPlotSpoiler((value) => !value)
-              }}
-            >
-              <Text
-                style={{ opacity: plotSpoiler ? 0 : 1 }}
-                className="text-white font-primaryRegular text-base text-justify"
-              >
-                When an alien with amazing powers crash-lands near Mossy Bottom Farm, Shaun the Sheep goes on a mission to shepherd the intergalactic visitor home before a sinister organization can capture her.
-              </Text>
-              {plotSpoiler && (
-                <View className="absolute bg-zinc-800/40 w-full h-full items-center justify-center rounded-xl">
-                  <Text className="text-white font-primaryRegular text-base text-justify">Click to reveal</Text>
-                </View>
-              )}
-            </TouchableOpacity>
+            <Spoiler>
+              <Text className="text-white font-primaryRegular text-base text-justify">When an alien with amazing powers crash-lands near Mossy Bottom Farm, Shaun the Sheep goes on a mission to shepherd the intergalactic visitor home before a sinister organization can capture her.</Text>
+            </Spoiler>
           </View>
         </View>
       ),
@@ -183,17 +143,10 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
           <Text className="text-white font-primaryBold text-2xl mb-4 w-full">Ok, this one is weird, but we have to ask... Is the casting of the movie a spoiler?</Text>
           <Text className="text-white font-primaryRegular text-base mb-4 w-full">If you do, the cast will remain hidden until you watch the movie or click on it.</Text>
 
-          <View className=" flex-1 ">
-            <TouchableOpacity
-              className="flex-row flex-1 justify-between"
-              onPress={() => {
-                setCastSpoiler((value) => !value)
-              }}
-            >
-              {getCast(castData[0])}
-              {getCast(castData[1])}
-              {getCast(castData[2])}
-            </TouchableOpacity>
+          <View className="flex-1 flex-row justify-between">
+            {getCast(castData[0])}
+            {getCast(castData[1])}
+            {getCast(castData[2])}
           </View>
         </View>
       ),
@@ -207,25 +160,22 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
       content: (
         <View className="flex-1">
           <Text className="text-white font-primaryBold text-2xl mb-4 w-full">Last one!</Text>
-          <Text className="text-white font-primaryBold text-2xl mb-4 w-full">And the movie ratings, IMDB and Rotten Tomatoes, are those spoilers?</Text>
+          <Text className="text-white font-primaryBold text-2xl mb-4 w-full">And the movie ratings, are those spoilers?</Text>
           <Text className="text-white font-primaryRegular text-base mb-4 w-full">If you think so, the score will not show until you've seen the movie or clicked on it.</Text>
-
-          <View className="flex-1 justify-center">
-            <TouchableOpacity
-              className=" items-center flex-row justify-center"
-              onPress={() => {
-                setRatingsSpoiler((value) => !value)
-              }}
+          <View style={{ alignItems: 'center' }}>
+            <Spoiler
+              text="Show Score"
+              show={user.preferences.ratings}
             >
-              <View className="p-4 bg-zinc-800/40 justify-center items-center rounded-xl">
-                <IMDB
-                  width={48}
-                  height={48}
+              <View className=" px-4 py-8 bg-zinc-800/40 justify-center items-center rounded-xl w-28">
+                <IconComponent
+                  name="star"
+                  size={40}
+                  color={theme.palette.primary.default}
                 />
-
-                <Text className="text-white font-primaryBold text-lg mt-3">{ratingsSpoiler ? 'Show' : '8.0'}</Text>
+                <Text className="text-white font-primaryBold text-2xl mt-2">4.2</Text>
               </View>
-            </TouchableOpacity>
+            </Spoiler>
           </View>
         </View>
       ),
