@@ -1,12 +1,12 @@
 import React from 'react'
 
-import Wrapper, { type WrapperProps } from '../Wrapper'
+import { Global } from '../../components'
 import NomineeCardComponent, { type NomineeCardProps } from './NomineeCard'
 
-const NomineeCard = (props: NomineeCardProps & WrapperProps): JSX.Element => {
+const NomineeCard = (props: NomineeCardProps & Global.WrapperProps): JSX.Element => {
   const { mt, mv, mh, mb, mr, ml, ...rest } = props
   return (
-    <Wrapper
+    <Global.Wrapper
       mt={mt}
       mv={mv}
       mh={mh}
@@ -15,7 +15,7 @@ const NomineeCard = (props: NomineeCardProps & WrapperProps): JSX.Element => {
       ml={ml}
     >
       <NomineeCardComponent {...rest} />
-    </Wrapper>
+    </Global.Wrapper>
   )
 }
 

@@ -1,12 +1,12 @@
 import React from 'react'
 
-import Wrapper, { type WrapperProps } from '../Wrapper'
-import Postert, { type PosterProps } from './Poster'
+import { Global } from '../../components'
+import PosterComponent, { type PosterProps } from './Poster'
 
-const Poster = (props: PosterProps & WrapperProps): JSX.Element => {
+const Poster = (props: PosterProps & Global.WrapperProps): JSX.Element => {
   const { mt, mv, mh, mb, mr, ml, ...rest } = props
   return (
-    <Wrapper
+    <Global.Wrapper
       mt={mt}
       mv={mv}
       mh={mh}
@@ -14,8 +14,8 @@ const Poster = (props: PosterProps & WrapperProps): JSX.Element => {
       mr={mr}
       ml={ml}
     >
-      <Postert {...rest} />
-    </Wrapper>
+      <PosterComponent {...rest} />
+    </Global.Wrapper>
   )
 }
 
