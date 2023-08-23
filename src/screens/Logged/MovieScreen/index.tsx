@@ -3,7 +3,7 @@ import { FlatList, Image, Linking, type ListRenderItemInfo, Platform, Pressable,
 
 import { IMDB } from '../../../assets/images'
 import { Global, Header, IconComponent, Spoiler } from '../../../components'
-import { useEdition, useMovies, useUser } from '../../../features'
+import { useEdition, useMovies, useTheme, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type MovieScreenProps, type Nomination, type TMDBPerson } from '../../../types'
 import { routes } from '../../../utils'
@@ -19,6 +19,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   const edition = useEdition()
   const user = useUser()
   const movies = useMovies()
+  const theme = useTheme()
 
   const imdbLink = `https://www.imdb.com/title/${id}`
 
@@ -131,7 +132,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
               <IconComponent
                 name="clock"
                 size={30}
-                className="text-amber-500"
+                color={theme.palette.primary.default}
               />
               <Text className="text-white font-primaryBold text-base mt-2">{movieData.runtime}</Text>
             </View>
@@ -144,7 +145,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
                 <IconComponent
                   name="star"
                   size={30}
-                  className="text-amber-500"
+                  color={theme.palette.primary.default}
                 />
                 <Text className="text-white font-primaryBold text-base mt-2">{movieData.vote_average != null && Math.round(movieData.vote_average * 10) / 10}</Text>
               </View>
@@ -153,7 +154,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
               <IconComponent
                 name="globe"
                 size={30}
-                className="text-amber-500"
+                color={theme.palette.primary.default}
               />
               <Text className="text-white font-primaryBold text-base mt-2">{movieData.original_language}</Text>
             </View>
