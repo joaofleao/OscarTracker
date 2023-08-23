@@ -8,7 +8,7 @@ interface SpoilerComponentProps extends PressableProps {
   text?: string
 }
 
-const SocialButtonComponent = ({ children, show, watched, text, ...rest }: SpoilerComponentProps): JSX.Element => {
+const Spoiler = ({ children, show, watched, text, ...rest }: SpoilerComponentProps): JSX.Element => {
   const [hidden, setHidden] = useState<boolean>(false)
   const animatedValue = useRef(new Animated.Value(0)).current
 
@@ -42,4 +42,4 @@ const SocialButtonComponent = ({ children, show, watched, text, ...rest }: Spoil
   )
 }
 
-export default SocialButtonComponent
+export default Spoiler

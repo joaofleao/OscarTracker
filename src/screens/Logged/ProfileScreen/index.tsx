@@ -3,7 +3,7 @@ import { ScrollView, Switch, Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
 import packageJson from '../../../../package.json'
-import { Button, Global, Header, TextInputComponent } from '../../../components'
+import { Button, Global, Header, SocialButton, TextInputComponent } from '../../../components'
 import { useAuth, useUser } from '../../../features'
 
 const ProfileScreen = (): JSX.Element => {
