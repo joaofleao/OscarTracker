@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-import { Button, Global, Logo, TextInputComponent } from '../../../components'
+import { Button, Global, Input, Logo } from '../../../components'
 import { useAuth, useTheme } from '../../../features'
 import { type SignInScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -22,8 +22,9 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
           <Logo mb="40px" />
         </View>
 
-        <TextInputComponent
-          className="mb-5 mx-4"
+        <Input
+          mb={theme.sizes.size10}
+          mh={theme.sizes.size10}
           label="Email"
           value={email}
           onChangeText={(text) => {
@@ -31,25 +32,23 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
           }}
         />
 
-        <View className="mb-12 mx-4 ">
-          <TextInputComponent
-            className="mb-2"
-            label="Password"
-            type="password"
-            value={password}
-            onChangeText={(text) => {
-              setPassword(text)
+        <Input
+          mh={theme.sizes.size10}
+          label="Password"
+          type="password"
+          value={password}
+          onChangeText={(text) => {
+            setPassword(text)
+          }}
+        />
+        <View className="items-end mr-5 ml-5">
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(routes.unlogged.forgotPassword, { email })
             }}
-          />
-          <View className="items-end">
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate(routes.unlogged.forgotPassword, { email })
-              }}
-            >
-              <Text className="font-primaryBold p-2 text-xs text-amber-500 ">Forgot password?</Text>
-            </TouchableOpacity>
-          </View>
+          >
+            <Text className=" mb-6 font-primaryBold p-2 text-xs text-amber-500 ">Forgot password?</Text>
+          </TouchableOpacity>
         </View>
 
         <View className="items-center">

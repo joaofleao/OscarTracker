@@ -23,24 +23,16 @@ const ToastNotification = (props: ToastNotificationProps): JSX.Element => {
       isSuccess={isSuccess}
       {...rest}
     >
-      <Styled.Content>
-        <IconComponent
-          name={isSuccess ? 'check-circle' : 'alert-circle'}
-          color={theme.palette.text.default}
-          size={30}
-        />
-
-        <Styled.Informations>
-          <Styled.Title numberOfLines={2}>{title}</Styled.Title>
-          {description != null && <Styled.Description>{description}</Styled.Description>}
-        </Styled.Informations>
-      </Styled.Content>
-
       <IconComponent
-        name="x"
+        name={isSuccess ? 'check-circle' : 'alert-circle'}
         color={theme.palette.text.default}
-        size={24}
+        size={30}
       />
+
+      <Styled.Informations>
+        <Styled.Title numberOfLines={2}>{title}</Styled.Title>
+        {description != null && <Styled.Description>{description}</Styled.Description>}
+      </Styled.Informations>
     </Styled.Container>
   )
 }

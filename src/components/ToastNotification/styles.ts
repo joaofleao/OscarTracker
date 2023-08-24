@@ -38,8 +38,8 @@ export const Title = styled.Text((props: StyledProps) => ({
 }))
 
 export const Description = styled.Text((props: StyledProps) => ({
-  color: props.theme.palette.text.light,
-  fontFamily: props.theme.typography.primary.regular,
+  color: props.theme.palette.text.default,
+  fontFamily: props.theme.typography.primary.medium,
   fontSize: props.theme.typography.sizes.fontSize2,
   lineHeight: props.theme.typography.sizes.fontSize5,
 }))
