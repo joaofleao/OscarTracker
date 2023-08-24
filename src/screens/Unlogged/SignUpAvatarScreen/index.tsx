@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-import { Button, Global, Header, TextInputComponent } from '../../../components'
+import { Button, Global, Header, Input } from '../../../components'
 import { type SignUpAvatarScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -27,7 +27,7 @@ const SignUpAvatarScreen = ({ navigation, route }: SignUpAvatarScreenProps): JSX
           <Text className="text-white font-primaryRegular text-base">Feel free to use any image</Text>
         </View>
 
-        <TextInputComponent
+        <Input
           placeholder="Name"
           className="my-4"
         />

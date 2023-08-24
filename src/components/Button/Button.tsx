@@ -7,7 +7,7 @@ import * as Styled from './styles'
 export interface ButtonProps extends PressableProps {
   label?: string
   width?: 'fit' | 'fixed' | 'full'
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text'
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
   disabled?: boolean
   loading?: boolean
   icon?: string

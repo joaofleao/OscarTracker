@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { Button, Global, Header, TextInputComponent } from '../../../components'
+import { Button, Global, Header, Input } from '../../../components'
+import { useTheme } from '../../../features'
 import { type SignUpPasswordScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
 const SignUpPasswordScreen = ({ navigation, route }: SignUpPasswordScreenProps): JSX.Element => {
+  const theme = useTheme()
+
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
   const isValid = password === confirmPassword && password.length > 0
@@ -16,12 +19,12 @@ const SignUpPasswordScreen = ({ navigation, route }: SignUpPasswordScreenProps):
   const lowerCase = /(?=.*[a-z])/.test(password)
 
   const getError = (): string => {
-    let message = ''
-    if (!oneUpperCase) message = message + 'one uppercase, '
-    if (!specialCase) message = message + 'one special char, '
-    if (!oneDigits) message = message + 'one digit, '
-    if (!lowerCase) message = message + 'one lowercase, '
-    if (!isValid) message = message + 'must be equal, '
+    let message = 'You need'
+    if (!isValid) message = message + ', to match the passwords'
+    if (!oneDigits) message = message + ', one digit'
+    if (!oneUpperCase) message = message + ', one uppercase'
+    if (!lowerCase) message = message + ', one lowercase'
+    if (!specialCase) message = message + ', one special character'
     return message
   }
 
@@ -47,16 +50,16 @@ const SignUpPasswordScreen = ({ navigation, route }: SignUpPasswordScreenProps):
         </View>
 
         <View className="flex-1 justify-top">
-          <TextInputComponent
+          <Input
             label="Password"
             value={password}
             type={'password'}
-            className="mb-5"
+            mb={theme.sizes.size10}
             onChange={(e) => {
               setPassword(e.nativeEvent.text)
             }}
           />
-          <TextInputComponent
+          <Input
             label="Confirm Password"
             value={confirmPassword}
             type={'password'}
