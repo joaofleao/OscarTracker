@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { Button, Global, Header, TextInputComponent } from '../../../components'
+import { Button, Global, Header, Input } from '../../../components'
 import { useAuth } from '../../../features'
 import { type ForgotPasswordScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -32,7 +32,7 @@ const ForgotPasswordScreen = ({ navigation, route }: ForgotPasswordScreenProps):
         </View>
 
         <View className="flex-1 justify-center">
-          <TextInputComponent
+          <Input
             label="Email"
             value={recoveryEmail}
             errorText={''}
