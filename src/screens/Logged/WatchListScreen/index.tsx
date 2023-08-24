@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
-import { Global, Header, NomineeCard, TextInputComponent } from '../../../components'
+import { Global, Header, Input, NomineeCard } from '../../../components'
 import { useEdition, useTheme } from '../../../features'
 import type { BasicMovieType, WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -53,9 +53,10 @@ function WatchListScreen({ navigation, route }: WatchListScreenProps): JSX.Eleme
         description="Here are the 2022 nominees"
       />
 
-      <TextInputComponent
-        className="mx-4 mb-5"
-        placeholder="Search Movie"
+      <Input
+        mh="20px"
+        mb="20px"
+        type="search"
         onChange={(e: any) => {
           setSearch(e.nativeEvent.text)
         }}
