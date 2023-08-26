@@ -1,3 +1,18 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "types": [
+      "./styled-components.d.ts"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }
