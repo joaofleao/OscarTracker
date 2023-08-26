@@ -18,7 +18,7 @@ module.exports = {
       files: ['./src/**/*.ts', './src/**/*.tsx'],
       rules: {
         'arrow-body-style': ['error', 'always'],
-        '@typescript-eslint/explicit-function-return-type': 'error',
+        '@typescript-eslint/explicit-function-return-type': 'warn',
         '@typescript-eslint/explicit-module-boundary-types': 'error',
         '@typescript-eslint/no-unused-vars': 'error',
         'simple-import-sort/imports': [

@@ -1,0 +1,37 @@
+export interface SpacingsType {
+  /** 0px */ space0: string
+  /** 1px */ space1: string
+  /** 2px */ space2: string
+  /** 4px */ space3: string
+  /** 6px */ space4: string
+  /** 8px */ space5: string
+  /** 10px */ space6: string
+  /** 12px */ space7: string
+  /** 14px */ space8: string
+  /** 16px */ space9: string
+  /** 20px */ space10: string
+  /** 24px */ space11: string
+  /** 28px */ space12: string
+  /** 32px */ space13: string
+  /** 36px */ space14: string
+  /** 40px */ space15: string
+  /** 44px */ space16: string
+  /** 48px */ space17: string
+  /** 56px */ space18: string
+  /** 64px */ space19: string
+  /** 80px */ space20: string
+  /** 96px */ space21: string
+  /** 112px */ space22: string
+  /** 128px */ space23: string
+  /** 144px */ space24: string
+  /** 160px */ space25: string
+  /** 176px */ space26: string
+  /** 192px */ space27: string
+  /** 208px */ space28: string
+  /** 224px */ space29: string
+  /** 240px */ space30: string
+  /** 256px */ space31: string
+  /** 288px */ space32: string
+  /** 320px */ space33: string
+  /** 384px */ space34: string
+}
