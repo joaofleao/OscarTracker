@@ -1,6 +1,6 @@
 // Unlogged
 export { default as ForgotPasswordScreen } from './Unlogged/ForgotPasswordScreen'
-export { default as SignInScreen } from './Unlogged/SignInScreen'
+export { default as SignIn } from './Unlogged/SignIn'
 export { default as SignUpAvatarScreen } from './Unlogged/SignUpAvatarScreen'
 export { default as SignUpEmailScreen } from './Unlogged/SignUpEmailScreen'
 export { default as SignUpNameScreen } from './Unlogged/SignUpNameScreen'

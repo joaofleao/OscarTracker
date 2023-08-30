@@ -1,6 +1,6 @@
 import {
   ForgotPasswordScreen,
-  SignInScreen,
+  SignIn,
   SignUpAvatarScreen,
   SignUpEmailScreen,
   SignUpNameScreen,
@@ -16,7 +16,7 @@ export const Unlogged = (
   <>
     <Stack.Screen
       name={routes.unlogged.signIn}
-      component={SignInScreen}
+      component={SignIn}
     />
     <Stack.Screen
       name={routes.unlogged.signUpEmail}
