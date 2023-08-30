@@ -1,4 +1,6 @@
-import Header, { type HeaderProps } from './Header'
+import * as Atoms from './atoms'
+import Root from './Header'
+
+const Header = { Root, ...Atoms }
 
 export default Header
-export type { HeaderProps }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { Button, Global, Header, Input } from '../../../components'
+import { Button, Global, Header, Icon, Input } from '../../../components'
 import { useAuth, useTheme } from '../../../features'
 import { type SignUpNameScreenProps } from '../../../types'
 
@@ -21,12 +21,17 @@ const SignUpNameScreen = ({ navigation, route }: SignUpNameScreenProps): JSX.Ele
 
   return (
     <Global.Screen>
-      <Header
-        leadingAction={navigation.goBack}
-        leadingButton="arrow-left"
-        title="Register"
-        align="left"
-      />
+      <Header.Root>
+        <Button
+          onPress={navigation.goBack}
+          icon={<Icon.ArrowLeft />}
+          variant="secondary"
+        />
+        <Header.TextContainer>
+          <Header.Title>Register</Header.Title>
+        </Header.TextContainer>
+      </Header.Root>
+
       <View
       // className="flex-1 mx-4"
       >

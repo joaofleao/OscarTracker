@@ -1,6 +1,5 @@
 import styled from 'styled-components/native'
 
-import IconComponent from '../../assets/icons'
 import type { StyledProps } from '../../types'
 
 interface ImageProps extends StyledProps {
@@ -16,12 +15,6 @@ export const Container = styled.View((props: ImageProps) => {
     position: 'relative',
     borderRadius: props.theme.radius.borderRadius4,
     backgroundColor: props.theme.palette.background.container,
-  }
-})
-
-export const Icon = styled(IconComponent)((props: StyledProps) => {
-  return {
-    color: props.theme.palette.text.inverse,
   }
 })
 

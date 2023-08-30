@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ScrollView, Switch, Text, View } from 'react-native'
 
 import packageJson from '../../../../package.json'
-import { Button, Global, Header, Input } from '../../../components'
+import { Button, Global, Header, Icon, Input } from '../../../components'
 import { useAuth, useUser } from '../../../features'
 
 const ProfileScreen = (): JSX.Element => {
@@ -30,14 +30,18 @@ const ProfileScreen = (): JSX.Element => {
 
   return (
     <Global.Screen>
-      <Header
-        title="Profile"
-        trailingAction={handleEdit}
-        trailingButton={editing ? 'check' : 'edit-2'}
-        bigHeader
-        align="left"
-        description={user.email}
-      />
+      <Header.Root>
+        <Header.TextContainer>
+          <Header.Title bigHeader>Profile</Header.Title>
+          <Header.Description bigHeader>{user.email}</Header.Description>
+        </Header.TextContainer>
+        <Button
+          icon={editing ? <Icon.CheckCircle /> : <Icon.Pencil />}
+          onPress={handleEdit}
+          variant="secondary"
+        />
+      </Header.Root>
+
       <ScrollView>
         <Text
         // className="mx-5 mb-5 text-white font-primaryRegular text-xl"
@@ -173,16 +177,13 @@ const ProfileScreen = (): JSX.Element => {
           </Text>
         </View>
 
-        <View
-        // className="w-full items-center"
-        >
-          <Button
-            label="Log Out"
-            variant="outlined"
-            // className="mx-5 mb-5"
-            onPress={auth.signOut}
-          />
-        </View>
+        <Button
+          label="Log Out"
+          variant="outlined"
+          mh="20px"
+          mb="20px"
+          onPress={auth.signOut}
+        />
       </ScrollView>
     </Global.Screen>
   )

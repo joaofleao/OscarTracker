@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-import { Button, Global, Input, Logo } from '../../../components'
+import { Button, Global, Input } from '../../../components'
 import { useAuth, useTheme } from '../../../features'
 import { type SignInScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -17,14 +17,8 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
 
   return (
     <Global.Screen>
-      <View
-      // className="justify-center  flex-1"
-      >
-        <View
-        // className="items-center"
-        >
-          <Logo mb="40px" />
-        </View>
+      <View style={{ justifyContent: 'center', flex: 1 }}>
+        <View style={{ alignItems: 'center' }}>{/* <Logo mb="40px" /> */}</View>
 
         <Input
           mb={theme.sizes.size10}
@@ -45,9 +39,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
             setPassword(text)
           }}
         />
-        <View
-        // className="items-end mr-5 ml-5"
-        >
+        <View style={{ alignItems: 'flex-end', marginHorizontal: 20 }}>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate(routes.unlogged.forgotPassword, { email })

@@ -1,3 +1,5 @@
+import { Icon } from '../../components'
+import { useTheme } from '../../features'
 import * as Styled from './styles'
 
 export interface PosterProps {
@@ -15,6 +17,7 @@ const defaultValues: Partial<PosterProps> = {
 
 const Poster = (props: PosterProps): JSX.Element => {
   const { image, isWatched, spoiler, large = false } = { ...defaultValues, ...props }
+  const theme = useTheme()
 
   const width = large ? 158 : 106
   const height = large ? 236 : 158
@@ -34,9 +37,9 @@ const Poster = (props: PosterProps): JSX.Element => {
 
   const getIcon = (
     <Styled.IconContainer>
-      <Styled.Icon
-        name="eye-off"
+      <Icon.EyeOff
         size={20}
+        color={theme.palette.text.inverse}
       />
     </Styled.IconContainer>
   )

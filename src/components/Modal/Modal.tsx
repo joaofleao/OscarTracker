@@ -1,5 +1,6 @@
 import { Modal as RNModal, type ModalProps as RNModalProps } from 'react-native'
 
+import { X } from '../../components'
 import { useTheme } from '../../features'
 import { Button } from '..'
 import * as Styled from './styles'
@@ -55,7 +56,7 @@ const Modal = (props: ModalProps): JSX.Element => {
             </Styled.Title>
             {(closeButton ?? false) && onCancel != null && (
               <Button
-                icon="x"
+                icon={<X />}
                 variant="secondary"
                 width="fit"
               />

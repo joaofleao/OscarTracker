@@ -1,6 +1,6 @@
 import { FlatList } from 'react-native'
 
-import { Global, Header, NomineeCard } from '../../../components'
+import { Button, Global, Header, Icon, NomineeCard } from '../../../components'
 import { useEdition, useTheme } from '../../../features'
 import { type NominationScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -50,11 +50,15 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
   }
   return (
     <Global.Screen>
-      <Header
-        leadingAction={navigation.goBack}
-        leadingButton={'arrow-left'}
-        title={edition.categories[id]['en-US']}
-      />
+      <Header.Root>
+        <Button
+          onPress={navigation.goBack}
+          icon={<Icon.ArrowLeft />}
+          variant="secondary"
+        />
+
+        <Header.Title align="center">{edition.categories[id]['en-US']}</Header.Title>
+      </Header.Root>
 
       <FlatList
         data={movies}

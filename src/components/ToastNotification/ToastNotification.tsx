@@ -1,6 +1,6 @@
 import type { Animated, ViewProps } from 'react-native'
 
-import { IconComponent } from '../../components'
+import { Icon } from '../../components'
 import { useTheme } from '../../features'
 import * as Styled from './styles'
 
@@ -22,11 +22,17 @@ const ToastNotification = (props: ToastNotificationProps): JSX.Element => {
       isSuccess={isSuccess}
       {...rest}
     >
-      <IconComponent
-        name={isSuccess ? 'check-circle' : 'alert-circle'}
-        color={theme.palette.text.default}
-        size={30}
-      />
+      {isSuccess ? (
+        <Icon.CheckCircle
+          color={theme.palette.text.default}
+          size={30}
+        />
+      ) : (
+        <Icon.AlertCircle
+          color={theme.palette.text.default}
+          size={30}
+        />
+      )}
 
       <Styled.Informations>
         <Styled.Title numberOfLines={2}>{title}</Styled.Title>

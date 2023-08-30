@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { Button, Global, Header, Input } from '../../../components'
+import { Button, Global, Header, Icon, Input } from '../../../components'
 import { useAuth } from '../../../features'
 import { type ForgotPasswordScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -19,12 +19,17 @@ const ForgotPasswordScreen = ({ navigation, route }: ForgotPasswordScreenProps):
 
   return (
     <Global.Screen>
-      <Header
-        leadingAction={navigation.goBack}
-        leadingButton="arrow-left"
-        title="Forgot Password"
-        align="left"
-      />
+      <Header.Root>
+        <Button
+          onPress={navigation.goBack}
+          icon={<Icon.ArrowLeft />}
+          variant="secondary"
+        />
+        <Header.TextContainer>
+          <Header.Title>Forgot Password</Header.Title>
+        </Header.TextContainer>
+      </Header.Root>
+
       <View
       // className="flex-1 mx-4"
       >

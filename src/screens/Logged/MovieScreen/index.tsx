@@ -13,7 +13,7 @@ import {
 } from 'react-native'
 
 import { IMDB } from '../../../assets/images'
-import { Global, Header, IconComponent, Spoiler } from '../../../components'
+import { Button, Global, Header, Icon, Spoiler } from '../../../components'
 import { useEdition, useMovies, useTheme, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type MovieScreenProps, type Nomination, type TMDBPerson } from '../../../types'
@@ -139,11 +139,14 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
 
   return (
     <Global.Screen>
-      <Header
-        leadingAction={navigation.goBack}
-        leadingButton="arrow-left"
-        align="left"
-      />
+      <Header.Root>
+        <Button
+          onPress={navigation.goBack}
+          icon={<Icon.ArrowLeft />}
+          variant="secondary"
+        />
+      </Header.Root>
+
       <ScrollView>
         <View
         // className="items-center"
@@ -170,8 +173,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
             <View
             // className="mr-6 px-2 py-4 bg-zinc-800/40 justify-center items-center rounded-xl w-20"
             >
-              <IconComponent
-                name="clock"
+              <Icon.Clock
                 size={30}
                 color={theme.palette.primary.default}
               />
@@ -189,8 +191,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
               <View
               // className=" px-2 py-4 bg-zinc-800/40 justify-center items-center rounded-xl w-20"
               >
-                <IconComponent
-                  name="star"
+                <Icon.Star
                   size={30}
                   color={theme.palette.primary.default}
                 />
@@ -204,8 +205,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
             <View
             // className="ml-6 px-2 py-4 bg-zinc-800/40 justify-center items-center rounded-xl w-20"
             >
-              <IconComponent
-                name="globe"
+              <Icon.Globe
                 size={30}
                 color={theme.palette.primary.default}
               />

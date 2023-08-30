@@ -1,8 +1,7 @@
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import { Animated, Dimensions, Platform, View } from 'react-native'
 
-// import colors from 'tailwindcss/colors'
-import { IconComponent } from '../../components'
+import { Icon } from '../../components'
 import {
   HomeScreen,
   MovieScreen,
@@ -47,17 +46,17 @@ const screenOptionsAndroid = {
 const tabs = [
   {
     name: routes.logged.home,
-    icon: 'home-tab',
+    icon: <Icon.Home />,
     component: HomeScreen,
   },
   {
     name: routes.logged.watchList,
-    icon: 'check-tab',
+    icon: <Icon.CheckCircle />,
     component: WatchListScreen,
   },
   {
     name: routes.logged.profile,
-    icon: 'user-tab',
+    icon: <Icon.Person />,
     component: ProfileScreen,
   },
 ]
@@ -66,7 +65,12 @@ const TabNavigator = (): JSX.Element => {
   const tabOffsetValue = useRef(new Animated.Value(0)).current
   const getWidth = (Dimensions.get('window').width - 56) / tabs.length
 
-  const renderTab = (name: string, component: any, position: number, icon: string): JSX.Element => {
+  const renderTab = (
+    name: string,
+    component: any,
+    position: number,
+    icon: JSX.Element,
+  ): JSX.Element => {
     return (
       <Tab.Screen
         key={name}
@@ -74,14 +78,11 @@ const TabNavigator = (): JSX.Element => {
         component={component}
         options={{
           tabBarHideOnKeyboard: true,
-          tabBarIcon: ({ focused }) => {
-            return (
-              <IconComponent
-                name={focused ? icon.concat('-filled') : icon}
-                size={24}
-                style={{ color: focused ? '#f59e0b' : '#44403c' }}
-              />
-            )
+          tabBarIcon: ({ focused }): JSX.Element => {
+            return React.cloneElement(icon, {
+              color: focused ? '#f59e0b' : '#44403c',
+              filled: focused,
+            })
           },
         }}
         listeners={() => {

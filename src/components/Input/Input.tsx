@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native'
 
-import { Button, IconComponent } from '../../components'
+import { Button, Icon } from '../../components'
 import { useTheme } from '../../features'
 import * as Styled from './styles'
 
@@ -77,10 +77,10 @@ const Input = (props: InputProps): JSX.Element => {
     if (showError && errorText != null)
       return (
         <Styled.ErrorContainer>
-          <IconComponent
-            name="alert-circle"
+          <Icon.AlertCircle
             color={theme.palette.negative.default}
-            size={14}
+            height={14}
+            width={14}
           />
           <Styled.ErrorMessage>{errorText}</Styled.ErrorMessage>
         </Styled.ErrorContainer>
@@ -103,8 +103,7 @@ const Input = (props: InputProps): JSX.Element => {
           )}
 
           {type === 'search' && (
-            <IconComponent
-              name="search"
+            <Icon.Search
               size={24}
               color={theme.palette.primary.default}
             />
@@ -130,7 +129,7 @@ const Input = (props: InputProps): JSX.Element => {
               {type === 'password' && (
                 <Button
                   variant="action"
-                  icon={isPasswordVisible ? 'eye' : 'eye-off'}
+                  icon={isPasswordVisible ? <Icon.Eye /> : <Icon.EyeOff />}
                   onPress={() => {
                     setIsPasswordVisible((value) => {
                       return !value

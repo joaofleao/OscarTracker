@@ -1,5 +1,3 @@
-export { default as SplashScreen } from './SplashScreen'
-
 // Unlogged
 export { default as ForgotPasswordScreen } from './Unlogged/ForgotPasswordScreen'
 export { default as SignInScreen } from './Unlogged/SignInScreen'

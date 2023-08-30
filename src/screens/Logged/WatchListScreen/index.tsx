@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
-import { Global, Header, Input, NomineeCard } from '../../../components'
-import { useEdition, useTheme } from '../../../features'
+import { Global, Header, Input, NomineeCard, ProgressBar } from '../../../components'
+import { useEdition, useTheme, useUser } from '../../../features'
 import type { BasicMovieType, WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -11,6 +11,7 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
   const [data, setData] = useState<any>([])
 
   const edition = useEdition()
+  const user = useUser()
   const theme = useTheme()
 
   useEffect(() => {
@@ -46,11 +47,19 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
 
   return (
     <Global.Screen>
-      <Header
-        title="Watch List"
-        bigHeader
-        align="left"
-        description="Here are the 2022 nominees"
+      <Header.Root>
+        <Header.TextContainer>
+          <Header.Title bigHeader>Watch List</Header.Title>
+          <Header.Description bigHeader>here are the 2022 nominees</Header.Description>
+        </Header.TextContainer>
+      </Header.Root>
+
+      <ProgressBar
+        progress={user.watchedMovies.length}
+        total={edition.totalMovies}
+        mt={'10px'}
+        mb={'20px'}
+        mh={'20px'}
       />
 
       <Input

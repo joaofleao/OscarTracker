@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 
 import { david, jason, justin, poster } from '../../../assets/images'
-import { Button, Global, Header, IconComponent, ProgressBar, Spoiler } from '../../../components'
+import { Button, Global, Header, Icon, ProgressBar, Spoiler } from '../../../components'
 import { useTheme, useUser } from '../../../features'
 import { type PreferencesScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -284,8 +284,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
               <View
               // className=" px-4 py-8 bg-zinc-800/40 justify-center items-center rounded-xl w-28"
               >
-                <IconComponent
-                  name="star"
+                <Icon.Star
                   size={40}
                   color={theme.palette.primary.default}
                 />
@@ -342,12 +341,17 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
 
   return (
     <Global.Screen>
-      <Header
-        leadingButton={index !== 0 ? 'arrow-left' : ''}
-        leadingAction={handleBack}
-        title="Preferences"
-        description={screens[index].title}
-      />
+      <Header.Root>
+        <Button
+          onPress={handleBack}
+          icon={index !== 0 ? <Icon.ArrowLeft /> : <Icon.Placeholder />}
+          variant="secondary"
+        />
+        <Header.TextContainer>
+          <Header.Title>Preferences</Header.Title>
+          <Header.Description>{screens[index].title}</Header.Description>
+        </Header.TextContainer>
+      </Header.Root>
 
       <ProgressBar
         total={5}

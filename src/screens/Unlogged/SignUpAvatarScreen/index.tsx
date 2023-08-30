@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native'
 
-import { Button, Global, Header, Input } from '../../../components'
+import { Button, Global, Header, Icon, Input } from '../../../components'
 import { type SignUpAvatarScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -14,14 +14,16 @@ const SignUpAvatarScreen = ({ navigation }: SignUpAvatarScreenProps): JSX.Elemen
       <View
       // className="flex-1 mx-4 justify-between"
       >
-        <Header
-          leadingAction={() => {
-            navigation.goBack()
-          }}
-          leadingButton="arrow-left"
-        >
-          Register
-        </Header>
+        <Header.Root>
+          <Button
+            onPress={navigation.goBack}
+            icon={<Icon.ArrowLeft />}
+            variant="secondary"
+          />
+          <Header.TextContainer>
+            <Header.Title>Register</Header.Title>
+          </Header.TextContainer>
+        </Header.Root>
 
         <View
         // className="flex-1 justify-center"

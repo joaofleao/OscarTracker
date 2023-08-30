@@ -1,32 +1,30 @@
 import React from 'react'
 import { Animated, type PressableProps } from 'react-native'
 
+import { useTheme } from '../../features'
 import { Loading } from '../index'
 import * as Styled from './styles'
 
 export interface ButtonProps extends PressableProps {
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
+  loading?: boolean
   label?: string
   width?: 'fit' | 'fixed' | 'full'
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
-  disabled?: boolean
-  loading?: boolean
-  icon?: string
-  iconPositon?: 'trailing' | 'leading'
+  icon?: JSX.Element
 }
-
-const defaultValue = {
-  width: 'fixed',
+const defaultValue: ButtonProps = {
+  width: 'fit',
   variant: 'primary',
-  disabled: false,
   loading: false,
-  iconPositon: 'leading',
 }
 
 const Button = (props: ButtonProps): JSX.Element => {
-  const { label, width, variant, disabled, loading, icon, iconPositon, ...rest } = {
+  const { label, width, variant, disabled, loading, icon, ...rest } = {
     ...defaultValue,
     ...props,
   }
+
+  const theme = useTheme()
 
   const scaleAnimation = React.useRef(new Animated.Value(0)).current
   const opacityAnimation = React.useRef(new Animated.Value(0)).current
@@ -44,6 +42,7 @@ const Button = (props: ButtonProps): JSX.Element => {
       useNativeDriver: true,
     }).start()
   }
+
   const onPressOut = (): void => {
     Animated.spring(scaleAnimation, {
       toValue: 0,
@@ -68,15 +67,46 @@ const Button = (props: ButtonProps): JSX.Element => {
         useNativeDriver: true,
       }).start()
     }
+  }, [disabled, opacityAnimation])
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [disabled])
+  const renderIcon =
+    icon &&
+    React.cloneElement(icon, {
+      color:
+        props.variant === 'primary' ? theme.palette.text.inverse : theme.palette.primary.default,
+      size: 18,
+      variant,
+    })
+
+  const renderLabel = (
+    <Styled.Label
+      numberOfLines={1}
+      variant={variant}
+      disabled={disabled}
+    >
+      {label}
+    </Styled.Label>
+  )
+
+  const renderLoading = (
+    <Loading
+      disabled={disabled}
+      animation={'circle'}
+      size={24}
+      type={variant === 'primary' ? 'secondary' : 'primary'}
+    />
+  )
+
+  const renderContent = (): JSX.Element => {
+    if (loading) return renderLoading
+    else if (icon != null && label == null) return renderIcon
+    else if (icon == null && label != null) return renderLabel
+  }
 
   return (
     <Animated.View style={{ transform: [{ scale }], opacity }}>
       <Styled.Pressable
         width={width}
-        iconPositon={iconPositon}
         icon={icon}
         variant={variant}
         disabled={disabled}
@@ -84,47 +114,7 @@ const Button = (props: ButtonProps): JSX.Element => {
         onPressOut={onPressOut}
         {...rest}
       >
-        {loading ? (
-          <Loading
-            disabled={disabled}
-            animation={'circle'}
-            size={24}
-            type={variant === 'primary' ? 'secondary' : 'primary'}
-          />
-        ) : (
-          <>
-            {icon != null && iconPositon === 'leading' && (
-              <Styled.Icon
-                label={label}
-                name={icon}
-                iconPositon={iconPositon}
-                size={18}
-                variant={variant}
-                disabled={disabled}
-              />
-            )}
-            {label != null && (
-              <Styled.Label
-                numberOfLines={1}
-                variant={variant}
-                disabled={disabled}
-              >
-                {label}
-              </Styled.Label>
-            )}
-            {icon != null && iconPositon === 'trailing' && (
-              <Styled.Icon
-                label={label}
-                name={icon}
-                iconPositon={iconPositon}
-                width={24}
-                height={24}
-                variant={variant}
-                disabled={disabled}
-              />
-            )}
-          </>
-        )}
+        {renderContent()}
       </Styled.Pressable>
     </Animated.View>
   )

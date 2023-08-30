@@ -1,4 +1,3 @@
-export { default as IconComponent } from '../assets/icons'
 export { default as Button } from './Button'
 export { default as Global } from './Global'
 export { default as Header } from './Header'
@@ -13,3 +12,5 @@ export { default as SocialButton } from './SocialButton'
 export { default as Spoiler } from './Spoiler'
 export { default as Input } from './Input'
 export { default as ToastNotification } from './ToastNotification'
+
+export * as Icon from './Icon'

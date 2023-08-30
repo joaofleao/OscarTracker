@@ -9,14 +9,13 @@ import {
 } from 'react-native'
 
 import { Global, Header, Poster, ProgressBar } from '../../../components'
-import { useEdition, useTheme, useUser } from '../../../features'
+import { useEdition, useUser } from '../../../features'
 import { getImage } from '../../../services/tmdb/api'
 import { type HomeScreenProps, type Nomination } from '../../../types'
 import { routes } from '../../../utils'
 
 const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
   const edition = useEdition()
-  const theme = useTheme()
   const user = useUser()
 
   React.useEffect(() => {
@@ -98,18 +97,23 @@ const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
 
   return (
     <Global.Screen>
-      <Header
-        title="Welcome Back!"
-        bigHeader
-        align="left"
-        description="Here are the 2022 nominations"
-      />
+      <Header.Root>
+        <Header.TextContainer>
+          <Header.Logo bigHeader>oscar tracker</Header.Logo>
+          <Header.Description bigHeader>here are the 2022 nominations</Header.Description>
+        </Header.TextContainer>
+        {/* <Button
+          label="2022"
+          variant="action"
+        /> */}
+      </Header.Root>
 
       <ProgressBar
         progress={user.watchedMovies.length}
         total={edition.totalMovies}
-        mh={theme.sizes.size10}
-        mb={theme.sizes.size10}
+        mt={'10px'}
+        mb={'20px'}
+        mh={'20px'}
       />
 
       <FlatList
