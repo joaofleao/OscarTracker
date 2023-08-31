@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { type FirebaseError } from 'firebase/app'
 import {
   createUserWithEmailAndPassword,
@@ -18,23 +17,7 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   const user = useUser()
   const loading = useLoading()
 
-  const [initializing, setInitializing] = useState<boolean>(true)
-
   const users = collection(db, 'users')
-
-  useEffect(() => {
-    const unsubscribeAuth = auth.onAuthStateChanged((data: User | null) => {
-      if (data !== null) {
-        user.setUid(data.uid)
-        user.setIsLogged(true)
-      }
-      setInitializing(false)
-    })
-    return () => {
-      unsubscribeAuth()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const showError = (error: FirebaseError): void => {
     toast.showToast(error.code, error.message, 'error')
@@ -109,7 +92,6 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   }
 
   const value = {
-    initializing,
     signIn,
     signUp,
     signOut,

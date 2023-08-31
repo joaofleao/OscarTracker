@@ -3,11 +3,11 @@ import { StatusBar } from 'react-native'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 
-// import colors from 'tailwindcss/colors'
 import { LoadingModal } from '../../components'
-import { useAuth, useUser } from '../../features'
+import { useUser } from '../../features'
 import { Logged, Unlogged } from '../../routes'
-import { type ScreenTypes } from '../../types'
+import { auth as services } from '../../services'
+import { type ScreenTypes, User } from '../../types'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
@@ -19,33 +19,50 @@ const screenOptions = {
   headerShown: false,
 }
 
+const localFonts = {
+  'Quicksand-Bold': require('../../assets/fonts/quicksand/Quicksand-Bold.ttf'),
+  'Quicksand-SemiBold': require('../../assets/fonts/quicksand/Quicksand-SemiBold.ttf'),
+  'Quicksand-Medium': require('../../assets/fonts/quicksand/Quicksand-Medium.ttf'),
+  'Quicksand-Regular': require('../../assets/fonts/quicksand/Quicksand-Regular.ttf'),
+  'Quicksand-Light': require('../../assets/fonts/quicksand/Quicksand-Light.ttf'),
+
+  'Spartan-Bold': require('../../assets/fonts/spartan/Spartan-Bold.ttf'),
+  'Spartan-SemiBold': require('../../assets/fonts/spartan/Spartan-SemiBold.ttf'),
+  'Spartan-Medium': require('../../assets/fonts/spartan/Spartan-Medium.ttf'),
+  'Spartan-Regular': require('../../assets/fonts/spartan/Spartan-Regular.ttf'),
+  'Spartan-Light': require('../../assets/fonts/spartan/Spartan-Light.ttf'),
+}
+
 const Router = (): JSX.Element => {
-  const auth = useAuth()
   const user = useUser()
-
-  const [fontsLoaded] = useFonts({
-    'Quicksand-Bold': require('../../assets/fonts/quicksand/Quicksand-Bold.ttf'),
-    'Quicksand-SemiBold': require('../../assets/fonts/quicksand/Quicksand-SemiBold.ttf'),
-    'Quicksand-Medium': require('../../assets/fonts/quicksand/Quicksand-Medium.ttf'),
-    'Quicksand-Regular': require('../../assets/fonts/quicksand/Quicksand-Regular.ttf'),
-    'Quicksand-Light': require('../../assets/fonts/quicksand/Quicksand-Light.ttf'),
-
-    'Spartan-Bold': require('../../assets/fonts/spartan/Spartan-Bold.ttf'),
-    'Spartan-SemiBold': require('../../assets/fonts/spartan/Spartan-SemiBold.ttf'),
-    'Spartan-Medium': require('../../assets/fonts/spartan/Spartan-Medium.ttf'),
-    'Spartan-Regular': require('../../assets/fonts/spartan/Spartan-Regular.ttf'),
-    'Spartan-Light': require('../../assets/fonts/spartan/Spartan-Light.ttf'),
-  })
-
-  const onLayoutRootView = React.useCallback(async () => {
-    if (fontsLoaded && !auth.initializing) {
-      await SplashScreen.hideAsync()
-    }
-  }, [fontsLoaded, auth.initializing])
+  const [fontsLoaded] = useFonts(localFonts)
+  const [splashLoaded, setSplashLoaded] = React.useState(false)
+  const [authLoaded, setAuthLoaded] = React.useState(false)
 
   React.useEffect(() => {
-    onLayoutRootView()
-  }, [onLayoutRootView])
+    const unsubscribeAuth = services.onAuthStateChanged((data: User | null) => {
+      if (data !== null) {
+        user.setUid(data.uid)
+        user.setIsLogged(true)
+      }
+      setAuthLoaded(true)
+    })
+
+    setTimeout(() => {
+      setSplashLoaded(true)
+    }, 1000)
+
+    return () => {
+      unsubscribeAuth()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  React.useEffect(() => {
+    if (fontsLoaded && splashLoaded && authLoaded) {
+      SplashScreen.hideAsync()
+    }
+  }, [splashLoaded, fontsLoaded, authLoaded])
 
   if (!fontsLoaded) {
     return null
