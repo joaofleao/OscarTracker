@@ -1,18 +1,20 @@
 import { useState } from 'react'
-import { Text, View } from 'react-native'
 
 import { Button, Global, Header, Icon, Input } from '../../../../components'
 import { type EmailProps } from '../../../../types'
 import { routes } from '../../../../utils'
+import * as Styled from './styles'
 
 const Email = ({ navigation }: EmailProps): JSX.Element => {
   const [email, setEmail] = useState<string>('')
+
+  const formattedEmail = email.replace(/[^a-zA-Z0-9@.]/g, '')
 
   const emailValid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)
 
   const handleNext = (): void => {
     navigation.navigate(routes.unlogged.signUpPassword, {
-      email,
+      email: formattedEmail,
     })
   }
 
@@ -29,49 +31,29 @@ const Email = ({ navigation }: EmailProps): JSX.Element => {
         </Header.TextContainer>
       </Header.Root>
 
-      <View
-      // className="flex-1 mx-4"
-      >
-        <View
-        // className="flex-1 justify-center"
-        >
-          <Text
-          // className="text-white font-primaryRegular text-2xl mb-4"
-          >
-            Give us your best e-mail
-          </Text>
-          <Text
-          // className="text-white font-primaryRegular text-base"
-          >
-            We will send you a verification code to confirm
-          </Text>
-        </View>
+      <Styled.Header>
+        <Global.Title>Give us your best e-mail</Global.Title>
+        <Global.Description>We will send you a verification code to confirm</Global.Description>
+      </Styled.Header>
 
-        <View
-        // className="flex-1 justify-top"
-        >
-          <Input
-            label="Email"
-            value={email}
-            validation={emailValid}
-            errorText={'You must provide a valid email'}
-            onChangeText={(text) => {
-              setEmail(text.trim())
-            }}
-          />
-        </View>
+      <Styled.Content>
+        <Input
+          label="Email"
+          value={email}
+          validation={emailValid}
+          errorText={'You must provide a valid email'}
+          onChangeText={setEmail}
+        />
+      </Styled.Content>
 
-        <View
-        // className="flex-1 items-center justify-end"
-        >
-          <Button
-            label="Next"
-            disabled={!emailValid}
-            // className="w-60"
-            onPress={handleNext}
-          />
-        </View>
-      </View>
+      <Styled.Footer>
+        <Button
+          width="fixed"
+          label="Next"
+          disabled={!emailValid}
+          onPress={handleNext}
+        />
+      </Styled.Footer>
     </Global.Screen>
   )
 }

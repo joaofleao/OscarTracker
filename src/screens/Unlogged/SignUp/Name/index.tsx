@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Text, View } from 'react-native'
 
 import { Button, Global, Header, Icon, Input } from '../../../../components'
 import { useAuth } from '../../../../features'
 import { type NameProps } from '../../../../types'
+import * as Styled from './styles'
 
 const Name = ({ navigation, route }: NameProps): JSX.Element => {
   const [name, setName] = useState<string>('')
@@ -32,56 +32,33 @@ const Name = ({ navigation, route }: NameProps): JSX.Element => {
         </Header.TextContainer>
       </Header.Root>
 
-      <View
-      // className="flex-1 mx-4"
-      >
-        <View
-        // className="flex-1 justify-center"
-        >
-          <Text
-          // className="text-white font-primaryRegular text-2xl mb-4"
-          >
-            How would you like to be called?
-          </Text>
-          <Text
-          // className="text-white font-primaryRegular text-base"
-          >
-            The nickname will be shown to all your friends
-          </Text>
-        </View>
+      <Styled.Header>
+        <Global.Title> How would you like to be called?</Global.Title>
+        <Global.Description> The nickname will be shown to all your friends</Global.Description>
+      </Styled.Header>
 
-        <View
-        // className="flex-1 justify-center"
-        >
-          <Input
-            label="Name"
-            value={name}
-            validation={nameValid}
-            errorText={'Please provide name and last name'}
-            onChange={(e) => {
-              setName(e.nativeEvent.text)
-            }}
-          />
-          <Input
-            label="Nickname"
-            value={nickName}
-            // className="my-4"
-            onChange={(e) => {
-              setNickName(e.nativeEvent.text)
-            }}
-          />
-        </View>
+      <Styled.Content>
+        <Input
+          label="Name"
+          value={name}
+          validation={nameValid}
+          errorText={'Please provide name and last name'}
+          onChangeText={setName}
+        />
+        <Input
+          label="Nickname"
+          value={nickName}
+          onChangeText={setNickName}
+        />
+      </Styled.Content>
 
-        <View
-        // className="flex-1 items-center justify-end my-4"
-        >
-          <Button
-            label="Next"
-            // className="w-60"
-            onPress={handleNext}
-          />
-        </View>
-      </View>
+      <Styled.Footer>
+        <Button
+          width="fixed"
+          label="Next"
+          onPress={handleNext}
+        />
+      </Styled.Footer>
     </Global.Screen>
   )
 }
