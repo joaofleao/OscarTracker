@@ -1,12 +1,7 @@
 import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 
-import type { StyledProps } from '../../types'
-
-export const Container = styled.View(() => {
-  return {}
-})
-export const Content = styled.View((props: StyledProps) => {
+export const Content = styled.View((props) => {
   return {
     backgroundColor: props.theme.palette.background.container,
     borderRadius: 20,
@@ -17,12 +12,14 @@ export const Content = styled.View((props: StyledProps) => {
   }
 })
 
-interface InputProps extends StyledProps {
+type InputProps = {
   isSearch: boolean
+  ref: unknown
 }
 
-export const Input = styled.TextInput((props: InputProps) => {
+export const Input = styled.TextInput<InputProps>((props) => {
   return {
+    ref: props.ref,
     color: props.theme.palette.text.default,
     fontFamily: props.theme.typography.primary.bold,
     fontSize: 18,
@@ -42,11 +39,11 @@ export const LabelContainer = styled(Animated.View)(() => {
   }
 })
 
-interface TextProps extends StyledProps {
+type LabelProps = {
   isFocused: boolean
 }
 
-export const Label = styled.Text((props: TextProps) => {
+export const Label = styled.Text<LabelProps>((props) => {
   return {
     color: props.isFocused ? props.theme.palette.primary.default : props.theme.palette.text.light,
     fontFamily: props.isFocused
@@ -61,17 +58,22 @@ export const ErrorContainer = styled.View(() => {
     flexDirection: 'row',
     marginTop: 12,
     marginLeft: 8,
-    // alignItems: 'center',
   }
 })
 
-export const ErrorMessage = styled.Text((props: TextProps) => {
+export const ErrorMessage = styled.Text((props) => {
   return {
     fontSize: 14,
     marginLeft: 6,
 
-    lineHeight: 14,
+    lineHeight: '14px',
     fontFamily: props.theme.typography.primary.bold,
     color: props.theme.palette.negative.default,
+  }
+})
+
+export const Placeholder = styled.View(() => {
+  return {
+    height: 50,
   }
 })

@@ -1,12 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import {
-  Animated,
-  Easing,
-  Pressable,
-  type TextInput,
-  type TextInputProps,
-  View,
-} from 'react-native'
+import { Animated, Easing, Pressable, type TextInputProps, View } from 'react-native'
 
 import { Button, Icon } from '../../components'
 import { useTheme } from '../../features'
@@ -28,7 +21,7 @@ const Input = (props: InputProps): JSX.Element => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(type === 'password')
   const [showError, setShowError] = useState<boolean>(false)
 
-  const inputRef = useRef<TextInput>(null)
+  const inputRef = useRef(null)
   const focusAnim = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
@@ -49,8 +42,7 @@ const Input = (props: InputProps): JSX.Element => {
     return () => {
       clearTimeout(userTyping)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value])
+  }, [value, validation])
 
   const transform = [
     {
@@ -68,7 +60,7 @@ const Input = (props: InputProps): JSX.Element => {
     {
       translateX: focusAnim.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, -(label != null && label.length * 2.5) | 0],
+        outputRange: [0, -(label != null && label.length * 2.5) || 0],
       }),
     },
   ]
@@ -88,13 +80,26 @@ const Input = (props: InputProps): JSX.Element => {
     return <></>
   }
 
+  const onBlur = (): void => {
+    setIsFocused(false)
+  }
+
+  const onFocus = (): void => {
+    setIsFocused(true)
+  }
+
+  const togglePasswordVisible = (): void => {
+    setIsPasswordVisible((isVisible) => {
+      return !isVisible
+    })
+  }
+  const focusRef = (): void => {
+    inputRef.current?.focus()
+  }
+
   return (
-    <Styled.Container>
-      <Pressable
-        onPress={() => {
-          return inputRef.current?.focus()
-        }}
-      >
+    <View>
+      <Pressable onPress={focusRef}>
         <Styled.Content>
           {type !== 'search' && (
             <Styled.LabelContainer style={{ transform }}>
@@ -116,34 +121,26 @@ const Input = (props: InputProps): JSX.Element => {
             autoCapitalize="none"
             ref={inputRef}
             value={value}
-            onBlur={() => {
-              setIsFocused(false)
-            }}
-            onFocus={() => {
-              setIsFocused(true)
-            }}
+            onBlur={onBlur}
+            onFocus={onFocus}
             {...rest}
           />
           {type !== 'search' && (
-            <View style={{ height: 50 }}>
+            <Styled.Placeholder>
               {type === 'password' && (
                 <Button
                   variant="action"
                   icon={isPasswordVisible ? <Icon.Eye /> : <Icon.EyeOff />}
-                  onPress={() => {
-                    setIsPasswordVisible((value) => {
-                      return !value
-                    })
-                  }}
+                  onPress={togglePasswordVisible}
                   width="fit"
                 />
               )}
-            </View>
+            </Styled.Placeholder>
           )}
         </Styled.Content>
       </Pressable>
       {getHelperText()}
-    </Styled.Container>
+    </View>
   )
 }
 
