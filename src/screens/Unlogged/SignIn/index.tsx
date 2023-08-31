@@ -2,11 +2,11 @@ import { useState } from 'react'
 
 import { Button, Global, Input, Logo } from '../../../components'
 import { useAuth } from '../../../features'
-import { type SignInScreenProps } from '../../../types'
+import { type SignInProps } from '../../../types'
 import { routes } from '../../../utils'
 import * as Styled from './styles'
 
-const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
+const SignIn = ({ navigation }: SignInProps): JSX.Element => {
   const auth = useAuth()
 
   const [email, setEmail] = useState<string>('')
@@ -69,4 +69,4 @@ const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
   )
 }
 
-export default SignInScreen
+export default SignIn

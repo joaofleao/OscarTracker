@@ -3,9 +3,9 @@ import { type NativeStackScreenProps } from '@react-navigation/native-stack'
 
 export interface ScreenTypes extends ParamListBase {
   IndexScreen: undefined
-  SignInScreen: undefined
+  SignIn: undefined
   SignUpEmailScreen: undefined
-  ForgotPasswordScreen: {
+  PasswordRecovery: {
     email: string | undefined
   }
   SignUpPasswordScreen: {
@@ -34,10 +34,10 @@ export type HomeScreenProps = NativeStackScreenProps<ScreenTypes, 'HomeScreen'>
 export type MovieScreenProps = NativeStackScreenProps<ScreenTypes, 'MovieScreen'>
 export type PreferencesScreenProps = NativeStackScreenProps<ScreenTypes, 'PreferencesScreen'>
 export type NominationScreenProps = NativeStackScreenProps<ScreenTypes, 'NominationScreen'>
-export type SignInScreenProps = NativeStackScreenProps<ScreenTypes, 'SignInScreen'>
+export type SignInProps = NativeStackScreenProps<ScreenTypes, 'SignIn'>
 export type WatchListScreenProps = NativeStackScreenProps<ScreenTypes, 'WatchListScreen'>
 export type SignUpAvatarScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpAvatarScreen'>
 export type SignUpEmailScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpEmailScreen'>
 export type SignUpPasswordScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpPasswordScreen'>
 export type SignUpNameScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpNameScreen'>
-export type ForgotPasswordScreenProps = NativeStackScreenProps<ScreenTypes, 'ForgotPasswordScreen'>
+export type PasswordRecoveryProps = NativeStackScreenProps<ScreenTypes, 'PasswordRecovery'>

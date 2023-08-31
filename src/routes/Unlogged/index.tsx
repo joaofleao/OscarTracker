@@ -1,5 +1,5 @@
 import {
-  ForgotPasswordScreen,
+  PasswordRecovery,
   SignIn,
   SignUpAvatarScreen,
   SignUpEmailScreen,
@@ -36,7 +36,7 @@ export const Unlogged = (
     />
     <Stack.Screen
       name={routes.unlogged.forgotPassword}
-      component={ForgotPasswordScreen}
+      component={PasswordRecovery}
     />
   </>
 )

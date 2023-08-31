@@ -1,11 +1,11 @@
 export const routes = {
   unlogged: {
-    signIn: 'SignInScreen' as const,
+    signIn: 'SignIn' as const,
     signUpEmail: 'SignUpEmailScreen' as const,
     signUpPassword: 'SignUpPasswordScreen' as const,
     signUpName: 'SignUpNameScreen' as const,
     signUpAvatar: 'SignUpAvatarScreen' as const,
-    forgotPassword: 'ForgotPasswordScreen' as const,
+    forgotPassword: 'PasswordRecovery' as const,
   },
   logged: {
     index: 'IndexScreen' as const,
