@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ThemeProvider as StyledComponentsProvider } from 'styled-components/native'
+import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
 
 import { getTheme } from '../../styles'
 import type { ModeType } from '../../types'
@@ -17,7 +17,7 @@ const ThemeProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
 
   return (
     <ThemeContext.Provider value={value}>
-      <StyledComponentsProvider theme={theme}>{children}</StyledComponentsProvider>
+      <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>
     </ThemeContext.Provider>
   )
 }
