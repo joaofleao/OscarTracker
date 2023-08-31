@@ -2,15 +2,15 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { ToastNotification } from '../../components'
+// import { ToastNotification } from '../../components'
 import { useLoading } from '../../features'
 import ToastContext, { type ToastContextType } from './ToastContext'
 
 const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const loading = useLoading()
-  const [title, setTitle] = useState<string>('')
-  const [description, setDescription] = useState<string>('')
-  const [type, setType] = useState<string>('')
+  // const [title, setTitle] = useState<string>('')
+  // const [description, setDescription] = useState<string>('')
+  // const [type, setType] = useState<string>('')
   const [toast, setToast] = useState<boolean>(false)
   const insets = useSafeAreaInsets()
 
@@ -44,11 +44,12 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
     }
   }, [loading.isActive, toast, insets.top, popAnim, windowHeight])
 
-  const showToast = (title: string, description: string, type: 'success' | 'error'): void => {
-    setTitle(title)
-    setDescription(description)
-    setType(type)
-    setToast(true)
+  const showToast = () // title: string, description: string, type: 'success' | 'error'
+  : void => {
+    // setTitle(title)
+    // setDescription(description)
+    // setType(type)
+    // setToast(true)
   }
 
   const value = {
@@ -57,12 +58,12 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
 
   return (
     <ToastContext.Provider value={value}>
-      <ToastNotification
+      {/* <ToastNotification
         title={title}
         description={description}
         type={type}
         position={popAnim}
-      />
+      /> */}
       {children}
     </ToastContext.Provider>
   )

@@ -13,8 +13,8 @@ const Logo = ({ height, width, ...props }: LogoProps): JSX.Element => {
   return (
     <View style={{ height: height as DimensionValue, width: width as DimensionValue }}>
       <Svg
-        width="100%"
-        height="100%"
+        width={33}
+        height={100}
         viewBox={`0 0 ${originalWidth} ${originalHeight}`}
         {...props}
       >

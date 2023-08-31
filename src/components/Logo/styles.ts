@@ -1,25 +1,18 @@
 import styled from 'styled-components/native'
 
-import type { StyledProps } from '../../types'
-
-export const Container = styled.View({
-  flexDirection: 'row',
-  alignSelf: 'flex-start',
+export const Container = styled.View((props) => {
+  return {
+    flexDirection: 'row',
+    gap: props.theme.sizes.size10,
+  }
 })
 
-export const Title = styled.Text((props: StyledProps) => {
+export const Title = styled.Text((props) => {
   return {
     color: props.theme.palette.text.default,
     fontSize: props.theme.typography.sizes.fontSize11,
     fontFamily: props.theme.typography.primary.regular,
     alignSelf: 'flex-start',
     marginVertical: props.theme.sizes.size2,
-  }
-})
-
-export const Texts = styled.View((props: StyledProps) => {
-  return {
-    marginLeft: props.theme.sizes.size6,
-    padding: props.theme.sizes.size6,
   }
 })

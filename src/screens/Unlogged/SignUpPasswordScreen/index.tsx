@@ -2,13 +2,10 @@ import { useState } from 'react'
 import { Text, View } from 'react-native'
 
 import { Button, Global, Header, Icon, Input } from '../../../components'
-import { useTheme } from '../../../features'
 import { type SignUpPasswordScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
 const SignUpPasswordScreen = ({ navigation, route }: SignUpPasswordScreenProps): JSX.Element => {
-  const theme = useTheme()
-
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
   const isValid = password === confirmPassword && password.length > 0
@@ -73,7 +70,6 @@ const SignUpPasswordScreen = ({ navigation, route }: SignUpPasswordScreenProps):
             label="Password"
             value={password}
             type={'password'}
-            mb={theme.sizes.size10}
             onChange={(e) => {
               setPassword(e.nativeEvent.text)
             }}

@@ -111,9 +111,6 @@ const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
       <ProgressBar
         progress={user.watchedMovies.length}
         total={edition.totalMovies}
-        mt={'10px'}
-        mb={'20px'}
-        mh={'20px'}
       />
 
       <FlatList

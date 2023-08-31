@@ -2,14 +2,14 @@ import { useState } from 'react'
 import { Text, View } from 'react-native'
 
 import { Button, Global, Header, Icon, Input } from '../../../components'
-import { useAuth, useTheme } from '../../../features'
+import { useAuth } from '../../../features'
 import { type SignUpNameScreenProps } from '../../../types'
 
 const SignUpNameScreen = ({ navigation, route }: SignUpNameScreenProps): JSX.Element => {
   const [name, setName] = useState<string>('')
   const [nickName, setNickName] = useState<string>('')
   const auth = useAuth()
-  const theme = useTheme()
+
   const { email, password } = route.params
 
   const nameValid =
@@ -58,7 +58,6 @@ const SignUpNameScreen = ({ navigation, route }: SignUpNameScreenProps): JSX.Ele
             value={name}
             validation={nameValid}
             errorText={'Please provide name and last name'}
-            mb={theme.sizes.size10}
             onChange={(e) => {
               setName(e.nativeEvent.text)
             }}

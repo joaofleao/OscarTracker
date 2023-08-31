@@ -9,25 +9,6 @@ export const Screen = styled.SafeAreaView((props: StyledProps) => {
   }
 })
 
-export interface WrapperProps {
-  mt?: string
-  mb?: string
-  mr?: string
-  ml?: string
-
-  mv?: string
-  mh?: string
-}
-
-export const Wrapper = styled.View((props: WrapperProps) => {
-  return {
-    marginLeft: props.ml ?? props.mh ?? '0px',
-    marginRight: props.mr ?? props.mh ?? '0px',
-    marginTop: props.mt ?? props.mv ?? '0px',
-    marginBottom: props.mb ?? props.mv ?? '0px',
-  }
-})
-
 export const Separator = styled.View((props: StyledProps) => {
   return {
     width: props.theme.sizes.size10,

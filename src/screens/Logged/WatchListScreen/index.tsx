@@ -57,14 +57,9 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
       <ProgressBar
         progress={user.watchedMovies.length}
         total={edition.totalMovies}
-        mt={'10px'}
-        mb={'20px'}
-        mh={'20px'}
       />
 
       <Input
-        mh="20px"
-        mb="20px"
         type="search"
         onChange={(e: any) => {
           setSearch(e.nativeEvent.text)

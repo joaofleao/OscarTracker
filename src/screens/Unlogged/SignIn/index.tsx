@@ -1,99 +1,70 @@
 import { useState } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
 
-import { Button, Global, Input } from '../../../components'
-import { useAuth, useTheme } from '../../../features'
+import { Button, Global, Input, Logo } from '../../../components'
+import { useAuth } from '../../../features'
 import { type SignInScreenProps } from '../../../types'
 import { routes } from '../../../utils'
+import * as Styled from './styles'
 
 const SignInScreen = ({ navigation }: SignInScreenProps): JSX.Element => {
   const auth = useAuth()
-  const theme = useTheme()
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
   const formattedEmail = email.replace(/[^a-zA-Z0-9@.]/g, '')
 
+  const signIn = (): void => {
+    auth.signIn(formattedEmail, password)
+  }
+
+  const signUp = (): void => {
+    navigation.navigate(routes.unlogged.signUpEmail)
+  }
+  const forgotPassword = (): void => {
+    navigation.navigate(routes.unlogged.forgotPassword, { email })
+  }
+
   return (
     <Global.Screen>
-      <View style={{ justifyContent: 'center', flex: 1 }}>
-        <View style={{ alignItems: 'center' }}>{/* <Logo mb="40px" /> */}</View>
-
+      <Styled.Header>
+        <Logo />
+      </Styled.Header>
+      <Styled.Content>
         <Input
-          mb={theme.sizes.size10}
-          mh={theme.sizes.size10}
           label="Email"
           value={email}
-          onChangeText={(text) => {
-            setEmail(text)
-          }}
+          onChangeText={setEmail}
         />
 
         <Input
-          mh={theme.sizes.size10}
           label="Password"
           type="password"
           value={password}
-          onChangeText={(text) => {
-            setPassword(text)
-          }}
+          onChangeText={setPassword}
         />
-        <View style={{ alignItems: 'flex-end', marginHorizontal: 20 }}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate(routes.unlogged.forgotPassword, { email })
-            }}
-          >
-            <Text
-            // className=" mb-6 font-primaryBold p-2 text-xs text-amber-500 "
-            >
-              Forgot password?
-            </Text>
-          </TouchableOpacity>
-        </View>
 
-        <View
-        // className="items-center"
-        >
+        <Styled.ButtonContainer>
           <Button
             label="Sign In"
-            variant="primary"
+            width="fixed"
             disabled={formattedEmail === '' || password === ''}
-            onPress={() => {
-              auth.signIn(formattedEmail, password)
-            }}
-            mb={theme.spacings.space7}
+            onPress={signIn}
           />
+        </Styled.ButtonContainer>
+      </Styled.Content>
 
-          <Button
-            label="New here?"
-            variant="secondary"
-            onPress={() => {
-              navigation.navigate(routes.unlogged.signUpEmail)
-            }}
-          />
-        </View>
+      <Styled.Footer>
+        <Styled.ForgotButton onPress={forgotPassword}>
+          <Styled.ForgotLabel>Forgot password?</Styled.ForgotLabel>
+        </Styled.ForgotButton>
 
-        <View
-        // className="w-full items-center"
-        >
-          {/* <Text className='text-gray-600 font-[Spartan-Regular] mb-4 text-base'>continue using</Text> */}
-
-          {/* <View className='flex-row'>
-            <SocialButtonComponent
-              name='Facebook'
-              onPress={() => signInFacebook()}
-              className='mr-2'
-            />
-            <SocialButtonComponent
-              name='Google'
-              onPress={() => signInGoogle()}
-              className='ml-2'
-            />
-          </View> */}
-        </View>
-      </View>
+        <Button
+          label="New here?"
+          variant="secondary"
+          onPress={signUp}
+        />
+      </Styled.Footer>
     </Global.Screen>
   )
 }

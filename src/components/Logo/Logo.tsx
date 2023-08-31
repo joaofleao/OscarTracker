@@ -1,3 +1,5 @@
+import { View } from 'react-native'
+
 import { OscarLogo } from '../../assets/images'
 import * as Styled from './styles'
 
@@ -5,11 +7,10 @@ const Logo = (): JSX.Element => {
   return (
     <Styled.Container>
       <OscarLogo />
-
-      <Styled.Texts>
+      <View>
         <Styled.Title>oscar</Styled.Title>
         <Styled.Title>tracker</Styled.Title>
-      </Styled.Texts>
+      </View>
     </Styled.Container>
   )
 }

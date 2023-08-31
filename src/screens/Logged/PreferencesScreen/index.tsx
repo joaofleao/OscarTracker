@@ -357,7 +357,6 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
         total={5}
         progress={index}
         mh={theme.sizes.size10}
-        mb={theme.sizes.size15}
       />
 
       <FlatList
@@ -375,7 +374,6 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
           <Button
             variant="secondary"
             label={screens[index].firstButton}
-            mb={theme.sizes.size8}
             onPress={() => {
               handleNext(false)
             }}

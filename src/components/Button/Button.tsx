@@ -107,7 +107,7 @@ const Button = (props: ButtonProps): JSX.Element => {
     <Animated.View style={{ transform: [{ scale }], opacity }}>
       <Styled.Pressable
         width={width}
-        icon={icon}
+        icon={!!icon}
         variant={variant}
         disabled={disabled}
         onPressIn={onPressIn}

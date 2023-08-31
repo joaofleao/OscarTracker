@@ -2,15 +2,13 @@ import styled from 'styled-components/native'
 
 import type { StyledProps } from '../../types'
 
-interface Props extends StyledProps {
-  label: string
-  variant: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
+interface PressableProps extends StyledProps {
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
   width: 'fit' | 'fixed' | 'full'
   icon: boolean
-  name: string
 }
 
-export const Pressable = styled.Pressable((props: Props) => {
+export const Pressable = styled.Pressable<PressableProps>((props) => {
   const getBackgroundColor = (): string => {
     if (props.variant === 'primary') return props.theme.palette.primary.default
     if (props.variant === 'secondary') return props.theme.palette.primary.shades.shade5
@@ -20,8 +18,8 @@ export const Pressable = styled.Pressable((props: Props) => {
 
   const getWidth = (): string => {
     if (props.width === 'fit') return 'auto'
-    // if (props.width === 'fixed') return props.theme.spacings.space31
-    // return '100%'
+    if (props.width === 'fixed') return props.theme.spacings.space31
+    return '100%'
   }
 
   const getHorizontalPadding = (): string => {
@@ -46,11 +44,14 @@ export const Pressable = styled.Pressable((props: Props) => {
     width: getWidth(),
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
   }
 })
 
-export const Label = styled.Text((props: Props) => {
+interface LabelProps extends StyledProps {
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
+}
+
+export const Label = styled.Text<LabelProps>((props) => {
   const getContentColor = (): string => {
     if (props.variant === 'primary') return props.theme.palette.text.inverse
     return props.theme.palette.primary.default
