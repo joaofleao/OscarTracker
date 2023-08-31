@@ -4,10 +4,10 @@ import styled from 'styled-components/native'
 export const Content = styled.View((props) => {
   return {
     backgroundColor: props.theme.palette.background.container,
-    borderRadius: 20,
+    borderRadius: '20px',
     flexDirection: 'row',
-    padding: 10,
-    paddingLeft: 20,
+    padding: '10px',
+    paddingLeft: '20px',
     alignItems: 'center',
   }
 })
@@ -22,12 +22,12 @@ export const Input = styled.TextInput<InputProps>((props) => {
     ref: props.ref,
     color: props.theme.palette.text.default,
     fontFamily: props.theme.typography.primary.bold,
-    fontSize: 18,
+    fontSize: '18px',
     flex: 1,
-    marginRight: 10,
-    marginTop: props.isSearch ? '0px' : 22,
-    marginLeft: props.isSearch ? 10 : '0px',
-    height: props.isSearch ? 50 : 20,
+    marginRight: '10px',
+    marginTop: props.isSearch ? '0px' : '22px',
+    marginLeft: props.isSearch ? '10px' : '0px',
+    height: props.isSearch ? '50px' : '20px',
   }
 })
 
@@ -35,7 +35,7 @@ export const LabelContainer = styled(Animated.View)(() => {
   return {
     position: 'absolute',
     top: '50%',
-    left: 20,
+    left: '20px',
   }
 })
 
@@ -49,22 +49,22 @@ export const Label = styled.Text<LabelProps>((props) => {
     fontFamily: props.isFocused
       ? props.theme.typography.primary.bold
       : props.theme.typography.primary.bold,
-    fontSize: 18,
+    fontSize: '18px',
   }
 })
 
 export const ErrorContainer = styled.View(() => {
   return {
     flexDirection: 'row',
-    marginTop: 12,
-    marginLeft: 8,
+    marginTop: '12px',
+    marginLeft: '8px',
   }
 })
 
 export const ErrorMessage = styled.Text((props) => {
   return {
-    fontSize: 14,
-    marginLeft: 6,
+    fontSize: '14px',
+    marginLeft: '6px',
 
     lineHeight: '14px',
     fontFamily: props.theme.typography.primary.bold,
@@ -74,6 +74,6 @@ export const ErrorMessage = styled.Text((props) => {
 
 export const Placeholder = styled.View(() => {
   return {
-    height: 50,
+    height: '50px',
   }
 })

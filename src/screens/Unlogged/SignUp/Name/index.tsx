@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Button, Global, Header, Icon, Input } from '../../../../components'
-import { useAuth } from '../../../../features'
+import useAuth from '../../../../features/auth/useAuth'
 import { type NameProps } from '../../../../types'
 import * as Styled from './styles'
 
@@ -39,6 +39,7 @@ const Name = ({ navigation, route }: NameProps): JSX.Element => {
 
       <Styled.Content>
         <Input
+          autoComplete="name"
           label="Name"
           value={name}
           validation={nameValid}
@@ -46,6 +47,7 @@ const Name = ({ navigation, route }: NameProps): JSX.Element => {
           onChangeText={setName}
         />
         <Input
+          autoComplete="username"
           label="Nickname"
           value={nickName}
           onChangeText={setNickName}

@@ -11,7 +11,7 @@ import type {
   QueryDocumentSnapshot,
 } from '../../types'
 import { functions } from '../../utils'
-import { useUser } from '..'
+import useUser from '../user/useUser'
 import EditionContext, { type EditionContextType } from './EditionContext'
 
 const editionsCollection = collection(db, 'editions')

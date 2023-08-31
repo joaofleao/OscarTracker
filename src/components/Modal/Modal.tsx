@@ -1,8 +1,7 @@
 import { Modal as RNModal, type ModalProps as RNModalProps } from 'react-native'
 
-import { X } from '../../components'
-import { useTheme } from '../../features'
-import { Button } from '..'
+import Button from '../Button'
+import Icon from '../Icon'
 import * as Styled from './styles'
 
 export interface ModalProps extends RNModalProps {
@@ -37,7 +36,6 @@ const Modal = (props: ModalProps): JSX.Element => {
     children,
     ...rest
   } = { ...props, ...defaultValue }
-  const theme = useTheme()
 
   return (
     <RNModal
@@ -49,14 +47,14 @@ const Modal = (props: ModalProps): JSX.Element => {
         <Styled.Modal {...rest}>
           <Styled.HeaderContent>
             <Styled.Title
-              closeButton={closeButton}
+              // closeButton={closeButton}
               numberOfLines={2}
             >
               {title}
             </Styled.Title>
             {(closeButton ?? false) && onCancel != null && (
               <Button
-                icon={<X />}
+                icon={<Icon.X />}
                 variant="secondary"
                 width="fit"
               />
@@ -69,7 +67,6 @@ const Modal = (props: ModalProps): JSX.Element => {
           <Styled.Footer>
             {cancelLabel != null && onCancel != null && (
               <Button
-                mt={theme.spacings.space20}
                 variant="secondary"
                 onPress={onCancel}
                 label={cancelLabel}
@@ -78,7 +75,6 @@ const Modal = (props: ModalProps): JSX.Element => {
 
             {confirmLabel != null && onConfirm != null && (
               <Button
-                mt={theme.spacings.space20}
                 onPress={onConfirm}
                 label={confirmLabel}
               />

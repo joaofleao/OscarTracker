@@ -1,8 +1,8 @@
 import React from 'react'
 import { Animated, type PressableProps } from 'react-native'
 
-import { useTheme } from '../../features'
-import { Loading } from '../index'
+import useTheme from '../../features/theme/useTheme'
+import Loading from '../Loading'
 import * as Styled from './styles'
 
 export interface ButtonProps extends PressableProps {

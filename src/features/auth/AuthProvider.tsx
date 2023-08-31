@@ -8,7 +8,9 @@ import {
 } from 'firebase/auth'
 import { collection, doc, setDoc } from 'firebase/firestore'
 
-import { useLoading, useToast, useUser } from '../../features'
+import useLoading from '../../features/loading/useLoading'
+import useToast from '../../features/toast/useToast'
+import useUser from '../../features/user/useUser'
 import { auth, db } from '../../services'
 import AuthContext, { type AuthContextType } from './AuthContext'
 

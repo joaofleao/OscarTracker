@@ -38,6 +38,7 @@ const Email = ({ navigation }: EmailProps): JSX.Element => {
 
       <Styled.Content>
         <Input
+          autoComplete="email"
           label="Email"
           value={email}
           validation={emailValid}

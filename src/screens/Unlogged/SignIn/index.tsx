@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Button, Global, Input, Logo } from '../../../components'
-import { useAuth } from '../../../features'
+import useAuth from '../../../features/auth/useAuth'
 import { type SignInProps } from '../../../types'
 import { routes } from '../../../utils'
 import * as Styled from './styles'
@@ -32,12 +32,14 @@ const SignIn = ({ navigation }: SignInProps): JSX.Element => {
       </Styled.Header>
       <Styled.Content>
         <Input
+          autoComplete="email"
           label="Email"
           value={email}
           onChangeText={setEmail}
         />
 
         <Input
+          autoComplete="password"
           label="Password"
           type="password"
           value={password}

@@ -1,7 +1,8 @@
 import { FlatList } from 'react-native'
 
 import { Button, Global, Header, Icon, NomineeCard } from '../../../components'
-import { useEdition, useTheme } from '../../../features'
+import useEdition from '../../../features/edition/useEdition'
+import useTheme from '../../../features/theme/useTheme'
 import { type NominationScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 

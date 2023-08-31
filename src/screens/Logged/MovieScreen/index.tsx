@@ -14,7 +14,10 @@ import {
 
 import { IMDB } from '../../../assets/images'
 import { Button, Global, Header, Icon, Spoiler } from '../../../components'
-import { useEdition, useMovies, useTheme, useUser } from '../../../features'
+import useEdition from '../../../features/edition/useEdition'
+import useMovies from '../../../features/movies/useMovies'
+import useTheme from '../../../features/theme/useTheme'
+import useUser from '../../../features/user/useUser'
 import { getImage } from '../../../services/tmdb/api'
 import { type MovieScreenProps, type Nomination, type TMDBPerson } from '../../../types'
 import { routes } from '../../../utils'

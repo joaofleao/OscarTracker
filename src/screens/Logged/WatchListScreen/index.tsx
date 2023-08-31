@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
 import { Global, Header, Input, NomineeCard, ProgressBar } from '../../../components'
-import { useEdition, useTheme, useUser } from '../../../features'
+import useEdition from '../../../features/edition/useEdition'
+import useTheme from '../../../features/theme/useTheme'
+import useUser from '../../../features/user/useUser'
 import type { BasicMovieType, WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 

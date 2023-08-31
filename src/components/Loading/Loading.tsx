@@ -1,6 +1,6 @@
 import LottieView from 'lottie-react-native'
 
-import { useTheme } from '../../features'
+import useTheme from '../../features/theme/useTheme'
 import { getAnimation, getColorPrimary, getColorSecondary, getSpeed } from './utils'
 
 export interface LoadingProps {

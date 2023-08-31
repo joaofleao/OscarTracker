@@ -52,12 +52,14 @@ const Password = ({ navigation, route }: PasswordProps): JSX.Element => {
 
       <Styled.Content>
         <Input
+          autoComplete="password"
           label="Password"
           value={password}
           type={'password'}
           onChangeText={setPassword}
         />
         <Input
+          autoComplete="password"
           label="Confirm Password"
           value={confirmPassword}
           type={'password'}

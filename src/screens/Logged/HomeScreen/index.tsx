@@ -9,7 +9,8 @@ import {
 } from 'react-native'
 
 import { Global, Header, Poster, ProgressBar } from '../../../components'
-import { useEdition, useUser } from '../../../features'
+import useEdition from '../../../features/edition/useEdition'
+import useUser from '../../../features/user/useUser'
 import { getImage } from '../../../services/tmdb/api'
 import { type HomeScreenProps, type Nomination } from '../../../types'
 import { routes } from '../../../utils'

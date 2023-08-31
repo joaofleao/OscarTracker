@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Animated, Easing, Pressable, type TextInputProps, View } from 'react-native'
 
-import { Button, Icon } from '../../components'
-import { useTheme } from '../../features'
+import Button from '../../components/Button'
+import Icon from '../../components/Icon'
+import useTheme from '../../features/theme/useTheme'
 import * as Styled from './styles'
 
 export interface InputProps extends TextInputProps {

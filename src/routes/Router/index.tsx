@@ -4,10 +4,11 @@ import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 
 import { LoadingModal } from '../../components'
-import { useUser } from '../../features'
-import { Logged, Unlogged } from '../../routes'
+import useUser from '../../features/user/useUser'
 import { auth as services } from '../../services'
 import { type ScreenTypes, User } from '../../types'
+import { Logged } from '../Logged'
+import { Unlogged } from '../Unlogged'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 

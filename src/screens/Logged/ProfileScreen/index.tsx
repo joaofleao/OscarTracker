@@ -3,7 +3,8 @@ import { ScrollView, Switch, Text, View } from 'react-native'
 
 import packageJson from '../../../../package.json'
 import { Button, Global, Header, Icon, Input } from '../../../components'
-import { useAuth, useUser } from '../../../features'
+import useAuth from '../../../features/auth/useAuth'
+import useUser from '../../../features/user/useUser'
 
 const ProfileScreen = (): JSX.Element => {
   const auth = useAuth()

@@ -13,4 +13,4 @@ export { default as Spoiler } from './Spoiler'
 export { default as Input } from './Input'
 export { default as ToastNotification } from './ToastNotification'
 
-export * as Icon from './Icon'
+export { default as Icon } from './Icon'

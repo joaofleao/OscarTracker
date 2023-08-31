@@ -1,14 +1,31 @@
-export { default as AlertCircle } from './AlertCircle'
-export { default as ArrowLeft } from './ArrowLeft'
-export { default as CheckCircle } from './CheckCircle'
-export { default as Clock } from './Clock'
-export { default as Globe } from './Globe'
-export { default as Home } from './Home'
-export { default as Person } from './Person'
-export { default as Search } from './Search'
-export { default as Pencil } from './Pencil'
-export { default as Eye } from './Eye'
-export { default as Star } from './Star'
-export { default as Placeholder } from './Placeholder'
-export { default as EyeOff } from './EyeOff'
-export { default as X } from './X'
+import AlertCircle from './AlertCircle'
+import ArrowLeft from './ArrowLeft'
+import CheckCircle from './CheckCircle'
+import Clock from './Clock'
+import Eye from './Eye'
+import EyeOff from './EyeOff'
+import Globe from './Globe'
+import Home from './Home'
+import Pencil from './Pencil'
+import Person from './Person'
+import Placeholder from './Placeholder'
+import Search from './Search'
+import Star from './Star'
+import X from './X'
+
+export default {
+  AlertCircle,
+  ArrowLeft,
+  CheckCircle,
+  Clock,
+  Eye,
+  EyeOff,
+  Globe,
+  Home,
+  Pencil,
+  Person,
+  Placeholder,
+  Search,
+  Star,
+  X,
+}
