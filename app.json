@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#18181B"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -19,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/app/adaptive-icon.png",
         "backgroundColor": "#18181B"
-      }
+      },
+      "package": "com.joaofleao.oscarTracker"
     },
     "web": {
       "favicon": "./src/assets/app/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "13139605-3855-4e08-8c3e-6b0e1dcbb439"
+      }
     }
   }
 }
