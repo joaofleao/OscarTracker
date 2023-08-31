@@ -1,10 +1,9 @@
 // Unlogged
 export { default as PasswordRecovery } from './Unlogged/PasswordRecovery'
 export { default as SignIn } from './Unlogged/SignIn'
-export { default as SignUpAvatarScreen } from './Unlogged/SignUpAvatarScreen'
-export { default as SignUpEmailScreen } from './Unlogged/SignUpEmailScreen'
-export { default as SignUpNameScreen } from './Unlogged/SignUpNameScreen'
-export { default as SignUpPasswordScreen } from './Unlogged/SignUpPasswordScreen'
+export { default as Email } from './Unlogged/SignUp/Email'
+export { default as Name } from './Unlogged/SignUp/Name'
+export { default as Password } from './Unlogged/SignUp/Password'
 
 // Logged
 export { default as HomeScreen } from './Logged/HomeScreen'

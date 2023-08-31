@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { Button, Global, Header, Icon, Input } from '../../../components'
-import { type SignUpPasswordScreenProps } from '../../../types'
-import { routes } from '../../../utils'
+import { Button, Global, Header, Icon, Input } from '../../../../components'
+import { type PasswordProps } from '../../../../types'
+import { routes } from '../../../../utils'
 
-const SignUpPasswordScreen = ({ navigation, route }: SignUpPasswordScreenProps): JSX.Element => {
+const Password = ({ navigation, route }: PasswordProps): JSX.Element => {
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
   const isValid = password === confirmPassword && password.length > 0
@@ -101,4 +101,4 @@ const SignUpPasswordScreen = ({ navigation, route }: SignUpPasswordScreenProps):
   )
 }
 
-export default SignUpPasswordScreen
+export default Password

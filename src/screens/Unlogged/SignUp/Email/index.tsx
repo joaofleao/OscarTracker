@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { Button, Global, Header, Icon, Input } from '../../../components'
-import { type SignUpEmailScreenProps } from '../../../types'
-import { routes } from '../../../utils'
+import { Button, Global, Header, Icon, Input } from '../../../../components'
+import { type EmailProps } from '../../../../types'
+import { routes } from '../../../../utils'
 
-const SignUpEmailScreen = ({ navigation }: SignUpEmailScreenProps): JSX.Element => {
+const Email = ({ navigation }: EmailProps): JSX.Element => {
   const [email, setEmail] = useState<string>('')
 
   const emailValid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)
@@ -76,4 +76,4 @@ const SignUpEmailScreen = ({ navigation }: SignUpEmailScreenProps): JSX.Element 
   )
 }
 
-export default SignUpEmailScreen
+export default Email

@@ -1,11 +1,4 @@
-import {
-  PasswordRecovery,
-  SignIn,
-  SignUpAvatarScreen,
-  SignUpEmailScreen,
-  SignUpNameScreen,
-  SignUpPasswordScreen,
-} from '../../screens'
+import { Email, Name, Password, PasswordRecovery, SignIn } from '../../screens'
 import { type ScreenTypes } from '../../types'
 import { routes } from '../../utils'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -20,19 +13,15 @@ export const Unlogged = (
     />
     <Stack.Screen
       name={routes.unlogged.signUpEmail}
-      component={SignUpEmailScreen}
+      component={Email}
     />
     <Stack.Screen
       name={routes.unlogged.signUpPassword}
-      component={SignUpPasswordScreen}
+      component={Password}
     />
     <Stack.Screen
       name={routes.unlogged.signUpName}
-      component={SignUpNameScreen}
-    />
-    <Stack.Screen
-      name={routes.unlogged.signUpAvatar}
-      component={SignUpAvatarScreen}
+      component={Name}
     />
     <Stack.Screen
       name={routes.unlogged.forgotPassword}

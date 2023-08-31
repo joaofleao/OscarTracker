@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { Button, Global, Header, Icon, Input } from '../../../components'
-import { useAuth } from '../../../features'
-import { type SignUpNameScreenProps } from '../../../types'
+import { Button, Global, Header, Icon, Input } from '../../../../components'
+import { useAuth } from '../../../../features'
+import { type NameProps } from '../../../../types'
 
-const SignUpNameScreen = ({ navigation, route }: SignUpNameScreenProps): JSX.Element => {
+const Name = ({ navigation, route }: NameProps): JSX.Element => {
   const [name, setName] = useState<string>('')
   const [nickName, setNickName] = useState<string>('')
   const auth = useAuth()
@@ -86,4 +86,4 @@ const SignUpNameScreen = ({ navigation, route }: SignUpNameScreenProps): JSX.Ele
   )
 }
 
-export default SignUpNameScreen
+export default Name
