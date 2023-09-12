@@ -18,20 +18,19 @@ export const Pressable = styled.Pressable<PressableProps>((props) => {
 
   const getWidth = (): string => {
     if (props.width === 'fit') return 'auto'
-    if (props.width === 'fixed') return props.theme.spacings.space31
+    if (props.width === 'fixed') return '256px'
     return '100%'
   }
 
   const getHorizontalPadding = (): string => {
-    if (props.variant === 'action') return props.theme.spacings.space8
-    if (props.icon != null) return props.theme.spacings.space9
-    return props.theme.spacings.space11
+    if (props.variant === 'action') return '8px'
+    if (props.icon != null) return '16px'
+    return '24px'
   }
 
   const getVerticalPadding = (): string => {
-    if (props.variant === 'action') return props.theme.spacings.space8
-    if (props.icon != null) return props.theme.spacings.space9
-    return props.theme.spacings.space9
+    if (props.variant === 'action') return '8px'
+    return '12px'
   }
 
   return {
@@ -39,8 +38,7 @@ export const Pressable = styled.Pressable<PressableProps>((props) => {
     paddingVertical: getVerticalPadding(),
     paddingHorizontal: getHorizontalPadding(),
     border: props.variant === 'outlined' ? props.theme.palette.primary.default : 'transparent',
-    borderRadius:
-      props.variant === 'action' ? props.theme.spacings.space9 : props.theme.spacings.space10,
+    borderRadius: props.variant === 'action' ? '12px' : '16px',
     width: getWidth(),
     justifyContent: 'center',
     alignItems: 'center',
@@ -56,12 +54,12 @@ export const Label = styled.Text<LabelProps>((props) => {
     if (props.variant === 'primary') return props.theme.palette.text.inverse
     return props.theme.palette.primary.default
   }
+
   return {
     fontFamily: props.theme.typography.primary.bold,
     fontSize: props.theme.typography.sizes.fontSize3,
     lineHeight: props.theme.typography.sizes.fontSize5,
     color: getContentColor(),
-
     textAlign: 'center',
   }
 })

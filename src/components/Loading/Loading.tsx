@@ -1,7 +1,7 @@
 import LottieView from 'lottie-react-native'
 
-import useTheme from '../../features/theme/useTheme'
 import { getAnimation, getColorPrimary, getColorSecondary, getSpeed } from './utils'
+import { useTheme } from '@features/theme'
 
 export interface LoadingProps {
   animation?: 'dots' | 'movie' | 'circle'

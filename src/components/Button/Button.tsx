@@ -1,9 +1,9 @@
 import React from 'react'
 import { Animated, type PressableProps } from 'react-native'
 
-import useTheme from '../../features/theme/useTheme'
-import Loading from '../Loading'
 import * as Styled from './styles'
+import Loading from '@components/Loading'
+import { useTheme } from '@features/theme'
 
 export interface ButtonProps extends PressableProps {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
@@ -74,7 +74,8 @@ const Button = (props: ButtonProps): JSX.Element => {
     React.cloneElement(icon, {
       color:
         props.variant === 'primary' ? theme.palette.text.inverse : theme.palette.primary.default,
-      size: 18,
+      width: 20,
+      height: 20,
       variant,
     })
 
