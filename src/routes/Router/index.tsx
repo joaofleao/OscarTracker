@@ -1,5 +1,5 @@
 import React from 'react'
-import { StatusBar } from 'react-native'
+import { StatusBar, View } from 'react-native'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 
@@ -77,11 +77,13 @@ const Router = (): JSX.Element => {
         barStyle={'light-content'}
       />
       <LoadingModal />
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={screenOptions}>
-          {user.isLogged ? Logged : Unlogged}
-        </Stack.Navigator>
-      </NavigationContainer>
+      <View style={{ backgroundColor: '#1c1917', flex: 1 }}>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={screenOptions}>
+            {user.isLogged ? Logged : Unlogged}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
     </>
   )
 }
