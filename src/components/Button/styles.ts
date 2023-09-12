@@ -1,8 +1,6 @@
 import styled from 'styled-components/native'
 
-import type { StyledProps } from '../../types'
-
-interface PressableProps extends StyledProps {
+interface PressableProps {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
   width: 'fit' | 'fixed' | 'full'
   icon: boolean
@@ -45,7 +43,7 @@ export const Pressable = styled.Pressable<PressableProps>((props) => {
   }
 })
 
-interface LabelProps extends StyledProps {
+interface LabelProps {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
 }
 
@@ -57,8 +55,8 @@ export const Label = styled.Text<LabelProps>((props) => {
 
   return {
     fontFamily: props.theme.typography.primary.bold,
-    fontSize: props.theme.typography.sizes.fontSize3,
-    lineHeight: props.theme.typography.sizes.fontSize5,
+    fontSize: '16px',
+    lineHeight: '20px',
     color: getContentColor(),
     textAlign: 'center',
   }

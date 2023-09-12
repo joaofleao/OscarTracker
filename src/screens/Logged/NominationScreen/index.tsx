@@ -2,7 +2,6 @@ import { FlatList } from 'react-native'
 
 import { Button, Global, Header, Icon, NomineeCard } from '../../../components'
 import useEdition from '../../../features/edition/useEdition'
-import useTheme from '../../../features/theme/useTheme'
 import { type NominationScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
@@ -10,7 +9,6 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
   const { id } = route.params
 
   const edition = useEdition()
-  const theme = useTheme()
 
   const movies = edition.nominations[id]
 
@@ -32,7 +30,6 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
 
     return (
       <NomineeCard
-        mh={theme.sizes.size10}
         onPress={() => {
           navigation.navigate(routes.logged.movie, {
             id: movie.imdb,

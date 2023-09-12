@@ -1,27 +1,25 @@
 import styled from 'styled-components/native'
 
-import type { StyledProps } from '../../types'
-
-interface Props extends StyledProps {
+interface Props {
   closeButton?: boolean
 }
 
-export const Background = styled.View((props: Props) => {
+export const Background = styled.View((props) => {
   return {
     backgroundColor: props.theme.palette.background.backdrop,
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    padding: props.theme.spacings.space20,
+    padding: '80px',
   }
 })
 
-export const Modal = styled.View((props: Props) => {
+export const Modal = styled.View((props) => {
   return {
     backgroundColor: props.theme.palette.background.default,
-    padding: props.theme.spacings.space17,
-    paddingTop: props.theme.spacings.space17,
-    borderRadius: props.theme.spacings.space17,
+    padding: '48px',
+    paddingTop: '48px',
+    borderRadius: '48px',
     maxHeight: '80%',
   }
 })
@@ -32,24 +30,24 @@ export const HeaderContent = styled.View({
   flexDirection: 'row',
 })
 
-export const Title = styled.Text((props: Props) => {
+export const Title = styled.Text<Props>((props) => {
   return {
     fontFamily: props.theme.typography.primary.bold,
-    fontSize: props.theme.typography.sizes.fontSize8,
-    lineHeight: props.theme.typography.sizes.fontSize11,
+    fontSize: '26px',
+    lineHeight: '36px',
     color: props.theme.palette.text.default,
     flex: 1,
-    marginRight: props.closeButton ?? props.theme.spacings.space12,
+    marginRight: props.closeButton ? '28px' : '0px',
   }
 })
 
-export const Description = styled.Text((props: Props) => {
+export const Description = styled.Text((props) => {
   return {
     fontFamily: props.theme.typography.primary.bold,
-    fontSize: props.theme.typography.sizes.fontSize5,
-    lineHeight: props.theme.typography.sizes.fontSize11,
+    fontSize: '20px',
+    lineHeight: '36px',
     color: props.theme.palette.text.disabled,
-    marginVertical: props.theme.spacings.space10,
+    marginVertical: '20px',
   }
 })
 

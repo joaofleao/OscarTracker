@@ -8,20 +8,20 @@ export const Header = styled.View(() => {
   }
 })
 
-export const Content = styled.View((props) => {
+export const Content = styled.View(() => {
   return {
     flex: 2,
-    gap: props.theme.sizes.size10,
-    marginHorizontal: props.theme.sizes.size10,
+    gap: '28px',
+    marginHorizontal: '20px',
   }
 })
 
-export const Footer = styled.View((props) => {
+export const Footer = styled.View(() => {
   return {
     alignItems: 'center',
     justifyContent: 'flex-end',
     flex: 1,
-    gap: props.theme.sizes.size8,
+    gap: '14px',
   }
 })
 
@@ -34,12 +34,13 @@ export const ButtonContainer = styled.View(() => {
 export const ForgotLabel = styled.Text((props) => {
   return {
     fontFamily: props.theme.typography.primary.bold,
-    fontSize: props.theme.typography.sizes.fontSize1,
+    fontSize: '12px',
     color: props.theme.palette.primary.default,
   }
 })
-export const ForgotButton = styled.TouchableOpacity((props) => {
+
+export const ForgotButton = styled.TouchableOpacity(() => {
   return {
-    padding: props.theme.sizes.size7,
+    padding: '12px',
   }
 })

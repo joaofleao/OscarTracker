@@ -1,37 +1,33 @@
 import { Animated } from 'react-native'
 import { styled } from 'styled-components/native'
 
-import type { StyledProps } from '../../types'
-
-export const Container = styled.View((props: StyledProps) => {
-  return {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: props.theme.sizes.size3,
-    alignItems: 'center',
-  }
+export const Container = styled.View({
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginHorizontal: '4px',
+  alignItems: 'center',
 })
 
-export const Number = styled.Text((props: StyledProps) => {
+export const Number = styled.Text((props) => {
   return {
     color: props.theme.palette.text.light,
-    fontVariant: ['tabular-nums'],
+    fontVariant: 'tabular-nums',
     textAlign: 'center',
   }
 })
 
-export const Track = styled.View((props: StyledProps) => {
+export const Track = styled.View((props) => {
   return {
     backgroundColor: props.theme.palette.background.container,
-    height: props.theme.sizes.size5,
+    height: '8px',
     borderRadius: props.theme.radius.borderRadius7,
     flex: 1,
-    marginHorizontal: props.theme.sizes.size6,
+    marginHorizontal: '10px',
     overflow: 'hidden',
   }
 })
 
-export const Progress = styled(Animated.View)((props: StyledProps) => {
+export const Progress = styled(Animated.View)((props) => {
   return {
     backgroundColor: props.theme.palette.primary.default,
     width: '200%',

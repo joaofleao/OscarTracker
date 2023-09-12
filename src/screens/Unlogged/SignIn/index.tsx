@@ -1,13 +1,19 @@
 import { useState } from 'react'
+import { Keyboard } from 'react-native'
 
-import { Button, Global, Input, Logo } from '../../../components'
-import useAuth from '../../../features/auth/useAuth'
-import { type SignInProps } from '../../../types'
-import { routes } from '../../../utils'
 import * as Styled from './styles'
+import Button from '@components/Button'
+import Global from '@components/Global'
+import Input from '@components/Input'
+import Logo from '@components/Logo'
+import { useAuth } from '@features/auth'
+import type { SignInProps } from '@types'
+import { routes } from '@utils'
 
 const SignIn = ({ navigation }: SignInProps): JSX.Element => {
   const auth = useAuth()
+
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState<boolean>(false)
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -25,6 +31,14 @@ const SignIn = ({ navigation }: SignInProps): JSX.Element => {
     navigation.navigate(routes.unlogged.forgotPassword, { email })
   }
 
+  Keyboard.addListener('keyboardDidShow', () => {
+    setIsKeyboardOpen(true)
+  })
+
+  Keyboard.addListener('keyboardDidHide', () => {
+    setIsKeyboardOpen(false)
+  })
+
   return (
     <Global.Screen>
       <Styled.Header>
@@ -32,18 +46,17 @@ const SignIn = ({ navigation }: SignInProps): JSX.Element => {
       </Styled.Header>
       <Styled.Content>
         <Input
-          autoComplete="email"
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
-        />
-
-        <Input
           autoComplete="password"
           label="Password"
           type="password"
           value={password}
           onChangeText={setPassword}
+        />
+        <Input
+          autoComplete="email"
+          label="Email"
+          value={email}
+          onChangeText={setEmail}
         />
 
         <Styled.ButtonContainer>
@@ -56,17 +69,19 @@ const SignIn = ({ navigation }: SignInProps): JSX.Element => {
         </Styled.ButtonContainer>
       </Styled.Content>
 
-      <Styled.Footer>
-        <Styled.ForgotButton onPress={forgotPassword}>
-          <Styled.ForgotLabel>Forgot password?</Styled.ForgotLabel>
-        </Styled.ForgotButton>
+      {!isKeyboardOpen && (
+        <Styled.Footer>
+          <Styled.ForgotButton onPress={forgotPassword}>
+            <Styled.ForgotLabel>Forgot password?</Styled.ForgotLabel>
+          </Styled.ForgotButton>
 
-        <Button
-          label="New here?"
-          variant="secondary"
-          onPress={signUp}
-        />
-      </Styled.Footer>
+          <Button
+            label="New here?"
+            variant="secondary"
+            onPress={signUp}
+          />
+        </Styled.Footer>
+      )}
     </Global.Screen>
   )
 }

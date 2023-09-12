@@ -52,8 +52,6 @@ const ProfileScreen = (): JSX.Element => {
 
         <Input
           value={displayName}
-          mh="20px"
-          mb="20px"
           editable={editing}
           label="Name"
           onChangeText={(text) => {
@@ -62,8 +60,6 @@ const ProfileScreen = (): JSX.Element => {
         />
         <Input
           value={nickName}
-          mb="20px"
-          mh="20px"
           editable={editing}
           label="Nickname"
           onChangeText={(text) => {
@@ -181,8 +177,6 @@ const ProfileScreen = (): JSX.Element => {
         <Button
           label="Log Out"
           variant="outlined"
-          mh="20px"
-          mb="20px"
           onPress={auth.signOut}
         />
       </ScrollView>

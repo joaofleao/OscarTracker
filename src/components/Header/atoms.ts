@@ -1,58 +1,44 @@
 import { styled } from 'styled-components/native'
 
-import { StyledProps } from '../../types'
-
-interface TextProps extends StyledProps {
-  align: 'left' | 'center' | 'right'
-  bigHeader: boolean
+interface TextProps {
+  align?: 'left' | 'center' | 'right'
+  bigHeader?: boolean
 }
 
-export const TextContainer = styled.View((props: StyledProps) => {
+export const TextContainer = styled.View(() => {
   return {
-    gap: props.theme.sizes.size2,
+    gap: '2px',
     flex: 1,
     justifyContent: 'center',
   }
 })
 
-export const Title = styled.Text((props: TextProps) => {
+export const Title = styled.Text<TextProps>((props) => {
   return {
     color: props.theme.palette.text.default,
-    fontSize: props.bigHeader
-      ? props.theme.typography.sizes.fontSize10
-      : props.theme.typography.sizes.fontSize5,
-    lineHeight: props.bigHeader
-      ? props.theme.typography.sizes.fontSize13
-      : props.theme.typography.sizes.fontSize8,
+    fontSize: props.bigHeader ? '32px' : '20px',
+    lineHeight: props.bigHeader ? '48px' : '26px',
     fontFamily: props.theme.typography.primary.semibold,
     textAlign: props.align,
     alignSelf: props.align,
   }
 })
 
-export const Logo = styled.Text((props: TextProps) => {
+export const Logo = styled.Text<TextProps>((props) => {
   return {
     color: props.theme.palette.text.default,
-    fontSize: props.bigHeader
-      ? props.theme.typography.sizes.fontSize10
-      : props.theme.typography.sizes.fontSize5,
-    lineHeight: props.bigHeader
-      ? props.theme.typography.sizes.fontSize13
-      : props.theme.typography.sizes.fontSize8,
+    fontSize: props.bigHeader ? '32px' : '20px',
+    lineHeight: props.bigHeader ? '48px' : '26px',
     fontFamily: props.theme.typography.secondary.semibold,
     textAlign: props.align,
   }
 })
 
-export const Description = styled.Text((props: TextProps) => {
+export const Description = styled.Text<TextProps>((props) => {
   return {
     color: props.theme.palette.text.light,
-    fontSize: props.bigHeader
-      ? props.theme.typography.sizes.fontSize5
-      : props.theme.typography.sizes.fontSize3,
-    lineHeight: props.bigHeader
-      ? props.theme.typography.sizes.fontSize10
-      : props.theme.typography.sizes.fontSize8,
+    fontSize: props.bigHeader ? '20px' : '16px',
+    lineHeight: props.bigHeader ? '32px' : '26px',
     fontFamily: props.theme.typography.primary.medium,
     textAlign: props.align,
   }

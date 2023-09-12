@@ -1,22 +1,20 @@
 import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 
-import type { StyledProps } from '../../types'
-
-interface ConteinerProps extends StyledProps {
+interface ConteinerProps {
   isSuccess: boolean
 }
 
-export const Container = styled(Animated.View)((props: ConteinerProps) => {
+export const Container = styled(Animated.View)<ConteinerProps>((props) => {
   return {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     zIndex: 20,
     position: 'absolute',
-    marginHorizontal: props.theme.sizes.size10,
-    padding: props.theme.sizes.size9,
-    borderRadius: props.theme.sizes.size7,
+    marginHorizontal: '20px',
+    padding: '16px',
+    borderRadius: '12px',
     backgroundColor: props.isSuccess
       ? props.theme.palette.positive.default
       : props.theme.palette.negative.default,
@@ -31,27 +29,25 @@ export const Content = styled.View(() => {
   }
 })
 
-export const Informations = styled.View((props: StyledProps) => {
-  return {
-    flex: 1,
-    marginHorizontal: props.theme.sizes.size9,
-  }
+export const Informations = styled.View({
+  flex: 1,
+  marginHorizontal: '16px',
 })
 
-export const Title = styled.Text((props: StyledProps) => {
+export const Title = styled.Text((props) => {
   return {
     color: props.theme.palette.text.default,
     fontFamily: props.theme.typography.primary.bold,
-    fontSize: props.theme.typography.sizes.fontSize3,
-    lineHeight: props.theme.typography.sizes.fontSize7,
+    fontSize: '16px',
+    lineHeight: '24px',
   }
 })
 
-export const Description = styled.Text((props: StyledProps) => {
+export const Description = styled.Text((props) => {
   return {
     color: props.theme.palette.text.default,
     fontFamily: props.theme.typography.primary.medium,
-    fontSize: props.theme.typography.sizes.fontSize2,
-    lineHeight: props.theme.typography.sizes.fontSize5,
+    fontSize: '14px',
+    lineHeight: '20px',
   }
 })

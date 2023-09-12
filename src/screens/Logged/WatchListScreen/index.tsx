@@ -3,7 +3,6 @@ import { FlatList } from 'react-native'
 
 import { Global, Header, Input, NomineeCard, ProgressBar } from '../../../components'
 import useEdition from '../../../features/edition/useEdition'
-import useTheme from '../../../features/theme/useTheme'
 import useUser from '../../../features/user/useUser'
 import type { BasicMovieType, WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
@@ -14,7 +13,6 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
 
   const edition = useEdition()
   const user = useUser()
-  const theme = useTheme()
 
   useEffect(() => {
     if (search === '') setData(Object.values(edition.movies))
@@ -31,7 +29,6 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
   const renderItem = ({ item }: { item: BasicMovieType }): JSX.Element => {
     return (
       <NomineeCard
-        mh={theme.sizes.size10}
         onPress={() => {
           navigation.navigate(routes.logged.movie, {
             id: item.imdb,

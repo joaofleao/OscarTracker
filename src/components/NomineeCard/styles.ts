@@ -1,43 +1,37 @@
 import styled from 'styled-components/native'
 
-import type { StyledProps } from '../../types'
-
-export const Container = styled.TouchableOpacity(() => {
-  return {
-    justifyContent: 'center',
-    flexDirection: 'row',
-  }
+export const Container = styled.TouchableOpacity({
+  justifyContent: 'center',
+  flexDirection: 'row',
 })
 
-export const Content = styled.View((props: StyledProps) => {
-  return {
-    marginLeft: props.theme.sizes.size9,
-    flex: 1,
-  }
+export const Content = styled.View({
+  marginLeft: '16px',
+  flex: 1,
 })
 
-export const Title = styled.Text((props: StyledProps) => {
+export const Title = styled.Text((props) => {
   return {
-    fontSize: props.theme.typography.sizes.fontSize4,
-    lineHeight: props.theme.typography.sizes.fontSize9,
+    fontSize: '18px',
+    lineHeight: '28px',
     fontFamily: props.theme.typography.primary.bold,
     color: props.theme.palette.text.default,
   }
 })
 
-export const Information = styled.Text((props: StyledProps) => {
+export const Information = styled.Text((props) => {
   return {
-    fontSize: props.theme.typography.sizes.fontSize3,
-    lineHeight: props.theme.typography.sizes.fontSize7,
+    fontSize: '16px',
+    lineHeight: '24px',
     fontFamily: props.theme.typography.primary.regular,
     color: props.theme.palette.text.light,
   }
 })
 
-export const Extra = styled.Text((props: StyledProps) => {
+export const Extra = styled.Text((props) => {
   return {
-    fontSize: props.theme.typography.sizes.fontSize3,
-    lineHeight: props.theme.typography.sizes.fontSize7,
+    fontSize: '16px',
+    lineHeight: '24px',
     fontFamily: props.theme.typography.primary.regular,
     color: props.theme.palette.primary.default,
   }

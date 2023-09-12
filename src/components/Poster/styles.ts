@@ -1,12 +1,10 @@
 import styled from 'styled-components/native'
 
-import type { StyledProps } from '../../types'
-
-interface ImageProps extends StyledProps {
+interface ImageProps {
   width: number
   height: number
 }
-export const Container = styled.View((props: ImageProps) => {
+export const Container = styled.View<ImageProps>((props) => {
   return {
     width: props.width,
     height: props.height,
@@ -18,18 +16,18 @@ export const Container = styled.View((props: ImageProps) => {
   }
 })
 
-export const IconContainer = styled.View((props: StyledProps) => {
+export const IconContainer = styled.View((props) => {
   return {
     position: 'absolute',
     backgroundColor: props.theme.palette.primary.default,
-    padding: props.theme.sizes.size5,
+    padding: '8px',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: props.theme.radius.borderRadius4,
   }
 })
 
-export const Cover = styled.View((props: ImageProps) => {
+export const Cover = styled.View<ImageProps>((props) => {
   return {
     position: 'absolute',
     borderRadius: props.theme.radius.borderRadius4,
@@ -41,7 +39,7 @@ export const Cover = styled.View((props: ImageProps) => {
   }
 })
 
-export const Image = styled.Image((props: StyledProps) => {
+export const Image = styled.Image((props) => {
   return {
     position: 'absolute',
     width: '100%',

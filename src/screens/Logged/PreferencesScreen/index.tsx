@@ -357,7 +357,6 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
       <ProgressBar
         total={5}
         progress={index}
-        mh={theme.sizes.size10}
       />
 
       <FlatList

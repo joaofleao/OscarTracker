@@ -1,9 +1,7 @@
 import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 
-import type { StyledProps } from '../../types'
-
-export const Container = styled.Pressable((props: StyledProps) => {
+export const Container = styled.Pressable((props) => {
   return {
     alignItems: 'center',
     justifyContent: 'center',
@@ -13,7 +11,7 @@ export const Container = styled.Pressable((props: StyledProps) => {
   }
 })
 
-export const Background = styled(Animated.View)((props: StyledProps) => {
+export const Background = styled(Animated.View)((props) => {
   return {
     height: '100%',
     width: '100%',
@@ -21,10 +19,10 @@ export const Background = styled(Animated.View)((props: StyledProps) => {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: props.theme.palette.background.container,
-    padding: props.theme.sizes.size6,
+    padding: '10px',
   }
 })
-export const Title = styled.Text((props: StyledProps) => {
+export const Title = styled.Text((props) => {
   return {
     color: props.theme.palette.text.default,
     fontFamily: props.theme.typography.primary.bold,
