@@ -1,3 +1,4 @@
+import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 import type { StyledProps } from '../../types'
@@ -6,6 +7,7 @@ export const Screen = styled.SafeAreaView((props: StyledProps) => {
   return {
     backgroundColor: props.theme.palette.background.default,
     flex: 1,
+    paddingBottom: Platform.OS === 'android' ? '20px' : '0px',
   }
 })
 
