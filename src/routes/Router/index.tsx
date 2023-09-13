@@ -1,16 +1,18 @@
 import React from 'react'
-import { StatusBar, View } from 'react-native'
+import { StatusBar } from 'react-native'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 
-import { LoadingModal } from '../../components'
-import useUser from '../../features/user/useUser'
-import { auth as services } from '../../services'
-import { type ScreenTypes, User } from '../../types'
 import { Logged } from '../Logged'
 import { Unlogged } from '../Unlogged'
+import * as Styled from './styles'
+import LoadingModal from '@components/LoadingModal'
+import { useTheme } from '@features/theme'
+import { useUser } from '@features/user'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { auth } from '@services'
+import type { ScreenTypes, User } from '@types'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 
@@ -39,9 +41,10 @@ const Router = (): JSX.Element => {
   const [fontsLoaded] = useFonts(localFonts)
   const [splashLoaded, setSplashLoaded] = React.useState(false)
   const [authLoaded, setAuthLoaded] = React.useState(false)
+  const { palette } = useTheme()
 
   React.useEffect(() => {
-    const unsubscribeAuth = services.onAuthStateChanged((data: User | null) => {
+    const unsubscribeAuth = auth.onAuthStateChanged((data: User | null) => {
       if (data !== null) {
         user.setUid(data.uid)
         user.setIsLogged(true)
@@ -56,8 +59,7 @@ const Router = (): JSX.Element => {
     return () => {
       unsubscribeAuth()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [user])
 
   React.useEffect(() => {
     if (fontsLoaded && splashLoaded && authLoaded) {
@@ -73,17 +75,17 @@ const Router = (): JSX.Element => {
     <>
       <StatusBar
         animated={true}
-        backgroundColor={'#18181B'}
+        backgroundColor={palette.background.default}
         barStyle={'light-content'}
       />
       <LoadingModal />
-      <View style={{ backgroundColor: '#18181B', flex: 1 }}>
+      <Styled.Container>
         <NavigationContainer>
           <Stack.Navigator screenOptions={screenOptions}>
             {user.isLogged ? Logged : Unlogged}
           </Stack.Navigator>
         </NavigationContainer>
-      </View>
+      </Styled.Container>
     </>
   )
 }
