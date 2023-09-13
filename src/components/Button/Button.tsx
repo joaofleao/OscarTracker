@@ -2,7 +2,7 @@ import React from 'react'
 import { Animated, type PressableProps } from 'react-native'
 
 import * as Styled from './styles'
-import Loading from '@components/Loading'
+import { Loading } from '@components'
 import { useTheme } from '@features/theme'
 
 export interface ButtonProps extends PressableProps {
