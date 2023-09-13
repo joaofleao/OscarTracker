@@ -12,5 +12,6 @@ export { default as SocialButton } from './SocialButton'
 export { default as Spoiler } from './Spoiler'
 export { default as Input } from './Input'
 export { default as ToastNotification } from './ToastNotification'
+export { default as NavBar } from './NavBar'
 
 export { default as Icon } from './Icon'
