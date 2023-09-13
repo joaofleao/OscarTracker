@@ -4,7 +4,7 @@ import { Animated, type PressableProps } from 'react-native'
 import * as Styled from './styles'
 
 export interface SpoilerProps extends PressableProps {
-  children: JSX.Element
+  children: JSX.Element | JSX.Element[]
   show?: boolean
   watched?: boolean
   text?: string

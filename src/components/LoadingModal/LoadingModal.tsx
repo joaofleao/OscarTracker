@@ -1,8 +1,8 @@
 import { Modal } from 'react-native'
 
 import Loading from '../../components/Loading'
-import useLoading from '../../features/loading/useLoading'
 import * as Styled from './styles'
+import { useLoading } from '@features'
 
 const LoadingModal = (): JSX.Element => {
   const loading = useLoading()

@@ -9,11 +9,10 @@ import {
 } from 'react-native'
 
 import { Global, Header, Poster, ProgressBar } from '../../../components'
-import useEdition from '../../../features/edition/useEdition'
-import useUser from '../../../features/user/useUser'
 import { getImage } from '../../../services/tmdb/api'
 import { Category, type HomeScreenProps, type Nomination } from '../../../types'
 import { routes } from '../../../utils'
+import { useEdition, useUser } from '@features'
 
 const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
   const edition = useEdition()

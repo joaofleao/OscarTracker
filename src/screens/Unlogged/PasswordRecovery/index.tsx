@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
 import { Button, Global, Header, Icon, Input } from '../../../components'
-import useAuth from '../../../features/auth/useAuth'
 import { type PasswordRecoveryProps } from '../../../types'
 import { routes } from '../../../utils'
 import * as Styled from './styles'
+import { useAuth } from '@features'
 
 const PasswordRecovery = ({ navigation, route }: PasswordRecoveryProps): JSX.Element => {
   const { email } = route.params

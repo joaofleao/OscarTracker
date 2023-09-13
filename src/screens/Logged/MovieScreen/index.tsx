@@ -14,10 +14,6 @@ import {
 
 import { IMDB } from '../../../assets/images'
 import { Button, Global, Header, Icon, Spoiler } from '../../../components'
-import useEdition from '../../../features/edition/useEdition'
-import useMovies from '../../../features/movies/useMovies'
-import useTheme from '../../../features/theme/useTheme'
-import useUser from '../../../features/user/useUser'
 import { getImage } from '../../../services/tmdb/api'
 import type {
   MovieScreenProps,
@@ -28,6 +24,7 @@ import type {
   WatchProvider,
 } from '../../../types'
 import { routes } from '../../../utils'
+import { useEdition, useMovies, useTheme, useUser } from '@features'
 
 const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   const { id, name, poster } = route.params

@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
 import { Global, Header, Input, NomineeCard, ProgressBar } from '../../../components'
-import useEdition from '../../../features/edition/useEdition'
-import useUser from '../../../features/user/useUser'
 import type { BasicMovieType, WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
+import { useEdition, useUser } from '@features'
 
 function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
   const edition = useEdition()
