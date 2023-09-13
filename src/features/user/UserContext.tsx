@@ -17,15 +17,15 @@ export interface UserContextType {
 
   announcements: Announcement[]
 
-  setMovieUnwatched: (movie: string) => any
-  setMovieWatched: (movie: string) => any
+  setMovieUnwatched: (movie: string) => void
+  setMovieWatched: (movie: string) => void
   updateUser: (
     email?: string,
     displayName?: string,
     nickName?: string,
     preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
     onboarding?: boolean,
-  ) => any
+  ) => void
 }
 
 const UserContext = createContext<UserContextType | null>(null)

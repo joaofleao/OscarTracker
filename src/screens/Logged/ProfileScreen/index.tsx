@@ -20,7 +20,7 @@ const ProfileScreen = (): JSX.Element => {
 
   const [editing, setEditing] = useState<boolean>(false)
 
-  const handleEdit = (): any => {
+  const handleEdit = (): void => {
     if (editing) {
       user.updateUser(user.email, displayName, nickName, { poster, plot, cast, ratings }, undefined)
       setEditing(false)
@@ -54,7 +54,7 @@ const ProfileScreen = (): JSX.Element => {
           value={displayName}
           editable={editing}
           label="Name"
-          onChangeText={(text) => {
+          onChangeText={(text): void => {
             setDisplayName(text)
           }}
         />
@@ -62,7 +62,7 @@ const ProfileScreen = (): JSX.Element => {
           value={nickName}
           editable={editing}
           label="Nickname"
-          onChangeText={(text) => {
+          onChangeText={(text): void => {
             setNickname(text)
           }}
         />
@@ -88,7 +88,7 @@ const ProfileScreen = (): JSX.Element => {
             thumbColor={poster ? '#f59e0b' : '#3f3f46'}
             ios_backgroundColor={'#18181b'}
             value={poster}
-            onValueChange={() => {
+            onValueChange={(): void => {
               setPoster((value) => {
                 return !value
               })
@@ -109,7 +109,7 @@ const ProfileScreen = (): JSX.Element => {
             thumbColor={plot ? '#f59e0b' : '#3f3f46'}
             ios_backgroundColor={'#18181b'}
             value={plot}
-            onValueChange={() => {
+            onValueChange={(): void => {
               setPlot((value) => {
                 return !value
               })
@@ -130,7 +130,7 @@ const ProfileScreen = (): JSX.Element => {
             thumbColor={cast ? '#f59e0b' : '#3f3f46'}
             ios_backgroundColor={'#18181b'}
             value={cast}
-            onValueChange={() => {
+            onValueChange={(): void => {
               setCast((value) => {
                 return !value
               })
@@ -151,7 +151,7 @@ const ProfileScreen = (): JSX.Element => {
             thumbColor={ratings ? '#f59e0b' : '#3f3f46'}
             ios_backgroundColor={'#18181b'}
             value={ratings}
-            onValueChange={() => {
+            onValueChange={(): void => {
               setRatings((value) => {
                 return !value
               })

@@ -7,7 +7,7 @@ export interface MoviesContextType {
   getMovie: (id: string) => Promise<MovieType>
   getCast: (id: string) => Promise<CastType>
   getProviders: (id: string) => Promise<ProvidersType>
-  getTrailer: (id: string) => Promise<any>
+  getTrailer: (id: string) => Promise<string>
   // Firebase related functions
 }
 

@@ -8,16 +8,16 @@ import type { BasicMovieType, WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
 function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
-  const [search, setSearch] = useState<string>('')
-  const [data, setData] = useState<any>([])
-
   const edition = useEdition()
   const user = useUser()
+
+  const [search, setSearch] = useState<string>('')
+  const [data, setData] = useState(Object.values(edition.movies))
 
   useEffect(() => {
     if (search === '') setData(Object.values(edition.movies))
     else {
-      const filtered = Object.values(edition.movies).filter((movie: any) => {
+      const filtered = Object.values(edition.movies).filter((movie) => {
         const nameLower = movie['en-US'].name.toLowerCase()
         const searchLower = search.toLowerCase()
         return nameLower.includes(searchLower)
@@ -29,7 +29,7 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
   const renderItem = ({ item }: { item: BasicMovieType }): JSX.Element => {
     return (
       <NomineeCard
-        onPress={() => {
+        onPress={(): void => {
           navigation.navigate(routes.logged.movie, {
             id: item.imdb,
             poster: item['en-US'].image,
@@ -60,7 +60,7 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
 
       <Input
         type="search"
-        onChange={(e: any) => {
+        onChange={(e): void => {
           setSearch(e.nativeEvent.text)
         }}
       />
@@ -68,7 +68,7 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
       <FlatList
         data={data}
         renderItem={renderItem}
-        keyExtractor={(item) => {
+        keyExtractor={(item: BasicMovieType): string => {
           return item.imdb
         }}
         ItemSeparatorComponent={Global.Separator}

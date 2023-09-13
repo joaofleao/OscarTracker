@@ -6,14 +6,14 @@ const LoadingProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   const [text, setText] = useState<string>('')
   const [isActive, setIsActive] = useState<boolean>(false)
 
-  const start = (text: string): void => {
-    setText(text)
-    setIsActive(true)
+  const start = (_text: string): void => {
+    setText(_text)
+    setIsActive(false)
   }
 
   const stop = (): void => {
     setTimeout(() => {
-      setIsActive(false)
+      setIsActive(true)
     }, 1000)
   }
 

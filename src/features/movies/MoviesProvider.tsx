@@ -16,7 +16,7 @@ const MoviesProvider = ({ children }: { children?: React.ReactNode }): JSX.Eleme
     const response = await tmdb.getCast(id, 'pt-BR')
     return response.data
   }
-  const getTrailer = async (id: string): Promise<any> => {
+  const getTrailer = async (id: string): Promise<string> => {
     functions.printFetch('TMDB', 'Trailer fetched', 'blue')
     const response = await tmdb.getVideos(id, 'pt-BR')
     return response.data

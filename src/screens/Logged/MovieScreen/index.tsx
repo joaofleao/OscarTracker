@@ -19,15 +19,22 @@ import useMovies from '../../../features/movies/useMovies'
 import useTheme from '../../../features/theme/useTheme'
 import useUser from '../../../features/user/useUser'
 import { getImage } from '../../../services/tmdb/api'
-import { type MovieScreenProps, type Nomination, type TMDBPerson } from '../../../types'
+import type {
+  MovieScreenProps,
+  MovieType,
+  Nomination,
+  ProductionCompany,
+  TMDBPerson,
+  WatchProvider,
+} from '../../../types'
 import { routes } from '../../../utils'
 
 const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   const { id, name, poster } = route.params
   const [watched, setWatched] = useState<boolean>(false)
-  const [movieData, setMovieData] = useState<any>([])
-  const [movieCast, setMovieCast] = useState<any>([])
-  const [movieProviders, setMovieProviders] = useState<any>([])
+  const [movieData, setMovieData] = useState<MovieType>()
+  const [movieCast, setMovieCast] = useState([])
+  const [movieProviders, setMovieProviders] = useState([])
   const [nominations, setNominations] = useState<Nomination[]>([])
 
   const edition = useEdition()
@@ -39,21 +46,21 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const nominations = await edition.getNominations(id)
-      setNominations(nominations)
+      const nominationsData = await edition.getNominations(id)
+      setNominations(nominationsData)
       const movie = await movies.getMovie(id)
       const cast = await movies.getCast(id)
       const providers = await movies.getProviders(id)
 
       setMovieProviders(() => {
-        return providers.results?.BR?.flatrate?.filter((provider: any) => {
+        return providers.results?.BR?.flatrate?.filter((provider: WatchProvider) => {
           return provider.provider_id !== 1796
         })
       })
       setMovieData(movie)
       setMovieCast(cast.cast.slice(0, 10))
     }
-    void fetchData()
+    fetchData()
   }, [edition, id, movies])
 
   useEffect(() => {
@@ -77,8 +84,8 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
         // className="flex-1"
       >
         <Pressable
-          onPress={() => {
-            void Linking.openURL(`https://www.themoviedb.org/person/${item.id}`)
+          onPress={(): void => {
+            Linking.openURL(`https://www.themoviedb.org/person/${item.id}`)
           }}
           // className="w-[106px] "
         >
@@ -118,7 +125,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   const renderItem = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
     return (
       <TouchableOpacity
-        onPress={() => {
+        onPress={(): void => {
           navigation.navigate(routes.logged.nomination, { id: item.category })
         }}
         // className="bg-amber-500 rounded-2xl py-2 px-4 items-center justify-center"
@@ -131,7 +138,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
       </TouchableOpacity>
     )
   }
-  const renderProvider = ({ item }: ListRenderItemInfo<any>): JSX.Element => {
+  const renderProvider = ({ item }: ListRenderItemInfo<ProductionCompany>): JSX.Element => {
     return (
       <Image
         source={{ uri: getImage(item.logo_path) }}
@@ -221,7 +228,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
           </View>
 
           <TouchableOpacity
-            onPress={() => {
+            onPress={(): void => {
               markAsWatched(watched)
             }}
             // className={` mt-4 py-4 px-4 rounded-2xl border-2 ${
@@ -250,7 +257,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
               Nominations
             </Text>
             <TouchableOpacity
-              onPress={() => {
+              onPress={(): void => {
                 navigation.navigate(routes.logged.home)
               }}
             >
@@ -266,10 +273,10 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
             horizontal
             showsHorizontalScrollIndicator={false}
             data={nominations}
-            renderItem={(item) => {
+            renderItem={(item): JSX.Element => {
               return renderItem(item)
             }}
-            keyExtractor={(item) => {
+            keyExtractor={(item): string => {
               return `${item.category}${item.person != null ? item.person : ''}${
                 item.information != null ? item.information : ''
               }`
@@ -294,10 +301,10 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
               horizontal
               showsHorizontalScrollIndicator={false}
               data={movieProviders}
-              renderItem={(item) => {
+              renderItem={(item): JSX.Element => {
                 return renderProvider(item)
               }}
-              keyExtractor={(item) => {
+              keyExtractor={(item): string => {
                 return item.provider_id.toString()
               }}
               ItemSeparatorComponent={Global.Separator}
@@ -358,8 +365,8 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
         >
           <TouchableOpacity
             // className="flex-row items-center"
-            onPress={() => {
-              void Linking.openURL(imdbLink)
+            onPress={(): void => {
+              Linking.openURL(imdbLink)
             }}
           >
             <IMDB

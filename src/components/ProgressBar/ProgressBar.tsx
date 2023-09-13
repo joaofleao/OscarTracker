@@ -33,7 +33,7 @@ const ProgressBar = (props: ProgressBarProps): JSX.Element => {
       <Styled.Number>{progress}</Styled.Number>
       <Styled.Track>
         <Styled.Progress
-          onLayout={(e: LayoutChangeEvent) => {
+          onLayout={(e: LayoutChangeEvent): void => {
             setWidth(e.nativeEvent.layout.width)
           }}
           style={{ left: -(width / 2), transform: [{ scaleX: xCord }] }}

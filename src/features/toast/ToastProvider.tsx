@@ -18,7 +18,7 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
   const popAnim = useRef(new Animated.Value(windowHeight * -1)).current
 
   useEffect(() => {
-    const popIn = (): any => {
+    const popIn = (): void => {
       Animated.timing(popAnim, {
         toValue: insets.top,
         duration: 300,
@@ -28,7 +28,7 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
       popOut()
     }
 
-    const popOut = (): any => {
+    const popOut = (): void => {
       setTimeout(() => {
         Animated.timing(popAnim, {
           toValue: windowHeight * -1,

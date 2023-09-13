@@ -12,7 +12,7 @@ import { Global, Header, Poster, ProgressBar } from '../../../components'
 import useEdition from '../../../features/edition/useEdition'
 import useUser from '../../../features/user/useUser'
 import { getImage } from '../../../services/tmdb/api'
-import { type HomeScreenProps, type Nomination } from '../../../types'
+import { Category, type HomeScreenProps, type Nomination } from '../../../types'
 import { routes } from '../../../utils'
 
 const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
     return (
       <Pressable
         // className={item.category === 'picture' ? 'w-[158px]' : 'w-[106px]'}
-        onPress={() => {
+        onPress={(): void => {
           navigation.navigate(routes.logged.movie, {
             id: movie.imdb,
             poster: movie['en-US'].image,
@@ -59,7 +59,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
       </Pressable>
     )
   }
-  const renderCategory = ({ item }: ListRenderItemInfo<any>): JSX.Element => {
+  const renderCategory = ({ item }: ListRenderItemInfo<[string, Category]>): JSX.Element => {
     return (
       <View>
         <View
@@ -72,7 +72,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
           </Text>
 
           <TouchableOpacity
-            onPress={() => {
+            onPress={(): void => {
               navigation.navigate(routes.logged.nomination, { id: item[0] })
             }}
           >

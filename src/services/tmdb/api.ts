@@ -12,7 +12,7 @@ const api = axios.create({
   timeout: 60000,
 })
 
-export const getImage = (id: string): any => {
+export const getImage = (id: string): string => {
   return imageBaseUrl + id
 }
 
@@ -30,8 +30,8 @@ export const getCast = async (id: string, language: string): Promise<AxiosRespon
   return response
 }
 
-export const getVideos = async (id: string, language: string): Promise<AxiosResponse<any>> => {
-  const response: AxiosResponse<any> = await api.get(`movie/${id}/videos`, {
+export const getVideos = async (id: string, language: string): Promise<AxiosResponse<unknown>> => {
+  const response: AxiosResponse<unknown> = await api.get(`movie/${id}/videos`, {
     params: { api_key: apiKey, language },
   })
   return response

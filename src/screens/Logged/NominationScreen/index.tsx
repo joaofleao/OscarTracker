@@ -1,8 +1,8 @@
-import { FlatList } from 'react-native'
+import { FlatList, ListRenderItemInfo } from 'react-native'
 
 import { Button, Global, Header, Icon, NomineeCard } from '../../../components'
 import useEdition from '../../../features/edition/useEdition'
-import { type NominationScreenProps } from '../../../types'
+import { Nomination, type NominationScreenProps } from '../../../types'
 import { routes } from '../../../utils'
 
 const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Element => {
@@ -12,7 +12,7 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
 
   const movies = edition.nominations[id]
 
-  const renderMovie = ({ item }: any): JSX.Element => {
+  const renderMovie = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
     const movie = edition.movies[item.movie]
     const person = edition.people[item.person]
 
@@ -30,7 +30,7 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
 
     return (
       <NomineeCard
-        onPress={() => {
+        onPress={(): void => {
           navigation.navigate(routes.logged.movie, {
             id: movie.imdb,
             poster: movie['en-US'].image,
@@ -61,7 +61,7 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
       <FlatList
         data={movies}
         renderItem={renderMovie}
-        keyExtractor={(item) => {
+        keyExtractor={(item): string => {
           return `${item.movie}${item.person ?? ''} ${item.information ?? ''}${item.extra ?? ''}`
         }}
         ItemSeparatorComponent={Global.Separator}

@@ -62,7 +62,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
       })
       return () => {
         unsubscribe()
-        void getAnnoucements()
+        getAnnoucements()
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,35 +73,35 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
 
     const orderedAnnoucements = query(annoucementsCollection, orderBy('date'))
     const response = await getDocs(orderedAnnoucements)
-    const array: any = []
-    response.forEach((doc) => {
-      return array.push(doc.data())
+    const array = []
+    response.forEach((item) => {
+      return array.push(item.data())
     })
     setAnnouncements(array)
   }
 
   async function updateUser(
-    email?: string,
-    displayName?: string,
-    nickName?: string,
-    preferences?: PreferencesType,
-    onboarding?: boolean,
+    _email?: string,
+    _displayName?: string,
+    _nickName?: string,
+    _preferences?: PreferencesType,
+    _onboarding?: boolean,
   ): Promise<void> {
     const userRef = doc(usersCollection, uid)
 
-    void updateDoc(userRef, {
-      ...(email != null && { email }),
-      ...(displayName != null && { displayName }),
-      ...(nickName != null && { nickName }),
-      ...(preferences != null && { preferences }),
-      ...(onboarding != null && { onboarding }),
+    updateDoc(userRef, {
+      ...(_email != null && { _email }),
+      ...(_displayName != null && { _displayName }),
+      ...(_nickName != null && { _nickName }),
+      ...(_preferences != null && { _preferences }),
+      ...(_onboarding != null && { _onboarding }),
     })
   }
 
   async function setMovieUnwatched(movie: string): Promise<void> {
     const userRef = doc(usersCollection, uid)
 
-    void updateDoc(userRef, {
+    updateDoc(userRef, {
       movies: arrayRemove(movie),
     })
   }
@@ -109,7 +109,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
   async function setMovieWatched(movie: string): Promise<void> {
     const userRef = doc(usersCollection, uid)
 
-    void updateDoc(userRef, {
+    updateDoc(userRef, {
       movies: arrayUnion(movie),
     })
   }
@@ -142,8 +142,8 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
         description={update.description}
         visible={modal}
         confirmLabel={'Update to '.concat(update.version)}
-        onConfirm={() => {
-          void Linking.openURL(update.url)
+        onConfirm={(): void => {
+          Linking.openURL(update.url)
         }}
       >
         <View style={{ flex: 1, maxHeight: 200 }}>
@@ -151,13 +151,13 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
             indicatorStyle="white"
             contentContainerStyle={{ paddingRight: 20 }}
           >
-            {update.updates.map((update: string) => {
+            {update.updates.map((_update: string) => {
               return (
                 <Text
-                  key={update}
+                  key={_update}
                   // className="font-primaryBold text-white text-base mb-2"
                 >
-                  {update}
+                  {_update}
                 </Text>
               )
             })}

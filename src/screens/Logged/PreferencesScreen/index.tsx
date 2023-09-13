@@ -5,7 +5,6 @@ import {
   Image,
   type ImageSourcePropType,
   type ListRenderItemInfo,
-  // Platform,
   Text,
   View,
 } from 'react-native'
@@ -41,8 +40,8 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
   }
   const handleForward = (): void => {
     if (index < 5)
-      setIndex((index) => {
-        return index + 1
+      setIndex((oldValue) => {
+        return oldValue + 1
       })
     else {
       navigation.navigate(routes.logged.home)
@@ -51,8 +50,8 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
   }
   const handleBack = (): void => {
     if (index > 0)
-      setIndex((index) => {
-        return index - 1
+      setIndex((oldValue) => {
+        return oldValue - 1
       })
   }
 
@@ -328,7 +327,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
   }: ListRenderItemInfo<{
     firstButton: string
     secondButton: string
-    content: any
+    content: JSX.Element
   }>): JSX.Element => {
     return (
       <View
@@ -374,7 +373,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
           <Button
             variant="secondary"
             label={screens[index].firstButton}
-            onPress={() => {
+            onPress={(): void => {
               handleNext(false)
             }}
           />
@@ -382,7 +381,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
         {screens[index].secondButton != null && (
           <Button
             label={screens[index].secondButton}
-            onPress={() => {
+            onPress={(): void => {
               handleNext(true)
             }}
           />
