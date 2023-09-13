@@ -8,11 +8,11 @@ import {
   View,
 } from 'react-native'
 
-import { getImage } from '../../../services/tmdb/api'
-import { Category, type HomeScreenProps, type Nomination } from '../../../types'
-import { routes } from '../../../utils'
 import { Global, Header, Poster, ProgressBar } from '@components'
 import { useEdition, useUser } from '@features'
+import { getImage } from '@services/tmdb/api'
+import { Category, type HomeScreenProps, type Nomination } from '@types'
+import { routes } from '@utils'
 
 const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
   const edition = useEdition()

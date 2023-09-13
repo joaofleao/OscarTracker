@@ -1,5 +1,5 @@
-import type { ModeType } from '../types'
 import type { PaletteType, SimplifiedPaletteType } from './colors'
+import type { ModeType } from '@types'
 
 export const getRgba = (hexadecimal: string, alpha: number): string => {
   hexadecimal = hexadecimal.toUpperCase()

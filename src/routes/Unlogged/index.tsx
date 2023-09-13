@@ -1,11 +1,11 @@
-import { Email, Name, Password, PasswordRecovery, SignIn } from '../../screens'
-import { type ScreenTypes } from '../../types'
-import { routes } from '../../utils'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { Email, Name, Password, PasswordRecovery, SignIn } from '@screens'
+import { type ScreenTypes } from '@types'
+import { routes } from '@utils'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 
-export const Unlogged = (
+const Unlogged = (
   <>
     <Stack.Screen
       name={routes.unlogged.signIn}
@@ -29,3 +29,5 @@ export const Unlogged = (
     />
   </>
 )
+
+export default Unlogged

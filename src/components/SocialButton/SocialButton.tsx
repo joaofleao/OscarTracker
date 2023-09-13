@@ -1,7 +1,7 @@
 import { Text, type TouchableOpacityProps } from 'react-native'
 
-import { Facebook, Google } from '../../assets/images'
 import * as Styled from './styles'
+import { Facebook, Google } from '@assets/images'
 
 export interface SocialButtonProps extends TouchableOpacityProps {
   name: string

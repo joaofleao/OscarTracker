@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import type { ModeType, ThemeType } from '../../types'
+import type { ModeType, ThemeType } from '@types'
 
 export interface ThemeContextType extends ThemeType {
   mode: ModeType

@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import type { CastType, MovieType, ProvidersType } from '../../types'
+import type { CastType, MovieType, ProvidersType } from '@types'
 
 export interface MoviesContextType {
   // TMDB related functions

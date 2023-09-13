@@ -1,11 +1,11 @@
 import React from 'react'
 import { collection, doc, getDocs, orderBy, query, where } from 'firebase/firestore'
 
-import { db } from '../../services'
-import type { BasicMovieType, Category, Nomination, PersonType } from '../../types'
-import { functions } from '../../utils'
-import useUser from '../user/useUser'
 import EditionContext, { type EditionContextType } from './EditionContext'
+import { useUser } from '@features'
+import { db } from '@services'
+import type { BasicMovieType, Category, Nomination, PersonType } from '@types'
+import { functions } from '@utils'
 
 const editionsCollection = collection(db, 'editions')
 const categoriesCollection = collection(db, 'categories')

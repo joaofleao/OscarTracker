@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import type { Announcement, PreferencesType } from '../../types'
+import type { Announcement, PreferencesType } from '@types'
 
 export interface UserContextType {
   preferences: PreferencesType

@@ -1,7 +1,7 @@
 import axios, { type AxiosResponse } from 'axios'
 
-import type { CastType, MovieType, ProvidersType } from '../../types'
 import { tmdbConfig } from './config'
+import type { CastType, MovieType, ProvidersType } from '@types'
 
 const apiBaseUrl = tmdbConfig.api_base_url
 const apiKey = tmdbConfig.api_key

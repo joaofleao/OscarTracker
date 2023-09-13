@@ -11,7 +11,7 @@ export const Container = styled.View<ImageProps>((props) => {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    borderRadius: props.theme.radius.borderRadius4,
+    borderRadius: '12px',
     backgroundColor: props.theme.palette.background.container,
   }
 })
@@ -23,14 +23,14 @@ export const IconContainer = styled.View((props) => {
     padding: '8px',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: props.theme.radius.borderRadius4,
+    borderRadius: '12px',
   }
 })
 
 export const Cover = styled.View<ImageProps>((props) => {
   return {
     position: 'absolute',
-    borderRadius: props.theme.radius.borderRadius4,
+    borderRadius: '12px',
     backgroundColor: props.theme.palette.background.container,
     justifyContent: 'center',
     alignItems: 'center',
@@ -39,11 +39,11 @@ export const Cover = styled.View<ImageProps>((props) => {
   }
 })
 
-export const Image = styled.Image((props) => {
+export const Image = styled.Image(() => {
   return {
     position: 'absolute',
     width: '100%',
     height: '100%',
-    borderRadius: props.theme.radius.borderRadius4,
+    borderRadius: '12px',
   }
 })

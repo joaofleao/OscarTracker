@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 
-import { OscarLogo } from '../../assets/images'
 import * as Styled from './styles'
+import { OscarLogo } from '@assets/images'
 
 const Logo = (): JSX.Element => {
   return (

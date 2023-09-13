@@ -4,7 +4,8 @@
     "types": ["./styled-components.d.ts"],
     "baseUrl": ".",
     "paths": {
-      "@*": ["./src/*"]
+      "@*": ["./src/*"],
+      "@package.json": ["./package.json"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"]

@@ -1,9 +1,9 @@
 import { type TouchableOpacityProps } from 'react-native'
 
-import { getImage } from '../../services/tmdb/api'
-import Poster from '../Poster'
 import * as Styled from './styles'
+import { Poster } from '@components'
 import { useUser } from '@features'
+import { getImage } from '@services/tmdb/api'
 
 export interface NomineeCardProps extends TouchableOpacityProps {
   image: string

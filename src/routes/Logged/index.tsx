@@ -31,7 +31,7 @@ const tabs = {
   },
 }
 
-export const Logged = (
+const Logged = (
   <>
     <Stack.Screen name={routes.logged.index}>
       {(): JSX.Element => {
@@ -55,3 +55,5 @@ export const Logged = (
     />
   </>
 )
+
+export default Logged

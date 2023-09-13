@@ -1,9 +1,9 @@
 import React from 'react'
 
-import * as tmdb from '../../services/tmdb/api'
-import type { CastType, MovieType, ProvidersType } from '../../types'
-import { functions } from '../../utils/'
 import MoviesContext, { type MoviesContextType } from './MoviesContext'
+import * as tmdb from '@services/tmdb/api'
+import type { CastType, MovieType, ProvidersType } from '@types'
+import { functions } from '@utils/'
 
 const MoviesProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const getMovie = async (id: string): Promise<MovieType> => {

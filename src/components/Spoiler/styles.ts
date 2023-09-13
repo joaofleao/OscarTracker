@@ -1,11 +1,11 @@
 import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 
-export const Container = styled.Pressable((props) => {
+export const Container = styled.Pressable(() => {
   return {
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: props.theme.radius.borderRadius4,
+    borderRadius: '12px',
     overflow: 'hidden',
     position: 'relative',
   }

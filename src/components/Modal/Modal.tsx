@@ -1,8 +1,7 @@
 import { Modal as RNModal, type ModalProps as RNModalProps } from 'react-native'
 
-import Button from '../Button'
-import Icon from '../Icon'
 import * as Styled from './styles'
+import { Button, Icon } from '@components'
 
 export interface ModalProps extends RNModalProps {
   title: string

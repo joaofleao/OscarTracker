@@ -20,7 +20,7 @@ export const Track = styled.View((props) => {
   return {
     backgroundColor: props.theme.palette.background.container,
     height: '8px',
-    borderRadius: props.theme.radius.borderRadius7,
+    borderRadius: '24px',
     flex: 1,
     marginHorizontal: '10px',
     overflow: 'hidden',
@@ -32,6 +32,6 @@ export const Progress = styled(Animated.View)((props) => {
     backgroundColor: props.theme.palette.primary.default,
     width: '200%',
     height: '100%',
-    borderRadius: props.theme.radius.borderRadius7,
+    borderRadius: '24px',
   }
 })

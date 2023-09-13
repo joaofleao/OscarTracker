@@ -1,4 +1,3 @@
-export * from '../styles/spacings'
 export * from './DataTypes'
 export * from './ScreenTypes'
 export * from './ThemeTypes'

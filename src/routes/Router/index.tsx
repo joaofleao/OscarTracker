@@ -3,14 +3,13 @@ import { StatusBar } from 'react-native'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 
-import { Logged } from '../Logged'
-import { Unlogged } from '../Unlogged'
 import * as Styled from './styles'
 import { LoadingModal } from '@components'
 import { useTheme } from '@features/theme'
 import { useUser } from '@features/user'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { Logged, Unlogged } from '@routes'
 import { auth } from '@services'
 import type { ScreenTypes, User } from '@types'
 
@@ -23,17 +22,17 @@ const screenOptions = {
 }
 
 const localFonts = {
-  'Quicksand-Bold': require('../../assets/fonts/quicksand/Quicksand-Bold.ttf'),
-  'Quicksand-SemiBold': require('../../assets/fonts/quicksand/Quicksand-SemiBold.ttf'),
-  'Quicksand-Medium': require('../../assets/fonts/quicksand/Quicksand-Medium.ttf'),
-  'Quicksand-Regular': require('../../assets/fonts/quicksand/Quicksand-Regular.ttf'),
-  'Quicksand-Light': require('../../assets/fonts/quicksand/Quicksand-Light.ttf'),
+  'Quicksand-Bold': require('@assets/fonts/quicksand/Quicksand-Bold.ttf'),
+  'Quicksand-SemiBold': require('@assets/fonts/quicksand/Quicksand-SemiBold.ttf'),
+  'Quicksand-Medium': require('@assets/fonts/quicksand/Quicksand-Medium.ttf'),
+  'Quicksand-Regular': require('@assets/fonts/quicksand/Quicksand-Regular.ttf'),
+  'Quicksand-Light': require('@assets/fonts/quicksand/Quicksand-Light.ttf'),
 
-  'Spartan-Bold': require('../../assets/fonts/spartan/Spartan-Bold.ttf'),
-  'Spartan-SemiBold': require('../../assets/fonts/spartan/Spartan-SemiBold.ttf'),
-  'Spartan-Medium': require('../../assets/fonts/spartan/Spartan-Medium.ttf'),
-  'Spartan-Regular': require('../../assets/fonts/spartan/Spartan-Regular.ttf'),
-  'Spartan-Light': require('../../assets/fonts/spartan/Spartan-Light.ttf'),
+  'Spartan-Bold': require('@assets/fonts/spartan/Spartan-Bold.ttf'),
+  'Spartan-SemiBold': require('@assets/fonts/spartan/Spartan-SemiBold.ttf'),
+  'Spartan-Medium': require('@assets/fonts/spartan/Spartan-Medium.ttf'),
+  'Spartan-Regular': require('@assets/fonts/spartan/Spartan-Regular.ttf'),
+  'Spartan-Light': require('@assets/fonts/spartan/Spartan-Light.ttf'),
 }
 
 const Router = (): JSX.Element => {

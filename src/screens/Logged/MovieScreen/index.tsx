@@ -12,8 +12,10 @@ import {
   View,
 } from 'react-native'
 
-import { IMDB } from '../../../assets/images'
-import { getImage } from '../../../services/tmdb/api'
+import { IMDB } from '@assets/images'
+import { Button, Global, Header, Icon, Spoiler } from '@components'
+import { useEdition, useMovies, useTheme, useUser } from '@features'
+import { getImage } from '@services/tmdb/api'
 import type {
   MovieScreenProps,
   MovieType,
@@ -21,10 +23,8 @@ import type {
   ProductionCompany,
   TMDBPerson,
   WatchProvider,
-} from '../../../types'
-import { routes } from '../../../utils'
-import { Button, Global, Header, Icon, Spoiler } from '@components'
-import { useEdition, useMovies, useTheme, useUser } from '@features'
+} from '@types'
+import { routes } from '@utils'
 
 const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   const { id, name, poster } = route.params

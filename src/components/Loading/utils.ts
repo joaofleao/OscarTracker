@@ -1,5 +1,5 @@
-import { circle, dots, movie } from '../../assets/animations'
-import type { ThemeType } from '../../types'
+import { circle, dots, movie } from '@assets/animations'
+import type { ThemeType } from '@types'
 
 export const getAnimation = (animation: string): unknown => {
   if (animation === 'movie') return movie

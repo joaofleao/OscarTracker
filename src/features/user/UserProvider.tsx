@@ -12,11 +12,11 @@ import {
   updateDoc,
 } from 'firebase/firestore'
 
-import packageJson from '../../../package.json'
-import { db } from '../../services'
-import type { Announcement, PreferencesType } from '../../types'
 import UserContext, { type UserContextType } from './UserContext'
 import { Modal } from '@components'
+import packageJson from '@package.json'
+import { db } from '@services'
+import type { Announcement, PreferencesType } from '@types'
 
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const usersCollection = collection(db, 'users')

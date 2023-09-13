@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
 
-import { getTheme } from '../../styles'
-import type { ModeType } from '../../types'
 import ThemeContext, { type ThemeContextType } from './ThemeContext'
+import { getTheme } from '@styles'
+import type { ModeType } from '@types'
 
 const ThemeProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const [mode, setMode] = useState<ModeType>('dark')
