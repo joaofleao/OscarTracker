@@ -73,11 +73,11 @@ const Router = (): JSX.Element => {
     <>
       <StatusBar
         animated={true}
-        backgroundColor={'#1c1917'}
+        backgroundColor={'#18181B'}
         barStyle={'light-content'}
       />
       <LoadingModal />
-      <View style={{ backgroundColor: '#1c1917', flex: 1 }}>
+      <View style={{ backgroundColor: '#18181B', flex: 1 }}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={screenOptions}>
             {user.isLogged ? Logged : Unlogged}
