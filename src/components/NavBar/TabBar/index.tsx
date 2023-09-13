@@ -1,7 +1,7 @@
 import React from 'react'
 
 import * as Styled from './styles'
-import { useTheme } from '@features/theme'
+import { useTheme } from '@features'
 import type { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs'
 
 export interface Props extends BottomTabBarButtonProps {

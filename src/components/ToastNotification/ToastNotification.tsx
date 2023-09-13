@@ -1,7 +1,7 @@
 import type { Animated, ViewProps } from 'react-native'
 
 import * as Styled from './styles'
-import Icon from '@components/Icon'
+import { Icon } from '@components'
 import { useTheme } from '@features'
 
 export interface ToastNotificationProps extends ViewProps {

@@ -3,7 +3,7 @@ import { Keyboard } from 'react-native'
 
 import * as Styled from './styles'
 import { Button, Global, Input, Logo } from '@components'
-import { useAuth } from '@features/auth'
+import { useAuth } from '@features'
 import type { SignInProps } from '@types'
 import { routes } from '@utils'
 

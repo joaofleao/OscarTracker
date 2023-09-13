@@ -3,7 +3,7 @@ import { Animated, Easing, Pressable, type TextInputProps, View } from 'react-na
 
 import * as Styled from './styles'
 import { Button, Icon } from '@components'
-import { useTheme } from '@features/theme'
+import { useTheme } from '@features'
 
 export interface InputProps extends TextInputProps {
   label?: string

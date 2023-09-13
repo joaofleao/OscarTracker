@@ -30,8 +30,8 @@ export const getCast = async (id: string, language: string): Promise<AxiosRespon
   return response
 }
 
-export const getVideos = async (id: string, language: string): Promise<AxiosResponse<unknown>> => {
-  const response: AxiosResponse<unknown> = await api.get(`movie/${id}/videos`, {
+export const getVideos = async (id: string, language: string): Promise<AxiosResponse<string>> => {
+  const response: AxiosResponse<string> = await api.get(`movie/${id}/videos`, {
     params: { api_key: apiKey, language },
   })
   return response
