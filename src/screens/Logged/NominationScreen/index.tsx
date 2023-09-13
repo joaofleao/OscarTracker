@@ -1,8 +1,8 @@
 import { FlatList, ListRenderItemInfo } from 'react-native'
 
-import { Button, Global, Header, Icon, NomineeCard } from '../../../components'
 import { Nomination, type NominationScreenProps } from '../../../types'
 import { routes } from '../../../utils'
+import { Button, Global, Header, Icon, NomineeCard } from '@components'
 import { useEdition } from '@features'
 
 const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Element => {

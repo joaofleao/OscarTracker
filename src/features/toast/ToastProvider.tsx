@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-// import { ToastNotification } from '../../components'
+// import { ToastNotification } from '@components'
 import useLoading from '../loading/useLoading'
 import ToastContext, { type ToastContextType } from './ToastContext'
 

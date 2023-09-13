@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import { Button, Global, Header, Icon, Input } from '../../../../components'
 import { type NameProps } from '../../../../types'
 import * as Styled from './styles'
+import { Button, Global, Header, Icon, Input } from '@components'
 import useAuth from '@features/auth/useAuth'
 
 const Name = ({ navigation, route }: NameProps): JSX.Element => {

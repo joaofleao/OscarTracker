@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
-import { Global, Header, Input, NomineeCard, ProgressBar } from '../../../components'
 import type { BasicMovieType, WatchListScreenProps } from '../../../types'
 import { routes } from '../../../utils'
+import { Global, Header, Input, NomineeCard, ProgressBar } from '@components'
 import { useEdition, useUser } from '@features'
 
 function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ScrollView, Switch, Text, View } from 'react-native'
 
 import packageJson from '../../../../package.json'
-import { Button, Global, Header, Icon, Input } from '../../../components'
+import { Button, Global, Header, Icon, Input } from '@components'
 import { useAuth, useUser } from '@features'
 
 const ProfileScreen = (): JSX.Element => {

@@ -10,9 +10,9 @@ import {
 } from 'react-native'
 
 import { david, jason, justin, poster } from '../../../assets/images'
-import { Button, Global, Header, Icon, ProgressBar, Spoiler } from '../../../components'
 import { type PreferencesScreenProps } from '../../../types'
 import { routes } from '../../../utils'
+import { Button, Global, Header, Icon, ProgressBar, Spoiler } from '@components'
 import { useTheme, useUser } from '@features'
 
 const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element => {

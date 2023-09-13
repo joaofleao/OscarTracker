@@ -8,10 +8,10 @@ import {
   View,
 } from 'react-native'
 
-import { Global, Header, Poster, ProgressBar } from '../../../components'
 import { getImage } from '../../../services/tmdb/api'
 import { Category, type HomeScreenProps, type Nomination } from '../../../types'
 import { routes } from '../../../utils'
+import { Global, Header, Poster, ProgressBar } from '@components'
 import { useEdition, useUser } from '@features'
 
 const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {

@@ -1,5 +1,5 @@
-import Icon from '../../components/Icon'
 import * as Styled from './styles'
+import Icon from '@components/Icon'
 import { useTheme } from '@features'
 
 export interface PosterProps {

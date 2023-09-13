@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-import { Button, Global, Header, Icon, Input } from '../../../../components'
 import { type EmailProps } from '../../../../types'
 import { routes } from '../../../../utils'
 import * as Styled from './styles'
+import { Button, Global, Header, Icon, Input } from '@components'
 
 const Email = ({ navigation }: EmailProps): JSX.Element => {
   const [email, setEmail] = useState<string>('')
