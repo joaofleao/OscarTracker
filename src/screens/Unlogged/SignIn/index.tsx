@@ -46,17 +46,18 @@ const SignIn = ({ navigation }: SignInProps): JSX.Element => {
       </Styled.Header>
       <Styled.Content>
         <Input
+          autoComplete="email"
+          label="Email"
+          value={email}
+          onChangeText={setEmail}
+        />
+
+        <Input
           autoComplete="password"
           label="Password"
           type="password"
           value={password}
           onChangeText={setPassword}
-        />
-        <Input
-          autoComplete="email"
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
         />
 
         <Styled.ButtonContainer>

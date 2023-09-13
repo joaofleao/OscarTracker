@@ -22,12 +22,13 @@ export const Pressable = styled.Pressable<PressableProps>((props) => {
 
   const getHorizontalPadding = (): string => {
     if (props.variant === 'action') return '8px'
-    if (props.icon != null) return '16px'
+    if (props.icon != null) return '14px'
     return '24px'
   }
 
   const getVerticalPadding = (): string => {
     if (props.variant === 'action') return '8px'
+    if (props.icon != null) return '14px'
     return '12px'
   }
 

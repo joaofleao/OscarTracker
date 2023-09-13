@@ -41,6 +41,7 @@ const PasswordRecovery = ({ navigation, route }: PasswordRecoveryProps): JSX.Ele
 
       <Styled.Content>
         <Input
+          autoComplete="email"
           label="Email"
           value={recoveryEmail}
           onChangeText={setRecoveryEmail}
