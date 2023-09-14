@@ -8,11 +8,15 @@ import {
   View,
 } from 'react-native'
 
-import { Global, Header, Poster, ProgressBar } from '@components'
-import { useEdition, useUser } from '@features'
+import Global from '@components/Global'
+import Header from '@components/Header'
+import Poster from '@components/Poster'
+import ProgressBar from '@components/ProgressBar'
+import { useEdition } from '@features/edition'
+import { useUser } from '@features/user'
 import { getImage } from '@services/tmdb/api'
-import { Category, type HomeScreenProps, type Nomination } from '@types'
-import { routes } from '@utils'
+import type { Category, HomeScreenProps, Nomination } from '@types'
+import routes from '@utils/routes'
 
 const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
   const edition = useEdition()

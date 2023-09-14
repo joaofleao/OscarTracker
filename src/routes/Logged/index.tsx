@@ -1,15 +1,14 @@
-import { Icon, NavBar } from '@components'
+import Icon from '@components/Icon'
+import NavBar from '@components/NavBar'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import {
-  HomeScreen,
-  MovieScreen,
-  NominationScreen,
-  PreferencesScreen,
-  ProfileScreen,
-  WatchListScreen,
-} from '@screens'
+import HomeScreen from '@screens/Logged/HomeScreen'
+import MovieScreen from '@screens/Logged/MovieScreen'
+import NominationScreen from '@screens/Logged/NominationScreen'
+import PreferencesScreen from '@screens/Logged/PreferencesScreen'
+import ProfileScreen from '@screens/Logged/ProfileScreen'
+import WatchListScreen from '@screens/Logged/WatchListScreen'
 import { type ScreenTypes } from '@types'
-import { routes } from '@utils'
+import routes from '@utils/routes'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 

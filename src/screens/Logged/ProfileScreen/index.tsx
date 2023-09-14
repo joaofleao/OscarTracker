@@ -1,8 +1,13 @@
 import { useState } from 'react'
 import { ScrollView, Switch, Text, View } from 'react-native'
 
-import { Button, Global, Header, Icon, Input } from '@components'
-import { useAuth, useUser } from '@features'
+import Button from '@components/Button'
+import Global from '@components/Global'
+import Header from '@components/Header'
+import Icon from '@components/Icon'
+import Input from '@components/Input'
+import { useAuth } from '@features/auth'
+import { useUser } from '@features/user'
 import packageJson from '@package.json'
 
 const ProfileScreen = (): JSX.Element => {

@@ -9,8 +9,10 @@ import {
 import { collection, doc, setDoc } from 'firebase/firestore'
 
 import AuthContext, { type AuthContextType } from './AuthContext'
-import { useLoading, useToast, useUser } from '@features'
-import { auth, db } from '@services'
+import { useLoading } from '@features/loading'
+import { useToast } from '@features/toast'
+import { useUser } from '@features/user'
+import { auth, db } from '@services/firebase'
 
 const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => {
   const toast = useToast()

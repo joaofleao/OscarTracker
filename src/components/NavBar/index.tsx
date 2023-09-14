@@ -37,7 +37,7 @@ const NavBar = (props: Props): JSX.Element => {
       backgroundColor: 'transparent',
       height: 64,
       paddingBottom: 0,
-      bottom: insets.bottom,
+      marginBottom: insets.bottom,
     },
   }
 

@@ -13,9 +13,9 @@ import {
 } from 'firebase/firestore'
 
 import UserContext, { type UserContextType } from './UserContext'
-import { Modal } from '@components'
+import Modal from '@components/Modal'
 import packageJson from '@package.json'
-import { db } from '@services'
+import { db } from '@services/firebase'
 import type { Announcement, PreferencesType } from '@types'
 
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {

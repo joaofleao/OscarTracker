@@ -1,6 +1,6 @@
 import * as Styled from './styles'
-import { Icon } from '@components'
-import { useTheme } from '@features'
+import Icon from '@components/Icon'
+import { useTheme } from '@features/theme'
 
 export interface PosterProps {
   image: string

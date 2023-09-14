@@ -1,9 +1,13 @@
 import { useState } from 'react'
 
 import * as Styled from './styles'
-import { Button, Global, Header, Icon, Input } from '@components'
-import { useAuth } from '@features'
-import { type NameProps } from '@types'
+import Button from '@components/Button'
+import Global from '@components/Global'
+import Header from '@components/Header'
+import Icon from '@components/Icon'
+import Input from '@components/Input'
+import { useAuth } from '@features/auth'
+import type { NameProps } from '@types'
 
 const Name = ({ navigation, route }: NameProps): JSX.Element => {
   const [name, setName] = useState<string>('')

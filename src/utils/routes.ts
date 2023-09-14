@@ -16,3 +16,5 @@ export const routes = {
     nomination: 'NominationScreen' as const,
   },
 }
+
+export default routes

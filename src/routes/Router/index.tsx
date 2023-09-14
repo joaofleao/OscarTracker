@@ -4,12 +4,14 @@ import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 
 import * as Styled from './styles'
-import { LoadingModal } from '@components'
-import { useTheme, useUser } from '@features'
+import LoadingModal from '@components/LoadingModal'
+import { useTheme } from '@features/theme'
+import { useUser } from '@features/user'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Logged, Unlogged } from '@routes'
-import { auth } from '@services'
+import Logged from '@routes/Logged'
+import Unlogged from '@routes/Unlogged'
+import { auth } from '@services/firebase'
 import type { ScreenTypes, User } from '@types'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()

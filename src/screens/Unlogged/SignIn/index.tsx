@@ -2,10 +2,13 @@ import { useState } from 'react'
 import { Keyboard } from 'react-native'
 
 import * as Styled from './styles'
-import { Button, Global, Input, Logo } from '@components'
-import { useAuth } from '@features'
+import Button from '@components/Button'
+import Global from '@components/Global'
+import Input from '@components/Input'
+import Logo from '@components/Logo'
+import { useAuth } from '@features/auth'
 import type { SignInProps } from '@types'
-import { routes } from '@utils'
+import routes from '@utils/routes'
 
 const SignIn = ({ navigation }: SignInProps): JSX.Element => {
   const auth = useAuth()

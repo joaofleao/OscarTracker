@@ -10,10 +10,16 @@ import {
 } from 'react-native'
 
 import { david, jason, justin, poster } from '@assets/images'
-import { Button, Global, Header, Icon, ProgressBar, Spoiler } from '@components'
-import { useTheme, useUser } from '@features'
-import { type PreferencesScreenProps } from '@types'
-import { routes } from '@utils'
+import Button from '@components/Button'
+import Global from '@components/Global'
+import Header from '@components/Header'
+import Icon from '@components/Icon'
+import ProgressBar from '@components/ProgressBar'
+import Spoiler from '@components/Spoiler'
+import { useTheme } from '@features/theme'
+import { useUser } from '@features/user'
+import type { PreferencesScreenProps } from '@types'
+import routes from '@utils/routes'
 
 const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element => {
   const scrollViewRef = useRef<FlatList>(null)

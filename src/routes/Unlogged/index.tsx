@@ -1,7 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Email, Name, Password, PasswordRecovery, SignIn } from '@screens'
+import PasswordRecovery from '@screens/Unlogged/PasswordRecovery'
+import SignIn from '@screens/Unlogged/SignIn'
+import Email from '@screens/Unlogged/SignUp/Email'
+import Name from '@screens/Unlogged/SignUp/Name'
+import Password from '@screens/Unlogged/SignUp/Password'
 import { type ScreenTypes } from '@types'
-import { routes } from '@utils'
+import routes from '@utils/routes'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 

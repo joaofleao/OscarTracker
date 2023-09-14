@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
 
 import ThemeContext, { type ThemeContextType } from './ThemeContext'
-import { getTheme } from '@styles'
+import { getTheme } from '@styles/index'
 import type { ModeType } from '@types'
 
 const ThemeProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {

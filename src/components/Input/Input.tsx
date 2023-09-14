@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { Animated, Easing, Pressable, type TextInputProps, View } from 'react-native'
 
 import * as Styled from './styles'
-import { Button, Icon } from '@components'
-import { useTheme } from '@features'
+import Button from '@components/Button'
+import Icon from '@components/Icon'
+import { useTheme } from '@features/theme'
 
 export interface InputProps extends TextInputProps {
   label?: string

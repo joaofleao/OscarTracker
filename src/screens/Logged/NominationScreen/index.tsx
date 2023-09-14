@@ -1,9 +1,13 @@
 import { FlatList, ListRenderItemInfo } from 'react-native'
 
-import { Button, Global, Header, Icon, NomineeCard } from '@components'
-import { useEdition } from '@features'
+import Button from '@components/Button'
+import Global from '@components/Global'
+import Header from '@components/Header'
+import Icon from '@components/Icon'
+import NomineeCard from '@components/NomineeCard'
+import { useEdition } from '@features/edition'
 import { Nomination, type NominationScreenProps } from '@types'
-import { routes } from '@utils'
+import routes from '@utils/routes'
 
 const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Element => {
   const { id } = route.params

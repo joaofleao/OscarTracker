@@ -2,10 +2,10 @@ import React from 'react'
 import { collection, doc, getDocs, orderBy, query, where } from 'firebase/firestore'
 
 import EditionContext, { type EditionContextType } from './EditionContext'
-import { useUser } from '@features'
-import { db } from '@services'
+import { useUser } from '@features/user'
+import { db } from '@services/firebase'
 import type { BasicMovieType, Category, Nomination, PersonType } from '@types'
-import { functions } from '@utils'
+import { printFetch } from '@utils/functions'
 
 const editionsCollection = collection(db, 'editions')
 const categoriesCollection = collection(db, 'categories')
@@ -32,7 +32,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }, [user.isLogged, edition])
 
   async function getCategories(): Promise<void> {
-    functions.printFetch('Firebase', 'Categories fetched', 'yellow')
+    printFetch('Firebase', 'Categories fetched', 'yellow')
 
     const response = await getDocs(categoriesCollection)
     const map: typeof categories = {}
@@ -55,7 +55,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   async function getMovies(): Promise<void> {
-    functions.printFetch('Firebase', 'Movies fetched', 'yellow')
+    printFetch('Firebase', 'Movies fetched', 'yellow')
 
     const moviesCollection = collection(editionRef, 'movies')
     const orderedMovies = query(moviesCollection, orderBy('en-US.name'))
@@ -72,7 +72,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   async function getPeople(): Promise<void> {
-    functions.printFetch('Firebase', 'People fetched', 'yellow')
+    printFetch('Firebase', 'People fetched', 'yellow')
 
     const peopleCollection = collection(editionRef, 'people')
     const orderedPeople = query(peopleCollection, orderBy('name'))
@@ -88,7 +88,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   async function getNominations(): Promise<void> {
-    functions.printFetch('Firebase', 'Nominations fetched', 'yellow')
+    printFetch('Firebase', 'Nominations fetched', 'yellow')
 
     const nominationsCollection = collection(editionRef, 'nominations')
 
@@ -106,7 +106,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   async function getMovieNominations(movie: string): Promise<Nomination[]> {
-    functions.printFetch('Firebase', 'Movie Nominations fetched', 'yellow')
+    printFetch('Firebase', 'Movie Nominations fetched', 'yellow')
 
     const nominationsCollection = collection(editionRef, 'nominations')
     const movieNominations = query(nominationsCollection, where('movie', '==', movie))

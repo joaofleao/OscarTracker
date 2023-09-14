@@ -11,7 +11,29 @@ module.exports = {
   plugins: ['prettier', '@typescript-eslint', 'simple-import-sort'],
   parser: '@typescript-eslint/parser',
 
-  rules: {},
+  rules: {
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: [
+              ...['@assets', '!@assets/'],
+              ...['@components', '!@components/'],
+              ...['@features', '!@features/'],
+              ...['@routes', '!@routes/'],
+              ...['@screens', '!@screens/'],
+              ...['@services', '!@services/'],
+              ...['@styles', '!@styles/'],
+              // ...['@types', '!@types/'],
+              ...['@utils', '!@utils/'],
+            ],
+            message: 'Multiple imports might trigger require cycles',
+          },
+        ],
+      },
+    ],
+  },
 
   overrides: [
     {

@@ -1,9 +1,13 @@
 import { useState } from 'react'
 
 import * as Styled from './styles'
-import { Button, Global, Header, Icon, Input } from '@components'
-import { type PasswordProps } from '@types'
-import { routes } from '@utils'
+import Button from '@components/Button'
+import Global from '@components/Global'
+import Header from '@components/Header'
+import Icon from '@components/Icon'
+import Input from '@components/Input'
+import type { PasswordProps } from '@types'
+import routes from '@utils/routes'
 
 const Password = ({ navigation, route }: PasswordProps): JSX.Element => {
   const [password, setPassword] = useState<string>('')
