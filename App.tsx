@@ -1,5 +1,5 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { Router } from './src/routes'
+import Router from '@routes/Router'
 
 import { EditionProvider } from '@features/edition'
 import { MoviesProvider } from '@features/movies'
