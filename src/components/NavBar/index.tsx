@@ -73,9 +73,8 @@ const NavBar = (props: Props): JSX.Element => {
               springAnimation(index)
             },
           }}
-        >
-          {tab.component}
-        </Tabs.Screen>
+          component={tab.component}
+        />
       )
     })
   }
