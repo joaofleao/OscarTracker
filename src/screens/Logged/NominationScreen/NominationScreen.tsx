@@ -42,7 +42,6 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
             name: movie['en-US'].name,
           })
         }}
-        // className="mx-4"
         image={image}
         title={title}
         information={information}

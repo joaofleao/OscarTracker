@@ -152,14 +152,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
             contentContainerStyle={{ paddingRight: 20 }}
           >
             {update.updates.map((_update: string) => {
-              return (
-                <Text
-                  key={_update}
-                  // className="font-primaryBold text-white text-base mb-2"
-                >
-                  {_update}
-                </Text>
-              )
+              return <Text key={_update}>{_update}</Text>
             })}
           </ScrollView>
         </View>

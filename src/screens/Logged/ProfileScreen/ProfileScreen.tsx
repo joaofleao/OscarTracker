@@ -11,8 +11,10 @@ import { useAuth } from '@features/auth'
 import { useTheme } from '@features/theme'
 import { useUser } from '@features/user'
 import packageJson from '@package.json'
+import type { ProfileScreenProps } from '@types'
+import routes from '@utils/routes'
 
-const ProfileScreen = (): JSX.Element => {
+const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
   const auth = useAuth()
   const user = useUser()
   const theme = useTheme()
@@ -82,7 +84,16 @@ const ProfileScreen = (): JSX.Element => {
           />
         </Styled.Section>
         <Styled.Section>
-          <Styled.Title>Spoiler Preferences</Styled.Title>
+          <Styled.Item>
+            <Styled.Title>Spoiler Preferences</Styled.Title>
+            <Button
+              label="Quiz"
+              variant="action"
+              onPress={(): void => {
+                return navigation.navigate(routes.logged.preferences)
+              }}
+            />
+          </Styled.Item>
 
           <Styled.Item>
             <Styled.Subtitle>Show Posters</Styled.Subtitle>

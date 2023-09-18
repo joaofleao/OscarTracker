@@ -39,3 +39,4 @@ export type EmailProps = NativeStackScreenProps<ScreenTypes, 'Email'>
 export type PasswordProps = NativeStackScreenProps<ScreenTypes, 'Password'>
 export type NameProps = NativeStackScreenProps<ScreenTypes, 'Name'>
 export type PasswordRecoveryProps = NativeStackScreenProps<ScreenTypes, 'PasswordRecovery'>
+export type ProfileScreenProps = NativeStackScreenProps<ScreenTypes, 'ProfileScreen'>

@@ -53,6 +53,7 @@ export const AccentText = styled.Text((props) => {
 })
 export const ButtonContainer = styled.View(() => {
   return {
+    gap: '16px',
     alignItems: 'center',
     flex: 1,
     justifyContent: 'flex-end',

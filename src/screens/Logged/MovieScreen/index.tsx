@@ -194,7 +194,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
               <Text
               // className="text-white font-primaryBold text-base mt-2"
               >
-                {movieData.runtime}
+                {movieData?.runtime}
               </Text>
             </View>
             <Spoiler
@@ -212,7 +212,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
                 <Text
                 // className="text-white font-primaryBold text-base mt-2"
                 >
-                  {movieData.vote_average != null && Math.round(movieData.vote_average * 10) / 10}
+                  {movieData?.vote_average != null && Math.round(movieData?.vote_average * 10) / 10}
                 </Text>
               </View>
             </Spoiler>
@@ -226,7 +226,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
               <Text
               //  className="text-white font-primaryBold text-base mt-2"
               >
-                {movieData.original_language}
+                {movieData?.original_language}
               </Text>
             </View>
           </View>
@@ -339,7 +339,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
             <Text
             // className="font-primaryRegular text-white text-base text-justify"
             >
-              {movieData.overview}
+              {movieData?.overview}
             </Text>
           </Spoiler>
         </View>
