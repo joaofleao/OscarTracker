@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
+import * as Styled from './styles'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Input from '@components/Input'
@@ -40,7 +41,6 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
             name: item['en-US'].name,
           })
         }}
-        // className="mx-4"
         image={item['en-US'].image}
         title={item['en-US'].name}
         id={item.imdb}
@@ -56,28 +56,25 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
           <Header.Description bigHeader>here are the 2022 nominees</Header.Description>
         </Header.TextContainer>
       </Header.Root>
+      <Styled.Content>
+        <ProgressBar
+          progress={user.watchedMovies.length}
+          total={edition.totalMovies}
+        />
 
-      <ProgressBar
-        progress={user.watchedMovies.length}
-        total={edition.totalMovies}
-      />
+        <Input
+          type="search"
+          onChange={(e): void => {
+            setSearch(e.nativeEvent.text)
+          }}
+        />
 
-      <Input
-        type="search"
-        onChange={(e): void => {
-          setSearch(e.nativeEvent.text)
-        }}
-      />
-
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item: BasicMovieType): string => {
-          return item.imdb
-        }}
-        ItemSeparatorComponent={Global.Separator}
-        ListFooterComponent={Global.Separator}
-      />
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          ItemSeparatorComponent={Global.Separator}
+        />
+      </Styled.Content>
     </Global.Screen>
   )
 }

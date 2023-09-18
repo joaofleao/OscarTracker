@@ -19,7 +19,6 @@ const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
   }, [user.onboarding, navigation])
 
   const data = Object.entries(edition.categories)
-  console.log(JSON.stringify(data, null, 2))
 
   const renderNominationCaroussel = (item): JSX.Element => {
     return NominationCaroussel(item, navigation, edition, user)
@@ -38,6 +37,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
           progress={user.watchedMovies.length}
           total={edition.totalMovies}
         />
+
         <Styled.List
           data={data}
           renderItem={renderNominationCaroussel}
