@@ -1,5 +1,6 @@
 import { FlatList, ListRenderItemInfo } from 'react-native'
 
+import * as Styled from './styles'
 import Button from '@components/Button'
 import Global from '@components/Global'
 import Header from '@components/Header'
@@ -62,15 +63,16 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
         <Header.Title align="center">{edition.categories[id]['en-US']}</Header.Title>
       </Header.Root>
 
-      <FlatList
-        data={movies}
-        renderItem={renderMovie}
-        keyExtractor={(item): string => {
-          return `${item.movie}${item.person ?? ''} ${item.information ?? ''}${item.extra ?? ''}`
-        }}
-        ItemSeparatorComponent={Global.Separator}
-        ListFooterComponent={Global.Separator}
-      />
+      <Styled.Content>
+        <FlatList
+          data={movies}
+          renderItem={renderMovie}
+          keyExtractor={(item): string => {
+            return `${item.movie}${item.person ?? ''} ${item.information ?? ''}${item.extra ?? ''}`
+          }}
+          ItemSeparatorComponent={Global.Separator}
+        />
+      </Styled.Content>
     </Global.Screen>
   )
 }
