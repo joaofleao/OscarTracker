@@ -5,7 +5,6 @@ import * as Styled from './styles'
 export interface HeaderProps extends ViewProps {
   children?: JSX.Element[] | JSX.Element
   align?: 'center' | 'left' | 'right' | 'between'
-
   gap?: string
 }
 

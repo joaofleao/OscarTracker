@@ -1,14 +1,14 @@
 import styled from 'styled-components/native'
 
-export const Content = styled.View(() => {
+export const Content = styled.ScrollView(() => {
   return {
     paddingHorizontal: '20px',
-    gap: '16px',
-    flex: 1,
   }
 })
-export const List = styled.FlatList(() => {
+
+export const ContentContainer = styled.View(() => {
   return {
-    marginHorizontal: '-20px',
+    flex: 1,
+    gap: '40px',
   }
 })

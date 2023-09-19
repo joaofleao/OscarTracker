@@ -1,5 +1,4 @@
 import React from 'react'
-import { Text } from 'react-native'
 
 import NominationCaroussel from './NominationCaroussel'
 import * as Styled from './styles'
@@ -29,10 +28,10 @@ const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
     <Global.Screen hideBottom>
       <Header.Root>
         <Header.TextContainer>
-          <Text>
-            <Header.LogoAccent bigHeader>oscar</Header.LogoAccent>
-            <Header.Logo bigHeader>tracker</Header.Logo>
-          </Text>
+          <Header.Logo bigHeader>
+            <Header.LogoAccent>oscar</Header.LogoAccent>tracker
+          </Header.Logo>
+
           <Header.Description bigHeader>here are the 2022 nominations</Header.Description>
         </Header.TextContainer>
       </Header.Root>

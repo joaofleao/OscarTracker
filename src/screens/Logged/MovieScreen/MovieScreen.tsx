@@ -5,12 +5,12 @@ import {
   Linking,
   type ListRenderItemInfo,
   Pressable,
-  ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native'
 
+import * as Styled from './styles'
 import { IMDB } from '@assets/images'
 import Button from '@components/Button'
 import Global from '@components/Global'
@@ -159,232 +159,238 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
           icon={<Icon.ArrowLeft />}
           variant="secondary"
         />
+        <Header.TextContainer>
+          <Header.Title numberOfLines={2}>{name}</Header.Title>
+        </Header.TextContainer>
       </Header.Root>
 
-      <ScrollView>
-        <View
-        // className="items-center"
-        >
-          <Spoiler
-            show={user.preferences.poster}
-            watched={watched}
-            text="Show Poster"
-          >
-            <Image
-              // className="w-[228px] h-[338px] rounded-xl"
-              source={{ uri: getImage(poster) }}
-            />
-          </Spoiler>
-
-          <Text
-          // className="mx-4 mt-4 font-primaryBold text-white text-2xl text-center"
-          >
-            {name}
-          </Text>
+      <Styled.Content>
+        <Styled.ContentContainer>
           <View
-          // className=" flex-row justify-center mt-4"
+          // className="items-center"
           >
-            <View
-            // className="mr-6 px-2 py-4 bg-zinc-800/40 justify-center items-center rounded-xl w-20"
-            >
-              <Icon.Clock
-                size={30}
-                color={theme.palette.primary.default}
-              />
-              <Text
-              // className="text-white font-primaryBold text-base mt-2"
-              >
-                {movieData?.runtime}
-              </Text>
-            </View>
             <Spoiler
-              text="Show Score"
-              show={user.preferences.ratings}
+              show={user.preferences.poster}
               watched={watched}
+              text="Show Poster"
+            >
+              <Image
+                // className="w-[228px] h-[338px] rounded-xl"
+                source={{ uri: getImage(poster) }}
+              />
+            </Spoiler>
+
+            <Text
+            // className="mx-4 mt-4 font-primaryBold text-white text-2xl text-center"
+            >
+              {name}
+            </Text>
+            <View
+            // className=" flex-row justify-center mt-4"
             >
               <View
-              // className=" px-2 py-4 bg-zinc-800/40 justify-center items-center rounded-xl w-20"
+              // className="mr-6 px-2 py-4 bg-zinc-800/40 justify-center items-center rounded-xl w-20"
               >
-                <Icon.Star
+                <Icon.Clock
                   size={30}
                   color={theme.palette.primary.default}
                 />
                 <Text
                 // className="text-white font-primaryBold text-base mt-2"
                 >
-                  {movieData?.vote_average != null && Math.round(movieData?.vote_average * 10) / 10}
+                  {movieData?.runtime}
                 </Text>
               </View>
-            </Spoiler>
-            <View
-            // className="ml-6 px-2 py-4 bg-zinc-800/40 justify-center items-center rounded-xl w-20"
-            >
-              <Icon.Globe
-                size={30}
-                color={theme.palette.primary.default}
-              />
-              <Text
-              //  className="text-white font-primaryBold text-base mt-2"
+              <Spoiler
+                text="Show Score"
+                show={user.preferences.ratings}
+                watched={watched}
               >
-                {movieData?.original_language}
-              </Text>
+                <View
+                // className=" px-2 py-4 bg-zinc-800/40 justify-center items-center rounded-xl w-20"
+                >
+                  <Icon.Star
+                    size={30}
+                    color={theme.palette.primary.default}
+                  />
+                  <Text
+                  // className="text-white font-primaryBold text-base mt-2"
+                  >
+                    {movieData?.vote_average != null &&
+                      Math.round(movieData?.vote_average * 10) / 10}
+                  </Text>
+                </View>
+              </Spoiler>
+              <View
+              // className="ml-6 px-2 py-4 bg-zinc-800/40 justify-center items-center rounded-xl w-20"
+              >
+                <Icon.Globe
+                  size={30}
+                  color={theme.palette.primary.default}
+                />
+                <Text
+                //  className="text-white font-primaryBold text-base mt-2"
+                >
+                  {movieData?.original_language}
+                </Text>
+              </View>
             </View>
-          </View>
 
-          <TouchableOpacity
-            onPress={(): void => {
-              markAsWatched(watched)
-            }}
-            // className={` mt-4 py-4 px-4 rounded-2xl border-2 ${
-            //   watched ? 'bg-amber-500' : 'border-solid  border-amber-500'
-            // }`}
-          >
-            <Text
-            //   className={`text-base font-primaryBold
-            // ${watched ? 'text-zinc-900' : 'text-amber-500'}
-            // `}
-            >
-              {watched ? 'Watched' : 'Mark as Watched'}
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View
-        // className="mt-4"
-        >
-          <View
-          // className="flex-row justify-between items-center mx-4 mb-2"
-          >
-            <Text
-            // className="font-primaryBold text-white text-xl"
-            >
-              Nominations
-            </Text>
             <TouchableOpacity
               onPress={(): void => {
-                navigation.navigate(routes.logged.home)
+                markAsWatched(watched)
               }}
+              // className={` mt-4 py-4 px-4 rounded-2xl border-2 ${
+              //   watched ? 'bg-amber-500' : 'border-solid  border-amber-500'
+              // }`}
             >
               <Text
-              // className="font-primaryDefault text-zinc-600 text-sm"
+              //   className={`text-base font-primaryBold
+              // ${watched ? 'text-zinc-900' : 'text-amber-500'}
+              // `}
               >
-                see more
+                {watched ? 'Watched' : 'Mark as Watched'}
               </Text>
             </TouchableOpacity>
           </View>
 
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={nominations}
-            renderItem={(item): JSX.Element => {
-              return renderItem(item)
-            }}
-            keyExtractor={(item): string => {
-              return `${item.category}${item.person != null ? item.person : ''}${
-                item.information != null ? item.information : ''
-              }`
-            }}
-            ItemSeparatorComponent={Global.Separator}
-            ListHeaderComponent={Global.Separator}
-            ListFooterComponent={Global.Separator}
-          />
-        </View>
-
-        <View
-        // className="mt-4"
-        >
-          <Text
-          // className="mx-4 mb-2 font-primaryBold text-white text-xl"
+          <View
+          // className="mt-4"
           >
-            Where to Watch
-          </Text>
+            <View
+            // className="flex-row justify-between items-center mx-4 mb-2"
+            >
+              <Text
+              // className="font-primaryBold text-white text-xl"
+              >
+                Nominations
+              </Text>
+              <TouchableOpacity
+                onPress={(): void => {
+                  navigation.navigate(routes.logged.home)
+                }}
+              >
+                <Text
+                // className="font-primaryDefault text-zinc-600 text-sm"
+                >
+                  see more
+                </Text>
+              </TouchableOpacity>
+            </View>
 
-          {movieProviders?.length > 0 ? (
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={movieProviders}
+              data={nominations}
               renderItem={(item): JSX.Element => {
-                return renderProvider(item)
+                return renderItem(item)
               }}
               keyExtractor={(item): string => {
-                return item.provider_id.toString()
+                return `${item.category}${item.person != null ? item.person : ''}${
+                  item.information != null ? item.information : ''
+                }`
               }}
               ItemSeparatorComponent={Global.Separator}
               ListHeaderComponent={Global.Separator}
               ListFooterComponent={Global.Separator}
             />
-          ) : (
-            <Text
-            // className="mx-4 font-primaryRegular text-white text-base text-justify"
-            >
-              No streaming services available
-            </Text>
-          )}
-        </View>
+          </View>
 
-        <View
-        // className="mt-4 mx-4"
-        >
-          <Text
-          // className="mb-2 font-primaryBold text-white text-xl"
-          >
-            Plot
-          </Text>
-          <Spoiler
-            show={user.preferences.plot}
-            watched={watched}
+          <View
+          // className="mt-4"
           >
             <Text
-            // className="font-primaryRegular text-white text-base text-justify"
+            // className="mx-4 mb-2 font-primaryBold text-white text-xl"
             >
-              {movieData?.overview}
+              Where to Watch
             </Text>
-          </Spoiler>
-        </View>
 
-        <View
-        // className="mt-4"
-        >
-          <Text
-          // className="mx-4 mb-2 font-primaryBold text-white text-xl"
+            {movieProviders?.length > 0 ? (
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={movieProviders}
+                renderItem={(item): JSX.Element => {
+                  return renderProvider(item)
+                }}
+                keyExtractor={(item): string => {
+                  return item.provider_id.toString()
+                }}
+                ItemSeparatorComponent={Global.Separator}
+                ListHeaderComponent={Global.Separator}
+                ListFooterComponent={Global.Separator}
+              />
+            ) : (
+              <Text
+              // className="mx-4 font-primaryRegular text-white text-base text-justify"
+              >
+                No streaming services available
+              </Text>
+            )}
+          </View>
+
+          <View
+          // className="mt-4 mx-4"
           >
-            Cast
-          </Text>
+            <Text
+            // className="mb-2 font-primaryBold text-white text-xl"
+            >
+              Plot
+            </Text>
+            <Spoiler
+              show={user.preferences.plot}
+              watched={watched}
+            >
+              <Text
+              // className="font-primaryRegular text-white text-base text-justify"
+              >
+                {movieData?.overview}
+              </Text>
+            </Spoiler>
+          </View>
 
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={movieCast}
-            renderItem={renderCast}
-            ItemSeparatorComponent={Global.Separator}
-            ListFooterComponent={Global.Separator}
-            ListHeaderComponent={Global.Separator}
-          />
-        </View>
-
-        <View
-        // className={`mt-8 mx-4 items-center ${Platform.OS === 'android' ? 'mb-6' : ''}`}
-        >
-          <TouchableOpacity
-            // className="flex-row items-center"
-            onPress={(): void => {
-              Linking.openURL(imdbLink)
-            }}
+          <View
+          // className="mt-4"
           >
-            <IMDB
-              width={40}
-              height={40}
+            <Text
+            // className="mx-4 mb-2 font-primaryBold text-white text-xl"
+            >
+              Cast
+            </Text>
+
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={movieCast}
+              renderItem={renderCast}
+              ItemSeparatorComponent={Global.Separator}
+              ListFooterComponent={Global.Separator}
+              ListHeaderComponent={Global.Separator}
             />
-            <Text
-            // className="mx-4 font-primaryBold text-white text-base "
+          </View>
+
+          <View
+          // className={`mt-8 mx-4 items-center ${Platform.OS === 'android' ? 'mb-6' : ''}`}
+          >
+            <TouchableOpacity
+              // className="flex-row items-center"
+              onPress={(): void => {
+                Linking.openURL(imdbLink)
+              }}
             >
-              Check on IMDB
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+              <IMDB
+                width={40}
+                height={40}
+              />
+              <Text
+              // className="mx-4 font-primaryBold text-white text-base "
+              >
+                Check on IMDB
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Styled.ContentContainer>
+      </Styled.Content>
     </Global.Screen>
   )
 }

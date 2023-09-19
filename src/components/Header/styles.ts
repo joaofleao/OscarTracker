@@ -12,13 +12,60 @@ export const Container = styled.View<Props>((props) => {
     return 'flex-start'
   }
   return {
+    width: '100%',
+
     flexDirection: 'row',
     gap: '20px',
-
     justifyContent: getAlignment(),
-    marginHorizontal: '20px',
+    paddingHorizontal: '20px',
     marginTop: '10px',
     marginBottom: '20px',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+  }
+})
+
+export const TextContainer = styled.View(() => {
+  return {
+    flex: 1,
+  }
+})
+
+interface TextProps {
+  align?: 'left' | 'center' | 'right'
+  bigHeader?: boolean
+}
+
+export const Title = styled.Text<TextProps>((props) => {
+  return {
+    color: props.theme.palette.text.default,
+    fontSize: props.bigHeader ? '24px' : '20px',
+    lineHeight: '24px',
+    fontFamily: props.theme.typography.primary.semibold,
+    textAlign: props.align,
+  }
+})
+
+export const Logo = styled.Text<TextProps>((props) => {
+  return {
+    color: props.theme.palette.text.default,
+    fontSize: props.bigHeader ? '24px' : '20px',
+    lineHeight: '24px',
+    fontFamily: props.theme.typography.secondary.semibold,
+    textAlign: props.align,
+  }
+})
+export const LogoAccent = styled.Text<TextProps>((props) => {
+  return {
+    color: props.theme.palette.primary.default,
+  }
+})
+
+export const Description = styled.Text<TextProps>((props) => {
+  return {
+    color: props.theme.palette.text.light,
+    fontSize: props.bigHeader ? '18px' : '16px',
+    lineHeight: '24px',
+    fontFamily: props.theme.typography.primary.medium,
+    textAlign: props.align,
   }
 })
