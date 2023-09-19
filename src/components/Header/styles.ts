@@ -19,5 +19,6 @@ export const Container = styled.View<Props>((props) => {
     marginHorizontal: '20px',
     marginTop: '10px',
     marginBottom: '20px',
+    alignItems: 'flex-start',
   }
 })

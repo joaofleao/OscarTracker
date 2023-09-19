@@ -4,8 +4,8 @@ import { styled } from 'styled-components/native'
 export const Container = styled.View({
   flexDirection: 'row',
   justifyContent: 'space-between',
-  marginHorizontal: '4px',
   alignItems: 'center',
+  gap: '8px',
 })
 
 export const Number = styled.Text((props) => {
@@ -19,10 +19,9 @@ export const Number = styled.Text((props) => {
 export const Track = styled.View((props) => {
   return {
     backgroundColor: props.theme.palette.background.container,
-    height: '8px',
-    borderRadius: '24px',
+    height: '6px',
+    borderRadius: '6px',
     flex: 1,
-    marginHorizontal: '10px',
     overflow: 'hidden',
   }
 })
@@ -31,7 +30,7 @@ export const Progress = styled(Animated.View)((props) => {
   return {
     backgroundColor: props.theme.palette.primary.default,
     width: '200%',
+    borderRadius: '6px',
     height: '100%',
-    borderRadius: '24px',
   }
 })

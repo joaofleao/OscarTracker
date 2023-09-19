@@ -1,11 +1,23 @@
 import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 
-export const Screen = styled.SafeAreaView((props) => {
+export interface Screen {
+  hideTop?: boolean
+  hideBottom?: boolean
+}
+
+const defaultValues = {
+  top: true,
+  bottom: true,
+}
+
+export const Screen = styled.SafeAreaView<Screen>((props) => {
+  const { hideTop, hideBottom } = { ...defaultValues, ...props }
   return {
     backgroundColor: props.theme.palette.background.default,
     flex: 1,
-    paddingBottom: Platform.OS === 'android' ? '20px' : '0px',
+    paddingTop: Platform.OS === 'android' && !hideTop ? '20px' : '0px',
+    paddingBottom: Platform.OS === 'android' && !hideBottom ? '20px' : '0px',
   }
 })
 
@@ -17,7 +29,8 @@ export const Separator = styled.View({
 export const Title = styled.Text((props) => {
   return {
     fontFamily: props.theme.typography.primary.bold,
-    fontSize: '24px',
+    fontSize: '22px',
+    lineHeight: '32px',
     color: props.theme.palette.text.default,
     letterSpacing: '1.5px',
   }
@@ -26,7 +39,8 @@ export const Title = styled.Text((props) => {
 export const Description = styled.Text((props) => {
   return {
     fontFamily: props.theme.typography.primary.regular,
-    fontSize: '18px',
+    fontSize: '16px',
+    lineHeight: '24px',
     color: props.theme.palette.text.default,
     letterSpacing: '1px',
   }

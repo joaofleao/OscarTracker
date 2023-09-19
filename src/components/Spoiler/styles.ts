@@ -5,9 +5,9 @@ export const Container = styled.Pressable(() => {
   return {
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: '12px',
     overflow: 'hidden',
     position: 'relative',
+    borderRadius: '12px',
   }
 })
 

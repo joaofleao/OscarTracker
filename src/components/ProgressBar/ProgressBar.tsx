@@ -25,8 +25,7 @@ const ProgressBar = (props: ProgressBarProps): JSX.Element => {
         toValue: progress / total,
         useNativeDriver: true,
       }).start()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [progress])
+  }, [progress, total, xCord])
 
   return (
     <Styled.Container {...rest}>

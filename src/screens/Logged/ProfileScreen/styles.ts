@@ -6,11 +6,12 @@ export const Content = styled.ScrollView(() => {
   }
 })
 
-export const ContentStyle = {
-  gap: '40px',
-  flex: 1,
-} as object
-
+export const ContentContainer = styled.View(() => {
+  return {
+    flex: 1,
+    gap: '40px',
+  }
+})
 export const Title = styled.Text((props) => {
   return {
     color: props.theme.palette.text.default,

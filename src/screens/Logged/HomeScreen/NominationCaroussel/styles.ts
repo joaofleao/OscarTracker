@@ -16,14 +16,6 @@ export const Title = styled.Text((props) => {
     color: props.theme.palette.text.default,
     fontSize: '20px',
     lineHeight: '28px',
-  }
-})
-
-export const Label = styled.Text((props) => {
-  return {
-    fontFamily: props.theme.typography.primary.regular,
-    color: props.theme.palette.text.disabled,
-    fontSize: '14px',
-    lineHeight: '20px',
+    flex: 1,
   }
 })

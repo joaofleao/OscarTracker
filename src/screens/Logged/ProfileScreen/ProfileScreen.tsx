@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Switch } from 'react-native'
+import { Platform, Switch } from 'react-native'
 
 import * as Styled from './styles'
 import Button from '@components/Button'
@@ -44,11 +44,13 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
       true: theme.palette.background.container,
     },
     ios_backgroundColor: theme.palette.background.container,
+
     disabled: !editing,
+    style: Platform.OS === 'android' && { height: 0 },
   }
 
   return (
-    <Global.Screen>
+    <Global.Screen hideBottom>
       <Header.Root>
         <Header.TextContainer>
           <Header.Title bigHeader>Profile</Header.Title>
@@ -61,94 +63,98 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
         />
       </Header.Root>
 
-      <Styled.Content contentContainerStyle={Styled.ContentStyle}>
-        <Styled.Section>
-          <Styled.Title>Personal Information</Styled.Title>
+      <Styled.Content>
+        <Styled.ContentContainer>
+          <Styled.Section>
+            <Styled.Title>Personal Information</Styled.Title>
 
-          <Input
-            value={displayName}
-            editable={editing}
-            label="Name"
-            onChangeText={(text): void => {
-              setDisplayName(text)
-            }}
-          />
-
-          <Input
-            value={nickName}
-            editable={editing}
-            label="Nickname"
-            onChangeText={(text): void => {
-              setNickname(text)
-            }}
-          />
-        </Styled.Section>
-        <Styled.Section>
-          <Styled.Item>
-            <Styled.Title>Spoiler Preferences</Styled.Title>
-            <Button
-              label="Quiz"
-              variant="action"
-              onPress={(): void => {
-                return navigation.navigate(routes.logged.preferences)
+            <Input
+              value={displayName}
+              editable={editing}
+              label="Name"
+              onChangeText={(text): void => {
+                setDisplayName(text)
               }}
             />
-          </Styled.Item>
+
+            <Input
+              value={nickName}
+              editable={editing}
+              label="Nickname"
+              onChangeText={(text): void => {
+                setNickname(text)
+              }}
+            />
+          </Styled.Section>
+          <Styled.Section>
+            <Styled.Item>
+              <Styled.Title>Spoiler Preferences</Styled.Title>
+              <Button
+                label="Quiz"
+                variant="action"
+                onPress={(): void => {
+                  return navigation.navigate(routes.logged.preferences)
+                }}
+              />
+            </Styled.Item>
+
+            <Styled.Item>
+              <Styled.Subtitle>Show Posters</Styled.Subtitle>
+
+              <Switch
+                {...switchSettings}
+                thumbColor={
+                  poster ? theme.palette.primary.default : theme.palette.background.default
+                }
+                value={poster}
+                onValueChange={setPoster}
+              />
+            </Styled.Item>
+            <Styled.Item>
+              <Styled.Subtitle>Show Plot</Styled.Subtitle>
+              <Switch
+                {...switchSettings}
+                thumbColor={plot ? theme.palette.primary.default : theme.palette.background.default}
+                value={plot}
+                onValueChange={setPlot}
+              />
+            </Styled.Item>
+            <Styled.Item>
+              <Styled.Subtitle>Show Cast</Styled.Subtitle>
+              <Switch
+                {...switchSettings}
+                thumbColor={cast ? theme.palette.primary.default : theme.palette.background.default}
+                value={cast}
+                onValueChange={setCast}
+              />
+            </Styled.Item>
+            <Styled.Item>
+              <Styled.Subtitle>Show Ratings</Styled.Subtitle>
+              <Switch
+                {...switchSettings}
+                thumbColor={
+                  ratings ? theme.palette.primary.default : theme.palette.background.default
+                }
+                value={ratings}
+                onValueChange={setRatings}
+              />
+            </Styled.Item>
+          </Styled.Section>
 
           <Styled.Item>
-            <Styled.Subtitle>Show Posters</Styled.Subtitle>
+            <Styled.Title>App Version</Styled.Title>
+            <Styled.AccentText>{packageJson.version}</Styled.AccentText>
+          </Styled.Item>
 
-            <Switch
-              {...switchSettings}
-              thumbColor={poster ? theme.palette.primary.default : theme.palette.background.default}
-              value={poster}
-              onValueChange={setPoster}
+          <Styled.ButtonContainer>
+            <Button
+              width="fixed"
+              label="Log Out"
+              variant="outlined"
+              onPress={auth.signOut}
             />
-          </Styled.Item>
-          <Styled.Item>
-            <Styled.Subtitle>Show Plot</Styled.Subtitle>
-            <Switch
-              {...switchSettings}
-              thumbColor={plot ? theme.palette.primary.default : theme.palette.background.default}
-              value={plot}
-              onValueChange={setPlot}
-            />
-          </Styled.Item>
-          <Styled.Item>
-            <Styled.Subtitle>Show Cast</Styled.Subtitle>
-            <Switch
-              {...switchSettings}
-              thumbColor={cast ? theme.palette.primary.default : theme.palette.background.default}
-              value={cast}
-              onValueChange={setCast}
-            />
-          </Styled.Item>
-          <Styled.Item>
-            <Styled.Subtitle>Show Ratings</Styled.Subtitle>
-            <Switch
-              {...switchSettings}
-              thumbColor={
-                ratings ? theme.palette.primary.default : theme.palette.background.default
-              }
-              value={ratings}
-              onValueChange={setRatings}
-            />
-          </Styled.Item>
-        </Styled.Section>
-
-        <Styled.Item>
-          <Styled.Title>App Version</Styled.Title>
-          <Styled.AccentText>{packageJson.version}</Styled.AccentText>
-        </Styled.Item>
-
-        <Styled.ButtonContainer>
-          <Button
-            width="fixed"
-            label="Log Out"
-            variant="outlined"
-            onPress={auth.signOut}
-          />
-        </Styled.ButtonContainer>
+          </Styled.ButtonContainer>
+        </Styled.ContentContainer>
       </Styled.Content>
     </Global.Screen>
   )

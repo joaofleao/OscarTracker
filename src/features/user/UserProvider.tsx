@@ -89,13 +89,15 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
   ): Promise<void> {
     const userRef = doc(usersCollection, uid)
 
-    updateDoc(userRef, {
-      ...(_email != null && { _email }),
-      ...(_displayName != null && { _displayName }),
-      ...(_nickName != null && { _nickName }),
-      ...(_preferences != null && { _preferences }),
-      ...(_onboarding != null && { _onboarding }),
-    })
+    const values = {
+      ...(_email != null && { email: _email }),
+      ...(_displayName != null && { displayName: _displayName }),
+      ...(_nickName != null && { nickName: _nickName }),
+      ...(_preferences != null && { preferences: _preferences }),
+      ...(_onboarding != null && { onboarding: _onboarding }),
+    }
+
+    updateDoc(userRef, values)
   }
 
   async function setMovieUnwatched(movie: string): Promise<void> {

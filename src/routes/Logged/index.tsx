@@ -39,6 +39,7 @@ const Logged = (
     </Stack.Screen>
 
     <Stack.Screen
+      options={{ gestureEnabled: false }}
       name={routes.logged.preferences}
       component={PreferencesScreen}
     />

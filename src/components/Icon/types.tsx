@@ -7,7 +7,7 @@ export interface Props extends Partial<Svg> {
 
 export const defaultValues: Props = {
   filled: false,
-  color: '#31213B',
+  color: '#F7B239',
   viewBox: '0 0 24 24',
   width: 24,
   height: 24,

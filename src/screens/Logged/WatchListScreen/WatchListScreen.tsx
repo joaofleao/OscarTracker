@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React from 'react'
 import { FlatList } from 'react-native'
 
 import * as Styled from './styles'
@@ -16,10 +16,10 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
   const edition = useEdition()
   const user = useUser()
 
-  const [search, setSearch] = useState<string>('')
-  const [data, setData] = useState(Object.values(edition.movies))
+  const [search, setSearch] = React.useState<string>('')
+  const [data, setData] = React.useState(Object.values(edition.movies))
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (search === '') setData(Object.values(edition.movies))
     else {
       const filtered = Object.values(edition.movies).filter((movie) => {
@@ -49,7 +49,7 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
   }
 
   return (
-    <Global.Screen>
+    <Global.Screen hideBottom>
       <Header.Root>
         <Header.TextContainer>
           <Header.Title bigHeader>Watch List</Header.Title>

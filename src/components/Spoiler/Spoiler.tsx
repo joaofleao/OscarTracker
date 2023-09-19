@@ -26,8 +26,7 @@ const Spoiler = (props: SpoilerProps): JSX.Element => {
       duration: 200,
       useNativeDriver: true,
     }).start()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hidden])
+  }, [hidden, animatedValue])
 
   return (
     <Styled.Container
@@ -39,7 +38,6 @@ const Spoiler = (props: SpoilerProps): JSX.Element => {
       {...rest}
     >
       {children}
-
       {!watched && !show && (
         <Styled.Background style={{ transform: [{ translateY: animatedValue }] }}>
           <Styled.Title>{text}</Styled.Title>

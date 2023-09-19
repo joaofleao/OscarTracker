@@ -29,7 +29,6 @@ const NavBar = (props: Props): JSX.Element => {
   const screenOptions = {
     tabBarHideOnKeyboard: true,
     headerShown: false,
-
     tabBarStyle: {
       elevation: 0,
       paddingHorizontal: 28,
@@ -81,7 +80,12 @@ const NavBar = (props: Props): JSX.Element => {
 
   return (
     <Styled.Container>
-      <Tabs.Navigator screenOptions={screenOptions}>{renderTabs()}</Tabs.Navigator>
+      <Tabs.Navigator
+        backBehavior="none"
+        screenOptions={screenOptions}
+      >
+        {renderTabs()}
+      </Tabs.Navigator>
 
       <Styled.Selector
         style={{
