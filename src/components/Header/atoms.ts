@@ -31,6 +31,15 @@ export const Logo = styled.Text<TextProps>((props) => {
     textAlign: props.align,
   }
 })
+export const LogoAccent = styled.Text<TextProps>((props) => {
+  return {
+    color: props.theme.palette.primary.default,
+    fontSize: props.bigHeader ? '24px' : '20px',
+    lineHeight: props.bigHeader ? '32px' : '26px',
+    fontFamily: props.theme.typography.secondary.semibold,
+    textAlign: props.align,
+  }
+})
 
 export const Description = styled.Text<TextProps>((props) => {
   return {

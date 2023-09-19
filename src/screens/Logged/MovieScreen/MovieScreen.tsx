@@ -4,7 +4,6 @@ import {
   Image,
   Linking,
   type ListRenderItemInfo,
-  // Platform,
   Pressable,
   ScrollView,
   Text,
@@ -142,6 +141,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
       </TouchableOpacity>
     )
   }
+
   const renderProvider = ({ item }: ListRenderItemInfo<ProductionCompany>): JSX.Element => {
     return (
       <Image
