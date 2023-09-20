@@ -26,6 +26,11 @@ export const Separator = styled.View({
   height: '20px',
 })
 
+export const SmallSeparator = styled.View({
+  width: '8px',
+  height: '8px',
+})
+
 export const Title = styled.Text((props) => {
   return {
     fontFamily: props.theme.typography.primary.bold,

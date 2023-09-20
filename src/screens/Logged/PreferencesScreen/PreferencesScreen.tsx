@@ -121,7 +121,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
 
   return (
     <Global.Screen>
-      <Header.Root style={index === 0 && { opacity: 0 }}>
+      <Styled.HeaderRoot isFirst={index === 0}>
         <Button
           onPress={handleBack}
           icon={<Icon.ArrowLeft />}
@@ -131,7 +131,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
           <Header.Title>Preferences</Header.Title>
           <Header.Description>{screens[index].title}</Header.Description>
         </Header.TextContainer>
-      </Header.Root>
+      </Styled.HeaderRoot>
 
       <Styled.Content>
         <FlatList

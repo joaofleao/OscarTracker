@@ -1,5 +1,4 @@
 import React from 'react'
-import { Linking, ScrollView, Text, View } from 'react-native'
 import {
   arrayRemove,
   arrayUnion,
@@ -13,14 +12,12 @@ import {
 } from 'firebase/firestore'
 
 import UserContext, { type UserContextType } from './UserContext'
-import Modal from '@components/Modal'
-import packageJson from '@package.json'
 import { db } from '@services/firebase'
 import type { Announcement, PreferencesType } from '@types'
 
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const usersCollection = collection(db, 'users')
-  const annoucementsCollection = collection(db, 'annoucements')
+  const announcementsCollection = collection(db, 'announcements')
   const [isLogged, setIsLogged] = React.useState<boolean>(false)
 
   const [email, setEmail] = React.useState<string>('')
@@ -37,12 +34,6 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     plot: false,
     ratings: false,
   })
-
-  const [modal, setModal] = React.useState<boolean>(false)
-
-  React.useEffect(() => {
-    if (announcements.length > 0 && announcements[0].version !== packageJson.version) setModal(true)
-  }, [announcements])
 
   React.useEffect(() => {
     if (isLogged) {
@@ -62,17 +53,23 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
       })
       return () => {
         unsubscribe()
-        getAnnoucements()
+        getAnnouncements()
       }
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogged])
 
-  async function getAnnoucements(): Promise<void> {
-    console.log(`\x1b[33mFirebase \x1b[0m- \x1b[32mAnnoucements fetched`)
+  React.useEffect(() => {
+    getAnnouncements()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-    const orderedAnnoucements = query(annoucementsCollection, orderBy('date'))
-    const response = await getDocs(orderedAnnoucements)
+  async function getAnnouncements(): Promise<void> {
+    console.log(`\x1b[33mFirebase \x1b[0m- \x1b[32mAnnouncements fetched`)
+
+    const orderedAnnouncements = query(announcementsCollection, orderBy('date'))
+    const response = await getDocs(orderedAnnouncements)
     const array = []
     response.forEach((item) => {
       return array.push(item.data())
@@ -136,38 +133,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     setMovieWatched,
   } satisfies UserContextType
 
-  const newVersionModal = (): JSX.Element => {
-    const update = announcements[0]
-    return (
-      <Modal
-        title={update.title}
-        description={update.description}
-        visible={modal}
-        confirmLabel={'Update to '.concat(update.version)}
-        onConfirm={(): void => {
-          Linking.openURL(update.url)
-        }}
-      >
-        <View style={{ flex: 1, maxHeight: 200 }}>
-          <ScrollView
-            indicatorStyle="white"
-            contentContainerStyle={{ paddingRight: 20 }}
-          >
-            {update.updates.map((_update: string) => {
-              return <Text key={_update}>{_update}</Text>
-            })}
-          </ScrollView>
-        </View>
-      </Modal>
-    )
-  }
-
-  return (
-    <UserContext.Provider value={value}>
-      {modal && newVersionModal()}
-      {children}
-    </UserContext.Provider>
-  )
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
 
 export default UserProvider

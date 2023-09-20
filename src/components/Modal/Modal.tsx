@@ -1,86 +1,28 @@
-import { Modal as RNModal, type ModalProps as RNModalProps } from 'react-native'
+import { GestureResponderEvent, Modal as RNModal, ModalProps as RNModalProps } from 'react-native'
 
 import * as Styled from './styles'
-import Button from '@components/Button'
-import Icon from '@components/Icon'
 
 export interface ModalProps extends RNModalProps {
-  title: string
-  visible: boolean
-  description: string
-  loading?: boolean
-  onConfirm?: () => void
-  confirmLabel?: string
-  onCancel?: () => void
-  cancelLabel?: string
-  closeButton?: boolean
-  onClose?: () => void
+  onClickOutside?: () => void
 }
-
-const defaultValue: Partial<ModalProps> = {
-  visible: true,
-  loading: false,
-  closeButton: false,
+const defaultProps = {
+  onClickOutside: null,
 }
 
 const Modal = (props: ModalProps): JSX.Element => {
-  const {
-    closeButton,
-    title,
-    visible,
-    description,
-    onConfirm,
-    confirmLabel,
-    onCancel,
-    cancelLabel,
-    children,
-    ...rest
-  } = { ...props, ...defaultValue }
+  const { children, onClickOutside, ...rest } = { ...defaultProps, ...props }
 
+  const handleClickOutside = (event: GestureResponderEvent): void => {
+    if (onClickOutside && event.target === event.currentTarget) onClickOutside()
+  }
   return (
     <RNModal
-      visible={visible}
       animationType="fade"
       transparent={true}
+      {...rest}
     >
-      <Styled.Background>
-        <Styled.Modal {...rest}>
-          <Styled.HeaderContent>
-            <Styled.Title
-              // closeButton={closeButton}
-              numberOfLines={2}
-            >
-              {title}
-            </Styled.Title>
-            {(closeButton ?? false) && onCancel != null && (
-              <Button
-                icon={<Icon.X />}
-                variant="secondary"
-                width="fit"
-              />
-            )}
-          </Styled.HeaderContent>
-          <Styled.Description>{description}</Styled.Description>
-
-          {children}
-
-          <Styled.Footer>
-            {cancelLabel != null && onCancel != null && (
-              <Button
-                variant="secondary"
-                onPress={onCancel}
-                label={cancelLabel}
-              />
-            )}
-
-            {confirmLabel != null && onConfirm != null && (
-              <Button
-                onPress={onConfirm}
-                label={confirmLabel}
-              />
-            )}
-          </Styled.Footer>
-        </Styled.Modal>
+      <Styled.Background onPress={handleClickOutside}>
+        <Styled.Container>{children}</Styled.Container>
       </Styled.Background>
     </RNModal>
   )

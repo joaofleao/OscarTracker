@@ -4,7 +4,8 @@ import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 
 import * as Styled from './styles'
-import LoadingModal from '@components/LoadingModal'
+import LoadingModal from '@containers/LoadingModal'
+import NewVersionModal from '@containers/NewVersionModal'
 import { useTheme } from '@features/theme'
 import { useUser } from '@features/user'
 import { NavigationContainer } from '@react-navigation/native'
@@ -78,7 +79,10 @@ const Router = (): JSX.Element => {
         backgroundColor={palette.background.default}
         barStyle={'light-content'}
       />
+
       <LoadingModal />
+      <NewVersionModal />
+
       <Styled.Container>
         <NavigationContainer>
           <Stack.Navigator screenOptions={screenOptions}>

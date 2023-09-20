@@ -1,56 +1,54 @@
-import styled from 'styled-components/native'
+import { styled } from 'styled-components/native'
 
-interface Props {
-  closeButton?: boolean
-}
-
-export const Background = styled.View((props) => {
+export const Background = styled.Pressable(() => {
   return {
-    backgroundColor: props.theme.palette.background.backdrop,
+    backgroundColor: 'rgba(0,0,0,.5)',
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    padding: '80px',
   }
 })
 
-export const Modal = styled.View((props) => {
+export const Container = styled.View((props) => {
   return {
-    backgroundColor: props.theme.palette.background.default,
-    padding: '48px',
-    paddingTop: '48px',
-    borderRadius: '48px',
     maxHeight: '80%',
+    borderRadius: '24px',
+    backgroundColor: props.theme.palette.background.container,
+    padding: '24px',
+    width: '90%',
+    gap: '16px',
   }
 })
 
-export const HeaderContent = styled.View({
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  flexDirection: 'row',
+export const Row = styled.View(() => {
+  return {
+    gap: '8px',
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+  }
 })
 
-export const Title = styled.Text<Props>((props) => {
+export const Title = styled.Text((props) => {
   return {
-    fontFamily: props.theme.typography.primary.bold,
-    fontSize: '26px',
-    lineHeight: '36px',
     color: props.theme.palette.text.default,
-    flex: 1,
-    marginRight: props.closeButton ? '28px' : '0px',
+    fontFamily: props.theme.typography.primary.bold,
+    fontSize: '20px',
+    lineHeight: '24px',
   }
 })
 
 export const Description = styled.Text((props) => {
   return {
-    fontFamily: props.theme.typography.primary.bold,
-    fontSize: '20px',
-    lineHeight: '36px',
     color: props.theme.palette.text.disabled,
-    marginVertical: '20px',
+    fontFamily: props.theme.typography.primary.medium,
+    fontSize: '16px',
+    lineHeight: '18px',
   }
 })
 
-export const Footer = styled.View({
-  alignItems: 'center',
+export const Section = styled.View(() => {
+  return {
+    gap: '8px',
+  }
 })
