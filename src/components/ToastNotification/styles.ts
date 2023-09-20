@@ -37,7 +37,7 @@ export const Informations = styled.View({
 export const Title = styled.Text((props) => {
   return {
     color: props.theme.palette.text.default,
-    // fontFamily: props.theme.typography.primary.bold,
+    fontFamily: props.theme.typography.primary.bold,
     fontSize: '16px',
     lineHeight: '24px',
   }
@@ -46,7 +46,7 @@ export const Title = styled.Text((props) => {
 export const Description = styled.Text((props) => {
   return {
     color: props.theme.palette.text.default,
-    // fontFamily: props.theme.typography.primary.medium,
+    fontFamily: props.theme.typography.primary.medium,
     fontSize: '14px',
     lineHeight: '20px',
   }

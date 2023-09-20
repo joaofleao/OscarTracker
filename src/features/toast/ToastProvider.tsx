@@ -3,14 +3,13 @@ import { Animated, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import ToastContext, { type ToastContextType } from './ToastContext'
-import ToastNotification from '@components/ToastNotification'
 import { useLoading } from '@features/loading'
 
 const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const loading = useLoading()
   const [title, setTitle] = React.useState<string>('')
   const [description, setDescription] = React.useState<string>('')
-  const [type, setType] = React.useState<string>('')
+  const [type, setType] = React.useState<'success' | 'error'>('success')
   const [toast, setToast] = React.useState<boolean>(false)
   const insets = useSafeAreaInsets()
 
@@ -53,19 +52,13 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
 
   const value = {
     showToast,
+    title,
+    description,
+    type,
+    position: popAnim,
   } satisfies ToastContextType
 
-  return (
-    <ToastContext.Provider value={value}>
-      <ToastNotification
-        title={title}
-        description={description}
-        type={type}
-        position={popAnim}
-      />
-      {children}
-    </ToastContext.Provider>
-  )
+  return <ToastContext.Provider value={value}>{children}</ToastContext.Provider>
 }
 
 export default ToastProvider

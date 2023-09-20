@@ -4,9 +4,11 @@ import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 
 import * as Styled from './styles'
+import ToastNotification from '@components/ToastNotification'
 import LoadingModal from '@containers/LoadingModal'
 import NewVersionModal from '@containers/NewVersionModal'
 import { useTheme } from '@features/theme'
+import { useToast } from '@features/toast'
 import { useUser } from '@features/user'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -39,10 +41,11 @@ const localFonts = {
 
 const Router = (): JSX.Element => {
   const user = useUser()
+  const { palette } = useTheme()
+  const { title, description, type, position } = useToast()
   const [fontsLoaded] = useFonts(localFonts)
   const [splashLoaded, setSplashLoaded] = React.useState(false)
   const [authLoaded, setAuthLoaded] = React.useState(false)
-  const { palette } = useTheme()
 
   React.useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged((data: User | null) => {
@@ -82,6 +85,13 @@ const Router = (): JSX.Element => {
 
       <LoadingModal />
       <NewVersionModal />
+
+      <ToastNotification
+        title={title}
+        description={description}
+        type={type}
+        position={position}
+      />
 
       <Styled.Container>
         <NavigationContainer>
