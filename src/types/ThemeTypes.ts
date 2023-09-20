@@ -1,19 +1,9 @@
-import type { SimplifiedPaletteType } from '../styles/colors'
-import { type RadiusType } from '../styles/radius'
-import { type SizesType } from '../styles/sizes'
-import type { SpacingsType } from '../styles/spacings'
-import type { TypographyType } from '../styles/typography'
+import type { ColorsType } from '@styles/colors'
+import type { FontsType } from '@styles/fonts'
 
 export type ModeType = 'dark' | 'light' | 'highContrast'
 
 export interface ThemeType {
-  palette: SimplifiedPaletteType
-  spacings: SpacingsType
-  typography: TypographyType
-  sizes: SizesType
-  radius: RadiusType
-}
-
-export interface StyledProps {
-  theme: ThemeType
+  colors: ColorsType
+  fonts: FontsType
 }

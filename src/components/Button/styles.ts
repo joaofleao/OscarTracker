@@ -1,72 +1,69 @@
+import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 
-import IconComponent from '../../assets/icons'
-import type { StyledProps } from '../../types'
-
-interface Props extends StyledProps {
-  label: string
-  variant: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
+interface AnimationProps {
   width: 'fit' | 'fixed' | 'full'
-  scale: any
-  iconPositon: 'trailing' | 'leading'
-  icon: string
-  name: string
 }
 
-const getBackgroundColor = (props: Props): string => {
-  if (props.variant === 'primary') return props.theme.palette.primary.default
-  if (props.variant === 'secondary' || props.variant === 'action') return props.theme.palette.primary.shades.shade5
-  return 'transparent'
+export const Animation = styled(Animated.View)<AnimationProps>((props) => {
+  return {
+    width: props.width === 'fixed' ? '256px' : 'auto',
+    flex: props.width === 'full' ? 1 : null,
+  }
+})
+
+interface PressableProps {
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
+  icon: boolean
 }
 
-const getContentColor = (props: Props): string => {
-  if (props.variant === 'primary') return props.theme.palette.text.inverse
-  return props.theme.palette.primary.default
+export const Pressable = styled.Pressable<PressableProps>((props) => {
+  const getBackgroundColor = (): string => {
+    if (props.variant === 'primary') return props.theme.colors.primary.default
+    if (props.variant === 'secondary') return props.theme.colors.primary.shades.shade5
+    if (props.variant === 'action') return props.theme.colors.primary.shades.shade5
+    return 'transparent'
+  }
+
+  const getHorizontalPadding = (): string => {
+    if (props.variant === 'action') return '8px'
+    if (props.icon) return '14px'
+    return '24px'
+  }
+
+  const getVerticalPadding = (): string => {
+    if (props.variant === 'action') return '8px'
+    if (props.icon) return '14px'
+    return '12px'
+  }
+
+  return {
+    background: getBackgroundColor(),
+    paddingVertical: getVerticalPadding(),
+    paddingHorizontal: getHorizontalPadding(),
+    border: props.variant === 'outlined' ? props.theme.colors.primary.default : 'transparent',
+    borderRadius: props.variant === 'action' ? '12px' : '16px',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+})
+
+interface LabelProps {
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
 }
 
-const getBorder = (props: Props): string => {
-  if (props.variant === 'outlined') return props.theme.palette.primary.default
+export const Label = styled.Text<LabelProps>((props) => {
+  const getContentColor = (): string => {
+    if (props.variant === 'primary') return props.theme.colors.text.inverse
+    return props.theme.colors.primary.default
+  }
 
-  return 'transparent'
-}
-const getWidth = (props: Props): string => {
-  if (props.width === 'fit') return 'auto'
-  if (props.width === 'fixed') return props.theme.spacings.space31
-  return '100%'
-}
-const getHorizontalPadding = (props: Props): any => {
-  if (props.label !== null) return { paddingHorizontal: props.theme.spacings.space9 }
-  if (props.variant === 'action') return { paddingRight: props.theme.spacings.space9, paddingLeft: props.theme.spacings.space9 }
-  if (props.icon !== null && props.iconPositon === 'leading') return { paddingRight: props.theme.spacings.space11, paddingLeft: props.theme.spacings.space10 }
-  if (props.icon !== null && props.iconPositon === 'trailing') return { paddingRight: props.theme.spacings.space10, paddingLeft: props.theme.spacings.space11 }
-  return { paddingHorizontal: props.theme.spacings.space11 }
-}
+  return {
+    fontFamily: props.theme.fonts.primary.bold,
+    fontSize: props.variant === 'action' ? '12px' : '16px',
+    lineHeight: props.variant === 'action' ? '16px' : '20px',
 
-export const Pressable = styled.Pressable((props: Props) => ({
-  background: getBackgroundColor(props),
-  border: getBorder(props),
-  paddingVertical: props.variant === 'action' ? props.theme.spacings.space8 : props.theme.spacings.space9,
-  ...getHorizontalPadding(props),
-  borderRadius: props.variant === 'action' ? props.theme.spacings.space9 : props.theme.spacings.space10,
-  width: getWidth(props),
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexDirection: 'row',
-}))
-
-export const Label = styled.Text((props: Props) => ({
-  fontFamily: props.theme.typography.primary.bold,
-  fontSize: props.theme.typography.sizes.fontSize3,
-  lineHeight: props.theme.typography.sizes.fontSize5,
-  color: getContentColor(props),
-  maxWidth: '80%',
-  textAlign: 'center',
-}))
-
-export const Icon = styled(IconComponent)((props: Props) => ({
-  color: getContentColor(props),
-  fontSize: props.theme.typography.sizes.fontSize5,
-  lineHeight: props.theme.typography.sizes.fontSize5,
-  marginRight: props.name !== null && props.iconPositon === 'leading' && props.label === null && props.theme.spacings.space5,
-  marginLeft: props.name !== null && props.iconPositon === 'trailing' && props.label === null && props.theme.spacings.space5,
-}))
+    color: getContentColor(),
+    textAlign: 'center',
+  }
+})

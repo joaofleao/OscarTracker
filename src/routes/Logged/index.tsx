@@ -1,125 +1,59 @@
-import React, { useRef } from 'react'
-import { Animated, Dimensions, Platform, View } from 'react-native'
-import colors from 'tailwindcss/colors'
-
-import { IconComponent } from '../../components'
-import { HomeScreen, MovieScreen, NominationScreen, PreferencesScreen, ProfileScreen, WatchListScreen } from '../../screens'
-import { type ScreenTypes } from '../../types'
-import { routes } from '../../utils'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import Icon from '@components/Icon'
+import NavBar from '@components/NavBar'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import HomeScreen from '@screens/Logged/HomeScreen'
+import MovieScreen from '@screens/Logged/MovieScreen'
+import NominationScreen from '@screens/Logged/NominationScreen'
+import PreferencesScreen from '@screens/Logged/PreferencesScreen'
+import ProfileScreen from '@screens/Logged/ProfileScreen'
+import WatchListScreen from '@screens/Logged/WatchListScreen'
+import { type ScreenTypes } from '@types'
+import routes from '@utils/routes'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
-const Tab = createBottomTabNavigator()
 
-const screenOptionsIos = {
-  headerShown: false,
-  tabBarShowLabel: false,
-  tabBarStyle: {
-    paddingHorizontal: 28,
-    paddingTop: 10,
-    borderTopWidth: 1,
-    height: 100,
-    borderTopColor: colors.zinc[800],
-    backgroundColor: colors.zinc[900],
-  },
-}
-const screenOptionsAndroid = {
-  headerShown: false,
-  tabBarShowLabel: false,
-  tabBarStyle: {
-    paddingHorizontal: 28,
-    paddingTop: 20,
-    elevation: 0,
-    borderTopWidth: 1,
-    borderTopColor: colors.zinc[800],
-    backgroundColor: colors.zinc[900],
-  },
-}
-
-const tabs = [
-  {
-    name: routes.logged.home,
-    icon: 'home-tab',
+const tabs = {
+  home: {
+    label: routes.logged.home,
     component: HomeScreen,
+    icon: <Icon.Home />,
   },
-  {
-    name: routes.logged.watchList,
-    icon: 'check-tab',
+  watchList: {
+    label: routes.logged.watchList,
     component: WatchListScreen,
+    icon: <Icon.CheckCircle />,
   },
-  {
-    name: routes.logged.profile,
-    icon: 'user-tab',
+  profile: {
+    label: routes.logged.profile,
     component: ProfileScreen,
+    icon: <Icon.Person />,
   },
-]
-
-const TabNavigator = (): JSX.Element => {
-  const tabOffsetValue = useRef(new Animated.Value(0)).current
-  const getWidth = (Dimensions.get('window').width - 56) / tabs.length
-
-  const renderTab = (name: string, component: any, position: number, icon: string): JSX.Element => {
-    return (
-      <Tab.Screen
-        key={name}
-        name={name}
-        component={component}
-        options={{
-          tabBarHideOnKeyboard: true,
-          tabBarIcon: ({ focused }) => (
-            <IconComponent
-              name={focused ? icon.concat('-filled') : icon}
-              size={24}
-              style={{ color: focused ? colors.amber[500] : colors.stone[700] }}
-            />
-          ),
-        }}
-        listeners={() => ({
-          tabPress: () => {
-            Animated.spring(tabOffsetValue, {
-              toValue: position,
-              useNativeDriver: true,
-            }).start()
-          },
-        })}
-      />
-    )
-  }
-  return (
-    <View style={{ flex: 1 }}>
-      <Tab.Navigator screenOptions={Platform.OS === 'ios' ? screenOptionsIos : screenOptionsAndroid}>
-        {tabs.map((item, i) => {
-          return renderTab(item.name, item.component, i * getWidth, item.icon)
-        })}
-      </Tab.Navigator>
-      <Animated.View
-        className="w-1.5 h-1.5 absolute bottom-8 left-7 rounded-full "
-        style={{ marginLeft: (getWidth - 6) / 2, transform: [{ translateX: tabOffsetValue }] }}
-      >
-        <View className="bg-amber-500 w-full h-full absolute rounded-full" />
-      </Animated.View>
-    </View>
-  )
 }
 
-export const Logged = (
+const Logged = (
   <>
+    <Stack.Screen name={routes.logged.index}>
+      {(): JSX.Element => {
+        return <NavBar tabs={tabs} />
+      }}
+    </Stack.Screen>
+
     <Stack.Screen
-      name={routes.logged.index}
-      component={TabNavigator}
-    />
-    <Stack.Screen
+      options={{ gestureEnabled: false }}
       name={routes.logged.preferences}
       component={PreferencesScreen}
     />
+
     <Stack.Screen
       name={routes.logged.movie}
       component={MovieScreen}
     />
+
     <Stack.Screen
       name={routes.logged.nomination}
       component={NominationScreen}
     />
   </>
 )
+
+export default Logged

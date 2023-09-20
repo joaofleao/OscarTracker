@@ -1,4 +1,8 @@
-export const printFetch = (api: string, message: string, color: 'blue' | 'red' | 'yellow' | 'green' | number): void => {
+export const printFetch = (
+  api: string,
+  message: string,
+  color: 'blue' | 'red' | 'yellow' | 'green' | number,
+): void => {
   if (color === 'blue') color = 34
   if (color === 'red') color = 31
   if (color === 'yellow') color = 33

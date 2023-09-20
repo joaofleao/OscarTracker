@@ -3,20 +3,19 @@ import { type NativeStackScreenProps } from '@react-navigation/native-stack'
 
 export interface ScreenTypes extends ParamListBase {
   IndexScreen: undefined
-  SignInScreen: undefined
-  SignUpEmailScreen: undefined
-  ForgotPasswordScreen: {
+  SignIn: undefined
+  Email: undefined
+  PasswordRecovery: {
     email: string | undefined
   }
-  SignUpPasswordScreen: {
+  Password: {
     email: string
   }
-  SignUpNameScreen: {
+  Name: {
     email: string
     password: string
   }
   PreferencesScreen: undefined
-  SignUpAvatarScreen: undefined
   HomeScreen: undefined
   WatchListScreen: undefined
   ProfileScreen: undefined
@@ -34,10 +33,10 @@ export type HomeScreenProps = NativeStackScreenProps<ScreenTypes, 'HomeScreen'>
 export type MovieScreenProps = NativeStackScreenProps<ScreenTypes, 'MovieScreen'>
 export type PreferencesScreenProps = NativeStackScreenProps<ScreenTypes, 'PreferencesScreen'>
 export type NominationScreenProps = NativeStackScreenProps<ScreenTypes, 'NominationScreen'>
-export type SignInScreenProps = NativeStackScreenProps<ScreenTypes, 'SignInScreen'>
+export type SignInProps = NativeStackScreenProps<ScreenTypes, 'SignIn'>
 export type WatchListScreenProps = NativeStackScreenProps<ScreenTypes, 'WatchListScreen'>
-export type SignUpAvatarScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpAvatarScreen'>
-export type SignUpEmailScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpEmailScreen'>
-export type SignUpPasswordScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpPasswordScreen'>
-export type SignUpNameScreenProps = NativeStackScreenProps<ScreenTypes, 'SignUpNameScreen'>
-export type ForgotPasswordScreenProps = NativeStackScreenProps<ScreenTypes, 'ForgotPasswordScreen'>
+export type EmailProps = NativeStackScreenProps<ScreenTypes, 'Email'>
+export type PasswordProps = NativeStackScreenProps<ScreenTypes, 'Password'>
+export type NameProps = NativeStackScreenProps<ScreenTypes, 'Name'>
+export type PasswordRecoveryProps = NativeStackScreenProps<ScreenTypes, 'PasswordRecovery'>
+export type ProfileScreenProps = NativeStackScreenProps<ScreenTypes, 'ProfileScreen'>

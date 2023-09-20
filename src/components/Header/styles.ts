@@ -1,49 +1,71 @@
-import styled from 'styled-components/native'
+import { styled } from 'styled-components/native'
 
-import type { StyledProps } from '../../types'
-
-interface Props extends StyledProps {
-  align: 'left' | 'center' | 'right'
-  leadingButton: boolean
-  trailingButton: boolean
-  bigHeader: boolean
+interface Props {
+  align?: 'center' | 'left' | 'right' | 'between'
 }
 
-export const Container = styled.View((props: Props) => ({
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  paddingHorizontal: props.theme.spacings.space10,
-  minHeight: 54,
-  paddingTop: props.theme.spacings.space12,
-  paddingBottom: props.theme.spacings.space12,
-}))
+export const Container = styled.View<Props>((props) => {
+  const getAlignment = (): string => {
+    if (props.align === 'between') return 'space-between'
+    if (props.align === 'center') return 'center'
+    if (props.align === 'right') return 'flex-end'
+    return 'flex-start'
+  }
+  return {
+    width: '100%',
 
-export const Title = styled.Text((props: Props) => ({
-  color: props.theme.palette.text.default,
-  fontSize: props.bigHeader ? props.theme.typography.sizes.fontSize8 : props.theme.typography.sizes.fontSize5,
-  lineHeight: props.bigHeader ? props.theme.typography.sizes.fontSize12 : props.theme.typography.sizes.fontSize8,
-  fontFamily: props.theme.typography.primary.semibold,
-  textAlign: props.align,
-}))
+    flexDirection: 'row',
+    gap: '20px',
+    justifyContent: getAlignment(),
+    paddingHorizontal: '20px',
+    marginTop: '10px',
+    marginBottom: '20px',
+    alignItems: 'center',
+  }
+})
 
-export const Description = styled.Text((props: Props) => ({
-  color: props.theme.palette.text.light,
-  fontSize: props.bigHeader ? props.theme.typography.sizes.fontSize5 : props.theme.typography.sizes.fontSize3,
-  lineHeight: props.bigHeader ? props.theme.typography.sizes.fontSize10 : props.theme.typography.sizes.fontSize8,
-  fontFamily: props.theme.typography.primary.medium,
-  textAlign: props.align,
-}))
+export const TextContainer = styled.View(() => {
+  return {
+    flex: 1,
+  }
+})
 
-export const TextContainer = styled.View((props: Props) => ({
-  marginRight: (props.trailingButton || (!props.trailingButton && props.leadingButton && props.align === 'center')) && '16px',
-  marginLeft: (props.leadingButton || (!props.leadingButton && props.trailingButton && props.align === 'center')) && '16px',
-  flex: 1,
-  minHeight: 54,
-  justifyContent: 'center',
-}))
+interface TextProps {
+  align?: 'left' | 'center' | 'right'
+  bigHeader?: boolean
+}
 
-export const ButtonContainer = styled.View((props: Props) => ({
-  minWidth: 54,
-  height: '100%',
-}))
+export const Title = styled.Text<TextProps>((props) => {
+  return {
+    color: props.theme.colors.text.default,
+    fontSize: props.bigHeader ? '24px' : '20px',
+    lineHeight: '24px',
+    fontFamily: props.theme.fonts.primary.semibold,
+    textAlign: props.align,
+  }
+})
+
+export const Logo = styled.Text<TextProps>((props) => {
+  return {
+    color: props.theme.colors.text.default,
+    fontSize: props.bigHeader ? '24px' : '20px',
+    lineHeight: '24px',
+    fontFamily: props.theme.fonts.secondary.semibold,
+    textAlign: props.align,
+  }
+})
+export const LogoAccent = styled.Text<TextProps>((props) => {
+  return {
+    color: props.theme.colors.primary.default,
+  }
+})
+
+export const Description = styled.Text<TextProps>((props) => {
+  return {
+    color: props.theme.colors.text.light,
+    fontSize: props.bigHeader ? '18px' : '16px',
+    lineHeight: '24px',
+    fontFamily: props.theme.fonts.primary.medium,
+    textAlign: props.align,
+  }
+})

@@ -1,15 +1,14 @@
-import React from 'react'
 import { Text, type TouchableOpacityProps } from 'react-native'
 
-import { Facebook, Google } from '../../assets/images'
 import * as Styled from './styles'
+import { Facebook, Google } from '@assets/images'
 
 export interface SocialButtonProps extends TouchableOpacityProps {
   name: string
 }
 
 const SocialButton = (props: SocialButtonProps): JSX.Element => {
-  const { name, onPress, ...rest } = props
+  const { name, ...rest } = props
 
   const getIcon = (): JSX.Element => {
     if (name === 'Facebook') return <Facebook />

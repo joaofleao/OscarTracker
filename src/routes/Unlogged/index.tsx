@@ -1,37 +1,37 @@
-import React from 'react'
-
-import { ForgotPasswordScreen, SignInScreen, SignUpAvatarScreen, SignUpEmailScreen, SignUpNameScreen, SignUpPasswordScreen } from '../../screens'
-import { type ScreenTypes } from '../../types'
-import { routes } from '../../utils'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import PasswordRecovery from '@screens/Unlogged/PasswordRecovery'
+import SignIn from '@screens/Unlogged/SignIn'
+import Email from '@screens/Unlogged/SignUp/Email'
+import Name from '@screens/Unlogged/SignUp/Name'
+import Password from '@screens/Unlogged/SignUp/Password'
+import { type ScreenTypes } from '@types'
+import routes from '@utils/routes'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 
-export const Unlogged = (
+const Unlogged = (
   <>
     <Stack.Screen
       name={routes.unlogged.signIn}
-      component={SignInScreen}
+      component={SignIn}
     />
     <Stack.Screen
       name={routes.unlogged.signUpEmail}
-      component={SignUpEmailScreen}
+      component={Email}
     />
     <Stack.Screen
       name={routes.unlogged.signUpPassword}
-      component={SignUpPasswordScreen}
+      component={Password}
     />
     <Stack.Screen
       name={routes.unlogged.signUpName}
-      component={SignUpNameScreen}
-    />
-    <Stack.Screen
-      name={routes.unlogged.signUpAvatar}
-      component={SignUpAvatarScreen}
+      component={Name}
     />
     <Stack.Screen
       name={routes.unlogged.forgotPassword}
-      component={ForgotPasswordScreen}
+      component={PasswordRecovery}
     />
   </>
 )
+
+export default Unlogged

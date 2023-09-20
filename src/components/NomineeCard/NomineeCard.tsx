@@ -1,9 +1,9 @@
-import React, { type TouchableOpacityProps } from 'react-native'
+import { type TouchableOpacityProps } from 'react-native'
 
-import { useUser } from '../../features'
-import { getImage } from '../../services/tmdb/api'
-import { Poster } from '..'
 import * as Styled from './styles'
+import Poster from '@components/Poster'
+import { useUser } from '@features/user'
+import { getImage } from '@services/tmdb/api'
 
 export interface NomineeCardProps extends TouchableOpacityProps {
   image: string
@@ -30,7 +30,9 @@ const NomineeCard = (props: NomineeCardProps): JSX.Element => {
       />
       <Styled.Content>
         <Styled.Title numberOfLines={3}>{title}</Styled.Title>
-        {information != null && <Styled.Information numberOfLines={2}>{information}</Styled.Information>}
+        {information != null && (
+          <Styled.Information numberOfLines={2}>{information}</Styled.Information>
+        )}
         {extra != null && <Styled.Extra numberOfLines={2}>{extra}</Styled.Extra>}
       </Styled.Content>
     </Styled.Container>

@@ -1,4 +1,6 @@
-import Header, { type HeaderProps } from './Header'
+import Root from './Header'
+import { Description, Logo, LogoAccent, TextContainer, Title } from './styles'
+
+const Header = { Root, Description, Logo, LogoAccent, TextContainer, Title }
 
 export default Header
-export type { HeaderProps }

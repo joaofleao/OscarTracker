@@ -1,7 +1,7 @@
 import axios, { type AxiosResponse } from 'axios'
 
-import type { CastType, MovieType, ProvidersType } from '../../types'
 import { tmdbConfig } from './config'
+import type { CastType, MovieType, ProvidersType } from '@types'
 
 const apiBaseUrl = tmdbConfig.api_base_url
 const apiKey = tmdbConfig.api_key
@@ -12,7 +12,7 @@ const api = axios.create({
   timeout: 60000,
 })
 
-export const getImage = (id: string): any => {
+export const getImage = (id: string): string => {
   return imageBaseUrl + id
 }
 
@@ -30,14 +30,17 @@ export const getCast = async (id: string, language: string): Promise<AxiosRespon
   return response
 }
 
-export const getVideos = async (id: string, language: string): Promise<AxiosResponse<any>> => {
-  const response: AxiosResponse<any> = await api.get(`movie/${id}/videos`, {
+export const getVideos = async (id: string, language: string): Promise<AxiosResponse<string>> => {
+  const response: AxiosResponse<string> = await api.get(`movie/${id}/videos`, {
     params: { api_key: apiKey, language },
   })
   return response
 }
 
-export const getProviders = async (id: string, language: string): Promise<AxiosResponse<ProvidersType>> => {
+export const getProviders = async (
+  id: string,
+  language: string,
+): Promise<AxiosResponse<ProvidersType>> => {
   const response: AxiosResponse<ProvidersType> = await api.get(`movie/${id}/watch/providers`, {
     params: { api_key: apiKey, language },
   })

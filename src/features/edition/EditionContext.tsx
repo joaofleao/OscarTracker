@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import type { BasicMovieType, Category, Nomination, PersonType } from '../../types'
+import type { BasicMovieType, Category, Nomination, PersonType } from '@types'
 
 export interface EditionContextType {
   edition: string

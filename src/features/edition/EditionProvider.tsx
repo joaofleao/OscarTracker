@@ -1,11 +1,11 @@
 import React from 'react'
 import { collection, doc, getDocs, orderBy, query, where } from 'firebase/firestore'
 
-import { db } from '../../services'
-import type { BasicMovieType, Category, DocumentData, Nomination, PersonType, QueryDocumentSnapshot } from '../../types'
-import { functions } from '../../utils'
-import { useUser } from '..'
 import EditionContext, { type EditionContextType } from './EditionContext'
+import { useUser } from '@features/user'
+import { db } from '@services/firebase'
+import type { BasicMovieType, Category, Nomination, PersonType } from '@types'
+import { printFetch } from '@utils/functions'
 
 const editionsCollection = collection(db, 'editions')
 const categoriesCollection = collection(db, 'categories')
@@ -22,22 +22,23 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
 
   React.useMemo(() => {
     const fetchFirebaseData = async (): Promise<void> => {
-      void getCategories()
-      void getMovies()
-      void getPeople()
-      void getNominations()
+      getCategories()
+      getMovies()
+      getPeople()
+      getNominations()
     }
-    if (user.isLogged) void fetchFirebaseData()
+    if (user.isLogged) fetchFirebaseData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLogged, edition])
 
   async function getCategories(): Promise<void> {
-    functions.printFetch('Firebase', 'Categories fetched', 'yellow')
+    printFetch('Firebase', 'Categories fetched', 'yellow')
 
     const response = await getDocs(categoriesCollection)
     const map: typeof categories = {}
 
-    response.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
-      map[doc.id] = doc.data() as Category
+    response.forEach((item) => {
+      map[item.id] = item.data() as Category
     })
 
     const ordered = Object.entries(map)
@@ -54,7 +55,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   async function getMovies(): Promise<void> {
-    functions.printFetch('Firebase', 'Movies fetched', 'yellow')
+    printFetch('Firebase', 'Movies fetched', 'yellow')
 
     const moviesCollection = collection(editionRef, 'movies')
     const orderedMovies = query(moviesCollection, orderBy('en-US.name'))
@@ -62,8 +63,8 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     const response = await getDocs(orderedMovies)
     const map: typeof movies = {}
 
-    response.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
-      map[doc.id] = doc.data() as BasicMovieType
+    response.forEach((item) => {
+      map[item.id] = item.data() as BasicMovieType
     })
 
     setTotalMovies(response.size)
@@ -71,7 +72,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   async function getPeople(): Promise<void> {
-    functions.printFetch('Firebase', 'People fetched', 'yellow')
+    printFetch('Firebase', 'People fetched', 'yellow')
 
     const peopleCollection = collection(editionRef, 'people')
     const orderedPeople = query(peopleCollection, orderBy('name'))
@@ -79,23 +80,23 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     const response = await getDocs(orderedPeople)
     const map: typeof people = {}
 
-    response.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
-      map[doc.id] = doc.data() as PersonType
+    response.forEach((item) => {
+      map[item.id] = item.data() as PersonType
     })
 
     setPeople(map)
   }
 
   async function getNominations(): Promise<void> {
-    functions.printFetch('Firebase', 'Nominations fetched', 'yellow')
+    printFetch('Firebase', 'Nominations fetched', 'yellow')
 
     const nominationsCollection = collection(editionRef, 'nominations')
 
     const response = await getDocs(nominationsCollection)
     const map: typeof nominations = {}
 
-    response.forEach((doc) => {
-      const data = doc.data() as Nomination
+    response.forEach((item) => {
+      const data = item.data() as Nomination
       const oldValues = map[data.category] ?? []
 
       map[data.category] = [...oldValues, data]
@@ -105,17 +106,17 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   async function getMovieNominations(movie: string): Promise<Nomination[]> {
-    functions.printFetch('Firebase', 'Movie Nominations fetched', 'yellow')
+    printFetch('Firebase', 'Movie Nominations fetched', 'yellow')
 
-    const nominations = collection(editionRef, 'nominations')
-    const movieNominations = query(nominations, where('movie', '==', movie))
+    const nominationsCollection = collection(editionRef, 'nominations')
+    const movieNominations = query(nominationsCollection, where('movie', '==', movie))
 
     const response = await getDocs(movieNominations)
 
     const array: Nomination[] = []
 
-    response.forEach((doc) => {
-      const nomination = doc.data() as Nomination
+    response.forEach((item) => {
+      const nomination = item.data() as Nomination
       array.push(nomination)
     })
 

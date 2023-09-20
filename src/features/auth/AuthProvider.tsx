@@ -1,33 +1,25 @@
-import React, { useEffect, useState } from 'react'
 import { type FirebaseError } from 'firebase/app'
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut as firebaseSignOut, type User } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signOut as firebaseSignOut,
+  type User,
+} from 'firebase/auth'
 import { collection, doc, setDoc } from 'firebase/firestore'
 
-import { useLoading, useToast, useUser } from '../../features'
-import { auth, db } from '../../services'
 import AuthContext, { type AuthContextType } from './AuthContext'
+import { useLoading } from '@features/loading'
+import { useToast } from '@features/toast'
+import { useUser } from '@features/user'
+import { auth, db } from '@services/firebase'
 
 const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => {
   const toast = useToast()
   const user = useUser()
   const loading = useLoading()
 
-  const [initializing, setInitializing] = useState<boolean>(true)
-
   const users = collection(db, 'users')
-
-  useEffect(() => {
-    const unsubscribeAuth = auth.onAuthStateChanged((data: User | null) => {
-      if (data !== null) {
-        user.setUid(data.uid)
-        user.setIsLogged(true)
-      }
-      setInitializing(false)
-    })
-    return () => {
-      unsubscribeAuth()
-    }
-  }, [])
 
   const showError = (error: FirebaseError): void => {
     toast.showToast(error.code, error.message, 'error')
@@ -92,13 +84,16 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   const recoverPassword = (email: string): void => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        toast.showToast('Email Sent', 'You will recieve an email to recover the password if your account exists.', 'success')
+        toast.showToast(
+          'Email Sent',
+          'You will recieve an email to recover the password if your account exists.',
+          'success',
+        )
       })
       .catch(showError)
   }
 
   const value = {
-    initializing,
     signIn,
     signUp,
     signOut,

@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Animated, Easing, Pressable, type TextInput, type TextInputProps, View } from 'react-native'
+import { useEffect, useRef, useState } from 'react'
+import { Animated, Easing, Pressable, type TextInputProps, View } from 'react-native'
 
-import { Button, IconComponent } from '../../components'
-import { useTheme } from '../../features'
 import * as Styled from './styles'
+import Button from '@components/Button'
+import Icon from '@components/Icon'
+import { useTheme } from '@features/theme'
 
 export interface InputProps extends TextInputProps {
   label?: string
@@ -21,7 +22,7 @@ const Input = (props: InputProps): JSX.Element => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(type === 'password')
   const [showError, setShowError] = useState<boolean>(false)
 
-  const inputRef = useRef<TextInput>(null)
+  const inputRef = useRef(null)
   const focusAnim = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const Input = (props: InputProps): JSX.Element => {
     return () => {
       clearTimeout(userTyping)
     }
-  }, [value])
+  }, [value, validation])
 
   const transform = [
     {
@@ -54,35 +55,51 @@ const Input = (props: InputProps): JSX.Element => {
     {
       translateY: focusAnim.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, -22],
+        outputRange: [0, -16],
       }),
     },
     {
       translateX: focusAnim.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, -(label != null && label.length * 2.5) | 0],
+        outputRange: [0, label != null ? -(label.length * 2) : 0],
       }),
     },
   ]
 
-  const getHelperText = (): JSX.Element => {
+  const getHelperText = (): JSX.Element | null => {
     if (showError && errorText != null)
       return (
         <Styled.ErrorContainer>
-          <IconComponent
-            name="alert-circle"
-            color={theme.palette.negative.default}
-            size={14}
+          <Icon.AlertCircle
+            color={theme.colors.negative.default}
+            height={14}
+            width={14}
           />
           <Styled.ErrorMessage>{errorText}</Styled.ErrorMessage>
         </Styled.ErrorContainer>
       )
-    return <></>
+  }
+
+  const onBlur = (): void => {
+    setIsFocused(false)
+  }
+
+  const onFocus = (): void => {
+    setIsFocused(true)
+  }
+
+  const togglePasswordVisible = (): void => {
+    setIsPasswordVisible((isVisible) => {
+      return !isVisible
+    })
+  }
+  const focusRef = (): void => {
+    inputRef.current?.focus()
   }
 
   return (
-    <Styled.Container>
-      <Pressable onPress={() => inputRef.current?.focus()}>
+    <View>
+      <Pressable onPress={focusRef}>
         <Styled.Content>
           {type !== 'search' && (
             <Styled.LabelContainer style={{ transform }}>
@@ -91,46 +108,37 @@ const Input = (props: InputProps): JSX.Element => {
           )}
 
           {type === 'search' && (
-            <IconComponent
-              name="search"
-              size={24}
-              color={theme.palette.primary.default}
+            <Icon.Search
+              width={18}
+              height={18}
+              color={theme.colors.primary.default}
             />
           )}
+
           <Styled.Input
             isSearch={type === 'search'}
             secureTextEntry={isPasswordVisible}
-            placeholderTextColor={type === 'search' ? theme.palette.text.light : 'transparent'}
+            placeholderTextColor={type === 'search' ? theme.colors.text.light : 'transparent'}
             placeholder={'Search'}
             autoCapitalize="none"
             ref={inputRef}
             value={value}
-            onBlur={() => {
-              setIsFocused(false)
-            }}
-            onFocus={() => {
-              setIsFocused(true)
-            }}
+            onBlur={onBlur}
+            onFocus={onFocus}
             {...rest}
           />
-          {type !== 'search' && (
-            <View style={{ height: 50 }}>
-              {type === 'password' && (
-                <Button
-                  variant="action"
-                  icon={isPasswordVisible ? 'eye' : 'eye-off'}
-                  onPress={() => {
-                    setIsPasswordVisible((value) => !value)
-                  }}
-                  width="fit"
-                />
-              )}
-            </View>
+
+          {type === 'password' && (
+            <Button
+              variant="action"
+              icon={isPasswordVisible ? <Icon.Eye /> : <Icon.EyeOff />}
+              onPress={togglePasswordVisible}
+            />
           )}
         </Styled.Content>
       </Pressable>
       {getHelperText()}
-    </Styled.Container>
+    </View>
   )
 }
 

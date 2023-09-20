@@ -1,29 +1,30 @@
 import React from 'react'
 import { Animated, type PressableProps } from 'react-native'
 
-import { Loading } from '../index'
 import * as Styled from './styles'
+import Loading from '@components/Loading'
+import { useTheme } from '@features/theme'
 
 export interface ButtonProps extends PressableProps {
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
+  loading?: boolean
   label?: string
   width?: 'fit' | 'fixed' | 'full'
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
-  disabled?: boolean
-  loading?: boolean
-  icon?: string
-  iconPositon?: 'trailing' | 'leading'
+  icon?: JSX.Element
 }
-
-const defaultValue = {
-  width: 'fixed',
+const defaultValue: ButtonProps = {
+  width: 'fit',
   variant: 'primary',
-  disabled: false,
   loading: false,
-  iconPositon: 'leading',
 }
 
 const Button = (props: ButtonProps): JSX.Element => {
-  const { label, width, variant, disabled, loading, icon, iconPositon, ...rest } = { ...defaultValue, ...props }
+  const { label, width, variant, disabled, loading, icon, ...rest } = {
+    ...defaultValue,
+    ...props,
+  }
+
+  const theme = useTheme()
 
   const scaleAnimation = React.useRef(new Animated.Value(0)).current
   const opacityAnimation = React.useRef(new Animated.Value(0)).current
@@ -41,6 +42,7 @@ const Button = (props: ButtonProps): JSX.Element => {
       useNativeDriver: true,
     }).start()
   }
+
   const onPressOut = (): void => {
     Animated.spring(scaleAnimation, {
       toValue: 0,
@@ -65,63 +67,58 @@ const Button = (props: ButtonProps): JSX.Element => {
         useNativeDriver: true,
       }).start()
     }
-  }, [disabled])
+  }, [disabled, opacityAnimation])
+
+  const renderIcon =
+    icon &&
+    React.cloneElement(icon, {
+      color: props.variant === 'primary' ? theme.colors.text.inverse : theme.colors.primary.default,
+      width: 20,
+      height: 20,
+      variant,
+    })
+
+  const renderLabel = (
+    <Styled.Label
+      numberOfLines={1}
+      variant={variant}
+      disabled={disabled}
+    >
+      {label}
+    </Styled.Label>
+  )
+
+  const renderLoading = (
+    <Loading
+      disabled={disabled}
+      animation={'circle'}
+      size={24}
+      type={variant === 'primary' ? 'secondary' : 'primary'}
+    />
+  )
+
+  const renderContent = (): JSX.Element => {
+    if (loading) return renderLoading
+    else if (icon != null && label == null) return renderIcon
+    else if (icon == null && label != null) return renderLabel
+  }
 
   return (
-    <Animated.View style={{ transform: [{ scale }], opacity }}>
+    <Styled.Animation
+      width={width}
+      style={{ transform: [{ scale }], opacity }}
+    >
       <Styled.Pressable
-        width={width}
-        iconPositon={iconPositon}
-        icon={icon}
+        icon={!!icon}
         variant={variant}
         disabled={disabled}
         onPressIn={onPressIn}
         onPressOut={onPressOut}
         {...rest}
       >
-        {loading ? (
-          <Loading
-            disabled={disabled}
-            animation={'circle'}
-            size={24}
-            type={variant === 'primary' ? 'secondary' : 'primary'}
-          />
-        ) : (
-          <>
-            {icon != null && iconPositon === 'leading' && (
-              <Styled.Icon
-                label={label}
-                name={icon}
-                iconPositon={iconPositon}
-                size={18}
-                variant={variant}
-                disabled={disabled}
-              />
-            )}
-            {label != null && (
-              <Styled.Label
-                numberOfLines={1}
-                variant={variant}
-                disabled={disabled}
-              >
-                {label}
-              </Styled.Label>
-            )}
-            {icon != null && iconPositon === 'trailing' && (
-              <Styled.Icon
-                label={label}
-                name={icon}
-                iconPositon={iconPositon}
-                width={24}
-                height={24}
-                variant={variant}
-                disabled={disabled}
-              />
-            )}
-          </>
-        )}
+        {renderContent()}
       </Styled.Pressable>
-    </Animated.View>
+    </Styled.Animation>
   )
 }
 

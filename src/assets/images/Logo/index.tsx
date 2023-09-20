@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { View } from 'react-native'
+import { DimensionValue, View } from 'react-native'
 import Svg, { Path, type SvgProps } from 'react-native-svg'
 
 interface LogoProps extends SvgProps {
@@ -10,12 +9,12 @@ interface LogoProps extends SvgProps {
 const Logo = ({ height, width, ...props }: LogoProps): JSX.Element => {
   const originalWidth = 33
   const originalHeight = 100
-  const aspectRatio = originalWidth / originalHeight
+  // const aspectRatio = originalWidth / originalHeight
   return (
-    <View style={{ height, width, aspectRatio }}>
+    <View style={{ height: height as DimensionValue, width: width as DimensionValue }}>
       <Svg
-        width="100%"
-        height="100%"
+        width={33}
+        height={100}
         viewBox={`0 0 ${originalWidth} ${originalHeight}`}
         {...props}
       >

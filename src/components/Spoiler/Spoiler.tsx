@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Animated, type PressableProps } from 'react-native'
 
 import * as Styled from './styles'
 
 export interface SpoilerProps extends PressableProps {
-  children: any
-  show: boolean
-  watched: boolean
+  children: JSX.Element | JSX.Element[]
+  show?: boolean
+  watched?: boolean
   text?: string
 }
 
@@ -26,17 +26,18 @@ const Spoiler = (props: SpoilerProps): JSX.Element => {
       duration: 200,
       useNativeDriver: true,
     }).start()
-  }, [hidden])
+  }, [hidden, animatedValue])
 
   return (
     <Styled.Container
-      onPress={() => {
-        setHidden((value) => !value)
+      onPress={(): void => {
+        setHidden((value) => {
+          return !value
+        })
       }}
       {...rest}
     >
       {children}
-
       {!watched && !show && (
         <Styled.Background style={{ transform: [{ translateY: animatedValue }] }}>
           <Styled.Title>{text}</Styled.Title>

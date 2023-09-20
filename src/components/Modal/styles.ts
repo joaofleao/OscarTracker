@@ -1,50 +1,54 @@
-import styled from 'styled-components/native'
+import { styled } from 'styled-components/native'
 
-import type { StyledProps } from '../../types'
-
-interface Props extends StyledProps {
-  closeButton?: boolean
-}
-
-export const Background = styled.View((props: Props) => ({
-  backgroundColor: props.theme.palette.background.backdrop,
-  alignItems: 'center',
-  justifyContent: 'center',
-  flex: 1,
-  padding: props.theme.spacings.space20,
-}))
-
-export const Modal = styled.View((props: Props) => ({
-  backgroundColor: props.theme.palette.background.default,
-  padding: props.theme.spacings.space17,
-  paddingTop: props.theme.spacings.space17,
-  borderRadius: props.theme.spacings.space17,
-  maxHeight: '80%',
-}))
-
-export const HeaderContent = styled.View({
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  flexDirection: 'row',
+export const Background = styled.Pressable(() => {
+  return {
+    backgroundColor: 'rgba(0,0,0,.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  }
 })
 
-export const Title = styled.Text((props: Props) => ({
-  fontFamily: props.theme.typography.primary.bold,
-  fontSize: props.theme.typography.sizes.fontSize8,
-  lineHeight: props.theme.typography.sizes.fontSize11,
-  color: props.theme.palette.text.default,
-  flex: 1,
-  marginRight: props.closeButton ?? props.theme.spacings.space12,
-}))
+export const Container = styled.View((props) => {
+  return {
+    maxHeight: '80%',
+    borderRadius: '24px',
+    backgroundColor: props.theme.colors.background.container,
+    padding: '24px',
+    width: '90%',
+    gap: '16px',
+  }
+})
 
-export const Description = styled.Text((props: Props) => ({
-  fontFamily: props.theme.typography.primary.bold,
-  fontSize: props.theme.typography.sizes.fontSize5,
-  lineHeight: props.theme.typography.sizes.fontSize11,
-  color: props.theme.palette.text.disabled,
-  marginVertical: props.theme.spacings.space10,
-}))
+export const Row = styled.View(() => {
+  return {
+    gap: '8px',
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+  }
+})
 
-export const Footer = styled.View({
-  alignItems: 'center',
+export const Title = styled.Text((props) => {
+  return {
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.bold,
+    fontSize: '20px',
+    lineHeight: '24px',
+  }
+})
+
+export const Description = styled.Text((props) => {
+  return {
+    color: props.theme.colors.text.disabled,
+    fontFamily: props.theme.fonts.primary.medium,
+    fontSize: '16px',
+    lineHeight: '18px',
+  }
+})
+
+export const Section = styled.View(() => {
+  return {
+    gap: '8px',
+  }
 })
