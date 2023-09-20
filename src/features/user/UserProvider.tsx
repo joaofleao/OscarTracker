@@ -14,6 +14,7 @@ import {
 import UserContext, { type UserContextType } from './UserContext'
 import { db } from '@services/firebase'
 import type { Announcement, PreferencesType } from '@types'
+import { printFetch } from '@utils/functions'
 
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const usersCollection = collection(db, 'users')
@@ -66,7 +67,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
   }, [])
 
   async function getAnnouncements(): Promise<void> {
-    console.log(`\x1b[33mFirebase \x1b[0m- \x1b[32mAnnouncements fetched`)
+    printFetch('Firebase', 'Announcements fetched', 'yellow')
 
     const orderedAnnouncements = query(announcementsCollection, orderBy('date'))
     const response = await getDocs(orderedAnnouncements)
