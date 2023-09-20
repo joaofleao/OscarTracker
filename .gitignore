@@ -34,4 +34,5 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-/src/services/*/config.ts
+src/services/firebase/config.ts
+src/services/tmdb/config.ts
