@@ -13,7 +13,7 @@ const LoadingProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
 
   const stop = (): void => {
     setTimeout(() => {
-      setIsActive(true)
+      setIsActive(false)
     }, 1000)
   }
 
