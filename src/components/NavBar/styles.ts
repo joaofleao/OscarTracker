@@ -5,7 +5,7 @@ import { styled } from 'styled-components/native'
 export const Container = styled.View((props) => {
   return {
     flex: 1,
-    backgroundColor: props.theme.palette.background.default,
+    backgroundColor: props.theme.colors.background.default,
   }
 })
 
@@ -22,6 +22,6 @@ export const Background = styled(Animated.View)((props) => {
     width: '12px',
     height: '6px',
     borderRadius: '12px',
-    backgroundColor: props.theme.palette.primary.default,
+    backgroundColor: props.theme.colors.primary.default,
   }
 })

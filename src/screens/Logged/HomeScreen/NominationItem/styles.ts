@@ -13,8 +13,8 @@ export const Container = styled.Pressable<ContainerProps>((props) => {
 
 export const Title = styled.Text((props) => {
   return {
-    fontFamily: props.theme.typography.primary.bold,
-    color: props.theme.palette.text.default,
+    fontFamily: props.theme.fonts.primary.bold,
+    color: props.theme.colors.text.default,
     fontSize: '16px',
   }
 })

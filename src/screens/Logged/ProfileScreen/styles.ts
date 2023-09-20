@@ -14,8 +14,8 @@ export const ContentContainer = styled.View(() => {
 })
 export const Title = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.regular,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.regular,
     fontSize: '20px',
     lineHeight: '28px',
   }
@@ -37,8 +37,8 @@ export const Item = styled.View(() => {
 
 export const Subtitle = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.regular,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.regular,
     fontSize: '16px',
     lineHeight: '24px',
   }
@@ -46,8 +46,8 @@ export const Subtitle = styled.Text((props) => {
 
 export const AccentText = styled.Text((props) => {
   return {
-    color: props.theme.palette.primary.default,
-    fontFamily: props.theme.typography.primary.bold,
+    color: props.theme.colors.primary.default,
+    fontFamily: props.theme.fonts.primary.bold,
     fontSize: '16px',
     lineHeight: '24px',
   }

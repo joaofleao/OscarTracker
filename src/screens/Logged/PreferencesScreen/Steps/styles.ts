@@ -30,8 +30,8 @@ export const Poster = styled.Image(() => {
 
 export const Plot = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.regular,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.regular,
     fontSize: '16px',
     textAlign: 'justify',
   }
@@ -65,8 +65,8 @@ export const CastText = styled.View(() => {
 
 export const CastName = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.bold,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.bold,
     fontSize: '16px',
     textAlign: 'justify',
   }
@@ -74,8 +74,8 @@ export const CastName = styled.Text((props) => {
 
 export const CastCharacter = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.regular,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.regular,
     fontSize: '14px',
     textAlign: 'justify',
     paddingBottom: '4px',
@@ -84,9 +84,9 @@ export const CastCharacter = styled.Text((props) => {
 
 export const Rating = styled.View((props) => {
   return {
-    color: props.theme.palette.text.default,
-    backgroundColor: props.theme.palette.primary.shades.shade5,
-    fontFamily: props.theme.typography.primary.regular,
+    color: props.theme.colors.text.default,
+    backgroundColor: props.theme.colors.primary.shades.shade5,
+    fontFamily: props.theme.fonts.primary.regular,
     fontSize: '14px',
     gap: '8px',
 
@@ -98,8 +98,8 @@ export const Rating = styled.View((props) => {
 
 export const RatingText = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.bold,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.bold,
     fontSize: '20px',
     textAlign: 'justify',
     paddingBottom: '4px',

@@ -53,7 +53,7 @@ export const IconInformation = styled.View((props) => {
     paddingHorizontal: '12px',
     paddingVertical: '12px',
 
-    backgroundColor: props.theme.palette.background.container,
+    backgroundColor: props.theme.colors.background.container,
     gap: '8px',
     justifyContent: 'center',
     alignItems: 'center',
@@ -63,8 +63,8 @@ export const IconInformation = styled.View((props) => {
 
 export const IconInformationText = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.bold,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.bold,
     fontSize: '16px',
   }
 })
@@ -79,8 +79,8 @@ export const WatchedButton = styled.TouchableOpacity<WatchedButtonProps>((props)
     paddingVertical: '12px',
     borderRadius: '16px',
     borderWidth: '2px',
-    borderColor: props.watched ? 'transparent' : props.theme.palette.primary.default,
-    backgroundColor: props.watched ? props.theme.palette.primary.default : 'transparent',
+    borderColor: props.watched ? 'transparent' : props.theme.colors.primary.default,
+    backgroundColor: props.watched ? props.theme.colors.primary.default : 'transparent',
   }
 })
 
@@ -88,8 +88,8 @@ export const WatchedText = styled.Text<WatchedButtonProps>((props) => {
   return {
     fontSize: '16px',
     textAlign: 'center',
-    fontFamily: props.theme.typography.primary.bold,
-    color: props.watched ? props.theme.palette.text.inverse : props.theme.palette.primary.default,
+    fontFamily: props.theme.fonts.primary.bold,
+    color: props.watched ? props.theme.colors.text.inverse : props.theme.colors.primary.default,
   }
 })
 
@@ -105,8 +105,8 @@ export const CarousselHeader = styled.View(() => {
 
 export const Title = styled.Text((props) => {
   return {
-    fontFamily: props.theme.typography.primary.bold,
-    color: props.theme.palette.text.default,
+    fontFamily: props.theme.fonts.primary.bold,
+    color: props.theme.colors.text.default,
     fontSize: '16px',
     lineHeight: '20px',
     flex: 1,
@@ -115,8 +115,8 @@ export const Title = styled.Text((props) => {
 
 export const Plot = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.regular,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.regular,
     fontSize: '14px',
     lineHeight: '20px',
 
@@ -132,7 +132,7 @@ export const IMDBButton = styled.TouchableOpacity((props) => {
     borderRadius: '16px',
     alignSelf: 'center',
 
-    backgroundColor: props.theme.palette.background.container,
+    backgroundColor: props.theme.colors.background.container,
     flexDirection: 'row',
     gap: '16px',
     justifyContent: 'center',
@@ -143,8 +143,8 @@ export const IMDBButtonText = styled.Text((props) => {
   return {
     fontSize: '16px',
     textAlign: 'center',
-    fontFamily: props.theme.typography.primary.bold,
-    color: props.theme.palette.primary.default,
+    fontFamily: props.theme.fonts.primary.bold,
+    color: props.theme.colors.primary.default,
   }
 })
 
@@ -176,8 +176,8 @@ export const CastImage = styled.Image(() => {
 
 export const CastName = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.bold,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.bold,
     fontSize: '16px',
     width: '100%',
   }
@@ -185,8 +185,8 @@ export const CastName = styled.Text((props) => {
 
 export const CastCharacter = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.regular,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.regular,
     fontSize: '14px',
     textAlign: 'justify',
     paddingBottom: '4px',
@@ -195,7 +195,7 @@ export const CastCharacter = styled.Text((props) => {
 
 export const CastImageContainer = styled.View((props) => {
   return {
-    backgroundColor: props.theme.palette.background.container,
+    backgroundColor: props.theme.colors.background.container,
     borderRadius: '12px',
     justifyContent: 'center',
     alignItems: 'center',
@@ -207,8 +207,8 @@ export const CastImageContainer = styled.View((props) => {
 export const CastNoImage = styled.Text((props) => {
   return {
     position: 'absolute',
-    fontFamily: props.theme.typography.primary.bold,
-    color: props.theme.palette.text.disabled,
+    fontFamily: props.theme.fonts.primary.bold,
+    color: props.theme.colors.text.disabled,
   }
 })
 
@@ -218,20 +218,20 @@ export const Provider = styled.Image((props) => {
     height: '50px',
     borderRadius: '50px',
     marginBottom: '2px',
-    backgroundColor: props.theme.palette.background.container,
+    backgroundColor: props.theme.colors.background.container,
   }
 })
 
 export const NoProvider = styled.Text((props) => {
   return {
-    fontFamily: props.theme.typography.primary.bold,
-    color: props.theme.palette.text.disabled,
+    fontFamily: props.theme.fonts.primary.bold,
+    color: props.theme.colors.text.disabled,
   }
 })
 
 export const Nomination = styled.TouchableOpacity((props) => {
   return {
-    backgroundColor: props.theme.palette.primary.shades.shade5,
+    backgroundColor: props.theme.colors.primary.shades.shade5,
     paddingVertical: '8px',
     paddingHorizontal: '12px',
     borderRadius: '20px',
@@ -240,7 +240,7 @@ export const Nomination = styled.TouchableOpacity((props) => {
 
 export const NominationText = styled.Text((props) => {
   return {
-    fontFamily: props.theme.typography.primary.bold,
-    color: props.theme.palette.primary.default,
+    fontFamily: props.theme.fonts.primary.bold,
+    color: props.theme.colors.primary.default,
   }
 })

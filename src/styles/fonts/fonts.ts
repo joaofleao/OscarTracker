@@ -1,6 +1,6 @@
-import { type TypographyType } from './types'
+import type { FontsType } from './types'
 
-export const typography = {
+export const fonts: FontsType = {
   primary: {
     bold: 'Quicksand-Bold',
     semibold: 'Quicksand-SemiBold',
@@ -15,4 +15,4 @@ export const typography = {
     regular: 'Spartan-Regular',
     light: 'Spartan-Light',
   },
-} satisfies TypographyType
+}

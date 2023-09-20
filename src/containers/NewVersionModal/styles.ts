@@ -15,8 +15,8 @@ export const ConfirmationButton = styled(Button)(() => {
 
 export const UpdateItem = styled.Text((props) => {
   return {
-    fontFamily: props.theme.typography.primary.medium,
-    color: props.theme.palette.text.default,
+    fontFamily: props.theme.fonts.primary.medium,
+    color: props.theme.colors.text.default,
     fontSize: '14px',
   }
 })

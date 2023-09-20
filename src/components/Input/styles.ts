@@ -5,7 +5,7 @@ export const Content = styled.View((props) => {
   const borderRadius = 12
   const padding = 9
   return {
-    backgroundColor: props.theme.palette.background.container,
+    backgroundColor: props.theme.colors.background.container,
     borderRadius: `${borderRadius + padding}px`,
     flexDirection: 'row',
     padding: `${padding}px`,
@@ -22,8 +22,8 @@ type InputProps = {
 
 export const Input = styled.TextInput<InputProps>((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.bold,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.bold,
     fontSize: '18px',
     flex: 1,
     marginRight: '10px',
@@ -45,10 +45,8 @@ type LabelProps = {
 
 export const Label = styled.Text<LabelProps>((props) => {
   return {
-    color: props.isFocused ? props.theme.palette.primary.default : props.theme.palette.text.light,
-    fontFamily: props.isFocused
-      ? props.theme.typography.primary.bold
-      : props.theme.typography.primary.bold,
+    color: props.isFocused ? props.theme.colors.primary.default : props.theme.colors.text.light,
+    fontFamily: props.isFocused ? props.theme.fonts.primary.bold : props.theme.fonts.primary.bold,
     fontSize: '18px',
     paddingBottom: 2,
   }
@@ -68,7 +66,7 @@ export const ErrorMessage = styled.Text((props) => {
     marginLeft: '6px',
 
     lineHeight: '14px',
-    fontFamily: props.theme.typography.primary.bold,
-    color: props.theme.palette.negative.default,
+    fontFamily: props.theme.fonts.primary.bold,
+    color: props.theme.colors.negative.default,
   }
 })

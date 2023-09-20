@@ -14,8 +14,8 @@ export const Title = styled.Text((props) => {
   return {
     fontSize: '18px',
     lineHeight: '28px',
-    fontFamily: props.theme.typography.primary.bold,
-    color: props.theme.palette.text.default,
+    fontFamily: props.theme.fonts.primary.bold,
+    color: props.theme.colors.text.default,
   }
 })
 
@@ -23,8 +23,8 @@ export const Information = styled.Text((props) => {
   return {
     fontSize: '16px',
     lineHeight: '24px',
-    fontFamily: props.theme.typography.primary.regular,
-    color: props.theme.palette.text.light,
+    fontFamily: props.theme.fonts.primary.regular,
+    color: props.theme.colors.text.light,
   }
 })
 
@@ -32,7 +32,7 @@ export const Extra = styled.Text((props) => {
   return {
     fontSize: '16px',
     lineHeight: '24px',
-    fontFamily: props.theme.typography.primary.regular,
-    color: props.theme.palette.primary.default,
+    fontFamily: props.theme.fonts.primary.regular,
+    color: props.theme.colors.primary.default,
   }
 })

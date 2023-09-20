@@ -15,16 +15,16 @@ export const getSpeed = (animation: string): number => {
 
 export const getColorPrimary = (type: string, disabled: boolean, theme: ThemeType): string => {
   if (type === 'primary') {
-    if (disabled) return theme.palette.primary.shades.shade30
-    else return theme.palette.primary.default
+    if (disabled) return theme.colors.primary.shades.shade30
+    else return theme.colors.primary.default
   }
-  return theme.palette.text.inverse
+  return theme.colors.text.inverse
 }
 
 export const getColorSecondary = (type: string, disabled: boolean, theme: ThemeType): string => {
   if (type === 'primary') {
-    return theme.palette.text.inverse
+    return theme.colors.text.inverse
   }
-  if (disabled) return theme.palette.primary.shades.shade30
-  return theme.palette.primary.default
+  if (disabled) return theme.colors.primary.shades.shade30
+  return theme.colors.primary.default
 }

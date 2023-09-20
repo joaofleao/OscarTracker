@@ -19,9 +19,9 @@ interface PressableProps {
 
 export const Pressable = styled.Pressable<PressableProps>((props) => {
   const getBackgroundColor = (): string => {
-    if (props.variant === 'primary') return props.theme.palette.primary.default
-    if (props.variant === 'secondary') return props.theme.palette.primary.shades.shade5
-    if (props.variant === 'action') return props.theme.palette.primary.shades.shade5
+    if (props.variant === 'primary') return props.theme.colors.primary.default
+    if (props.variant === 'secondary') return props.theme.colors.primary.shades.shade5
+    if (props.variant === 'action') return props.theme.colors.primary.shades.shade5
     return 'transparent'
   }
 
@@ -41,7 +41,7 @@ export const Pressable = styled.Pressable<PressableProps>((props) => {
     background: getBackgroundColor(),
     paddingVertical: getVerticalPadding(),
     paddingHorizontal: getHorizontalPadding(),
-    border: props.variant === 'outlined' ? props.theme.palette.primary.default : 'transparent',
+    border: props.variant === 'outlined' ? props.theme.colors.primary.default : 'transparent',
     borderRadius: props.variant === 'action' ? '12px' : '16px',
     justifyContent: 'center',
     alignItems: 'center',
@@ -54,12 +54,12 @@ interface LabelProps {
 
 export const Label = styled.Text<LabelProps>((props) => {
   const getContentColor = (): string => {
-    if (props.variant === 'primary') return props.theme.palette.text.inverse
-    return props.theme.palette.primary.default
+    if (props.variant === 'primary') return props.theme.colors.text.inverse
+    return props.theme.colors.primary.default
   }
 
   return {
-    fontFamily: props.theme.typography.primary.bold,
+    fontFamily: props.theme.fonts.primary.bold,
     fontSize: props.variant === 'action' ? '12px' : '16px',
     lineHeight: props.variant === 'action' ? '16px' : '20px',
 

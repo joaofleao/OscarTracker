@@ -1,9 +1,9 @@
-import type { SimplifiedPaletteType } from '@styles/colors'
-import type { TypographyType } from '@styles/typography'
+import type { ColorsType } from '@styles/colors'
+import type { FontsType } from '@styles/fonts'
 
 export type ModeType = 'dark' | 'light' | 'highContrast'
 
 export interface ThemeType {
-  palette: SimplifiedPaletteType
-  typography: TypographyType
+  colors: ColorsType
+  fonts: FontsType
 }

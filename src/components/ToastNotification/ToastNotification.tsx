@@ -24,12 +24,12 @@ const ToastNotification = (props: ToastNotificationProps): JSX.Element => {
     >
       {isSuccess ? (
         <Icon.CheckCircle
-          color={theme.palette.text.default}
+          color={theme.colors.text.default}
           size={30}
         />
       ) : (
         <Icon.AlertCircle
-          color={theme.palette.text.default}
+          color={theme.colors.text.default}
           size={30}
         />
       )}

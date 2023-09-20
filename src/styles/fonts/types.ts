@@ -1,4 +1,4 @@
-export interface TypographyType {
+export interface FontsType {
   primary: {
     /** Quicksand-Bold */ bold: string
     /** Quicksand-SemiBold */ semibold: string

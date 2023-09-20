@@ -12,14 +12,14 @@ export const Container = styled.View<ImageProps>((props) => {
     justifyContent: 'center',
     position: 'relative',
     borderRadius: '12px',
-    backgroundColor: props.theme.palette.background.container,
+    backgroundColor: props.theme.colors.background.container,
   }
 })
 
 export const IconContainer = styled.View((props) => {
   return {
     position: 'absolute',
-    backgroundColor: props.theme.palette.primary.default,
+    backgroundColor: props.theme.colors.primary.default,
     padding: '8px',
     justifyContent: 'center',
     alignItems: 'center',
@@ -31,7 +31,7 @@ export const Cover = styled.View<ImageProps>((props) => {
   return {
     position: 'absolute',
     borderRadius: '12px',
-    backgroundColor: props.theme.palette.background.container,
+    backgroundColor: props.theme.colors.background.container,
     justifyContent: 'center',
     alignItems: 'center',
     width: props.width,

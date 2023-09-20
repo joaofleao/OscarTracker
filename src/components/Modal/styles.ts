@@ -13,7 +13,7 @@ export const Container = styled.View((props) => {
   return {
     maxHeight: '80%',
     borderRadius: '24px',
-    backgroundColor: props.theme.palette.background.container,
+    backgroundColor: props.theme.colors.background.container,
     padding: '24px',
     width: '90%',
     gap: '16px',
@@ -31,8 +31,8 @@ export const Row = styled.View(() => {
 
 export const Title = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.bold,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.bold,
     fontSize: '20px',
     lineHeight: '24px',
   }
@@ -40,8 +40,8 @@ export const Title = styled.Text((props) => {
 
 export const Description = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.disabled,
-    fontFamily: props.theme.typography.primary.medium,
+    color: props.theme.colors.text.disabled,
+    fontFamily: props.theme.fonts.primary.medium,
     fontSize: '16px',
     lineHeight: '18px',
   }

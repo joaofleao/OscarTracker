@@ -2,12 +2,16 @@ import React, { useState } from 'react'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
 
 import ThemeContext, { type ThemeContextType } from './ThemeContext'
-import { getTheme } from '@styles/index'
-import type { ModeType } from '@types'
+import { colors } from '@styles/colors'
+import { fonts } from '@styles/fonts'
+import type { ModeType, ThemeType } from '@types'
 
 const ThemeProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const [mode, setMode] = useState<ModeType>('dark')
-  const theme = getTheme(mode)
+  const theme: ThemeType = {
+    colors,
+    fonts,
+  }
 
   const value = {
     ...theme,

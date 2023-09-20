@@ -140,7 +140,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
                   <Icon.Clock
                     width={18}
                     height={18}
-                    color={theme.palette.primary.default}
+                    color={theme.colors.primary.default}
                   />
                   <Styled.IconInformationText>{movieData?.runtime}</Styled.IconInformationText>
                 </Styled.IconInformation>
@@ -154,7 +154,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
                     <Icon.Star
                       width={18}
                       height={18}
-                      color={theme.palette.primary.default}
+                      color={theme.colors.primary.default}
                     />
                     <Styled.IconInformationText>
                       {movieData?.vote_average != null &&
@@ -167,7 +167,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
                   <Icon.Globe
                     width={18}
                     height={18}
-                    color={theme.palette.primary.default}
+                    color={theme.colors.primary.default}
                   />
                   <Styled.IconInformationText>
                     {movieData?.original_language}

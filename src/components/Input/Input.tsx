@@ -71,7 +71,7 @@ const Input = (props: InputProps): JSX.Element => {
       return (
         <Styled.ErrorContainer>
           <Icon.AlertCircle
-            color={theme.palette.negative.default}
+            color={theme.colors.negative.default}
             height={14}
             width={14}
           />
@@ -111,14 +111,14 @@ const Input = (props: InputProps): JSX.Element => {
             <Icon.Search
               width={18}
               height={18}
-              color={theme.palette.primary.default}
+              color={theme.colors.primary.default}
             />
           )}
 
           <Styled.Input
             isSearch={type === 'search'}
             secureTextEntry={isPasswordVisible}
-            placeholderTextColor={type === 'search' ? theme.palette.text.light : 'transparent'}
+            placeholderTextColor={type === 'search' ? theme.colors.text.light : 'transparent'}
             placeholder={'Search'}
             autoCapitalize="none"
             ref={inputRef}

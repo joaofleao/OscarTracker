@@ -7,9 +7,9 @@ export const Container = styled.View({
 
 export const Title = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
+    color: props.theme.colors.text.default,
     fontSize: '36px',
-    fontFamily: props.theme.typography.primary.regular,
+    fontFamily: props.theme.fonts.primary.regular,
     alignSelf: 'flex-start',
     marginVertical: '2px',
   }

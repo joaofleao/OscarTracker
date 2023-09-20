@@ -37,35 +37,35 @@ interface TextProps {
 
 export const Title = styled.Text<TextProps>((props) => {
   return {
-    color: props.theme.palette.text.default,
+    color: props.theme.colors.text.default,
     fontSize: props.bigHeader ? '24px' : '20px',
     lineHeight: '24px',
-    fontFamily: props.theme.typography.primary.semibold,
+    fontFamily: props.theme.fonts.primary.semibold,
     textAlign: props.align,
   }
 })
 
 export const Logo = styled.Text<TextProps>((props) => {
   return {
-    color: props.theme.palette.text.default,
+    color: props.theme.colors.text.default,
     fontSize: props.bigHeader ? '24px' : '20px',
     lineHeight: '24px',
-    fontFamily: props.theme.typography.secondary.semibold,
+    fontFamily: props.theme.fonts.secondary.semibold,
     textAlign: props.align,
   }
 })
 export const LogoAccent = styled.Text<TextProps>((props) => {
   return {
-    color: props.theme.palette.primary.default,
+    color: props.theme.colors.primary.default,
   }
 })
 
 export const Description = styled.Text<TextProps>((props) => {
   return {
-    color: props.theme.palette.text.light,
+    color: props.theme.colors.text.light,
     fontSize: props.bigHeader ? '18px' : '16px',
     lineHeight: '24px',
-    fontFamily: props.theme.typography.primary.medium,
+    fontFamily: props.theme.fonts.primary.medium,
     textAlign: props.align,
   }
 })

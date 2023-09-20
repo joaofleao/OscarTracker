@@ -40,10 +40,10 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
 
   const switchSettings = {
     trackColor: {
-      false: theme.palette.background.container,
-      true: theme.palette.background.container,
+      false: theme.colors.background.container,
+      true: theme.colors.background.container,
     },
-    ios_backgroundColor: theme.palette.background.container,
+    ios_backgroundColor: theme.colors.background.container,
 
     disabled: !editing,
     style: Platform.OS === 'android' && { height: 0 },
@@ -103,9 +103,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
 
               <Switch
                 {...switchSettings}
-                thumbColor={
-                  poster ? theme.palette.primary.default : theme.palette.background.default
-                }
+                thumbColor={poster ? theme.colors.primary.default : theme.colors.background.default}
                 value={poster}
                 onValueChange={setPoster}
               />
@@ -114,7 +112,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
               <Styled.Subtitle>Show Plot</Styled.Subtitle>
               <Switch
                 {...switchSettings}
-                thumbColor={plot ? theme.palette.primary.default : theme.palette.background.default}
+                thumbColor={plot ? theme.colors.primary.default : theme.colors.background.default}
                 value={plot}
                 onValueChange={setPlot}
               />
@@ -123,7 +121,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
               <Styled.Subtitle>Show Cast</Styled.Subtitle>
               <Switch
                 {...switchSettings}
-                thumbColor={cast ? theme.palette.primary.default : theme.palette.background.default}
+                thumbColor={cast ? theme.colors.primary.default : theme.colors.background.default}
                 value={cast}
                 onValueChange={setCast}
               />
@@ -133,7 +131,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
               <Switch
                 {...switchSettings}
                 thumbColor={
-                  ratings ? theme.palette.primary.default : theme.palette.background.default
+                  ratings ? theme.colors.primary.default : theme.colors.background.default
                 }
                 value={ratings}
                 onValueChange={setRatings}

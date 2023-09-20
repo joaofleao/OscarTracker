@@ -16,8 +16,8 @@ export const Container = styled(Animated.View)<ConteinerProps>((props) => {
     padding: '16px',
     borderRadius: '12px',
     backgroundColor: props.isSuccess
-      ? props.theme.palette.positive.default
-      : props.theme.palette.negative.default,
+      ? props.theme.colors.positive.default
+      : props.theme.colors.negative.default,
   }
 })
 
@@ -36,8 +36,8 @@ export const Informations = styled.View({
 
 export const Title = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.bold,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.bold,
     fontSize: '16px',
     lineHeight: '24px',
   }
@@ -45,8 +45,8 @@ export const Title = styled.Text((props) => {
 
 export const Description = styled.Text((props) => {
   return {
-    color: props.theme.palette.text.default,
-    fontFamily: props.theme.typography.primary.medium,
+    color: props.theme.colors.text.default,
+    fontFamily: props.theme.fonts.primary.medium,
     fontSize: '14px',
     lineHeight: '20px',
   }

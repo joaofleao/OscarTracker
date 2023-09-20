@@ -39,7 +39,7 @@ const Poster = (props: PosterProps): JSX.Element => {
     <Styled.IconContainer>
       <Icon.EyeOff
         size={20}
-        color={theme.palette.text.inverse}
+        color={theme.colors.text.inverse}
       />
     </Styled.IconContainer>
   )

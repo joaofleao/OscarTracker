@@ -13,7 +13,7 @@ const Tab = (props: Props): JSX.Element => {
   delete rest.style
   delete rest.onLayout
 
-  const { palette } = useTheme()
+  const { colors } = useTheme()
 
   const selected: boolean = accessibilityState.selected
 
@@ -23,7 +23,7 @@ const Tab = (props: Props): JSX.Element => {
         width: 20,
         height: 20,
         filled: selected,
-        color: selected ? palette.primary.default : palette.primary.shades.shade60,
+        color: selected ? colors.primary.default : colors.primary.shades.shade60,
       })}
     </Styled.Container>
   )

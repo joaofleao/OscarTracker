@@ -41,7 +41,7 @@ const localFonts = {
 
 const Router = (): JSX.Element => {
   const user = useUser()
-  const { palette } = useTheme()
+  const { colors } = useTheme()
   const { title, description, type, position } = useToast()
   const [fontsLoaded] = useFonts(localFonts)
   const [splashLoaded, setSplashLoaded] = React.useState(false)
@@ -79,7 +79,7 @@ const Router = (): JSX.Element => {
     <>
       <StatusBar
         animated={true}
-        backgroundColor={palette.background.default}
+        backgroundColor={colors.background.default}
         barStyle={'light-content'}
       />
 

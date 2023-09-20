@@ -33,9 +33,9 @@ export const ButtonContainer = styled.View(() => {
 
 export const ForgotLabel = styled.Text((props) => {
   return {
-    fontFamily: props.theme.typography.primary.bold,
+    fontFamily: props.theme.fonts.primary.bold,
     fontSize: '12px',
-    color: props.theme.palette.primary.default,
+    color: props.theme.colors.primary.default,
   }
 })
 

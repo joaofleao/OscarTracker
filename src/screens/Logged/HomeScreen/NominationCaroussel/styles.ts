@@ -12,8 +12,8 @@ export const Header = styled.View(() => {
 
 export const Title = styled.Text((props) => {
   return {
-    fontFamily: props.theme.typography.primary.bold,
-    color: props.theme.palette.text.default,
+    fontFamily: props.theme.fonts.primary.bold,
+    color: props.theme.colors.text.default,
     fontSize: '20px',
     lineHeight: '28px',
     flex: 1,
