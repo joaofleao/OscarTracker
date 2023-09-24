@@ -75,7 +75,7 @@ const Router = (): JSX.Element => {
   }, [])
 
   React.useEffect(() => {
-    const unsubscribeUser = (): Unsubscribe => {
+    if (user.uid) {
       edition.getCategories()
       edition.getMovies()
       edition.getPeople()
@@ -83,17 +83,18 @@ const Router = (): JSX.Element => {
       announcement.getAnnouncements()
 
       const userRef = doc(usersCollection, user.uid)
+      const unsubscribeUser = (): void => {
+        onSnapshot(userRef, (snap) => {
+          const response = snap.data()
+          if (response !== undefined) {
+            user.setUser(response as UserType)
+          }
+        })
+      }
 
-      return onSnapshot(userRef, (snap) => {
-        const response = snap.data()
-        if (response !== undefined) {
-          user.setUser(response as UserType)
-        }
-      })
-    }
-
-    return () => {
-      user.uid && unsubscribeUser()
+      return () => {
+        unsubscribeUser()
+      }
     }
   }, [user.uid])
 
