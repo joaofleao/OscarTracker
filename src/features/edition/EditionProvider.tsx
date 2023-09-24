@@ -23,7 +23,6 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   const editionRef = doc(editionsCollection, edition)
 
   const getCategories = async (): Promise<void> => {
-    if (!hasInternet) return
     printFetch('Firebase', 'Categories fetched', 'yellow')
 
     const response = await getDocs(categoriesCollection)
@@ -47,7 +46,6 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   const getMovies = async (): Promise<void> => {
-    if (!hasInternet) return
     printFetch('Firebase', 'Movies fetched', 'yellow')
 
     const moviesCollection = collection(editionRef, 'movies')
@@ -65,7 +63,6 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   const getPeople = async (): Promise<void> => {
-    if (!hasInternet) return
     printFetch('Firebase', 'People fetched', 'yellow')
 
     const peopleCollection = collection(editionRef, 'people')
@@ -82,7 +79,6 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   const getNominations = async (): Promise<void> => {
-    if (!hasInternet) return
     printFetch('Firebase', 'Nominations fetched', 'yellow')
 
     const nominationsCollection = collection(editionRef, 'nominations')
@@ -101,7 +97,6 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   const getMovieNominations = async (movie: string): Promise<Nomination[]> => {
-    if (!hasInternet) return
     printFetch('Firebase', 'Movie Nominations fetched', 'yellow')
 
     const nominationsCollection = collection(editionRef, 'nominations')

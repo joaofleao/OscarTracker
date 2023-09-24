@@ -12,9 +12,7 @@ const AppProvider = ({ children }: { children?: React.ReactNode }): JSX.Element 
       else setHasInternet(false)
     })
 
-    if (!hasInternet) {
-      unsubscribe()
-    }
+    return unsubscribe()
   }, [])
 
   const value: AppContextType = {

@@ -25,7 +25,6 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   const users = collection(db, 'users')
 
   const signIn = (email: string, password: string): void => {
-    if (!hasInternet) return
     loading.start('Signin in')
     signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
@@ -36,7 +35,6 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   }
 
   const signUp = (email: string, password: string, displayName: string, nickName: string): void => {
-    if (!hasInternet) return
     loading.start('Creating an Account')
     createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
@@ -47,7 +45,6 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   }
 
   const addUser = (newUser: User, displayName: string, nickName: string): void => {
-    if (!hasInternet) return
     const userRef = doc(users, newUser.uid)
 
     const object = {
@@ -74,7 +71,6 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   }
 
   const signOut = (): void => {
-    if (!hasInternet) return
     loading.start('Signing Out')
     firebaseSignOut(auth)
       .then(() => {

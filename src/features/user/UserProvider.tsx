@@ -39,7 +39,6 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     _preferences?: PreferencesType,
     _onboarding?: boolean,
   ): Promise<void> => {
-    if (!hasInternet) return
     const userRef = doc(usersCollection, uid)
 
     const values = {
@@ -66,7 +65,6 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
   }
 
   const setMovieUnwatched = async (movie: string): Promise<void> => {
-    if (!hasInternet) return
     const userRef = doc(usersCollection, uid)
 
     updateDoc(userRef, {
@@ -75,7 +73,6 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
   }
 
   const setMovieWatched = async (movie: string): Promise<void> => {
-    if (!hasInternet) return
     const userRef = doc(usersCollection, uid)
 
     updateDoc(userRef, {

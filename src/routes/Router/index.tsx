@@ -60,6 +60,12 @@ const Router = (): JSX.Element => {
       if (data !== null) {
         user.setUid(data.uid)
         user.setIsLogged(true)
+
+        edition.getCategories()
+        edition.getMovies()
+        edition.getPeople()
+        edition.getNominations()
+        announcement.getAnnouncements()
       }
 
       setAuthLoaded(true)
@@ -75,28 +81,19 @@ const Router = (): JSX.Element => {
   }, [])
 
   React.useEffect(() => {
-    if (user.uid) {
-      edition.getCategories()
-      edition.getMovies()
-      edition.getPeople()
-      edition.getNominations()
-      announcement.getAnnouncements()
-
+    if (user.isLogged) {
       const userRef = doc(usersCollection, user.uid)
-      const unsubscribeUser = (): void => {
-        onSnapshot(userRef, (snap) => {
-          const response = snap.data()
-          if (response !== undefined) {
-            user.setUser(response as UserType)
-          }
-        })
-      }
-
+      const unsubscribe = onSnapshot(userRef, (snap) => {
+        const response = snap.data()
+        if (response !== undefined) {
+          user.setUser(response as UserType)
+        }
+      })
       return () => {
-        unsubscribeUser()
+        unsubscribe()
       }
     }
-  }, [user.uid])
+  }, [user.isLogged])
 
   React.useEffect(() => {
     if (fontsLoaded && splashLoaded && authLoaded) {
