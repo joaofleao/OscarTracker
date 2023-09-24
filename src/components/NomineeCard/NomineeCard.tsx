@@ -25,7 +25,7 @@ const NomineeCard = (props: NomineeCardProps): JSX.Element => {
     >
       <Poster
         image={getImage(image)}
-        isWatched={user.watchedMovies.includes(id)}
+        isWatched={user.movies.includes(id)}
         spoiler={user.preferences.poster}
       />
       <Styled.Content>

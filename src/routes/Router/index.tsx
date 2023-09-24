@@ -2,20 +2,23 @@ import React from 'react'
 import { StatusBar } from 'react-native'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
+import { collection, doc, onSnapshot } from 'firebase/firestore'
 
 import * as Styled from './styles'
 import ToastNotification from '@components/ToastNotification'
 import LoadingModal from '@containers/LoadingModal'
+import NetworkModal from '@containers/NetworkModal'
 import NewVersionModal from '@containers/NewVersionModal'
+import { useAnnouncements } from '@features/announcements'
+import { useEdition } from '@features/edition'
 import { useTheme } from '@features/theme'
-import { useToast } from '@features/toast'
 import { useUser } from '@features/user'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Logged from '@routes/Logged'
 import Unlogged from '@routes/Unlogged'
-import { auth } from '@services/firebase'
-import type { ScreenTypes, User } from '@types'
+import { auth, db } from '@services/firebase'
+import type { ScreenTypes, Unsubscribe, User, UserType } from '@types'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 
@@ -41,9 +44,14 @@ const localFonts = {
 
 const Router = (): JSX.Element => {
   const user = useUser()
+  const edition = useEdition()
+  const announcement = useAnnouncements()
+
   const { colors } = useTheme()
-  const { title, description, type, position } = useToast()
   const [fontsLoaded] = useFonts(localFonts)
+
+  const usersCollection = collection(db, 'users')
+
   const [splashLoaded, setSplashLoaded] = React.useState(false)
   const [authLoaded, setAuthLoaded] = React.useState(false)
 
@@ -53,17 +61,41 @@ const Router = (): JSX.Element => {
         user.setUid(data.uid)
         user.setIsLogged(true)
       }
-      setAuthLoaded(true)
-    })
 
-    setTimeout(() => {
-      setSplashLoaded(true)
-    }, 1000)
+      setAuthLoaded(true)
+
+      setTimeout(() => {
+        setSplashLoaded(true)
+      }, 1000)
+    })
 
     return () => {
       unsubscribeAuth()
     }
-  }, [user])
+  }, [])
+
+  React.useEffect(() => {
+    const unsubscribeUser = (): Unsubscribe => {
+      edition.getCategories()
+      edition.getMovies()
+      edition.getPeople()
+      edition.getNominations()
+      announcement.getAnnouncements()
+
+      const userRef = doc(usersCollection, user.uid)
+
+      return onSnapshot(userRef, (snap) => {
+        const response = snap.data()
+        if (response !== undefined) {
+          user.setUser(response as UserType)
+        }
+      })
+    }
+
+    return () => {
+      user.uid && unsubscribeUser()
+    }
+  }, [user.uid])
 
   React.useEffect(() => {
     if (fontsLoaded && splashLoaded && authLoaded) {
@@ -85,13 +117,8 @@ const Router = (): JSX.Element => {
 
       <LoadingModal />
       <NewVersionModal />
-
-      <ToastNotification
-        title={title}
-        description={description}
-        type={type}
-        position={position}
-      />
+      <NetworkModal />
+      <ToastNotification />
 
       <Styled.Container>
         <NavigationContainer>

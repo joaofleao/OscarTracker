@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import type { Announcement, PreferencesType } from '@types'
+import type { PreferencesType, UserType } from '@types'
 
 export interface UserContextType {
   preferences: PreferencesType
@@ -8,14 +8,15 @@ export interface UserContextType {
   displayName: string
   emailVerified: boolean
   nickName: string
-  watchedMovies: string[]
+  movies: string[]
   onboarding: boolean
   uid: string
   setUid: (uid: string) => void
+
+  setUser: (user: UserType) => void
+
   isLogged: boolean
   setIsLogged: (isLogged: boolean) => void
-
-  announcements: Announcement[]
 
   setMovieUnwatched: (movie: string) => void
   setMovieWatched: (movie: string) => void

@@ -19,7 +19,7 @@ const NominationItem = (
 
   const movie = edition.movies[item.movie]
   const person = edition.people[item.person ?? '']
-  const watched = user.watchedMovies.includes(movie?.imdb)
+  const watched = user.movies.includes(movie?.imdb)
 
   const showPoster = person != null ? true : user.preferences.poster
   const image = person != null ? getImage(person.image) : getImage(movie?.['en-US'].image)

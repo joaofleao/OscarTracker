@@ -11,7 +11,12 @@ export interface EditionContextType {
   movies: Record<string, BasicMovieType>
   people: Record<string, PersonType>
   nominations: Record<string, Nomination[]>
-  getNominations: (movie: string) => Promise<Nomination[]>
+  getMovieNominations: (movie: string) => Promise<Nomination[]>
+
+  getCategories: () => Promise<void>
+  getMovies: () => Promise<void>
+  getPeople: () => Promise<void>
+  getNominations: () => Promise<void>
 }
 
 const EditionContext = createContext<EditionContextType | null>(null)

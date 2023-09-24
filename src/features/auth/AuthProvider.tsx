@@ -1,4 +1,3 @@
-import { type FirebaseError } from 'firebase/app'
 import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -8,7 +7,9 @@ import {
 } from 'firebase/auth'
 import { collection, doc, setDoc } from 'firebase/firestore'
 
+import useError from '../../hooks/useError'
 import AuthContext, { type AuthContextType } from './AuthContext'
+import { useApp } from '@features/app'
 import { useLoading } from '@features/loading'
 import { useToast } from '@features/toast'
 import { useUser } from '@features/user'
@@ -18,34 +19,35 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   const toast = useToast()
   const user = useUser()
   const loading = useLoading()
+  const { showFirebaseError } = useError()
+  const { hasInternet } = useApp()
 
   const users = collection(db, 'users')
 
-  const showError = (error: FirebaseError): void => {
-    toast.showToast(error.code, error.message, 'error')
-  }
-
   const signIn = (email: string, password: string): void => {
+    if (!hasInternet) return
     loading.start('Signin in')
     signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
         user.setUid(response.user.uid)
       })
-      .catch(showError)
+      .catch(showFirebaseError)
       .finally(loading.stop)
   }
 
   const signUp = (email: string, password: string, displayName: string, nickName: string): void => {
+    if (!hasInternet) return
     loading.start('Creating an Account')
     createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
         addUser(response.user, displayName, nickName)
       })
-      .catch(showError)
+      .catch(showFirebaseError)
       .finally(loading.stop)
   }
 
   const addUser = (newUser: User, displayName: string, nickName: string): void => {
+    if (!hasInternet) return
     const userRef = doc(users, newUser.uid)
 
     const object = {
@@ -67,17 +69,18 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
       .then(() => {
         user.setUid(newUser.uid)
       })
-      .catch(showError)
+      .catch(showFirebaseError)
       .finally(loading.stop)
   }
 
   const signOut = (): void => {
+    if (!hasInternet) return
     loading.start('Signing Out')
     firebaseSignOut(auth)
       .then(() => {
         user.setIsLogged(false)
       })
-      .catch(showError)
+      .catch(showFirebaseError)
       .finally(loading.stop)
   }
 
@@ -90,15 +93,15 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
           'success',
         )
       })
-      .catch(showError)
+      .catch(showFirebaseError)
   }
 
-  const value = {
+  const value: AuthContextType = {
     signIn,
     signUp,
     signOut,
     recoverPassword,
-  } satisfies AuthContextType
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

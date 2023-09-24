@@ -58,7 +58,7 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
       </Header.Root>
       <Styled.Content>
         <ProgressBar
-          progress={user.watchedMovies.length}
+          progress={user.movies.length}
           total={edition.totalMovies}
         />
 

@@ -40,7 +40,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const nominationsData = await edition.getNominations(id)
+      const nominationsData = await edition.getMovieNominations(id)
       setNominations(nominationsData)
       const movie = await movies.getMovie(id)
       const cast = await movies.getCast(id)
@@ -58,9 +58,9 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   }, [edition, id, movies])
 
   useEffect(() => {
-    const value = user.watchedMovies.includes(id) || false
+    const value = user.movies.includes(id) || false
     setWatched(value)
-  }, [id, user.watchedMovies])
+  }, [id, user.movies])
 
   const markAsWatched = (current: boolean): void => {
     if (current) {
