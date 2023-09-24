@@ -18,7 +18,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Logged from '@routes/Logged'
 import Unlogged from '@routes/Unlogged'
 import { auth, db } from '@services/firebase'
-import type { ScreenTypes, Unsubscribe, User, UserType } from '@types'
+import type { ScreenTypes, User, UserType } from '@types'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 
@@ -78,6 +78,7 @@ const Router = (): JSX.Element => {
     return () => {
       unsubscribeAuth()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   React.useEffect(() => {
@@ -93,6 +94,7 @@ const Router = (): JSX.Element => {
         unsubscribe()
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLogged])
 
   React.useEffect(() => {

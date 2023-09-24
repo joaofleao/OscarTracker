@@ -2,13 +2,11 @@ import React from 'react'
 import { arrayRemove, arrayUnion, collection, doc, updateDoc } from 'firebase/firestore'
 
 import UserContext, { type UserContextType } from './UserContext'
-import { useApp } from '@features/app'
 import { db } from '@services/firebase'
 import type { PreferencesType, UserType } from '@types'
 
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const usersCollection = collection(db, 'users')
-  const { hasInternet } = useApp()
 
   const [isLogged, setIsLogged] = React.useState<boolean>(false)
 

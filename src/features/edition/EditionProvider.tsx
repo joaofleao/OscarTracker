@@ -2,7 +2,6 @@ import React from 'react'
 import { collection, doc, getDocs, orderBy, query, where } from 'firebase/firestore'
 
 import EditionContext, { type EditionContextType } from './EditionContext'
-import { useApp } from '@features/app'
 import { db } from '@services/firebase'
 import type { BasicMovieType, Category, Nomination, PersonType } from '@types'
 import { printFetch } from '@utils/functions'
@@ -11,8 +10,6 @@ const editionsCollection = collection(db, 'editions')
 const categoriesCollection = collection(db, 'categories')
 
 const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const { hasInternet } = useApp()
-
   const [categories, setCategories] = React.useState<EditionContextType['categories']>({})
   const [edition, setEdition] = React.useState<EditionContextType['edition']>('95')
   const [movies, setMovies] = React.useState<EditionContextType['movies']>({})

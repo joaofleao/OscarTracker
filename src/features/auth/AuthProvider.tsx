@@ -9,7 +9,6 @@ import { collection, doc, setDoc } from 'firebase/firestore'
 
 import useError from '../../hooks/useError'
 import AuthContext, { type AuthContextType } from './AuthContext'
-import { useApp } from '@features/app'
 import { useLoading } from '@features/loading'
 import { useToast } from '@features/toast'
 import { useUser } from '@features/user'
@@ -20,7 +19,6 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   const user = useUser()
   const loading = useLoading()
   const { showFirebaseError } = useError()
-  const { hasInternet } = useApp()
 
   const users = collection(db, 'users')
 
