@@ -8,26 +8,32 @@ import { LoadingProvider } from '@features/loading'
 import { ToastProvider } from '@features/toast'
 import { UserProvider } from '@features/user'
 import { AuthProvider } from '@features/auth'
+import { AppProvider } from '@features/app'
+import { AnnouncementsProvider } from '@features/announcements'
 
 const App = (): JSX.Element => {
   return (
-    <SafeAreaProvider>
-      <ThemeProvider>
-        <LoadingProvider>
-          <ToastProvider>
-            <UserProvider>
-              <AuthProvider>
-                <MoviesProvider>
-                  <EditionProvider>
-                    <Router />
-                  </EditionProvider>
-                </MoviesProvider>
-              </AuthProvider>
-            </UserProvider>
-          </ToastProvider>
-        </LoadingProvider>
-      </ThemeProvider>
-    </SafeAreaProvider>
+    <AppProvider>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <LoadingProvider>
+            <ToastProvider>
+              <AnnouncementsProvider>
+                <UserProvider>
+                  <AuthProvider>
+                    <MoviesProvider>
+                      <EditionProvider>
+                        <Router />
+                      </EditionProvider>
+                    </MoviesProvider>
+                  </AuthProvider>
+                </UserProvider>
+              </AnnouncementsProvider>
+            </ToastProvider>
+          </LoadingProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </AppProvider>
   )
 }
 
