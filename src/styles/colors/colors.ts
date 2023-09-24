@@ -1,11 +1,5 @@
 import type { ColorsType } from './types'
-
-const rgba = (hex: string, alpha = 1): string => {
-  const [r, g, b] = hex.match(/\w\w/g).map((x) => {
-    return parseInt(x, 16)
-  })
-  return `rgba(${r},${g},${b},${alpha})`
-}
+import { rgba } from '@utils/functions'
 
 const colors: ColorsType = {
   primary: {
