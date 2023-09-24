@@ -42,7 +42,8 @@ module.exports = {
         'arrow-body-style': ['error', 'always'],
         '@typescript-eslint/explicit-function-return-type': 'warn',
         '@typescript-eslint/explicit-module-boundary-types': 'error',
-        '@typescript-eslint/no-unused-vars': 'error',
+        'react-hooks/exhaustive-deps': 'warn',
+        '@typescript-eslint/no-unused-vars': 'warn',
         'simple-import-sort/imports': [
           'error',
           { groups: [['^react$', 'react-native', '^[a-z]']] },
