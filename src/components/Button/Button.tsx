@@ -97,11 +97,7 @@ const Button = (props: ButtonProps): JSX.Element => {
     />
   )
 
-  const renderContent = (): JSX.Element => {
-    if (loading) return renderLoading
-    else if (icon != null && label == null) return renderIcon
-    else if (icon == null && label != null) return renderLabel
-  }
+  const renderContent = icon && !label ? renderIcon : renderLabel
 
   return (
     <Styled.Animation
@@ -116,7 +112,8 @@ const Button = (props: ButtonProps): JSX.Element => {
         onPressOut={onPressOut}
         {...rest}
       >
-        {renderContent()}
+        <Styled.LoadingContent loading={loading}>{renderLoading}</Styled.LoadingContent>
+        <Styled.Content loading={loading}>{renderContent}</Styled.Content>
       </Styled.Pressable>
     </Styled.Animation>
   )

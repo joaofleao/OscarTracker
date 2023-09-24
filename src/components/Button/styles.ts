@@ -62,8 +62,26 @@ export const Label = styled.Text<LabelProps>((props) => {
     fontFamily: props.theme.fonts.primary.bold,
     fontSize: props.variant === 'action' ? '12px' : '16px',
     lineHeight: props.variant === 'action' ? '16px' : '20px',
-
     color: getContentColor(),
     textAlign: 'center',
+  }
+})
+interface ContentProps {
+  loading: boolean
+}
+
+export const Content = styled.View<ContentProps>((props) => {
+  return {
+    opacity: props.loading ? 0 : 1,
+  }
+})
+interface LoadingContentProps {
+  loading: boolean
+}
+
+export const LoadingContent = styled.View<LoadingContentProps>((props) => {
+  return {
+    opacity: props.loading ? 1 : 0,
+    position: 'absolute',
   }
 })
