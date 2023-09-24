@@ -1,4 +1,5 @@
 import LottieView from 'lottie-react-native'
+import { ActivityIndicator, Platform } from 'react-native'
 
 import { getAnimation, getColorPrimary, getColorSecondary, getSpeed } from './utils'
 import { useTheme } from '@features/theme'
@@ -26,6 +27,8 @@ const Loading = (propArgs: LoadingProps): JSX.Element => {
 
   const colorPrimary = getColorPrimary(type, disabled, theme)
   const colorSecondary = getColorSecondary(type, disabled, theme)
+
+  if (Platform.OS === 'android') return <ActivityIndicator color={colorPrimary} />
 
   return (
     <LottieView
