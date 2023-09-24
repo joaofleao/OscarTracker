@@ -1,4 +1,5 @@
 import type { ColorsType } from './types'
+import { rgba } from '@utils/functions'
 
 const colors: ColorsType = {
   primary: {
@@ -6,12 +7,12 @@ const colors: ColorsType = {
     hover: '#CE9736',
     active: '#A57C33',
     shades: {
-      shade5: '#000',
-      shade10: '#000',
-      shade15: '#000',
-      shade30: '#000',
-      shade60: '#000',
-      shade90: '#000',
+      shade5: rgba('#F7B239', 0.05),
+      shade10: rgba('#F7B239', 0.1),
+      shade15: rgba('#F7B239', 0.15),
+      shade30: rgba('#F7B239', 0.3),
+      shade60: rgba('#F7B239', 0.6),
+      shade90: rgba('#F7B239', 0.9),
     },
   },
   background: {
@@ -19,7 +20,7 @@ const colors: ColorsType = {
     container: '#202024',
     foreground: '#ffffff',
     disabled: '#2B2B2F',
-    backdrop: '#000',
+    backdrop: rgba('#000000', 0.7),
   },
   text: {
     default: '#FAFAFA',
@@ -33,9 +34,9 @@ const colors: ColorsType = {
     hover: '#EBEBEB',
     active: '#F1F1F1',
     shades: {
-      default: '#000',
-      dark: '#000',
-      light: '#000',
+      default: rgba('#DBDBDB', 0.1),
+      dark: rgba('#DBDBDB', 0.05),
+      light: rgba('#DBDBDB', 0.15),
     },
   },
   positive: {
@@ -43,9 +44,9 @@ const colors: ColorsType = {
     hover: '#065F46',
     active: '#064E3B',
     shades: {
-      default: '#000',
-      dark: '#000',
-      light: '#000',
+      default: rgba('#047857', 0.1),
+      dark: rgba('#047857', 0.05),
+      light: rgba('#047857', 0.15),
     },
   },
   warning: {
@@ -53,9 +54,9 @@ const colors: ColorsType = {
     hover: '#B45309',
     active: '#92400E',
     shades: {
-      default: '#000',
-      dark: '#000',
-      light: '#000',
+      default: rgba('#D97706', 0.1),
+      dark: rgba('#D97706', 0.05),
+      light: rgba('#D97706', 0.15),
     },
   },
   negative: {
@@ -63,9 +64,9 @@ const colors: ColorsType = {
     hover: '#9F1239',
     active: '#881337',
     shades: {
-      default: '#000',
-      dark: '#000',
-      light: '#000',
+      default: rgba('#BE123C', 0.1),
+      dark: rgba('#BE123C', 0.05),
+      light: rgba('#BE123C', 0.15),
     },
   },
 }
