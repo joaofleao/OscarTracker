@@ -40,6 +40,7 @@ module.exports = {
       files: ['./src/**/*.ts', './src/**/*.tsx'],
       rules: {
         'arrow-body-style': ['error', 'always'],
+        'no-console': 'error',
         '@typescript-eslint/explicit-function-return-type': 'warn',
         '@typescript-eslint/explicit-module-boundary-types': 'error',
         'react-hooks/exhaustive-deps': 'warn',

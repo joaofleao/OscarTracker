@@ -7,13 +7,14 @@ export const routes = {
     forgotPassword: 'PasswordRecovery' as const,
   },
   logged: {
-    index: 'IndexScreen' as const,
-    home: 'HomeScreen' as const,
-    watchList: 'WatchListScreen' as const,
-    profile: 'ProfileScreen' as const,
-    movie: 'MovieScreen' as const,
-    preferences: 'PreferencesScreen' as const,
-    nomination: 'NominationScreen' as const,
+    index: 'Index' as const,
+    home: 'Home' as const,
+    watchList: 'WatchList' as const,
+    profile: 'Profile' as const,
+    movie: 'Movie' as const,
+    preferences: 'Preferences' as const,
+    nomination: 'Nomination' as const,
+    emailVerification: 'EmailVerification' as const,
   },
 }
 

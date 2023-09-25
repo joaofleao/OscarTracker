@@ -1,5 +1,6 @@
 import {
   createUserWithEmailAndPassword,
+  sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
@@ -50,7 +51,6 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
       displayName,
       nickName,
       uid: newUser.uid,
-      emailVerified: newUser.emailVerified,
       movies: [],
       preferences: {
         poster: false,
@@ -90,11 +90,24 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
       .catch(showFirebaseError)
   }
 
+  const verifyEmail = (): void => {
+    const userValue = auth.currentUser
+    sendEmailVerification(userValue).then(() => {
+      toast.showToast(
+        'Email Sent',
+        'You will recieve an email to verify your account shortly',
+        'success',
+      )
+    })
+  }
+
   const value: AuthContextType = {
     signIn,
     signUp,
     signOut,
     recoverPassword,
+    verifyEmail,
+    user: auth.currentUser,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
