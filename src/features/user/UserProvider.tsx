@@ -47,19 +47,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
       ...(_onboarding != null && { onboarding: _onboarding }),
     }
 
-    const promise = updateDoc(userRef, values).catch((err) => {
-      return console.log(err)
-    })
-
-    promise.then(
-      function fulfilledReaction(value) {
-        console.log({ value })
-      },
-      function rejectedReaction(error) {
-        console.log({ error })
-        throw error
-      },
-    )
+    updateDoc(userRef, values)
   }
 
   const setMovieUnwatched = async (movie: string): Promise<void> => {

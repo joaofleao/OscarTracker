@@ -18,8 +18,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
 
   React.useEffect(() => {
     if (!auth.user.emailVerified) navigation.navigate(routes.logged.emailVerification)
-    else if (!user.onboarding) navigation.navigate(routes.logged.preferences)
-  }, [auth.user.emailVerified, user.onboarding, navigation])
+  }, [auth.user.emailVerified, navigation])
 
   const data = Object.entries(edition.categories)
 

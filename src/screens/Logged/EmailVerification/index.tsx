@@ -24,13 +24,14 @@ const Password = ({ navigation }: PasswordProps): JSX.Element => {
     setTimeout(() => {
       setLoading(false)
 
-      if (auth.user.emailVerified) navigation.navigate(routes.logged.home)
-      else
+      if (!auth.user.emailVerified)
         toast.showToast(
           'Email not verified',
           'Enter in the link sent to your email to continue using the app',
           'error',
         )
+      else if (!user.onboarding) navigation.navigate(routes.logged.preferences)
+      else navigation.navigate(routes.logged.home)
     }, 3000)
   }
 
