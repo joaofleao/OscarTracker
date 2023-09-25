@@ -5,6 +5,7 @@ import * as Styled from './styles'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import ProgressBar from '@components/ProgressBar'
+import { useAuth } from '@features/auth'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
 import type { HomeScreenProps } from '@types'
@@ -13,10 +14,12 @@ import routes from '@utils/routes'
 const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
   const edition = useEdition()
   const user = useUser()
+  const auth = useAuth()
 
   React.useEffect(() => {
-    if (!user.onboarding) navigation.navigate(routes.logged.preferences)
-  }, [user.onboarding, navigation])
+    if (!auth.user.emailVerified) navigation.navigate(routes.logged.emailVerification)
+    else if (!user.onboarding) navigation.navigate(routes.logged.preferences)
+  }, [auth.user.emailVerified, user.onboarding, navigation])
 
   const data = Object.entries(edition.categories)
 

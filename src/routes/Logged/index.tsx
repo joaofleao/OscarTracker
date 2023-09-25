@@ -1,6 +1,7 @@
 import Icon from '@components/Icon'
 import NavBar from '@components/NavBar'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import EmailVerification from '@screens/Logged/EmailVerification'
 import HomeScreen from '@screens/Logged/HomeScreen'
 import MovieScreen from '@screens/Logged/MovieScreen'
 import NominationScreen from '@screens/Logged/NominationScreen'
@@ -52,6 +53,11 @@ const Logged = (
     <Stack.Screen
       name={routes.logged.nomination}
       component={NominationScreen}
+    />
+
+    <Stack.Screen
+      name={routes.logged.emailVerification}
+      component={EmailVerification}
     />
   </>
 )
