@@ -1,26 +1,19 @@
-import type { Animated, ViewProps } from 'react-native'
-
 import * as Styled from './styles'
 import Icon from '@components/Icon'
 import { useTheme } from '@features/theme'
+import { useToast } from '@features/toast'
 
-export interface ToastNotificationProps extends ViewProps {
-  title: string
-  description: string
-  type: string
-  position: Animated.Value
-}
+const ToastNotification = (): JSX.Element => {
+  const { title, description, type, position } = useToast()
 
-const ToastNotification = (props: ToastNotificationProps): JSX.Element => {
-  const { title, description, type, position, ...rest } = props
   const theme = useTheme()
+
   const isSuccess = type === 'success'
 
   return (
     <Styled.Container
       style={{ transform: [{ translateY: position }] }}
       isSuccess={isSuccess}
-      {...rest}
     >
       {isSuccess ? (
         <Icon.CheckCircle

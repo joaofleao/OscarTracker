@@ -29,8 +29,10 @@ export interface UserType {
   emailVerified: boolean
   phoneNumber: string
   photoURL: string
-  watchedMovies: string[]
+  movies: string[]
   uid: string
+  onboarding: boolean
+  nickName: string
 }
 
 export interface BasicMovieType {
@@ -52,7 +54,7 @@ export interface PersonType {
   tmdb: string
 }
 
-export interface Announcement {
+export interface AnnouncementType {
   date: Date
   description: string
   title: string

@@ -1,4 +1,3 @@
-import { type FirebaseError } from 'firebase/app'
 import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -8,6 +7,7 @@ import {
 } from 'firebase/auth'
 import { collection, doc, setDoc } from 'firebase/firestore'
 
+import useError from '../../hooks/useError'
 import AuthContext, { type AuthContextType } from './AuthContext'
 import { useLoading } from '@features/loading'
 import { useToast } from '@features/toast'
@@ -18,12 +18,9 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   const toast = useToast()
   const user = useUser()
   const loading = useLoading()
+  const { showFirebaseError } = useError()
 
   const users = collection(db, 'users')
-
-  const showError = (error: FirebaseError): void => {
-    toast.showToast(error.code, error.message, 'error')
-  }
 
   const signIn = (email: string, password: string): void => {
     loading.start('Signin in')
@@ -31,7 +28,7 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
       .then((response) => {
         user.setUid(response.user.uid)
       })
-      .catch(showError)
+      .catch(showFirebaseError)
       .finally(loading.stop)
   }
 
@@ -41,7 +38,7 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
       .then((response) => {
         addUser(response.user, displayName, nickName)
       })
-      .catch(showError)
+      .catch(showFirebaseError)
       .finally(loading.stop)
   }
 
@@ -67,7 +64,7 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
       .then(() => {
         user.setUid(newUser.uid)
       })
-      .catch(showError)
+      .catch(showFirebaseError)
       .finally(loading.stop)
   }
 
@@ -77,7 +74,7 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
       .then(() => {
         user.setIsLogged(false)
       })
-      .catch(showError)
+      .catch(showFirebaseError)
       .finally(loading.stop)
   }
 
@@ -90,15 +87,15 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
           'success',
         )
       })
-      .catch(showError)
+      .catch(showFirebaseError)
   }
 
-  const value = {
+  const value: AuthContextType = {
     signIn,
     signUp,
     signOut,
     recoverPassword,
-  } satisfies AuthContextType
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

@@ -1,90 +1,42 @@
 import React from 'react'
-import {
-  arrayRemove,
-  arrayUnion,
-  collection,
-  doc,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-  updateDoc,
-} from 'firebase/firestore'
+import { arrayRemove, arrayUnion, collection, doc, updateDoc } from 'firebase/firestore'
 
 import UserContext, { type UserContextType } from './UserContext'
 import { db } from '@services/firebase'
-import type { Announcement, PreferencesType } from '@types'
-import { printFetch } from '@utils/functions'
+import type { PreferencesType, UserType } from '@types'
 
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const usersCollection = collection(db, 'users')
-  const announcementsCollection = collection(db, 'announcements')
+
   const [isLogged, setIsLogged] = React.useState<boolean>(false)
 
-  const [email, setEmail] = React.useState<string>('')
-  const [displayName, setDisplayName] = React.useState<string>('')
-  const [emailVerified, setEmailVerified] = React.useState<boolean>(false)
-  const [onboarding, setOnboarding] = React.useState<boolean>(true)
-  const [announcements, setAnnouncements] = React.useState<Announcement[]>([])
-  const [nickName, setNickName] = React.useState<string>('')
-  const [watchedMovies, setWatchedMovies] = React.useState<string[]>([])
-  const [uid, setUid] = React.useState<string>('')
-  const [preferences, setPreferences] = React.useState<PreferencesType>({
-    poster: false,
-    cast: false,
-    plot: false,
-    ratings: false,
+  const [uid, setUid] = React.useState('')
+
+  const [user, setUser] = React.useState<UserType>({
+    email: '',
+    phoneNumber: '',
+    photoURL: '',
+    displayName: '',
+    emailVerified: false,
+    nickName: '',
+    movies: [],
+    onboarding: true,
+    uid: '',
+    preferences: {
+      poster: false,
+      cast: false,
+      plot: false,
+      ratings: false,
+    },
   })
 
-  React.useEffect(() => {
-    if (isLogged) {
-      const userRef = doc(usersCollection, uid)
-      const unsubscribe = onSnapshot(userRef, (snap) => {
-        const response = snap.data()
-        if (response !== undefined) {
-          setDisplayName(response.displayName)
-          setEmail(response.email)
-          setEmailVerified(response.emailVerified)
-          setNickName(response.nickName)
-          setPreferences(response.preferences)
-          setUid(response.uid)
-          setWatchedMovies(response.movies)
-          setOnboarding(response.onboarding)
-        }
-      })
-      return () => {
-        unsubscribe()
-        getAnnouncements()
-      }
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLogged])
-
-  React.useEffect(() => {
-    getAnnouncements()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  async function getAnnouncements(): Promise<void> {
-    printFetch('Firebase', 'Announcements fetched', 'yellow')
-
-    const orderedAnnouncements = query(announcementsCollection, orderBy('date'))
-    const response = await getDocs(orderedAnnouncements)
-    const array = []
-    response.forEach((item) => {
-      return array.push(item.data())
-    })
-    setAnnouncements(array)
-  }
-
-  async function updateUser(
+  const updateUser = async (
     _email?: string,
     _displayName?: string,
     _nickName?: string,
     _preferences?: PreferencesType,
     _onboarding?: boolean,
-  ): Promise<void> {
+  ): Promise<void> => {
     const userRef = doc(usersCollection, uid)
 
     const values = {
@@ -95,10 +47,22 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
       ...(_onboarding != null && { onboarding: _onboarding }),
     }
 
-    updateDoc(userRef, values)
+    const promise = updateDoc(userRef, values).catch((err) => {
+      return console.log(err)
+    })
+
+    promise.then(
+      function fulfilledReaction(value) {
+        console.log({ value })
+      },
+      function rejectedReaction(error) {
+        console.log({ error })
+        throw error
+      },
+    )
   }
 
-  async function setMovieUnwatched(movie: string): Promise<void> {
+  const setMovieUnwatched = async (movie: string): Promise<void> => {
     const userRef = doc(usersCollection, uid)
 
     updateDoc(userRef, {
@@ -106,7 +70,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     })
   }
 
-  async function setMovieWatched(movie: string): Promise<void> {
+  const setMovieWatched = async (movie: string): Promise<void> => {
     const userRef = doc(usersCollection, uid)
 
     updateDoc(userRef, {
@@ -114,25 +78,27 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     })
   }
 
-  const value = {
-    preferences,
-    email,
-    displayName,
-    emailVerified,
-    nickName,
-    watchedMovies,
-    onboarding,
+  const value: UserContextType = {
+    preferences: user.preferences,
+    email: user.email,
+    displayName: user.displayName,
+    emailVerified: user.emailVerified,
+    nickName: user.nickName,
+    movies: user.movies,
+    onboarding: user.onboarding,
+
+    setUser,
+
     uid,
     setUid,
+
     isLogged,
     setIsLogged,
-
-    announcements,
 
     updateUser,
     setMovieUnwatched,
     setMovieWatched,
-  } satisfies UserContextType
+  }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }

@@ -2,7 +2,6 @@ import React from 'react'
 import { collection, doc, getDocs, orderBy, query, where } from 'firebase/firestore'
 
 import EditionContext, { type EditionContextType } from './EditionContext'
-import { useUser } from '@features/user'
 import { db } from '@services/firebase'
 import type { BasicMovieType, Category, Nomination, PersonType } from '@types'
 import { printFetch } from '@utils/functions'
@@ -17,21 +16,10 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   const [totalMovies, setTotalMovies] = React.useState<EditionContextType['totalMovies']>(0)
   const [people, setPeople] = React.useState<EditionContextType['people']>({})
   const [nominations, setNominations] = React.useState<EditionContextType['nominations']>({})
-  const user = useUser()
+
   const editionRef = doc(editionsCollection, edition)
 
-  React.useMemo(() => {
-    const fetchFirebaseData = async (): Promise<void> => {
-      getCategories()
-      getMovies()
-      getPeople()
-      getNominations()
-    }
-    if (user.isLogged) fetchFirebaseData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.isLogged, edition])
-
-  async function getCategories(): Promise<void> {
+  const getCategories = async (): Promise<void> => {
     printFetch('Firebase', 'Categories fetched', 'yellow')
 
     const response = await getDocs(categoriesCollection)
@@ -54,7 +42,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     setCategories(ordered)
   }
 
-  async function getMovies(): Promise<void> {
+  const getMovies = async (): Promise<void> => {
     printFetch('Firebase', 'Movies fetched', 'yellow')
 
     const moviesCollection = collection(editionRef, 'movies')
@@ -71,7 +59,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     setMovies(map)
   }
 
-  async function getPeople(): Promise<void> {
+  const getPeople = async (): Promise<void> => {
     printFetch('Firebase', 'People fetched', 'yellow')
 
     const peopleCollection = collection(editionRef, 'people')
@@ -87,7 +75,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     setPeople(map)
   }
 
-  async function getNominations(): Promise<void> {
+  const getNominations = async (): Promise<void> => {
     printFetch('Firebase', 'Nominations fetched', 'yellow')
 
     const nominationsCollection = collection(editionRef, 'nominations')
@@ -105,7 +93,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     setNominations(map)
   }
 
-  async function getMovieNominations(movie: string): Promise<Nomination[]> {
+  const getMovieNominations = async (movie: string): Promise<Nomination[]> => {
     printFetch('Firebase', 'Movie Nominations fetched', 'yellow')
 
     const nominationsCollection = collection(editionRef, 'nominations')
@@ -123,7 +111,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     return array
   }
 
-  const value = {
+  const value: EditionContextType = {
     edition,
     setEdition,
     totalMovies,
@@ -132,8 +120,13 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     movies,
     people,
     nominations,
-    getNominations: getMovieNominations,
-  } satisfies EditionContextType
+
+    getCategories,
+    getMovies,
+    getPeople,
+    getNominations,
+    getMovieNominations,
+  }
 
   return <EditionContext.Provider value={value}>{children}</EditionContext.Provider>
 }

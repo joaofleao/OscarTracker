@@ -4,11 +4,11 @@ import { Linking } from 'react-native'
 import * as Styled from './styles'
 import Global from '@components/Global'
 import Modal from '@components/Modal'
-import { useUser } from '@features/user'
+import { useAnnouncements } from '@features/announcements'
 import packageJson from '@package.json'
 
 const NewVersionModal = (): JSX.Element => {
-  const { announcements } = useUser()
+  const { announcements } = useAnnouncements()
 
   const update = announcements[0]
 

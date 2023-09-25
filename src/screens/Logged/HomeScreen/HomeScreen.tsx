@@ -37,7 +37,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
       </Header.Root>
       <Styled.Content>
         <ProgressBar
-          progress={user.watchedMovies.length}
+          progress={user.movies.length}
           total={edition.totalMovies}
         />
 
