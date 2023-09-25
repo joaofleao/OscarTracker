@@ -1,29 +1,11 @@
 {
   "expo": {
-    "name": "OscarTracker",
-    "slug": "OscarTracker",
-    "version": "2.1.1",
+    "version": "3.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/app/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./src/assets/app/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#18181B"
-    },
+    "userInterfaceStyle": "dark",
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./src/assets/app/adaptive-icon.png",
-        "backgroundColor": "#18181B"
-      },
-      "package": "com.joaofleao.oscarTracker"
-    },
-    "web": {
-      "favicon": "./src/assets/app/favicon.png"
     },
     "extra": {
       "eas": {

@@ -1,7 +1,7 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "types": ["./styled-components.d.ts"],
+    "types": ["node", "./styled-components.d.ts"],
     "baseUrl": ".",
     "paths": {
       "@*": ["./src/*"],

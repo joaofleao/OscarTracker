@@ -29,10 +29,10 @@ yarn-error.*
 *.pem
 
 # local env files
-.env*.local
+.env
+eas.json
 
 # typescript
 *.tsbuildinfo
 
-src/services/firebase/config.ts
-src/services/tmdb/config.ts
+
