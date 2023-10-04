@@ -27,22 +27,27 @@ export const Pressable = styled.Pressable<PressableProps>((props) => {
 
   const getHorizontalPadding = (): string => {
     if (props.variant === 'action') return '8px'
-    if (props.icon) return '14px'
+    if (props.icon) return '10px'
     return '24px'
   }
 
   const getVerticalPadding = (): string => {
     if (props.variant === 'action') return '8px'
-    if (props.icon) return '14px'
+    if (props.icon) return '10px'
     return '12px'
+  }
+
+  const getBorderRadius = (): string => {
+    if (props.variant === 'action' || props.icon) return '12px'
+    return '16px'
   }
 
   return {
     background: getBackgroundColor(),
     paddingVertical: getVerticalPadding(),
     paddingHorizontal: getHorizontalPadding(),
+    borderRadius: getBorderRadius(),
     border: props.variant === 'outlined' ? props.theme.colors.primary.default : 'transparent',
-    borderRadius: props.variant === 'action' ? '12px' : '16px',
     justifyContent: 'center',
     alignItems: 'center',
   }
