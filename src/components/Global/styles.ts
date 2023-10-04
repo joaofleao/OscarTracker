@@ -7,8 +7,8 @@ export interface Screen {
 }
 
 const defaultValues = {
-  top: true,
-  bottom: true,
+  hideTop: false,
+  hideBottom: false,
 }
 
 export const Screen = styled.SafeAreaView<Screen>((props) => {
