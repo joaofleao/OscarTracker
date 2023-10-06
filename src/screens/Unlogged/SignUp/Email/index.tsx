@@ -2,10 +2,10 @@ import { useState } from 'react'
 
 import * as Styled from './styles'
 import Button from '@components/Button'
+import EmailField from '@components/FormFields/EmailField'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
-import Input from '@components/Input'
 import { type EmailProps } from '@types'
 import routes from '@utils/routes'
 
@@ -13,8 +13,6 @@ const Email = ({ navigation }: EmailProps): JSX.Element => {
   const [email, setEmail] = useState<string>('')
 
   const formattedEmail = email.replace(/[^a-zA-Z0-9@.]/g, '')
-
-  const emailValid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)
 
   const handleNext = (): void => {
     navigation.navigate(routes.unlogged.signUpPassword, {
@@ -39,23 +37,17 @@ const Email = ({ navigation }: EmailProps): JSX.Element => {
         <Global.Title>Give us your best e-mail</Global.Title>
         <Global.Description>We will send you a verification code to confirm</Global.Description>
       </Styled.Header>
-
       <Styled.Content>
-        <Input
-          autoComplete="email"
-          label="Email"
+        <EmailField
           value={email}
-          validation={emailValid}
-          errorText={'You must provide a valid email'}
           onChangeText={setEmail}
         />
       </Styled.Content>
-
       <Styled.Footer>
         <Button
           width="fixed"
           label="Next"
-          disabled={!emailValid}
+          // disabled={!emailValid}
           onPress={handleNext}
         />
       </Styled.Footer>

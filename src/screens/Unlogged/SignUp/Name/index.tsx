@@ -2,25 +2,26 @@ import { useState } from 'react'
 
 import * as Styled from './styles'
 import Button from '@components/Button'
+import TextField from '@components/FormFields/TextField'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
-import Input from '@components/Input'
 import { useAuth } from '@features/auth'
 import type { NameProps } from '@types'
 
 const Name = ({ navigation, route }: NameProps): JSX.Element => {
   const [name, setName] = useState<string>('')
-  const [nickName, setNickName] = useState<string>('')
+  const [nickname, setNickname] = useState<string>('')
   const auth = useAuth()
 
   const { email, password } = route.params
 
   const nameValid =
     name.split(' ').length >= 2 && name.split(' ')[0].length > 0 && name.split(' ')[1].length > 0
+  const nicknameValid = nickname.length > 2
 
   const handleNext = (): void => {
-    auth.signUp(email, password, name, nickName)
+    auth.signUp(email, password, name, nickname)
   }
 
   return (
@@ -37,24 +38,24 @@ const Name = ({ navigation, route }: NameProps): JSX.Element => {
       </Header.Root>
 
       <Styled.Header>
-        <Global.Title> How would you like to be called?</Global.Title>
+        <Global.Title>How would you like to be called?</Global.Title>
         <Global.Description> The nickname will be shown to all your friends</Global.Description>
       </Styled.Header>
 
       <Styled.Content>
-        <Input
-          autoComplete="name"
+        <TextField
           label="Name"
           value={name}
-          validation={nameValid}
-          errorText={'Please provide name and last name'}
           onChangeText={setName}
+          valid={nameValid}
+          errorText={'Please provide name and last name'}
         />
-        <Input
-          autoComplete="username"
+        <TextField
           label="Nickname"
-          value={nickName}
-          onChangeText={setNickName}
+          value={nickname}
+          onChangeText={setNickname}
+          valid={nicknameValid}
+          errorText={'Please provide a longer nickname'}
         />
       </Styled.Content>
 

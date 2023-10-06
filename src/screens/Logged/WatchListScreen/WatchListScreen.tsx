@@ -2,6 +2,7 @@ import React from 'react'
 import { FlatList } from 'react-native'
 
 import * as Styled from './styles'
+import SearchField from '@components/FormFields/SearchField'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Input from '@components/Input'
@@ -62,11 +63,9 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
           total={edition.totalMovies}
         />
 
-        <Input
-          type="search"
-          onChange={(e): void => {
-            setSearch(e.nativeEvent.text)
-          }}
+        <SearchField
+          onChangeText={setSearch}
+          value={search}
         />
 
         <FlatList

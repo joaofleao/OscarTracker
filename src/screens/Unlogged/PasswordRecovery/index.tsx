@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import * as Styled from './styles'
 import Button from '@components/Button'
+import TextField from '@components/FormFields/TextField'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
@@ -44,7 +45,7 @@ const PasswordRecovery = ({ navigation, route }: PasswordRecoveryProps): JSX.Ele
       </Styled.Header>
 
       <Styled.Content>
-        <Input
+        <TextField
           autoComplete="email"
           label="Email"
           value={recoveryEmail}

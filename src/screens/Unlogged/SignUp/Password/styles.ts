@@ -1,21 +1,27 @@
+import { Animated, StyleSheet } from 'react-native'
 import { styled } from 'styled-components/native'
 
 export const Header = styled.View({
-  marginHorizontal: '20px',
   gap: '12px',
-  flex: 1,
   justifyContent: 'center',
+  paddingVertical: '80px',
 })
 
 export const Content = styled.View({
-  marginHorizontal: '20px',
   gap: '20px',
-  flex: 1,
+  paddingBottom: '64px',
 })
 
-export const Footer = styled.View({
-  marginHorizontal: '20px',
-  flex: 1,
+export const Footer = styled(Animated.View)({
+  position: 'absolute',
+  left: '50%',
+  right: '50%',
   alignItems: 'center',
   justifyContent: 'flex-end',
+})
+
+export const styles = StyleSheet.create({
+  contentContainerStyle: {
+    paddingHorizontal: 20,
+  },
 })

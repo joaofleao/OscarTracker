@@ -1,33 +1,45 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { Animated, ScrollView } from 'react-native'
 
 import * as Styled from './styles'
 import Button from '@components/Button'
+import PasswordField from '@components/FormFields/PasswordField'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
-import Input from '@components/Input'
+import useKeyboard from '@hooks/useKeyboard'
+import usePasswordRequirements from '@hooks/usePasswordRequirements'
+import useScreenInsets from '@hooks/useScreenInsets'
 import type { PasswordProps } from '@types'
 import routes from '@utils/routes'
 
 const Password = ({ navigation, route }: PasswordProps): JSX.Element => {
-  const [password, setPassword] = useState<string>('')
-  const [confirmPassword, setConfirmPassword] = useState<string>('')
-  const isValid = password === confirmPassword && password.length > 0
+  const keyboardOpen = useKeyboard()
 
-  const oneUpperCase = /(?=.*[A-Z])/.test(password)
-  const specialCase = /(?=.*[!@#$&*.])/.test(password)
-  const oneDigits = /(?=.*[0-9])/.test(password)
-  const lowerCase = /(?=.*[a-z])/.test(password)
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
-  const getError = (): string => {
-    let message = 'You need'
-    if (!isValid) message = message + ', to match the passwords'
-    if (!oneDigits) message = message + ', one digit'
-    if (!oneUpperCase) message = message + ', one uppercase'
-    if (!lowerCase) message = message + ', one lowercase'
-    if (!specialCase) message = message + ', one special character'
-    return message
-  }
+  const { bottom } = useScreenInsets()
+
+  const { passwordValid, confirmPasswordValid } = usePasswordRequirements(password, confirmPassword)
+
+  const animation = useRef<Animated.Value>(new Animated.Value(0)).current
+
+  useEffect(() => {
+    Animated.spring(animation, {
+      toValue: keyboardOpen ? 1 : 0,
+      useNativeDriver: true,
+    }).start()
+  }, [keyboardOpen, animation])
+
+  const transform = [
+    {
+      translateY: animation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 400],
+      }),
+    },
+  ]
 
   const handleNext = (): void => {
     navigation.navigate(routes.unlogged.signUpName, {
@@ -49,34 +61,36 @@ const Password = ({ navigation, route }: PasswordProps): JSX.Element => {
         </Header.TextContainer>
       </Header.Root>
 
-      <Styled.Header>
-        <Global.Title> How about some security?</Global.Title>
-        <Global.Description> Make sure to use a strong password.</Global.Description>
-      </Styled.Header>
+      <ScrollView
+        contentContainerStyle={Styled.styles.contentContainerStyle}
+        indicatorStyle="black"
+        automaticallyAdjustKeyboardInsets
+      >
+        <Styled.Header>
+          <Global.Title>How about some security?</Global.Title>
+          <Global.Description>Make sure to use a strong password.</Global.Description>
+        </Styled.Header>
 
-      <Styled.Content>
-        <Input
-          autoComplete="password"
-          label="Password"
-          value={password}
-          type={'password'}
-          onChangeText={setPassword}
-        />
-        <Input
-          autoComplete="password"
-          label="Confirm Password"
-          value={confirmPassword}
-          type={'password'}
-          validation={isValid && oneUpperCase && specialCase && oneDigits && lowerCase}
-          errorText={getError()}
-          onChangeText={setConfirmPassword}
-        />
-      </Styled.Content>
+        <Styled.Content>
+          <PasswordField
+            value={password}
+            onChangeText={setPassword}
+            type="password"
+          />
+          <PasswordField
+            passwordConfirmation={password}
+            label="Confirm Password"
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            type="confirmPassword"
+          />
+        </Styled.Content>
+      </ScrollView>
 
-      <Styled.Footer>
+      <Styled.Footer style={{ transform, bottom }}>
         <Button
           width="fixed"
-          disabled={!(isValid && oneUpperCase && specialCase && oneDigits && lowerCase)}
+          disabled={!passwordValid || !confirmPasswordValid}
           label="Next"
           onPress={handleNext}
         />
