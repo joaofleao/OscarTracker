@@ -1,11 +1,7 @@
-import { type TextInputProps } from 'react-native'
-
-import TextField from '@components/FormFields/TextField'
+import TextField, { TextFieldProps } from '@components/FormFields/TextField'
 import Icon from '@components/Icon'
 
-export interface SearchFieldProps extends TextInputProps {
-  placeholder?: string
-}
+export type SearchFieldProps = TextFieldProps
 
 const defaultProps: SearchFieldProps = {
   placeholder: 'Search',
