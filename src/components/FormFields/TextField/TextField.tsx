@@ -2,7 +2,6 @@ import { cloneElement, useEffect, useRef, useState } from 'react'
 import { Animated, Easing, TextInput, type TextInputProps } from 'react-native'
 
 import * as Styled from './styles'
-import Icon from '@components/Icon'
 import { useTheme } from '@features/theme'
 
 export interface TextFieldProps extends TextInputProps {
