@@ -1,23 +1,17 @@
-import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 export interface Screen {
-  hideTop?: boolean
-  hideBottom?: boolean
-}
-
-const defaultValues = {
-  hideTop: false,
-  hideBottom: false,
+  showTop?: boolean
+  showBottom?: boolean
 }
 
 export const Screen = styled.SafeAreaView<Screen>((props) => {
-  const { hideTop, hideBottom } = { ...defaultValues, ...props }
   return {
     backgroundColor: props.theme.colors.background.default,
     flex: 1,
-    paddingTop: Platform.OS === 'android' && !hideTop ? '20px' : '0px',
-    paddingBottom: Platform.OS === 'android' && !hideBottom ? '20px' : '0px',
+    position: 'relative',
+    paddingTop: props.showTop ? '20px' : '0px',
+    paddingBottom: props.showBottom ? '20px' : '0px',
   }
 })
 
