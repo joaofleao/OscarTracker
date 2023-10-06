@@ -1,10 +1,10 @@
 import { styled } from 'styled-components/native'
 
-interface Props {
+interface RootProps {
   align?: 'center' | 'left' | 'right' | 'between'
 }
 
-export const Container = styled.View<Props>((props) => {
+export const Root = styled.View<RootProps>((props) => {
   const getAlignment = (): string => {
     if (props.align === 'between') return 'space-between'
     if (props.align === 'center') return 'center'
@@ -13,13 +13,10 @@ export const Container = styled.View<Props>((props) => {
   }
   return {
     width: '100%',
-
     flexDirection: 'row',
-    gap: '20px',
+    gap: '16px',
     justifyContent: getAlignment(),
     paddingHorizontal: '20px',
-    marginTop: '10px',
-    marginBottom: '20px',
     alignItems: 'center',
   }
 })
