@@ -33,23 +33,23 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
       .finally(loading.stop)
   }
 
-  const signUp = (email: string, password: string, displayName: string, nickName: string): void => {
+  const signUp = (email: string, password: string, displayName: string, nickname: string): void => {
     loading.start('Creating an Account')
     createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        addUser(response.user, displayName, nickName)
+        addUser(response.user, displayName, nickname)
       })
       .catch(showFirebaseError)
       .finally(loading.stop)
   }
 
-  const addUser = (newUser: User, displayName: string, nickName: string): void => {
+  const addUser = (newUser: User, displayName: string, nickname: string): void => {
     const userRef = doc(users, newUser.uid)
 
     const object = {
       email: newUser.email ?? '',
       displayName,
-      nickName,
+      nickname,
       uid: newUser.uid,
       movies: [],
       preferences: {

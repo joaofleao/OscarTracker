@@ -18,7 +18,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     photoURL: '',
     displayName: '',
     emailVerified: false,
-    nickName: '',
+    nickname: '',
     movies: [],
     onboarding: true,
     uid: '',
@@ -33,7 +33,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
   const updateUser = async (
     _email?: string,
     _displayName?: string,
-    _nickName?: string,
+    _nickname?: string,
     _preferences?: PreferencesType,
     _onboarding?: boolean,
   ): Promise<void> => {
@@ -42,7 +42,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     const values = {
       ...(_email != null && { email: _email }),
       ...(_displayName != null && { displayName: _displayName }),
-      ...(_nickName != null && { nickName: _nickName }),
+      ...(_nickname != null && { nickname: _nickname }),
       ...(_preferences != null && { preferences: _preferences }),
       ...(_onboarding != null && { onboarding: _onboarding }),
     }
@@ -71,7 +71,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     email: user.email,
     displayName: user.displayName,
     emailVerified: user.emailVerified,
-    nickName: user.nickName,
+    nickname: user.nickname,
     movies: user.movies,
     onboarding: user.onboarding,
 

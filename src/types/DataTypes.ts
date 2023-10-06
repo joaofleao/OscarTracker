@@ -32,7 +32,7 @@ export interface UserType {
   movies: string[]
   uid: string
   onboarding: boolean
-  nickName: string
+  nickname: string
 }
 
 export interface BasicMovieType {

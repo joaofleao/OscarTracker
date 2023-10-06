@@ -7,7 +7,7 @@ export interface UserContextType {
   email: string
   displayName: string
   emailVerified: boolean
-  nickName: string
+  nickname: string
   movies: string[]
   onboarding: boolean
   uid: string
@@ -23,7 +23,7 @@ export interface UserContextType {
   updateUser: (
     email?: string,
     displayName?: string,
-    nickName?: string,
+    nickname?: string,
     preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
     onboarding?: boolean,
   ) => void

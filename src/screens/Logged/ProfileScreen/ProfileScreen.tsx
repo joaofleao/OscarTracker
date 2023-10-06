@@ -19,8 +19,8 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
   const user = useUser()
   const theme = useTheme()
 
-  const [displayName, setDisplayName] = useState<string>(user.displayName)
-  const [nickName, setNickname] = useState<string>(user.nickName)
+  const [displayName, setDisplayName] = useState<string>(user.displayName ?? '')
+  const [nickname, setNickname] = useState<string>(user.nickname ?? '')
 
   const [poster, setPoster] = useState<boolean>(user.preferences.poster)
   const [plot, setPlot] = useState<boolean>(user.preferences.plot)
@@ -29,9 +29,16 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
 
   const [editing, setEditing] = useState<boolean>(false)
 
+  const displayNameValid =
+    displayName.split(' ').length >= 2 &&
+    displayName.split(' ')[0].length > 0 &&
+    displayName.split(' ')[1].length > 0
+
+  const nicknameValid = nickname.split(' ').length === 1 && nickname.split(' ')[0].length > 0
+
   const handleEdit = (): void => {
     if (editing) {
-      user.updateUser(user.email, displayName, nickName, { poster, plot, cast, ratings }, undefined)
+      user.updateUser(user.email, displayName, nickname, { poster, plot, cast, ratings }, undefined)
       setEditing(false)
     } else {
       setEditing(true)
@@ -69,17 +76,22 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
             <Styled.Title>Personal Information</Styled.Title>
 
             <TextField
-              value={displayName}
-              editable={false}
-              label="Name"
-              onChangeText={setDisplayName}
-            />
-
-            <TextField
-              value={nickName}
               editable={editing}
+              label="Name"
+              placeholder="Walt Disney"
+              value={displayName}
+              onChangeText={setDisplayName}
+              valid={displayNameValid}
+              errorText={'Please provide name and last name'}
+            />
+            <TextField
+              editable={editing}
+              placeholder="mickey_mouse"
               label="Nickname"
+              value={nickname}
               onChangeText={setNickname}
+              valid={nicknameValid}
+              errorText={'Please provide a single nickname'}
             />
           </Styled.Section>
           <Styled.Section>
