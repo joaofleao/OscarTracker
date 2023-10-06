@@ -50,7 +50,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
   }
 
   return (
-    <Global.Screen hideBottom>
+    <Global.Screen>
       <Header.Root>
         <Header.TextContainer>
           <Header.Title bigHeader>Profile</Header.Title>
@@ -59,7 +59,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
         <Button
           icon={editing ? <Icon.CheckCircle /> : <Icon.Pencil />}
           onPress={handleEdit}
-          variant="secondary"
+          variant="action"
         />
       </Header.Root>
 

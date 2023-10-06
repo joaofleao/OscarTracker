@@ -25,51 +25,55 @@ const SignIn = ({ navigation }: SignInProps): JSX.Element => {
   const signUp = (): void => {
     navigation.navigate(routes.unlogged.signUpEmail)
   }
+
   const forgotPassword = (): void => {
     navigation.navigate(routes.unlogged.forgotPassword, { email })
   }
 
   return (
     <Global.Screen>
-      <Styled.Header>
-        <Logo />
-      </Styled.Header>
-      <Styled.Content>
-        <TextField
-          placeholder="oscar@email.com"
-          autoComplete="email"
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
-        />
-
-        <PasswordField
-          placeholder="● ● ● ● ● ● ● ●"
-          value={password}
-          onChangeText={setPassword}
-        />
-
-        <Styled.ButtonContainer>
-          <Button
-            label="Sign In"
-            width="fixed"
-            disabled={formattedEmail === '' || password === ''}
-            onPress={signIn}
+      <Global.Body>
+        <Styled.Header>
+          <Logo />
+        </Styled.Header>
+        <Styled.Content>
+          <TextField
+            placeholder="oscar@email.com"
+            autoComplete="email"
+            label="Email"
+            value={email}
+            onChangeText={setEmail}
           />
-        </Styled.ButtonContainer>
-      </Styled.Content>
 
-      <Styled.Footer>
+          <PasswordField
+            placeholder="● ● ● ● ● ● ● ●"
+            value={password}
+            onChangeText={setPassword}
+          />
+
+          <Styled.ButtonContainer>
+            <Button
+              label="Sign In"
+              width="fixed"
+              disabled={formattedEmail === '' || password === ''}
+              onPress={signIn}
+            />
+          </Styled.ButtonContainer>
+        </Styled.Content>
+      </Global.Body>
+
+      <Global.Footer>
         <Styled.ForgotButton onPress={forgotPassword}>
           <Styled.ForgotLabel>Forgot password?</Styled.ForgotLabel>
         </Styled.ForgotButton>
 
         <Button
           label="New here?"
+          width="fixed"
           variant="secondary"
           onPress={signUp}
         />
-      </Styled.Footer>
+      </Global.Footer>
     </Global.Screen>
   )
 }

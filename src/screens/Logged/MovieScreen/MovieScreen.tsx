@@ -116,7 +116,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
         <Button
           onPress={navigation.goBack}
           icon={<Icon.ArrowLeft />}
-          variant="secondary"
+          variant="action"
         />
         <Header.TextContainer>
           <Header.Title numberOfLines={2}>{name}</Header.Title>

@@ -56,7 +56,7 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
         <Button
           onPress={navigation.goBack}
           icon={<Icon.ArrowLeft />}
-          variant="secondary"
+          variant="action"
         />
 
         <Header.Title align="center">{edition.categories[id]['en-US']}</Header.Title>

@@ -2,11 +2,10 @@ import { useState } from 'react'
 
 import * as Styled from './styles'
 import Button from '@components/Button'
-import TextField from '@components/FormFields/TextField'
+import EmailField, { emailValidation } from '@components/FormFields/EmailField'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
-import Input from '@components/Input'
 import { useAuth } from '@features/auth'
 import { type PasswordRecoveryProps } from '@types'
 import routes from '@utils/routes'
@@ -17,10 +16,8 @@ const PasswordRecovery = ({ navigation, route }: PasswordRecoveryProps): JSX.Ele
 
   const auth = useAuth()
 
-  const formattedEmail = recoveryEmail.replace(/[^a-zA-Z0-9@.]/g, '')
-
   const handleSendEmail = (): void => {
-    auth.recoverPassword(formattedEmail)
+    auth.recoverPassword(recoveryEmail)
     navigation.navigate(routes.unlogged.signIn)
   }
 
@@ -30,37 +27,38 @@ const PasswordRecovery = ({ navigation, route }: PasswordRecoveryProps): JSX.Ele
         <Button
           onPress={navigation.goBack}
           icon={<Icon.ArrowLeft />}
-          variant="secondary"
+          variant="action"
         />
         <Header.TextContainer>
           <Header.Title>Password Recovery</Header.Title>
         </Header.TextContainer>
       </Header.Root>
 
-      <Styled.Header>
-        <Global.Title>{"Don't worry, it happens!"}</Global.Title>
-        <Global.Description>
-          Confirm the email you signed in so we can send a recovery link{' '}
-        </Global.Description>
-      </Styled.Header>
+      <Global.Body>
+        <Styled.Header>
+          <Global.Title>{"Don't worry, it happens!"}</Global.Title>
+          <Global.Description>
+            Confirm the email you signed in so we can send a recovery link{' '}
+          </Global.Description>
+        </Styled.Header>
 
-      <Styled.Content>
-        <TextField
-          autoComplete="email"
-          label="Email"
-          value={recoveryEmail}
-          onChangeText={setRecoveryEmail}
-        />
-      </Styled.Content>
+        <Styled.Content>
+          <EmailField
+            placeholder="spikelee@oscar.com"
+            value={recoveryEmail}
+            onChangeText={setRecoveryEmail}
+          />
+        </Styled.Content>
+      </Global.Body>
 
-      <Styled.Footer>
+      <Global.Footer>
         <Button
           width="fixed"
           label="Send email"
           onPress={handleSendEmail}
-          disabled={formattedEmail === ''}
+          disabled={!emailValidation(recoveryEmail)}
         />
-      </Styled.Footer>
+      </Global.Footer>
     </Global.Screen>
   )
 }

@@ -25,7 +25,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
   }
 
   return (
-    <Global.Screen hideBottom>
+    <Global.Screen>
       <Header.Root>
         <Header.TextContainer>
           <Header.Logo bigHeader>

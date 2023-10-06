@@ -18,7 +18,8 @@ const Name = ({ navigation, route }: NameProps): JSX.Element => {
 
   const nameValid =
     name.split(' ').length >= 2 && name.split(' ')[0].length > 0 && name.split(' ')[1].length > 0
-  const nicknameValid = nickname.length > 2
+
+  const nicknameValid = nickname.split(' ').length === 1 && nickname.split(' ')[0].length > 0
 
   const handleNext = (): void => {
     auth.signUp(email, password, name, nickname)
@@ -30,42 +31,47 @@ const Name = ({ navigation, route }: NameProps): JSX.Element => {
         <Button
           onPress={navigation.goBack}
           icon={<Icon.ArrowLeft />}
-          variant="secondary"
+          variant="action"
         />
         <Header.TextContainer>
           <Header.Title>Register</Header.Title>
         </Header.TextContainer>
       </Header.Root>
 
-      <Styled.Header>
-        <Global.Title>How would you like to be called?</Global.Title>
-        <Global.Description> The nickname will be shown to all your friends</Global.Description>
-      </Styled.Header>
+      <Global.Body>
+        <Styled.Header>
+          <Global.Title>How would you like to be called?</Global.Title>
+          <Global.Description> The nickname will be shown to all your friends</Global.Description>
+        </Styled.Header>
 
-      <Styled.Content>
-        <TextField
-          label="Name"
-          value={name}
-          onChangeText={setName}
-          valid={nameValid}
-          errorText={'Please provide name and last name'}
-        />
-        <TextField
-          label="Nickname"
-          value={nickname}
-          onChangeText={setNickname}
-          valid={nicknameValid}
-          errorText={'Please provide a longer nickname'}
-        />
-      </Styled.Content>
+        <Styled.Content>
+          <TextField
+            label="Name"
+            placeholder="Greta Gerwig"
+            value={name}
+            onChangeText={setName}
+            valid={nameValid}
+            errorText={'Please provide name and last name'}
+          />
+          <TextField
+            placeholder="LadyBird"
+            label="Nickname"
+            value={nickname}
+            onChangeText={setNickname}
+            valid={nicknameValid}
+            errorText={'Please provide a single nickname'}
+          />
+        </Styled.Content>
+      </Global.Body>
 
-      <Styled.Footer>
+      <Global.Footer>
         <Button
           width="fixed"
           label="Next"
           onPress={handleNext}
+          disabled={!nameValid || !nicknameValid}
         />
-      </Styled.Footer>
+      </Global.Footer>
     </Global.Screen>
   )
 }

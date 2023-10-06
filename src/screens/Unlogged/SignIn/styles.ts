@@ -1,28 +1,25 @@
+import { Animated, StyleSheet } from 'react-native'
 import { styled } from 'styled-components/native'
 
 export const Header = styled.View(() => {
   return {
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 2,
+    paddingVertical: '120px',
   }
 })
 
 export const Content = styled.View(() => {
   return {
-    flex: 2,
     gap: '28px',
-    marginHorizontal: '20px',
   }
 })
 
-export const Footer = styled.View(() => {
-  return {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    flex: 1,
-    gap: '14px',
-  }
+export const Footer = styled(Animated.View)({
+  position: 'absolute',
+  alignSelf: 'center',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
 })
 
 export const ButtonContainer = styled.View(() => {
@@ -43,4 +40,11 @@ export const ForgotButton = styled.TouchableOpacity(() => {
   return {
     padding: '12px',
   }
+})
+
+export const styles = StyleSheet.create({
+  contentContainerStyle: {
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+  },
 })
