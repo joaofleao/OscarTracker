@@ -25,7 +25,8 @@ module.exports = {
               ...['@screens', '!@screens/'],
               ...['@services', '!@services/'],
               ...['@styles', '!@styles/'],
-              // ...['@types', '!@types/'],
+              ...['@hooks', '!@hooks/'],
+
               ...['@utils', '!@utils/'],
             ],
             message: 'Multiple imports might trigger require cycles',

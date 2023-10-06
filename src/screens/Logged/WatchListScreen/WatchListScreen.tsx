@@ -2,9 +2,9 @@ import React from 'react'
 import { FlatList } from 'react-native'
 
 import * as Styled from './styles'
+import SearchField from '@components/FormFields/SearchField'
 import Global from '@components/Global'
 import Header from '@components/Header'
-import Input from '@components/Input'
 import NomineeCard from '@components/NomineeCard'
 import ProgressBar from '@components/ProgressBar'
 import { useEdition } from '@features/edition'
@@ -49,7 +49,7 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
   }
 
   return (
-    <Global.Screen hideBottom>
+    <Global.Screen>
       <Header.Root>
         <Header.TextContainer>
           <Header.Title bigHeader>Watch List</Header.Title>
@@ -62,11 +62,9 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
           total={edition.totalMovies}
         />
 
-        <Input
-          type="search"
-          onChange={(e): void => {
-            setSearch(e.nativeEvent.text)
-          }}
+        <SearchField
+          onChangeText={setSearch}
+          value={search}
         />
 
         <FlatList

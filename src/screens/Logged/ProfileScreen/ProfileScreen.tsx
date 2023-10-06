@@ -3,10 +3,10 @@ import { Platform, Switch } from 'react-native'
 
 import * as Styled from './styles'
 import Button from '@components/Button'
+import TextField from '@components/FormFields/TextField'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
-import Input from '@components/Input'
 import { useAuth } from '@features/auth'
 import { useTheme } from '@features/theme'
 import { useUser } from '@features/user'
@@ -50,7 +50,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
   }
 
   return (
-    <Global.Screen hideBottom>
+    <Global.Screen>
       <Header.Root>
         <Header.TextContainer>
           <Header.Title bigHeader>Profile</Header.Title>
@@ -59,7 +59,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
         <Button
           icon={editing ? <Icon.CheckCircle /> : <Icon.Pencil />}
           onPress={handleEdit}
-          variant="secondary"
+          variant="action"
         />
       </Header.Root>
 
@@ -68,22 +68,18 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
           <Styled.Section>
             <Styled.Title>Personal Information</Styled.Title>
 
-            <Input
+            <TextField
               value={displayName}
-              editable={editing}
+              editable={false}
               label="Name"
-              onChangeText={(text): void => {
-                setDisplayName(text)
-              }}
+              onChangeText={setDisplayName}
             />
 
-            <Input
+            <TextField
               value={nickName}
               editable={editing}
               label="Nickname"
-              onChangeText={(text): void => {
-                setNickname(text)
-              }}
+              onChangeText={setNickname}
             />
           </Styled.Section>
           <Styled.Section>

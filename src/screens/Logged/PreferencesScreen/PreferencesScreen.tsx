@@ -125,7 +125,7 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
         <Button
           onPress={handleBack}
           icon={<Icon.ArrowLeft />}
-          variant="secondary"
+          variant="action"
         />
         <Header.TextContainer>
           <Header.Title>Preferences</Header.Title>

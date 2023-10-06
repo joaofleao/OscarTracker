@@ -1,23 +1,19 @@
-import { Platform } from 'react-native'
+import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 
 export interface Screen {
-  hideTop?: boolean
-  hideBottom?: boolean
-}
-
-const defaultValues = {
-  top: true,
-  bottom: true,
+  showTop?: boolean
+  showBottom?: boolean
 }
 
 export const Screen = styled.SafeAreaView<Screen>((props) => {
-  const { hideTop, hideBottom } = { ...defaultValues, ...props }
   return {
     backgroundColor: props.theme.colors.background.default,
     flex: 1,
-    paddingTop: Platform.OS === 'android' && !hideTop ? '20px' : '0px',
-    paddingBottom: Platform.OS === 'android' && !hideBottom ? '20px' : '0px',
+    position: 'relative',
+    paddingTop: props.showTop ? '20px' : '0px',
+    paddingBottom: props.showBottom ? '20px' : '0px',
+    gap: '20px',
   }
 })
 
@@ -49,4 +45,11 @@ export const Description = styled.Text((props) => {
     color: props.theme.colors.text.default,
     letterSpacing: '1px',
   }
+})
+
+export const Footer = styled(Animated.View)({
+  position: 'absolute',
+  alignSelf: 'center',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
 })
