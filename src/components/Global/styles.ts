@@ -1,3 +1,4 @@
+import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 
 export interface Screen {
@@ -43,4 +44,11 @@ export const Description = styled.Text((props) => {
     color: props.theme.colors.text.default,
     letterSpacing: '1px',
   }
+})
+
+export const Footer = styled(Animated.View)({
+  position: 'absolute',
+  alignSelf: 'center',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
 })

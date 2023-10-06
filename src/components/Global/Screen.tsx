@@ -1,11 +1,10 @@
-import { SafeAreaView } from 'react-native'
 import { Platform } from 'react-native'
+import { SafeAreaViewProps } from 'react-native-safe-area-context'
 
 import useKeyboard from '../../hooks/useKeyboard'
 import * as Styled from './styles'
 
-export interface ScreenProps extends Partial<SafeAreaView> {
-  children?: JSX.Element | JSX.Element[]
+export interface ScreenProps extends SafeAreaViewProps {
   showTop?: boolean
   showBottom?: boolean
 }
@@ -15,7 +14,7 @@ const defaultValue: ScreenProps = {
 }
 
 const Screen = (props: ScreenProps): JSX.Element => {
-  const { showBottom, showTop, children, ...rest } = { defaultValue, ...props }
+  const { showBottom, showTop, ...rest } = { defaultValue, ...props }
 
   const keyboardOpen = useKeyboard()
 
@@ -24,9 +23,7 @@ const Screen = (props: ScreenProps): JSX.Element => {
       showBottom={(Platform.OS === 'android' && !keyboardOpen) || showBottom}
       showTop={Platform.OS === 'android' || showTop}
       {...rest}
-    >
-      {children}
-    </Styled.Screen>
+    />
   )
 }
 
