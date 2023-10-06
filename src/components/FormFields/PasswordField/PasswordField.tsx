@@ -4,7 +4,6 @@ import * as Styled from './styles'
 import Button from '@components/Button'
 import TextField, { TextFieldProps } from '@components/FormFields/TextField'
 import Icon from '@components/Icon'
-import usePasswordRequirements from '@hooks/usePasswordRequirements'
 
 export interface PasswordFieldProps extends TextFieldProps {
   type?: 'password' | 'confirmPassword' | 'plain'
@@ -14,6 +13,36 @@ export interface PasswordFieldProps extends TextFieldProps {
 const defaultProps: PasswordFieldProps = {
   label: 'Password',
   type: 'plain',
+}
+
+const passwordValidation = (
+  password: string,
+  confirmPassowrd: string,
+): {
+  oneUpperCase: boolean
+  oneSpecialCase: boolean
+  oneDigit: boolean
+  oneLowerCase: boolean
+  passwordValid: boolean
+  confirmPasswordValid: boolean
+} => {
+  const confirmPasswordValid = password === confirmPassowrd && password !== ''
+
+  const oneUpperCase = /(?=.*[A-Z])/.test(password)
+  const oneSpecialCase = /(?=.*[!@#$&*.])/.test(password)
+  const oneDigit = /(?=.*[0-9])/.test(password)
+  const oneLowerCase = /(?=.*[a-z])/.test(password)
+
+  const passwordValid = oneUpperCase && oneSpecialCase && oneDigit && oneLowerCase
+
+  return {
+    oneUpperCase,
+    oneSpecialCase,
+    oneDigit,
+    oneLowerCase,
+    passwordValid,
+    confirmPasswordValid,
+  }
 }
 
 const PasswordField = (props: PasswordFieldProps): JSX.Element => {
@@ -31,7 +60,7 @@ const PasswordField = (props: PasswordFieldProps): JSX.Element => {
     oneSpecialCase,
     oneUpperCase,
     passwordValid,
-  } = usePasswordRequirements(value, passwordConfirmation)
+  } = passwordValidation(value, passwordConfirmation)
 
   const handlePress = (): void => {
     setPasswordVisible((prev) => {
@@ -95,3 +124,4 @@ const PasswordField = (props: PasswordFieldProps): JSX.Element => {
 }
 
 export default PasswordField
+export { passwordValidation }

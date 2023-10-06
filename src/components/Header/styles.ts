@@ -24,6 +24,7 @@ export const Root = styled.View<RootProps>((props) => {
 export const TextContainer = styled.View(() => {
   return {
     flex: 1,
+    gap: '8px',
   }
 })
 

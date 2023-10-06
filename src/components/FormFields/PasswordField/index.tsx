@@ -1,4 +1,4 @@
-import PasswordField, { type PasswordFieldProps } from './PasswordField'
+import PasswordField, { type PasswordFieldProps, passwordValidation } from './PasswordField'
 
 export default PasswordField
-export type { PasswordFieldProps }
+export { passwordValidation, type PasswordFieldProps }

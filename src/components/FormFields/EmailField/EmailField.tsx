@@ -7,24 +7,31 @@ const defaultProps: EmailFieldProps = {
   label: 'Email',
 }
 
+const emailValidation = (value: string): boolean => {
+  const emailValid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)
+
+  return emailValid
+}
+
 const EmailField = (props: EmailFieldProps): JSX.Element => {
   const { value, ...rest } = {
     ...defaultProps,
     ...props,
   }
 
-  const emailValid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)
+  const formattedEmail = value.replace(/[^a-zA-Z0-9@.]/g, '')
   const errorText = 'You must provide a valid email'
 
   return (
     <TextField
       autoComplete="email"
       errorText={errorText}
-      valid={emailValid}
-      value={value}
+      valid={emailValidation(formattedEmail)}
+      value={formattedEmail}
       {...rest}
     />
   )
 }
 
 export default EmailField
+export { emailValidation }

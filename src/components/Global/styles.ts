@@ -13,6 +13,7 @@ export const Screen = styled.SafeAreaView<Screen>((props) => {
     position: 'relative',
     paddingTop: props.showTop ? '20px' : '0px',
     paddingBottom: props.showBottom ? '20px' : '0px',
+    gap: '20px',
   }
 })
 
