@@ -6,3 +6,9 @@ export const Content = styled.FlatList(() => {
     flex: 1,
   }
 })
+export const Accent = styled.Text((props) => {
+  return {
+    color: props.theme.colors.primary.default,
+    fontFamily: props.theme.fonts.primary.bold,
+  }
+})

@@ -1,12 +1,15 @@
+import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils'
+
 import * as Styled from './styles'
 import Icon from '@components/Icon'
 import { useTheme } from '@features/theme'
 
-export interface PosterProps {
+export interface PosterProps extends ViewProps {
   image: string
   isWatched: boolean
   spoiler: boolean
   large?: boolean
+  winner?: boolean
 }
 
 const defaultValues: Partial<PosterProps> = {
@@ -16,7 +19,14 @@ const defaultValues: Partial<PosterProps> = {
 }
 
 const Poster = (props: PosterProps): JSX.Element => {
-  const { image, isWatched, spoiler, large = false } = { ...defaultValues, ...props }
+  const {
+    image,
+    isWatched,
+    spoiler,
+    large = false,
+    winner = false,
+    ...rest
+  } = { ...defaultValues, ...props }
   const theme = useTheme()
 
   const width = large ? 158 : 106
@@ -32,6 +42,7 @@ const Poster = (props: PosterProps): JSX.Element => {
     <Styled.Cover
       width={width}
       height={height}
+      winner={winner}
     />
   )
 
@@ -48,6 +59,8 @@ const Poster = (props: PosterProps): JSX.Element => {
     <Styled.Container
       width={width}
       height={height}
+      winner={winner}
+      {...rest}
     >
       {(isWatched || spoiler) && getPoster}
       {!isWatched && spoiler && getCover}

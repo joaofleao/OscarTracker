@@ -17,6 +17,8 @@ export interface EditionContextType {
   getMovies: () => Promise<void>
   getPeople: () => Promise<void>
   getNominations: () => Promise<void>
+
+  markCategoryWinner: (nominationId: string, categoryId: string) => Promise<void>
 }
 
 const EditionContext = createContext<EditionContextType | null>(null)

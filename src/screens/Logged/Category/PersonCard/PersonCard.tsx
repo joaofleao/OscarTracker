@@ -1,6 +1,7 @@
 import { type PressableProps } from 'react-native'
 
 import * as Styled from './styles'
+import Icon from '@components/Icon'
 import Poster from '@components/Poster'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
@@ -11,12 +12,10 @@ export interface PersonCardProps extends PressableProps {
   movieId: string
   character: string
   winner: boolean
-  categoryId: string
-  nominationId: string
 }
 
 const PersonCard = (props: PersonCardProps): JSX.Element => {
-  const { actorId, categoryId, character, movieId, winner, nominationId, ...rest } = props
+  const { actorId, character, movieId, winner, ...rest } = props
 
   const { movies: watchedMovies, preferences } = useUser()
   const { movies, people } = useEdition()
@@ -27,12 +26,27 @@ const PersonCard = (props: PersonCardProps): JSX.Element => {
   return (
     <Styled.Container {...rest}>
       <Poster
+        winner={winner}
         image={getImage(person.image)}
         isWatched={watchedMovies.includes(movieId)}
         spoiler={preferences.poster}
       />
       <Styled.Content>
-        <Styled.Title numberOfLines={3}>{person.name}</Styled.Title>
+        <Styled.Row>
+          {winner && (
+            <Icon.Oscar
+              filled
+              width={20}
+              height={20}
+            />
+          )}
+          <Styled.Title
+            winner={winner}
+            numberOfLines={3}
+          >
+            {person.name}
+          </Styled.Title>
+        </Styled.Row>
         <Styled.Character numberOfLines={2}>as {character}</Styled.Character>
         <Styled.Movie numberOfLines={2}>{movie.name}</Styled.Movie>
       </Styled.Content>

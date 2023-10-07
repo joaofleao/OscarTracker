@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ListRenderItemInfo } from 'react-native'
 
 import MovieCard from './MovieCard'
@@ -8,6 +9,7 @@ import Button from '@components/Button'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
+import Modal from '@components/Modal'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
 import { type CategoryProps, Nomination } from '@types'
@@ -17,8 +19,46 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
   const { categoryId } = route.params
   const { adminSettings } = useUser()
 
+  const [newWinner, setNewWinner] = useState<[string, string] | null>(null)
+
   const edition = useEdition()
   const categoryNominations = edition.nominations[categoryId]
+
+  const renderModal = (
+    <Modal.Root
+      visible={!!newWinner}
+      onClickOutside={(): void => {
+        setNewWinner(null)
+      }}
+    >
+      <Modal.Title>Winner</Modal.Title>
+      <Modal.Description>
+        Are you sure you want to set
+        <Styled.Accent> {newWinner?.[0]} </Styled.Accent>
+        as the winner?
+      </Modal.Description>
+
+      <Modal.Row>
+        <Button
+          width="full"
+          label="Cancel"
+          variant="secondary"
+          onPress={(): void => {
+            setNewWinner(null)
+          }}
+        />
+        <Button
+          width="full"
+          variant="primary"
+          label="Set Winner"
+          onPress={(): void => {
+            edition.markCategoryWinner(newWinner[1], categoryId)
+            setNewWinner(null)
+          }}
+        />
+      </Modal.Row>
+    </Modal.Root>
+  )
 
   const renderCard = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
     if (item.person)
@@ -26,12 +66,12 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
         <PersonCard
           actorId={item.person}
           character={item.information}
-          key={item.id}
           winner={item.winner}
-          categoryId={item.category}
           movieId={item.movie}
           onPress={(): void => {
-            navigation.navigate(routes.logged.movie, { movieId: item.movie })
+            adminSettings
+              ? setNewWinner([edition.people[item.person].name, item.id])
+              : navigation.navigate(routes.logged.movie, { movieId: item.movie })
           }}
         />
       )
@@ -40,24 +80,24 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
         <SongCard
           song={item.song}
           information={item.information}
-          key={item.id}
           winner={item.winner}
-          categoryId={item.category}
           movieId={item.movie}
           onPress={(): void => {
-            navigation.navigate(routes.logged.movie, { movieId: item.movie })
+            adminSettings
+              ? setNewWinner([item.song, item.id])
+              : navigation.navigate(routes.logged.movie, { movieId: item.movie })
           }}
         />
       )
     return (
       <MovieCard
         information={item.information}
-        key={item.id}
         winner={item.winner}
-        categoryId={item.category}
         movieId={item.movie}
         onPress={(): void => {
-          navigation.navigate(routes.logged.movie, { movieId: item.movie })
+          adminSettings
+            ? setNewWinner([edition.movies[item.movie]['en-US'].name, item.id])
+            : navigation.navigate(routes.logged.movie, { movieId: item.movie })
         }}
       />
     )
@@ -83,6 +123,8 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
         renderItem={renderCard}
         ItemSeparatorComponent={Global.Separator}
       />
+
+      {renderModal}
     </Global.Screen>
   )
 }

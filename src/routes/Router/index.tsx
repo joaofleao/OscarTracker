@@ -18,7 +18,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Logged from '@routes/Logged'
 import Unlogged from '@routes/Unlogged'
 import { auth, db } from '@services/firebase'
-import type { ScreenTypes, User, UserType } from '@types'
+import type { Nomination, ScreenTypes, User, UserType } from '@types'
+import { printFetch } from '@utils/functions'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 
@@ -83,15 +84,18 @@ const Router = (): JSX.Element => {
 
   React.useEffect(() => {
     if (user.isLogged) {
+      printFetch('Firebase', 'User fetched', 'yellow')
       const userRef = doc(usersCollection, user.uid)
-      const unsubscribe = onSnapshot(userRef, (snap) => {
+
+      const unsubscribeUser = onSnapshot(userRef, (snap) => {
         const response = snap.data()
         if (response !== undefined) {
           user.setUser(response as UserType)
         }
       })
+
       return () => {
-        unsubscribe()
+        unsubscribeUser()
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

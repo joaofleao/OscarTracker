@@ -1,22 +1,21 @@
 import { type PressableProps } from 'react-native'
 
 import * as Styled from './styles'
+import Icon from '@components/Icon'
 import Poster from '@components/Poster'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
 import { getImage } from '@services/tmdb/api'
 
 export interface SongCardProps extends PressableProps {
-  categoryId: string
   information: string
   movieId: string
   song: string
   winner: boolean
-  nominationId: string
 }
 
 const SongCard = (props: SongCardProps): JSX.Element => {
-  const { categoryId, information, movieId, song, winner, nominationId, ...rest } = props
+  const { information, movieId, song, winner, ...rest } = props
 
   const { movies: watchedMovies, preferences } = useUser()
   const { movies } = useEdition()
@@ -26,13 +25,29 @@ const SongCard = (props: SongCardProps): JSX.Element => {
   return (
     <Styled.Container {...rest}>
       <Poster
+        winner={winner}
         image={getImage(movie.image)}
         isWatched={watchedMovies.includes(movieId)}
         spoiler={preferences.poster}
       />
       <Styled.Content>
-        <Styled.Title numberOfLines={3}>{song}</Styled.Title>
-        <Styled.Character numberOfLines={2}>{information}</Styled.Character>
+        <Styled.Row>
+          {winner && (
+            <Icon.Oscar
+              filled
+              width={20}
+              height={20}
+            />
+          )}
+
+          <Styled.Title
+            winner={winner}
+            numberOfLines={3}
+          >
+            {song}
+          </Styled.Title>
+        </Styled.Row>
+        <Styled.Information numberOfLines={2}>{information}</Styled.Information>
         <Styled.Movie numberOfLines={2}>{movie.name}</Styled.Movie>
       </Styled.Content>
     </Styled.Container>

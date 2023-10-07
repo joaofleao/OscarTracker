@@ -5,17 +5,34 @@ export const Container = styled.Pressable({
   flexDirection: 'row',
 })
 
-export const Content = styled.View({
-  marginLeft: '16px',
-  flex: 1,
+export const Content = styled.View(() => {
+  return {
+    marginLeft: '16px',
+    flex: 1,
+    paddingVertical: 16,
+    borderRadius: 14,
+  }
 })
 
-export const Title = styled.Text((props) => {
+export const Row = styled.View(() => {
   return {
+    gap: '4px',
+    flexDirection: 'row',
+    alignItems: 'center',
+  }
+})
+interface TitleProps {
+  winner: boolean
+}
+
+export const Title = styled.Text<TitleProps>((props) => {
+  return {
+    flex: 1,
+
     fontSize: '18px',
     lineHeight: '28px',
     fontFamily: props.theme.fonts.primary.bold,
-    color: props.theme.colors.text.default,
+    color: props.winner ? props.theme.colors.primary.default : props.theme.colors.text.default,
   }
 })
 

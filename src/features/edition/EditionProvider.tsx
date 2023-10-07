@@ -1,5 +1,5 @@
 import React from 'react'
-import { collection, doc, getDocs, orderBy, query, where } from 'firebase/firestore'
+import { collection, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore'
 
 import EditionContext, { type EditionContextType } from './EditionContext'
 import { db } from '@services/firebase'
@@ -93,6 +93,22 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     setNominations(map)
   }
 
+  const markCategoryWinner = async (nominationId: string, categoryId: string): Promise<void> => {
+    const nominationsCollection = collection(editionRef, 'nominations')
+
+    const categoryNominations = query(nominationsCollection, where('category', '==', categoryId))
+    const response = await getDocs(categoryNominations)
+
+    response.forEach((item) => {
+      const nominationRef = doc(nominationsCollection, item.id)
+      updateDoc(nominationRef, {
+        winner: item.id === nominationId,
+      })
+    })
+
+    printFetch('Firebase', 'Winner Marked', 'yellow')
+  }
+
   const getMovieNominations = async (movie: string): Promise<Nomination[]> => {
     printFetch('Firebase', 'Movie Nominations fetched', 'yellow')
 
@@ -126,6 +142,8 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     getPeople,
     getNominations,
     getMovieNominations,
+
+    markCategoryWinner,
   }
 
   return <EditionContext.Provider value={value}>{children}</EditionContext.Provider>

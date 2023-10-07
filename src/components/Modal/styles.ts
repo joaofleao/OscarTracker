@@ -22,9 +22,9 @@ export const Container = styled.View((props) => {
 
 export const Row = styled.View(() => {
   return {
-    gap: '8px',
+    gap: '16px',
     flexDirection: 'row',
-    flex: 1,
+
     alignItems: 'center',
   }
 })
