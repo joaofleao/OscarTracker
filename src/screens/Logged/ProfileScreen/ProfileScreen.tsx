@@ -52,7 +52,6 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
     },
     ios_backgroundColor: theme.colors.background.container,
 
-    disabled: !editing,
     style: Platform.OS === 'android' && { height: 0 },
   }
 
@@ -73,7 +72,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
       <Styled.Content>
         <Styled.ContentContainer>
           <Styled.Section>
-            <Styled.Title>Personal Information</Styled.Title>
+            <Styled.Title>Personal Information </Styled.Title>
 
             <TextField
               editable={editing}
@@ -94,6 +93,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
               errorText={'Please provide a single nickname'}
             />
           </Styled.Section>
+
           <Styled.Section>
             <Styled.Item>
               <Styled.Title>Spoiler Preferences</Styled.Title>
@@ -111,6 +111,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
 
               <Switch
                 {...switchSettings}
+                disabled={!editing}
                 thumbColor={poster ? theme.colors.primary.default : theme.colors.background.default}
                 value={poster}
                 onValueChange={setPoster}
@@ -120,6 +121,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
               <Styled.Subtitle>Show Plot</Styled.Subtitle>
               <Switch
                 {...switchSettings}
+                disabled={!editing}
                 thumbColor={plot ? theme.colors.primary.default : theme.colors.background.default}
                 value={plot}
                 onValueChange={setPlot}
@@ -129,6 +131,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
               <Styled.Subtitle>Show Cast</Styled.Subtitle>
               <Switch
                 {...switchSettings}
+                disabled={!editing}
                 thumbColor={cast ? theme.colors.primary.default : theme.colors.background.default}
                 value={cast}
                 onValueChange={setCast}
@@ -138,6 +141,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
               <Styled.Subtitle>Show Ratings</Styled.Subtitle>
               <Switch
                 {...switchSettings}
+                disabled={!editing}
                 thumbColor={
                   ratings ? theme.colors.primary.default : theme.colors.background.default
                 }
@@ -146,6 +150,22 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
               />
             </Styled.Item>
           </Styled.Section>
+
+          {!!user.admin && (
+            <Styled.Item>
+              <Styled.Title>Admin Options</Styled.Title>
+              <Switch
+                {...switchSettings}
+                thumbColor={
+                  user.adminSettings
+                    ? theme.colors.primary.default
+                    : theme.colors.background.default
+                }
+                value={user.adminSettings}
+                onValueChange={user.setAdminSettings}
+              />
+            </Styled.Item>
+          )}
 
           <Styled.Item>
             <Styled.Title>App Version</Styled.Title>

@@ -3,6 +3,10 @@ import { createContext } from 'react'
 import type { PreferencesType, UserType } from '@types'
 
 export interface UserContextType {
+  adminSettings: boolean
+  setAdminSettings: (adminSettings: boolean) => void
+
+  admin: boolean
   preferences: PreferencesType
   email: string
   displayName: string

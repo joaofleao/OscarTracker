@@ -23,6 +23,7 @@ export interface PreferencesType {
 }
 
 export interface UserType {
+  admin: boolean
   preferences: PreferencesType
   email: string
   displayName: string

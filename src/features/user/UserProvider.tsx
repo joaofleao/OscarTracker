@@ -11,8 +11,10 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
   const [isLogged, setIsLogged] = React.useState<boolean>(false)
 
   const [uid, setUid] = React.useState('')
+  const [adminSettings, setAdminSettings] = React.useState(false)
 
   const [user, setUser] = React.useState<UserType>({
+    admin: false,
     email: '',
     phoneNumber: '',
     photoURL: '',
@@ -67,6 +69,10 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
   }
 
   const value: UserContextType = {
+    adminSettings,
+    setAdminSettings,
+
+    admin: user.admin,
     preferences: user.preferences,
     email: user.email,
     displayName: user.displayName,
