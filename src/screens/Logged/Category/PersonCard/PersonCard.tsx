@@ -12,11 +12,11 @@ export interface PersonCardProps extends PressableProps {
   character: string
   winner: boolean
   categoryId: string
-  key: string
+  nominationId: string
 }
 
 const PersonCard = (props: PersonCardProps): JSX.Element => {
-  const { actorId, categoryId, character, movieId, winner, key, ...rest } = props
+  const { actorId, categoryId, character, movieId, winner, nominationId, ...rest } = props
 
   const { movies: watchedMovies, preferences } = useUser()
   const { movies, people } = useEdition()
@@ -25,10 +25,7 @@ const PersonCard = (props: PersonCardProps): JSX.Element => {
   const person = people[actorId]
 
   return (
-    <Styled.Container
-      key={key}
-      {...rest}
-    >
+    <Styled.Container {...rest}>
       <Poster
         image={getImage(person.image)}
         isWatched={watchedMovies.includes(movieId)}

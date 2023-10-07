@@ -12,11 +12,11 @@ export interface SongCardProps extends PressableProps {
   movieId: string
   song: string
   winner: boolean
-  key: string
+  nominationId: string
 }
 
 const SongCard = (props: SongCardProps): JSX.Element => {
-  const { categoryId, information, movieId, song, winner, key, ...rest } = props
+  const { categoryId, information, movieId, song, winner, nominationId, ...rest } = props
 
   const { movies: watchedMovies, preferences } = useUser()
   const { movies } = useEdition()
@@ -24,10 +24,7 @@ const SongCard = (props: SongCardProps): JSX.Element => {
   const movie = movies[movieId]['en-US']
 
   return (
-    <Styled.Container
-      key={key}
-      {...rest}
-    >
+    <Styled.Container {...rest}>
       <Poster
         image={getImage(movie.image)}
         isWatched={watchedMovies.includes(movieId)}
