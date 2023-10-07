@@ -1,58 +1,59 @@
-import { FlatList, ListRenderItemInfo } from 'react-native'
+import { ListRenderItemInfo } from 'react-native'
 
+import MovieCard from './MovieCard'
+import PersonCard from './PersonCard'
+import SongCard from './SongCard'
 import * as Styled from './styles'
 import Button from '@components/Button'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
-import NomineeCard from '@components/NomineeCard'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
 import { type CategoryProps, Nomination } from '@types'
 import routes from '@utils/routes'
 
 const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
-  const { id } = route.params
-
-  const edition = useEdition()
-
+  const { categoryId } = route.params
   const { adminSettings } = useUser()
 
-  const movies = edition.nominations[id]
+  const edition = useEdition()
+  const categoryNominations = edition.nominations[categoryId]
 
-  const renderMovie = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
-    const movie = edition.movies[item.movie]
-    const person = edition.people[item.person]
+  const renderCard = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
+    const props = {
+      winner: item.winner,
+      categoryId: item.category,
+      movieId: item.movie,
+      onPress: (): void => {
+        navigation.navigate(routes.logged.movie, { movieId: item.movie })
+      },
+    }
 
-    const image = person != null ? person.image : movie['en-US'].image
-    const title =
-      person != null ? person.name : item.category === '18' ? item.extra : movie['en-US'].name
-
-    const information = person != null ? `as ${item.information}` : item.information
-    const extra =
-      person != null
-        ? movie['en-US'].name
-        : item.category === '18'
-        ? movie['en-US'].name
-        : item.extra
-
+    if (item.person)
+      return (
+        <PersonCard
+          actorId={item.person}
+          character={item.information}
+          {...props}
+        />
+      )
+    if (item.song)
+      return (
+        <SongCard
+          song={item.song}
+          information={item.information}
+          {...props}
+        />
+      )
     return (
-      <NomineeCard
-        onPress={(): void => {
-          navigation.navigate(routes.logged.movie, {
-            id: movie.imdb,
-            poster: movie['en-US'].image,
-            name: movie['en-US'].name,
-          })
-        }}
-        image={image}
-        title={title}
-        information={information}
-        extra={extra}
-        id={movie.imdb}
+      <MovieCard
+        information={item.information}
+        {...props}
       />
     )
   }
+
   return (
     <Global.Screen>
       <Header.Root>
@@ -61,23 +62,21 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
           icon={<Icon.ArrowLeft />}
           variant="action"
         />
-
-        <Header.Title align="center">
+        <Header.Title>
           {adminSettings && 'Winner of '}
-          {edition.categories[id]['en-US']}
+          {edition.categories[categoryId]['en-US']}
         </Header.Title>
       </Header.Root>
 
-      <Styled.Content>
-        <FlatList
-          data={movies}
-          renderItem={renderMovie}
-          keyExtractor={(item): string => {
-            return `${item.movie}${item.person ?? ''} ${item.information ?? ''}${item.extra ?? ''}`
-          }}
-          ItemSeparatorComponent={Global.Separator}
-        />
-      </Styled.Content>
+      <Styled.Content
+        indicatorStyle="black"
+        data={categoryNominations}
+        renderItem={renderCard}
+        keyExtractor={(_, index): string => {
+          return `${index}`
+        }}
+        ItemSeparatorComponent={Global.Separator}
+      />
     </Global.Screen>
   )
 }

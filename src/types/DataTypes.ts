@@ -6,7 +6,8 @@ export interface Nomination {
   movie: string
   person: string | undefined
   information: string | undefined
-  extra: string | undefined
+  song: string | undefined
+  winner: boolean
 }
 export interface Category {
   id: string

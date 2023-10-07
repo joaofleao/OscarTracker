@@ -28,11 +28,7 @@ const NominationItem = (
   const isBestPicture = item.category === 'picture'
 
   const handleClick = (): void => {
-    navigation.navigate(routes.logged.movie, {
-      id: movie.imdb,
-      poster: movie['en-US'].image,
-      name: movie['en-US'].name,
-    })
+    navigation.navigate(routes.logged.movie, { movieId: movie.imdb })
   }
 
   return (

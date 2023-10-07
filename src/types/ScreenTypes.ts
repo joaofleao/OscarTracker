@@ -20,12 +20,10 @@ export interface ScreenTypes extends ParamListBase {
   WatchList: undefined
   Profile: undefined
   Movie: {
-    id: string
-    poster: string
-    name: string
+    movieId: string
   }
   Category: {
-    id: string
+    categoryId: string
   }
 }
 

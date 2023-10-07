@@ -24,27 +24,29 @@ import type {
 import routes from '@utils/routes'
 
 const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
-  const { id, name, poster } = route.params
+  const { movieId } = route.params
+  const edition = useEdition()
+  const user = useUser()
+  const movies = useMovies()
+  const theme = useTheme()
+
+  const { image, name } = edition.movies[movieId]['en-US']
+
   const [watched, setWatched] = useState<boolean>(false)
   const [movieData, setMovieData] = useState<MovieType>()
   const [movieCast, setMovieCast] = useState([])
   const [movieProviders, setMovieProviders] = useState([])
   const [nominations, setNominations] = useState<Nomination[]>([])
 
-  const edition = useEdition()
-  const user = useUser()
-  const movies = useMovies()
-  const theme = useTheme()
-
-  const imdbLink = `https://www.imdb.com/title/${id}`
+  const imdbLink = `https://www.imdb.com/title/${movieId}`
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const nominationsData = await edition.getMovieNominations(id)
+      const nominationsData = await edition.getMovieNominations(movieId)
       setNominations(nominationsData)
-      const movie = await movies.getMovie(id)
-      const cast = await movies.getCast(id)
-      const providers = await movies.getProviders(id)
+      const movie = await movies.getMovie(movieId)
+      const cast = await movies.getCast(movieId)
+      const providers = await movies.getProviders(movieId)
 
       setMovieProviders(() => {
         return providers.results?.BR?.flatrate?.filter((provider: WatchProvider) => {
@@ -55,18 +57,18 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
       setMovieCast(cast.cast.slice(0, 10))
     }
     fetchData()
-  }, [edition, id, movies])
+  }, [edition, movieId, movies])
 
   useEffect(() => {
-    const value = user.movies.includes(id) || false
+    const value = user.movies.includes(movieId) || false
     setWatched(value)
-  }, [id, user.movies])
+  }, [movieId, user.movies])
 
   const markAsWatched = (current: boolean): void => {
     if (current) {
-      user.setMovieUnwatched(id)
+      user.setMovieUnwatched(movieId)
     } else {
-      user.setMovieWatched(id)
+      user.setMovieWatched(movieId)
     }
   }
 
@@ -98,7 +100,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
     return (
       <Styled.Nomination
         onPress={(): void => {
-          navigation.navigate(routes.logged.category, { id: item.category })
+          navigation.navigate(routes.logged.category, { categoryId: item.category })
         }}
       >
         <Styled.NominationText>{edition.categories[item.category]['en-US']}</Styled.NominationText>
@@ -131,7 +133,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
               watched={watched}
               text="Show Poster"
             >
-              <Styled.Poster source={{ uri: getImage(poster) }} />
+              <Styled.Poster source={{ uri: getImage(image) }} />
             </Styled.SpoilerPoster>
 
             <Styled.BasicData>

@@ -18,7 +18,7 @@ const NominationCaroussel = (
 ): JSX.Element => {
   const { item: nomination } = object
 
-  const id = nomination[0]
+  const categoryId = nomination[0]
   const data = nomination[1]
 
   const renderNominationItem = (item): JSX.Element => {
@@ -26,7 +26,7 @@ const NominationCaroussel = (
   }
 
   const handleSeeMore = (): void => {
-    navigation.navigate(routes.logged.category, { id })
+    navigation.navigate(routes.logged.category, { categoryId })
   }
 
   return (
@@ -42,7 +42,7 @@ const NominationCaroussel = (
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
-        data={edition.nominations[id]}
+        data={edition.nominations[categoryId]}
         renderItem={renderNominationItem}
         ItemSeparatorComponent={Global.Separator}
         ListFooterComponent={Global.Separator}
