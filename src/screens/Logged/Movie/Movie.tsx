@@ -14,7 +14,7 @@ import { useTheme } from '@features/theme'
 import { useUser } from '@features/user'
 import { getImage } from '@services/tmdb/api'
 import type {
-  MovieScreenProps,
+  MovieProps,
   MovieType,
   Nomination,
   ProductionCompany,
@@ -23,7 +23,7 @@ import type {
 } from '@types'
 import routes from '@utils/routes'
 
-const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
+const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
   const { id, name, poster } = route.params
   const [watched, setWatched] = useState<boolean>(false)
   const [movieData, setMovieData] = useState<MovieType>()
@@ -269,4 +269,4 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
   )
 }
 
-export default MovieScreen
+export default Movie

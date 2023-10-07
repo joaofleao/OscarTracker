@@ -11,7 +11,7 @@ import routes from '@utils/routes'
 
 const NominationItem = (
   object: ListRenderItemInfo<Nomination>,
-  navigation: NativeStackNavigationProp<ScreenTypes, 'HomeScreen', undefined>,
+  navigation: NativeStackNavigationProp<ScreenTypes, 'Home', undefined>,
   edition: EditionContextType,
   user: UserContextType,
 ): JSX.Element => {

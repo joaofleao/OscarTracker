@@ -11,10 +11,10 @@ import { useAuth } from '@features/auth'
 import { useTheme } from '@features/theme'
 import { useUser } from '@features/user'
 import packageJson from '@package.json'
-import type { ProfileScreenProps } from '@types'
+import type { ProfileProps } from '@types'
 import routes from '@utils/routes'
 
-const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
+const Profile = ({ navigation }: ProfileProps): JSX.Element => {
   const auth = useAuth()
   const user = useUser()
   const theme = useTheme()
@@ -186,4 +186,4 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps): JSX.Element => {
   )
 }
 
-export default ProfileScreen
+export default Profile

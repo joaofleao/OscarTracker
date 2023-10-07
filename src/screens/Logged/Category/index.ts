@@ -1,3 +1,3 @@
-import CategoryScreen from './Category'
+import Category from './Category'
 
-export default CategoryScreen
+export default Category

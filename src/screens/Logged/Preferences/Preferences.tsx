@@ -9,10 +9,10 @@ import Header from '@components/Header'
 import Icon from '@components/Icon'
 import ProgressBar from '@components/ProgressBar'
 import { useUser } from '@features/user'
-import type { PreferencesScreenProps } from '@types'
+import type { PreferencesProps } from '@types'
 import routes from '@utils/routes'
 
-const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element => {
+const Preferences = ({ navigation }: PreferencesProps): JSX.Element => {
   const scrollViewRef = React.useRef<FlatList>(null)
   const user = useUser()
 
@@ -172,4 +172,4 @@ const PreferencesScreen = ({ navigation }: PreferencesScreenProps): JSX.Element 
   )
 }
 
-export default PreferencesScreen
+export default Preferences

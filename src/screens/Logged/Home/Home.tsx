@@ -8,10 +8,10 @@ import ProgressBar from '@components/ProgressBar'
 import { useAuth } from '@features/auth'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
-import type { HomeScreenProps } from '@types'
+import type { HomeProps } from '@types'
 import routes from '@utils/routes'
 
-const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
+const Home = ({ navigation }: HomeProps): JSX.Element => {
   const edition = useEdition()
   const user = useUser()
   const auth = useAuth()
@@ -53,4 +53,4 @@ const HomeScreen = ({ navigation }: HomeScreenProps): JSX.Element => {
   )
 }
 
-export default HomeScreen
+export default Home

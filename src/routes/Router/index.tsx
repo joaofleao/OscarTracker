@@ -1,7 +1,7 @@
 import React from 'react'
 import { StatusBar } from 'react-native'
 import { useFonts } from 'expo-font'
-import * as SplashScreen from 'expo-splash-screen'
+import * as Splash from 'expo-splash-screen'
 import { collection, doc, onSnapshot } from 'firebase/firestore'
 
 import * as Styled from './styles'
@@ -22,7 +22,7 @@ import type { ScreenTypes, User, UserType } from '@types'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 
-SplashScreen.preventAutoHideAsync()
+Splash.preventAutoHideAsync()
 
 const screenOptions = {
   headerShown: false,
@@ -99,7 +99,7 @@ const Router = (): JSX.Element => {
 
   React.useEffect(() => {
     if (fontsLoaded && splashLoaded && authLoaded) {
-      SplashScreen.hideAsync()
+      Splash.hideAsync()
     }
   }, [splashLoaded, fontsLoaded, authLoaded])
 

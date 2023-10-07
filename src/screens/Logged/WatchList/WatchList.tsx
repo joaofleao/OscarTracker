@@ -9,10 +9,10 @@ import NomineeCard from '@components/NomineeCard'
 import ProgressBar from '@components/ProgressBar'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
-import type { BasicMovieType, WatchListScreenProps } from '@types'
+import type { BasicMovieType, WatchListProps } from '@types'
 import routes from '@utils/routes'
 
-function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
+function WatchList({ navigation }: WatchListProps): JSX.Element {
   const edition = useEdition()
   const user = useUser()
 
@@ -77,4 +77,4 @@ function WatchListScreen({ navigation }: WatchListScreenProps): JSX.Element {
   )
 }
 
-export default WatchListScreen
+export default WatchList

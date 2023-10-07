@@ -12,7 +12,7 @@ import routes from '@utils/routes'
 
 const NominationCaroussel = (
   object: ListRenderItemInfo<Category>,
-  navigation: NativeStackNavigationProp<ScreenTypes, 'HomeScreen', undefined>,
+  navigation: NativeStackNavigationProp<ScreenTypes, 'Home', undefined>,
   edition: EditionContextType,
   user: UserContextType,
 ): JSX.Element => {
