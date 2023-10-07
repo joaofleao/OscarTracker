@@ -21,21 +21,18 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
   const categoryNominations = edition.nominations[categoryId]
 
   const renderCard = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
-    const props = {
-      winner: item.winner,
-      categoryId: item.category,
-      movieId: item.movie,
-      onPress: (): void => {
-        navigation.navigate(routes.logged.movie, { movieId: item.movie })
-      },
-    }
-
     if (item.person)
       return (
         <PersonCard
           actorId={item.person}
           character={item.information}
-          {...props}
+          key={item.id}
+          winner={item.winner}
+          categoryId={item.category}
+          movieId={item.movie}
+          onPress={(): void => {
+            navigation.navigate(routes.logged.movie, { movieId: item.movie })
+          }}
         />
       )
     if (item.song)
@@ -43,13 +40,25 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
         <SongCard
           song={item.song}
           information={item.information}
-          {...props}
+          key={item.id}
+          winner={item.winner}
+          categoryId={item.category}
+          movieId={item.movie}
+          onPress={(): void => {
+            navigation.navigate(routes.logged.movie, { movieId: item.movie })
+          }}
         />
       )
     return (
       <MovieCard
         information={item.information}
-        {...props}
+        key={item.id}
+        winner={item.winner}
+        categoryId={item.category}
+        movieId={item.movie}
+        onPress={(): void => {
+          navigation.navigate(routes.logged.movie, { movieId: item.movie })
+        }}
       />
     )
   }
@@ -72,9 +81,6 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
         indicatorStyle="black"
         data={categoryNominations}
         renderItem={renderCard}
-        keyExtractor={(_, index): string => {
-          return `${index}`
-        }}
         ItemSeparatorComponent={Global.Separator}
       />
     </Global.Screen>

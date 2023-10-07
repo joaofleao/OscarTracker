@@ -84,7 +84,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     const map: typeof nominations = {}
 
     response.forEach((item) => {
-      const data = item.data() as Nomination
+      const data = { ...item.data(), id: item.id } as Nomination
       const oldValues = map[data.category] ?? []
 
       map[data.category] = [...oldValues, data]

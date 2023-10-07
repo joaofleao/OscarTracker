@@ -11,10 +11,11 @@ export interface MovieCardProps extends PressableProps {
   information: string
   movieId: string
   winner: boolean
+  key: string
 }
 
 const MovieCard = (props: MovieCardProps): JSX.Element => {
-  const { categoryId, information, movieId, winner, ...rest } = props
+  const { categoryId, information, movieId, winner, key, ...rest } = props
 
   const { movies: watchedMovies, preferences } = useUser()
   const { movies } = useEdition()
@@ -22,7 +23,10 @@ const MovieCard = (props: MovieCardProps): JSX.Element => {
   const movie = movies[movieId]['en-US']
 
   return (
-    <Styled.Container {...rest}>
+    <Styled.Container
+      key={key}
+      {...rest}
+    >
       <Poster
         image={getImage(movie.image)}
         isWatched={watchedMovies.includes(movieId)}

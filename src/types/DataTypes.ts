@@ -2,6 +2,7 @@ export interface Provider {
   children?: React.ReactNode
 }
 export interface Nomination {
+  id: string
   category: string
   movie: string
   person: string | undefined

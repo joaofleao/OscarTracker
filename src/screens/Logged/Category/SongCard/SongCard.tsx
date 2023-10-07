@@ -1,4 +1,4 @@
-import { type TouchableOpacityProps } from 'react-native'
+import { type PressableProps } from 'react-native'
 
 import * as Styled from './styles'
 import Poster from '@components/Poster'
@@ -6,16 +6,17 @@ import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
 import { getImage } from '@services/tmdb/api'
 
-export interface SongCardProps extends TouchableOpacityProps {
+export interface SongCardProps extends PressableProps {
   categoryId: string
   information: string
   movieId: string
   song: string
   winner: boolean
+  key: string
 }
 
 const SongCard = (props: SongCardProps): JSX.Element => {
-  const { categoryId, information, movieId, song, winner } = props
+  const { categoryId, information, movieId, song, winner, key, ...rest } = props
 
   const { movies: watchedMovies, preferences } = useUser()
   const { movies } = useEdition()
@@ -23,7 +24,10 @@ const SongCard = (props: SongCardProps): JSX.Element => {
   const movie = movies[movieId]['en-US']
 
   return (
-    <Styled.Container delayPressIn={200}>
+    <Styled.Container
+      key={key}
+      {...rest}
+    >
       <Poster
         image={getImage(movie.image)}
         isWatched={watchedMovies.includes(movieId)}
