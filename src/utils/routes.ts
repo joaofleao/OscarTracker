@@ -13,7 +13,7 @@ export const routes = {
     profile: 'Profile' as const,
     movie: 'Movie' as const,
     preferences: 'Preferences' as const,
-    nomination: 'Nomination' as const,
+    category: 'Category' as const,
     emailVerification: 'EmailVerification' as const,
   },
 }

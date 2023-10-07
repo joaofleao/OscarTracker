@@ -24,7 +24,7 @@ export interface ScreenTypes extends ParamListBase {
     poster: string
     name: string
   }
-  NominationScreen: {
+  Category: {
     id: string
   }
 }
@@ -32,7 +32,7 @@ export interface ScreenTypes extends ParamListBase {
 export type HomeScreenProps = NativeStackScreenProps<ScreenTypes, 'HomeScreen'>
 export type MovieScreenProps = NativeStackScreenProps<ScreenTypes, 'MovieScreen'>
 export type PreferencesScreenProps = NativeStackScreenProps<ScreenTypes, 'PreferencesScreen'>
-export type NominationScreenProps = NativeStackScreenProps<ScreenTypes, 'NominationScreen'>
+export type CategoryProps = NativeStackScreenProps<ScreenTypes, 'Category'>
 export type SignInProps = NativeStackScreenProps<ScreenTypes, 'SignIn'>
 export type WatchListScreenProps = NativeStackScreenProps<ScreenTypes, 'WatchListScreen'>
 export type EmailProps = NativeStackScreenProps<ScreenTypes, 'Email'>

@@ -7,13 +7,16 @@ import Header from '@components/Header'
 import Icon from '@components/Icon'
 import NomineeCard from '@components/NomineeCard'
 import { useEdition } from '@features/edition'
-import { Nomination, type NominationScreenProps } from '@types'
+import { useUser } from '@features/user'
+import { type CategoryProps, Nomination } from '@types'
 import routes from '@utils/routes'
 
-const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Element => {
+const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
   const { id } = route.params
 
   const edition = useEdition()
+
+  const { adminSettings } = useUser()
 
   const movies = edition.nominations[id]
 
@@ -59,7 +62,10 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
           variant="action"
         />
 
-        <Header.Title align="center">{edition.categories[id]['en-US']}</Header.Title>
+        <Header.Title align="center">
+          {adminSettings && 'Winner of '}
+          {edition.categories[id]['en-US']}
+        </Header.Title>
       </Header.Root>
 
       <Styled.Content>
@@ -76,4 +82,4 @@ const NominationScreen = ({ navigation, route }: NominationScreenProps): JSX.Ele
   )
 }
 
-export default NominationScreen
+export default Category

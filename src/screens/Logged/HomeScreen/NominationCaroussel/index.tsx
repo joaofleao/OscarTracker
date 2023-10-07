@@ -26,7 +26,7 @@ const NominationCaroussel = (
   }
 
   const handleSeeMore = (): void => {
-    navigation.navigate(routes.logged.nomination, { id })
+    navigation.navigate(routes.logged.category, { id })
   }
 
   return (

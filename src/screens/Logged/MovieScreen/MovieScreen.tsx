@@ -98,7 +98,7 @@ const MovieScreen = ({ navigation, route }: MovieScreenProps): JSX.Element => {
     return (
       <Styled.Nomination
         onPress={(): void => {
-          navigation.navigate(routes.logged.nomination, { id: item.category })
+          navigation.navigate(routes.logged.category, { id: item.category })
         }}
       >
         <Styled.NominationText>{edition.categories[item.category]['en-US']}</Styled.NominationText>

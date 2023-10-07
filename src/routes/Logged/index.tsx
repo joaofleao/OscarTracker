@@ -1,10 +1,10 @@
 import Icon from '@components/Icon'
 import NavBar from '@components/NavBar'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import Category from '@screens/Logged/Category'
 import EmailVerification from '@screens/Logged/EmailVerification'
 import HomeScreen from '@screens/Logged/HomeScreen'
 import MovieScreen from '@screens/Logged/MovieScreen'
-import NominationScreen from '@screens/Logged/NominationScreen'
 import PreferencesScreen from '@screens/Logged/PreferencesScreen'
 import ProfileScreen from '@screens/Logged/ProfileScreen'
 import WatchListScreen from '@screens/Logged/WatchListScreen'
@@ -51,8 +51,8 @@ const Logged = (
     />
 
     <Stack.Screen
-      name={routes.logged.nomination}
-      component={NominationScreen}
+      name={routes.logged.category}
+      component={Category}
     />
 
     <Stack.Screen
