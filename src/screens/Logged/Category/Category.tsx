@@ -10,6 +10,7 @@ import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
 import Modal from '@components/Modal'
+import { useCategories } from '@features/categories'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
 import { type CategoryProps, Nomination } from '@types'
@@ -18,6 +19,7 @@ import routes from '@utils/routes'
 const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
   const { categoryId } = route.params
   const { adminSettings } = useUser()
+  const { categories } = useCategories()
 
   const [newWinner, setNewWinner] = useState<[string, string] | null>(null)
 
@@ -113,7 +115,7 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
         />
         <Header.Title>
           {adminSettings && 'Winner of '}
-          {edition.categories[categoryId]['en-US']}
+          {categories[categoryId]['en-US']}
         </Header.Title>
       </Header.Root>
 

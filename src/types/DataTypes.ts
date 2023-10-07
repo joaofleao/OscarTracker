@@ -10,11 +10,16 @@ export interface Nomination {
   song: string | undefined
   winner: boolean
 }
-export interface Category {
+export interface CategoryType {
   id: string
   order: number
   'en-US': string
   'pt-BR': string
+}
+export interface EditionType {
+  editionId: string
+  categories: string[]
+  year: number
 }
 
 export interface PreferencesType {

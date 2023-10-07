@@ -35,11 +35,7 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
     return (
       <NomineeCard
         onPress={(): void => {
-          navigation.navigate(routes.logged.movie, {
-            id: item.imdb,
-            poster: item['en-US'].image,
-            name: item['en-US'].name,
-          })
+          navigation.navigate(routes.logged.movie, { movieId: item.imdb })
         }}
         image={item['en-US'].image}
         title={item['en-US'].name}

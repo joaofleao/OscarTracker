@@ -2,6 +2,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import Router from '@routes/Router'
 
 import { EditionProvider } from '@features/edition'
+import { CategoriesProvider } from '@features/categories'
 import { MoviesProvider } from '@features/movies'
 import { ThemeProvider } from '@features/theme'
 import { LoadingProvider } from '@features/loading'
@@ -22,9 +23,11 @@ const App = (): JSX.Element => {
                 <UserProvider>
                   <AuthProvider>
                     <MoviesProvider>
-                      <EditionProvider>
-                        <Router />
-                      </EditionProvider>
+                      <CategoriesProvider>
+                        <EditionProvider>
+                          <Router />
+                        </EditionProvider>
+                      </CategoriesProvider>
                     </MoviesProvider>
                   </AuthProvider>
                 </UserProvider>

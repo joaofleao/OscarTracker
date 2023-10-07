@@ -1,45 +1,36 @@
 import React from 'react'
-import { collection, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore'
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore'
 
 import EditionContext, { type EditionContextType } from './EditionContext'
 import { db } from '@services/firebase'
-import type { BasicMovieType, Category, Nomination, PersonType } from '@types'
+import type { BasicMovieType, EditionType, Nomination, PersonType } from '@types'
 import { printFetch } from '@utils/functions'
 
 const editionsCollection = collection(db, 'editions')
-const categoriesCollection = collection(db, 'categories')
 
 const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const [categories, setCategories] = React.useState<EditionContextType['categories']>({})
-  const [edition, setEdition] = React.useState<EditionContextType['edition']>('95')
+  const [editionId, setEditionId] = React.useState<EditionContextType['editionId']>('95')
+  const [edition, setEdition] = React.useState<EditionContextType['edition']>({} as EditionType)
   const [movies, setMovies] = React.useState<EditionContextType['movies']>({})
   const [totalMovies, setTotalMovies] = React.useState<EditionContextType['totalMovies']>(0)
   const [people, setPeople] = React.useState<EditionContextType['people']>({})
   const [nominations, setNominations] = React.useState<EditionContextType['nominations']>({})
 
-  const editionRef = doc(editionsCollection, edition)
+  const editionRef = doc(editionsCollection, editionId)
 
-  const getCategories = async (): Promise<void> => {
-    printFetch('Firebase', 'Categories fetched', 'yellow')
-
-    const response = await getDocs(categoriesCollection)
-    const map: typeof categories = {}
-
-    response.forEach((item) => {
-      map[item.id] = item.data() as Category
-    })
-
-    const ordered = Object.entries(map)
-      .sort((a, b) => {
-        const order = a[1].order - b[1].order
-        return order
-      })
-      .reduce((accumulator: typeof categories, current) => {
-        accumulator[current[0]] = current[1]
-        return accumulator
-      }, {})
-
-    setCategories(ordered)
+  const getEdition = async (): Promise<void> => {
+    printFetch('Firebase', 'Edition fetched', 'yellow')
+    const value = await getDoc(editionRef)
+    setEdition({ ...value.data(), editionId } as EditionType)
   }
 
   const getMovies = async (): Promise<void> => {
@@ -128,20 +119,20 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   const value: EditionContextType = {
-    edition,
-    setEdition,
+    editionId,
+    setEditionId,
     totalMovies,
 
-    categories,
+    edition,
     movies,
     people,
     nominations,
 
-    getCategories,
     getMovies,
     getPeople,
     getNominations,
     getMovieNominations,
+    getEdition,
 
     markCategoryWinner,
   }

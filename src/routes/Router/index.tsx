@@ -10,6 +10,7 @@ import LoadingModal from '@containers/LoadingModal'
 import NetworkModal from '@containers/NetworkModal'
 import NewVersionModal from '@containers/NewVersionModal'
 import { useAnnouncements } from '@features/announcements'
+import { useCategories } from '@features/categories'
 import { useEdition } from '@features/edition'
 import { useTheme } from '@features/theme'
 import { useUser } from '@features/user'
@@ -18,7 +19,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Logged from '@routes/Logged'
 import Unlogged from '@routes/Unlogged'
 import { auth, db } from '@services/firebase'
-import type { Nomination, ScreenTypes, User, UserType } from '@types'
+import type { ScreenTypes, User, UserType } from '@types'
 import { printFetch } from '@utils/functions'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
@@ -47,6 +48,7 @@ const Router = (): JSX.Element => {
   const user = useUser()
   const edition = useEdition()
   const announcement = useAnnouncements()
+  const { getCategories } = useCategories()
 
   const { colors } = useTheme()
   const [fontsLoaded] = useFonts(localFonts)
@@ -62,7 +64,8 @@ const Router = (): JSX.Element => {
         user.setUid(data.uid)
         user.setIsLogged(true)
 
-        edition.getCategories()
+        getCategories()
+        edition.getEdition()
         edition.getMovies()
         edition.getPeople()
         edition.getNominations()

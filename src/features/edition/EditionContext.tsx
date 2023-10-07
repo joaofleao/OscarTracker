@@ -1,22 +1,23 @@
 import { createContext } from 'react'
 
-import type { BasicMovieType, Category, Nomination, PersonType } from '@types'
+import type { BasicMovieType, EditionType, Nomination, PersonType } from '@types'
 
 export interface EditionContextType {
-  edition: string
-  setEdition: (edition: string) => void
+  editionId: string
+  setEditionId: (edition: string) => void
+
   totalMovies: number
 
-  categories: Record<string, Category>
+  edition: EditionType
   movies: Record<string, BasicMovieType>
   people: Record<string, PersonType>
   nominations: Record<string, Nomination[]>
   getMovieNominations: (movie: string) => Promise<Nomination[]>
 
-  getCategories: () => Promise<void>
   getMovies: () => Promise<void>
   getPeople: () => Promise<void>
   getNominations: () => Promise<void>
+  getEdition: () => Promise<void>
 
   markCategoryWinner: (nominationId: string, categoryId: string) => Promise<void>
 }

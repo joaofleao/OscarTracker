@@ -6,6 +6,7 @@ import Global from '@components/Global'
 import Header from '@components/Header'
 import ProgressBar from '@components/ProgressBar'
 import { useAuth } from '@features/auth'
+import { useCategories } from '@features/categories'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
 import type { HomeProps } from '@types'
@@ -13,17 +14,18 @@ import routes from '@utils/routes'
 
 const Home = ({ navigation }: HomeProps): JSX.Element => {
   const edition = useEdition()
+
   const user = useUser()
   const auth = useAuth()
+  const { categories } = useCategories()
 
   React.useEffect(() => {
     if (!auth.user.emailVerified) navigation.navigate(routes.logged.emailVerification)
   }, [auth.user.emailVerified, navigation])
 
-  const data = Object.entries(edition.categories)
-
-  const renderNominationCaroussel = (item): JSX.Element => {
-    return NominationCaroussel(item, navigation, edition, user)
+  const renderNominationCaroussel = ({ item }): JSX.Element => {
+    if (edition?.edition?.categories?.includes(item))
+      return <NominationCaroussel categoryId={item} />
   }
 
   return (
@@ -44,7 +46,7 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
         />
 
         <Styled.List
-          data={data}
+          data={Object.keys(categories)}
           renderItem={renderNominationCaroussel}
           ItemSeparatorComponent={Global.Separator}
         />
