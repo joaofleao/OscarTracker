@@ -125,7 +125,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     const array: Nomination[] = []
 
     response.forEach((item) => {
-      const nomination = item.data() as Nomination
+      const nomination = { ...item.data(), id: item.id } as Nomination
       array.push(nomination)
     })
 

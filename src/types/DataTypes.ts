@@ -8,7 +8,6 @@ export interface Nomination {
   person: string | undefined
   information: string | undefined
   song: string | undefined
-  winner: boolean
 }
 export interface CategoryType {
   id: string

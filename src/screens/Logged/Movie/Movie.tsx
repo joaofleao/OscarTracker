@@ -99,12 +99,21 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
   }
 
   const renderItem = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
+    const winner = item.id === edition.winners[item.category]
+
     return (
       <Styled.Nomination
         onPress={(): void => {
           navigation.navigate(routes.logged.category, { categoryId: item.category })
         }}
       >
+        {winner && (
+          <Icon.Oscar
+            filled
+            width={18}
+            height={18}
+          />
+        )}
         <Styled.NominationText>{categories[item.category]['en-US']}</Styled.NominationText>
       </Styled.Nomination>
     )

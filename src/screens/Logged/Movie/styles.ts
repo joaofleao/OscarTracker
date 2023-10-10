@@ -231,6 +231,8 @@ export const NoProvider = styled.Text((props) => {
 
 export const Nomination = styled.TouchableOpacity((props) => {
   return {
+    gap: '4px',
+    flexDirection: 'row',
     backgroundColor: props.theme.colors.primary.shades.shade5,
     paddingVertical: '8px',
     paddingHorizontal: '12px',
