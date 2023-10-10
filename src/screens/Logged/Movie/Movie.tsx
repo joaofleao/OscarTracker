@@ -8,6 +8,7 @@ import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
 import Spoiler from '@components/Spoiler'
+import { useCategories } from '@features/categories'
 import { useEdition } from '@features/edition'
 import { useMovies } from '@features/movies'
 import { useTheme } from '@features/theme'
@@ -28,6 +29,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
   const edition = useEdition()
   const user = useUser()
   const movies = useMovies()
+  const { categories } = useCategories()
   const theme = useTheme()
 
   const { image, name } = edition.movies[movieId]['en-US']
@@ -103,7 +105,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
           navigation.navigate(routes.logged.category, { categoryId: item.category })
         }}
       >
-        <Styled.NominationText>{edition.categories[item.category]['en-US']}</Styled.NominationText>
+        <Styled.NominationText>{categories[item.category]['en-US']}</Styled.NominationText>
       </Styled.Nomination>
     )
   }

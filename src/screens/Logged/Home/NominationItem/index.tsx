@@ -19,6 +19,7 @@ const NominationItem = (props: NominationItemProps): JSX.Element => {
   const navigation = useNavigation<NativeStackNavigationProp<ScreenTypes, 'logged'>>()
 
   const movie = edition.movies[nomination.movie]
+  const winner = edition.winners[nomination.category] === nomination.id
   const person = edition.people[nomination.person ?? '']
   const watched = user.movies.includes(movie?.imdb)
 
@@ -38,6 +39,7 @@ const NominationItem = (props: NominationItemProps): JSX.Element => {
       onPress={handleClick}
     >
       <Poster
+        winner={winner}
         large={isBestPicture}
         spoiler={showPoster}
         image={image}

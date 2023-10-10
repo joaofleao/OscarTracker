@@ -17,6 +17,7 @@ export interface CategoryType {
   'pt-BR': string
 }
 export interface EditionType {
+  winners: { [categoryId: string]: string }
   editionId: string
   categories: string[]
   year: number

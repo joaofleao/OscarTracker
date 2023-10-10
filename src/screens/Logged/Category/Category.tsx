@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { ListRenderItemInfo } from 'react-native'
 
-import MovieCard from './MovieCard'
-import PersonCard from './PersonCard'
-import SongCard from './SongCard'
+import Card from './Card'
 import * as Styled from './styles'
 import Button from '@components/Button'
 import Global from '@components/Global'
@@ -65,10 +63,10 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
   const renderCard = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
     if (item.person)
       return (
-        <PersonCard
+        <Card.Person
           actorId={item.person}
           character={item.information}
-          winner={item.winner}
+          winner={edition.winners[item.category] === item.id}
           movieId={item.movie}
           onPress={(): void => {
             adminSettings
@@ -79,10 +77,10 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
       )
     if (item.song)
       return (
-        <SongCard
+        <Card.Song
           song={item.song}
           information={item.information}
-          winner={item.winner}
+          winner={edition.winners[item.category] === item.id}
           movieId={item.movie}
           onPress={(): void => {
             adminSettings
@@ -92,9 +90,9 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
         />
       )
     return (
-      <MovieCard
+      <Card.Movie
         information={item.information}
-        winner={item.winner}
+        winner={edition.winners[item.category] === item.id}
         movieId={item.movie}
         onPress={(): void => {
           adminSettings

@@ -2,8 +2,8 @@ import React from 'react'
 import {
   collection,
   doc,
-  getDoc,
   getDocs,
+  onSnapshot,
   orderBy,
   query,
   updateDoc,
@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore'
 
 import EditionContext, { type EditionContextType } from './EditionContext'
+import { useUser } from '@features/user'
 import { db } from '@services/firebase'
 import type { BasicMovieType, EditionType, Nomination, PersonType } from '@types'
 import { printFetch } from '@utils/functions'
@@ -18,20 +19,39 @@ import { printFetch } from '@utils/functions'
 const editionsCollection = collection(db, 'editions')
 
 const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const [editionId, setEditionId] = React.useState<EditionContextType['editionId']>('95')
-  const [edition, setEdition] = React.useState<EditionContextType['edition']>({} as EditionType)
   const [movies, setMovies] = React.useState<EditionContextType['movies']>({})
   const [totalMovies, setTotalMovies] = React.useState<EditionContextType['totalMovies']>(0)
   const [people, setPeople] = React.useState<EditionContextType['people']>({})
   const [nominations, setNominations] = React.useState<EditionContextType['nominations']>({})
 
-  const editionRef = doc(editionsCollection, editionId)
+  const [categories, setCategories] = React.useState<EditionType['categories']>([])
+  const [winners, setWinners] = React.useState<EditionType['winners']>({})
 
-  const getEdition = async (): Promise<void> => {
-    printFetch('Firebase', 'Edition fetched', 'yellow')
-    const value = await getDoc(editionRef)
-    setEdition({ ...value.data(), editionId } as EditionType)
-  }
+  const [editionId, setEditionId] = React.useState<string>('95')
+  const [year, setYear] = React.useState<number>(0)
+
+  const editionRef = doc(editionsCollection, editionId)
+  const user = useUser()
+
+  React.useEffect(() => {
+    if (user.isLogged) {
+      const unsubscribeEdition = onSnapshot(editionRef, (snap) => {
+        const response = snap.data() as EditionType
+        if (response) {
+          printFetch('Firebase', 'Edition fetched', 'red')
+
+          setYear(response.year)
+          setWinners(response.winners)
+          setCategories(response.categories)
+        }
+      })
+
+      return () => {
+        unsubscribeEdition()
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.isLogged])
 
   const getMovies = async (): Promise<void> => {
     printFetch('Firebase', 'Movies fetched', 'yellow')
@@ -85,17 +105,11 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   const markCategoryWinner = async (nominationId: string, categoryId: string): Promise<void> => {
-    const nominationsCollection = collection(editionRef, 'nominations')
+    const currentWinners = winners ?? {}
 
-    const categoryNominations = query(nominationsCollection, where('category', '==', categoryId))
-    const response = await getDocs(categoryNominations)
+    currentWinners[categoryId] = nominationId
 
-    response.forEach((item) => {
-      const nominationRef = doc(nominationsCollection, item.id)
-      updateDoc(nominationRef, {
-        winner: item.id === nominationId,
-      })
-    })
+    updateDoc(editionRef, { winners: currentWinners })
 
     printFetch('Firebase', 'Winner Marked', 'yellow')
   }
@@ -119,11 +133,16 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }
 
   const value: EditionContextType = {
+    //edition data
+    winners,
+    categories,
+    year,
+
     editionId,
     setEditionId,
     totalMovies,
 
-    edition,
+    //edition collections
     movies,
     people,
     nominations,
@@ -132,7 +151,6 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     getPeople,
     getNominations,
     getMovieNominations,
-    getEdition,
 
     markCategoryWinner,
   }

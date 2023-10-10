@@ -7,31 +7,35 @@ import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
 import { getImage } from '@services/tmdb/api'
 
-export interface SongCardProps extends PressableProps {
-  information: string
+export interface PersonCardProps extends PressableProps {
+  actorId: string
   movieId: string
-  song: string
+  character: string
   winner: boolean
 }
 
-const SongCard = (props: SongCardProps): JSX.Element => {
-  const { information, movieId, song, winner, ...rest } = props
+const PersonCard = (props: PersonCardProps): JSX.Element => {
+  const { actorId, character, movieId, winner, ...rest } = props
 
   const { movies: watchedMovies, preferences } = useUser()
-  const { movies } = useEdition()
+  const { movies, people } = useEdition()
 
   const movie = movies[movieId]['en-US']
+  const person = people[actorId]
 
   return (
     <Styled.Container {...rest}>
       <Poster
         winner={winner}
-        image={getImage(movie.image)}
+        image={getImage(person.image)}
         isWatched={watchedMovies.includes(movieId)}
         spoiler={preferences.poster}
       />
       <Styled.Content>
-        <Styled.Row>
+        <Styled.Title
+          winner={winner}
+          numberOfLines={3}
+        >
           {winner && (
             <Icon.Oscar
               filled
@@ -39,19 +43,14 @@ const SongCard = (props: SongCardProps): JSX.Element => {
               height={20}
             />
           )}
+          {person.name}
+        </Styled.Title>
 
-          <Styled.Title
-            winner={winner}
-            numberOfLines={3}
-          >
-            {song}
-          </Styled.Title>
-        </Styled.Row>
-        <Styled.Information numberOfLines={2}>{information}</Styled.Information>
+        <Styled.Information numberOfLines={2}>as {character}</Styled.Information>
         <Styled.Movie numberOfLines={2}>{movie.name}</Styled.Movie>
       </Styled.Content>
     </Styled.Container>
   )
 }
 
-export default SongCard
+export default PersonCard

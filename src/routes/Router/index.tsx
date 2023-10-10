@@ -65,7 +65,6 @@ const Router = (): JSX.Element => {
         user.setIsLogged(true)
 
         getCategories()
-        edition.getEdition()
         edition.getMovies()
         edition.getPeople()
         edition.getNominations()

@@ -30,21 +30,20 @@ const MovieCard = (props: MovieCardProps): JSX.Element => {
       />
 
       <Styled.Content>
-        <Styled.Row>
+        <Styled.Title
+          winner={winner}
+          numberOfLines={3}
+        >
           {winner && (
             <Icon.Oscar
               filled
-              width={20}
-              height={20}
+              width={18}
+              height={18}
             />
           )}
-          <Styled.Title
-            winner={winner}
-            numberOfLines={3}
-          >
-            {movie.name}
-          </Styled.Title>
-        </Styled.Row>
+          {movie.name}
+        </Styled.Title>
+
         <Styled.Information numberOfLines={2}>{information}</Styled.Information>
       </Styled.Content>
     </Styled.Container>

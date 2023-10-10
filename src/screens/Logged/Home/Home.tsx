@@ -24,8 +24,7 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
   }, [auth.user.emailVerified, navigation])
 
   const renderNominationCaroussel = ({ item }): JSX.Element => {
-    if (edition?.edition?.categories?.includes(item))
-      return <NominationCaroussel categoryId={item} />
+    if (edition?.categories?.includes(item)) return <NominationCaroussel categoryId={item} />
   }
 
   return (

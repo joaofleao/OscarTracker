@@ -16,7 +16,7 @@ export const Container = styled.View<ImageProps>((props) => {
     backgroundColor: props.theme.colors.background.container,
     ...(props.winner && {
       borderColor: props.theme.colors.primary.default,
-      borderWidth: '1px',
+      borderWidth: '2px',
       borderStyle: 'solid',
     }),
   }

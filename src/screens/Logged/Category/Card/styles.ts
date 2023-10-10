@@ -5,28 +5,22 @@ export const Container = styled.Pressable({
   flexDirection: 'row',
 })
 
-export const Content = styled.View({
-  marginLeft: '16px',
-  flex: 1,
-})
-
-export const Row = styled.View(() => {
+export const Content = styled.View(() => {
   return {
-    gap: '4px',
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginLeft: '16px',
+    flex: 1,
+    paddingVertical: 16,
+    borderRadius: 14,
   }
 })
+
 interface TitleProps {
   winner: boolean
 }
 
 export const Title = styled.Text<TitleProps>((props) => {
   return {
-    flex: 1,
-
     fontSize: '18px',
-    lineHeight: '28px',
     fontFamily: props.theme.fonts.primary.bold,
     color: props.winner ? props.theme.colors.primary.default : props.theme.colors.text.default,
   }
