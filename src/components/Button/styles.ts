@@ -67,7 +67,7 @@ export const Label = styled.Text<LabelProps>((props) => {
   return {
     fontFamily: props.theme.fonts.primary.bold,
     fontSize: props.size === 'action' ? '12px' : '16px',
-    lineHeight: props.size === 'action' ? '16px' : '20px',
+    lineHeight: props.size === 'action' ? '18px' : '20px',
     color: getContentColor(),
     textAlign: 'center',
   }

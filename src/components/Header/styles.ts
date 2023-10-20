@@ -67,3 +67,12 @@ export const Description = styled.Text<TextProps>((props) => {
     textAlign: props.align,
   }
 })
+
+export const Row = styled.View(() => {
+  return {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+    gap: '16px',
+  }
+})

@@ -75,8 +75,8 @@ const Button = (props: ButtonProps): JSX.Element => {
     icon &&
     React.cloneElement(icon, {
       color: props.variant === 'primary' ? theme.colors.text.inverse : theme.colors.primary.default,
-      width: 20,
-      height: 20,
+      width: 18,
+      height: 18,
       variant,
     })
 

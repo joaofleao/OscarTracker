@@ -1,3 +1,4 @@
+import React from 'react'
 import { type PressableProps } from 'react-native'
 
 import * as Styled from './styles'
@@ -17,6 +18,9 @@ const MovieCard = (props: MovieCardProps): JSX.Element => {
   const { information, movieId, winner, ...rest } = props
   const { movies: watchedMovies, preferences } = useUser()
   const { movies } = useEdition()
+
+  const [wish, setWish] = React.useState(false)
+  const [bet, setBet] = React.useState(false)
 
   const movie = movies[movieId]['en-US']
 
@@ -45,6 +49,20 @@ const MovieCard = (props: MovieCardProps): JSX.Element => {
         </Styled.Title>
 
         <Styled.Information numberOfLines={2}>{information}</Styled.Information>
+        <Styled.Bets>
+          <Styled.Toggle
+            selected={wish}
+            label="wish "
+            onToggle={setWish}
+            icon={<Icon.FingersCrossed />}
+          />
+          <Styled.Toggle
+            selected={bet}
+            onToggle={setBet}
+            label="bet"
+            icon={<Icon.Oscar />}
+          />
+        </Styled.Bets>
       </Styled.Content>
     </Styled.Container>
   )

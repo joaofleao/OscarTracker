@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React from 'react'
 import { ListRenderItemInfo } from 'react-native'
 
 import Card from './Card'
@@ -19,7 +19,7 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
   const { adminSettings } = useUser()
   const { categories } = useCategories()
 
-  const [newWinner, setNewWinner] = useState<[string, string] | null>(null)
+  const [newWinner, setNewWinner] = React.useState<[string, string] | null>(null)
 
   const edition = useEdition()
   const categoryNominations = edition.nominations[categoryId]

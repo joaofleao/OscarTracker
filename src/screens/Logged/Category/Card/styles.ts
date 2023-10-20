@@ -1,15 +1,16 @@
 import styled from 'styled-components/native'
 
+import TextToggle from '@components/TextToggle'
+
 export const Container = styled.Pressable({
   justifyContent: 'center',
   flexDirection: 'row',
+  gap: '16px',
 })
 
 export const Content = styled.View(() => {
   return {
-    marginLeft: '16px',
     flex: 1,
-    paddingVertical: 16,
     borderRadius: 14,
   }
 })
@@ -41,5 +42,20 @@ export const Movie = styled.Text((props) => {
     lineHeight: '24px',
     fontFamily: props.theme.fonts.primary.regular,
     color: props.theme.colors.text.default,
+  }
+})
+export const Toggle = styled(TextToggle)(() => {
+  return {
+    maxWidth: '45%',
+  }
+})
+export const Bets = styled.View(() => {
+  return {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+    gap: 8,
+    overflow: 'hidden',
+    justifyContent: 'space-around',
   }
 })
