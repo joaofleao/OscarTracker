@@ -31,6 +31,13 @@ export interface UserContextType {
     preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
     onboarding?: boolean,
   ) => void
+
+  placeBet: (
+    edition: string,
+    category: string,
+    nomination: string,
+    bet: 'first' | 'second' | 'wish',
+  ) => void
 }
 
 const UserContext = createContext<UserContextType | null>(null)

@@ -47,8 +47,8 @@ const localFonts = {
 const Router = (): JSX.Element => {
   const user = useUser()
   const edition = useEdition()
-  const announcement = useAnnouncements()
-  const { getCategories } = useCategories()
+  const announcements = useAnnouncements()
+  const categories = useCategories()
 
   const { colors } = useTheme()
   const [fontsLoaded] = useFonts(localFonts)
@@ -64,11 +64,11 @@ const Router = (): JSX.Element => {
         user.setUid(data.uid)
         user.setIsLogged(true)
 
-        getCategories()
+        categories.getCategories()
         edition.getMovies()
         edition.getPeople()
         edition.getNominations()
-        announcement.getAnnouncements()
+        announcements.getAnnouncements()
       }
 
       setAuthLoaded(true)
@@ -86,12 +86,12 @@ const Router = (): JSX.Element => {
 
   React.useEffect(() => {
     if (user.isLogged) {
-      printFetch('Firebase', 'User fetched', 'yellow')
       const userRef = doc(usersCollection, user.uid)
 
       const unsubscribeUser = onSnapshot(userRef, (snap) => {
         const response = snap.data()
         if (response !== undefined) {
+          printFetch('Firebase', 'User updated', 'green')
           user.setUser(response as UserType)
         }
       })

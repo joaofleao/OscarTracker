@@ -7,22 +7,22 @@ import { printFetch } from '@utils/functions'
 
 const MoviesProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const getMovie = async (id: string): Promise<MovieType> => {
-    printFetch('TMDB', 'Movie fetched', 'blue')
+    printFetch('TMDB', 'Movie fetched', 'yellow')
     const response = await tmdb.getMovie(id, 'pt-BR')
     return response.data
   }
   const getCast = async (id: string): Promise<CastType> => {
-    printFetch('TMDB', 'Cast fetched', 'blue')
+    printFetch('TMDB', 'Cast fetched', 'yellow')
     const response = await tmdb.getCast(id, 'pt-BR')
     return response.data
   }
   const getTrailer = async (id: string): Promise<string> => {
-    printFetch('TMDB', 'Trailer fetched', 'blue')
+    printFetch('TMDB', 'Trailer fetched', 'yellow')
     const response = await tmdb.getVideos(id, 'pt-BR')
     return response.data
   }
   const getProviders = async (id: string): Promise<ProvidersType> => {
-    printFetch('TMDB', 'Providers fetched', 'blue')
+    printFetch('TMDB', 'Providers fetched', 'yellow')
     const response = await tmdb.getProviders(id, 'pt-BR')
     return response.data
   }

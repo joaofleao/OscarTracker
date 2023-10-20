@@ -3,16 +3,14 @@ import { arrayRemove, arrayUnion, collection, doc, updateDoc } from 'firebase/fi
 
 import UserContext, { type UserContextType } from './UserContext'
 import { db } from '@services/firebase'
-import type { PreferencesType, UserType } from '@types'
+import type { UserType } from '@types'
 
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const usersCollection = collection(db, 'users')
 
-  const [isLogged, setIsLogged] = React.useState<boolean>(false)
-
-  const [uid, setUid] = React.useState('')
-  const [adminSettings, setAdminSettings] = React.useState(false)
-
+  const [isLogged, setIsLogged] = React.useState<UserContextType['isLogged']>(false)
+  const [uid, setUid] = React.useState<UserContextType['uid']>('')
+  const [adminSettings, setAdminSettings] = React.useState<UserContextType['adminSettings']>(false)
   const [user, setUser] = React.useState<UserType>({
     admin: false,
     email: '',
@@ -32,13 +30,13 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     },
   })
 
-  const updateUser = async (
-    _email?: string,
-    _displayName?: string,
-    _nickname?: string,
-    _preferences?: PreferencesType,
-    _onboarding?: boolean,
-  ): Promise<void> => {
+  const updateUser: UserContextType['updateUser'] = (
+    _email?,
+    _displayName?,
+    _nickname?,
+    _preferences?,
+    _onboarding?,
+  ) => {
     const userRef = doc(usersCollection, uid)
 
     const values = {
@@ -52,20 +50,27 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     updateDoc(userRef, values)
   }
 
-  const setMovieUnwatched = async (movie: string): Promise<void> => {
+  const setMovieUnwatched: UserContextType['setMovieUnwatched'] = (movie) => {
     const userRef = doc(usersCollection, uid)
-
     updateDoc(userRef, {
       movies: arrayRemove(movie),
     })
   }
 
-  const setMovieWatched = async (movie: string): Promise<void> => {
+  const setMovieWatched: UserContextType['setMovieWatched'] = (movie) => {
     const userRef = doc(usersCollection, uid)
-
     updateDoc(userRef, {
       movies: arrayUnion(movie),
     })
+  }
+
+  const placeBet: UserContextType['placeBet'] = (edition, category, nomination, bet) => {
+    const finalBet = {
+      edition,
+      category,
+      nomination,
+      bet,
+    }
   }
 
   const value: UserContextType = {
@@ -92,6 +97,8 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     updateUser,
     setMovieUnwatched,
     setMovieWatched,
+
+    placeBet,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

@@ -23,11 +23,14 @@ const NominationItem = (props: NominationItemProps): JSX.Element => {
   const person = edition.people[nomination.person ?? '']
   const watched = user.movies.includes(movie?.imdb)
 
-  const showPoster = person != null ? true : user.preferences.poster
-  const image = person != null ? getImage(person.image) : getImage(movie?.['en-US'].image)
-  const text = person != null ? person.name : movie?.['en-US'].name
-
   const isBestPicture = nomination.category === 'picture'
+
+  const showPoster = person != null ? true : user.preferences.poster
+  const image =
+    person != null
+      ? getImage(person.image)
+      : getImage(movie?.['en-US'].image, isBestPicture ? 500 : 200)
+  const text = person != null ? person.name : movie?.['en-US'].name
 
   const handleClick = (): void => {
     navigation.navigate(routes.logged.movie, { movieId: movie.imdb })

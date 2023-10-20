@@ -145,7 +145,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
               watched={watched}
               text="Show Poster"
             >
-              <Styled.Poster source={{ uri: getImage(image) }} />
+              <Styled.Poster source={{ uri: getImage(image, 1280) }} />
             </Styled.SpoilerPoster>
 
             <Styled.BasicData>
