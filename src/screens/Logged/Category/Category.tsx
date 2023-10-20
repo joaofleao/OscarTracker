@@ -109,7 +109,8 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
         <Button
           onPress={navigation.goBack}
           icon={<Icon.ArrowLeft />}
-          variant="action"
+          size="action"
+          variant="secondary"
         />
         <Header.Title>
           {adminSettings && 'Winner of '}

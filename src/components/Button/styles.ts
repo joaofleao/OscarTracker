@@ -13,32 +13,32 @@ export const Animation = styled(Animated.View)<AnimationProps>((props) => {
 })
 
 interface PressableProps {
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text'
   icon: boolean
+  size?: 'action' | 'default'
 }
 
 export const Pressable = styled.Pressable<PressableProps>((props) => {
   const getBackgroundColor = (): string => {
     if (props.variant === 'primary') return props.theme.colors.primary.default
     if (props.variant === 'secondary') return props.theme.colors.primary.shades.shade5
-    if (props.variant === 'action') return props.theme.colors.primary.shades.shade5
     return 'transparent'
   }
 
   const getHorizontalPadding = (): string => {
-    if (props.variant === 'action') return '8px'
+    if (props.size === 'action') return '8px'
     if (props.icon) return '10px'
     return '24px'
   }
 
   const getVerticalPadding = (): string => {
-    if (props.variant === 'action') return '8px'
+    if (props.size === 'action') return '8px'
     if (props.icon) return '10px'
     return '12px'
   }
 
   const getBorderRadius = (): string => {
-    if (props.variant === 'action' || props.icon) return '12px'
+    if (props.size === 'action' || props.icon) return '12px'
     return '16px'
   }
 
@@ -54,7 +54,8 @@ export const Pressable = styled.Pressable<PressableProps>((props) => {
 })
 
 interface LabelProps {
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text'
+  size?: 'action' | 'default'
 }
 
 export const Label = styled.Text<LabelProps>((props) => {
@@ -65,8 +66,8 @@ export const Label = styled.Text<LabelProps>((props) => {
 
   return {
     fontFamily: props.theme.fonts.primary.bold,
-    fontSize: props.variant === 'action' ? '12px' : '16px',
-    lineHeight: props.variant === 'action' ? '16px' : '20px',
+    fontSize: props.size === 'action' ? '12px' : '16px',
+    lineHeight: props.size === 'action' ? '16px' : '20px',
     color: getContentColor(),
     textAlign: 'center',
   }

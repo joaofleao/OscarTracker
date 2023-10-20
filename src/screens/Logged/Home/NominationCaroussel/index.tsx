@@ -35,7 +35,8 @@ const NominationCaroussel = (props: NominationCarousselProps): JSX.Element => {
         <Styled.Title>{categories[categoryId]['en-US']}</Styled.Title>
         <Button
           label="expand"
-          variant="action"
+          size="action"
+          variant="secondary"
           onPress={handleSeeMore}
         />
       </Styled.Header>

@@ -6,20 +6,22 @@ import Loading from '@components/Loading'
 import { useTheme } from '@features/theme'
 
 export interface ButtonProps extends PressableProps {
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text'
   loading?: boolean
   label?: string
   width?: 'fit' | 'fixed' | 'full'
+  size?: 'default' | 'action'
   icon?: JSX.Element
 }
 const defaultValue: ButtonProps = {
   width: 'fit',
   variant: 'primary',
   loading: false,
+  size: 'default',
 }
 
 const Button = (props: ButtonProps): JSX.Element => {
-  const { label, width, variant, disabled, loading, icon, ...rest } = {
+  const { label, width, variant, disabled, loading, icon, size, ...rest } = {
     ...defaultValue,
     ...props,
   }
@@ -82,6 +84,7 @@ const Button = (props: ButtonProps): JSX.Element => {
     <Styled.Label
       numberOfLines={1}
       variant={variant}
+      size={size}
       disabled={disabled}
     >
       {label}
@@ -107,6 +110,7 @@ const Button = (props: ButtonProps): JSX.Element => {
       <Styled.Pressable
         icon={!!icon}
         variant={variant}
+        size={size}
         disabled={disabled}
         onPressIn={onPressIn}
         onPressOut={onPressOut}

@@ -27,7 +27,8 @@ const PasswordRecovery = ({ navigation, route }: PasswordRecoveryProps): JSX.Ele
         <Button
           onPress={navigation.goBack}
           icon={<Icon.ArrowLeft />}
-          variant="action"
+          size="action"
+          variant="secondary"
         />
         <Header.TextContainer>
           <Header.Title>Password Recovery</Header.Title>

@@ -129,7 +129,8 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
         <Button
           onPress={navigation.goBack}
           icon={<Icon.ArrowLeft />}
-          variant="action"
+          size="action"
+          variant="secondary"
         />
         <Header.TextContainer>
           <Header.Title numberOfLines={2}>{name}</Header.Title>

@@ -65,7 +65,8 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
         <Button
           icon={editing ? <Icon.CheckCircle /> : <Icon.Pencil />}
           onPress={handleEdit}
-          variant="action"
+          size="action"
+          variant="secondary"
         />
       </Header.Root>
 
@@ -99,7 +100,8 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
               <Styled.Title>Spoiler Preferences</Styled.Title>
               <Button
                 label="Quiz"
-                variant="action"
+                size="action"
+                variant="secondary"
                 onPress={(): void => {
                   return navigation.navigate(routes.logged.preferences)
                 }}

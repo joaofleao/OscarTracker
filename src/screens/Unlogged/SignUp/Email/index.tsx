@@ -22,7 +22,8 @@ const Email = ({ navigation }: EmailProps): JSX.Element => {
         <Button
           onPress={navigation.goBack}
           icon={<Icon.ArrowLeft />}
-          variant="action"
+          size="action"
+          variant="secondary"
         />
         <Header.TextContainer>
           <Header.Title>Register</Header.Title>

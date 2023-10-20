@@ -125,7 +125,8 @@ const Preferences = ({ navigation }: PreferencesProps): JSX.Element => {
         <Button
           onPress={handleBack}
           icon={<Icon.ArrowLeft />}
-          variant="action"
+          size="action"
+          variant="secondary"
         />
         <Header.TextContainer>
           <Header.Title>Preferences</Header.Title>
