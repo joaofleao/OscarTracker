@@ -5,9 +5,9 @@ type ContainerProps = {
   selected: boolean
 }
 
-const AnimatedTouchable = Animated.createAnimatedComponent(Pressable)
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
-export const Container = styled(AnimatedTouchable)<ContainerProps>((props) => {
+export const Container = styled(AnimatedPressable)<ContainerProps>((props) => {
   return {
     backgroundColor: props.selected ? props.theme.colors.primary.default : 'transparent',
     alignItems: 'center',

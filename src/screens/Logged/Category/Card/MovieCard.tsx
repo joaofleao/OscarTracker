@@ -1,4 +1,3 @@
-import React from 'react'
 import { type PressableProps } from 'react-native'
 
 import * as Styled from './styles'
@@ -12,17 +11,26 @@ export interface MovieCardProps extends PressableProps {
   information: string
   movieId: string
   winner: boolean
+  place: (type: 'wish' | 'bet') => void
+  isFirstBet: boolean
+  isSecondBet: boolean
+  isWish: boolean
 }
 
 const MovieCard = (props: MovieCardProps): JSX.Element => {
-  const { information, movieId, winner, ...rest } = props
+  const { information, movieId, winner, place, isWish, isFirstBet, isSecondBet, ...rest } = props
   const { movies: watchedMovies, preferences } = useUser()
   const { movies } = useEdition()
 
-  const [wish, setWish] = React.useState(false)
-  const [bet, setBet] = React.useState(false)
-
   const movie = movies[movieId]['en-US']
+
+  const placeBet = (): void => {
+    place('bet')
+  }
+
+  const placeWish = (): void => {
+    place('wish')
+  }
 
   return (
     <Styled.Container {...rest}>
@@ -51,15 +59,15 @@ const MovieCard = (props: MovieCardProps): JSX.Element => {
         <Styled.Information numberOfLines={2}>{information}</Styled.Information>
         <Styled.Bets>
           <Styled.Toggle
-            selected={wish}
-            label="wish "
-            onToggle={setWish}
+            selected={isWish}
+            label="wish"
+            onToggle={placeWish}
             icon={<Icon.FingersCrossed />}
           />
           <Styled.Toggle
-            selected={bet}
-            onToggle={setBet}
-            label="bet"
+            selected={isFirstBet || isSecondBet}
+            onToggle={placeBet}
+            label={isFirstBet ? 'bet 1' : isSecondBet ? 'bet 2' : 'bet'}
             icon={<Icon.Oscar />}
           />
         </Styled.Bets>

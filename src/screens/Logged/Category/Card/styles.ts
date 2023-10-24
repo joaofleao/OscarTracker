@@ -49,6 +49,7 @@ export const Toggle = styled(TextToggle)(() => {
     maxWidth: '45%',
   }
 })
+
 export const Bets = styled.View(() => {
   return {
     flexDirection: 'row',

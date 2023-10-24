@@ -1,8 +1,10 @@
 import { createContext } from 'react'
 
-import type { PreferencesType, UserType } from '@types'
+import type { CollectionReference, DocumentData, PreferencesType, UserType } from '@types'
 
 export interface UserContextType {
+  usersCollection: CollectionReference<DocumentData>
+
   adminSettings: boolean
   setAdminSettings: (adminSettings: boolean) => void
 
@@ -30,13 +32,6 @@ export interface UserContextType {
     nickname?: string,
     preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
     onboarding?: boolean,
-  ) => void
-
-  placeBet: (
-    edition: string,
-    category: string,
-    nomination: string,
-    bet: 'first' | 'second' | 'wish',
   ) => void
 }
 

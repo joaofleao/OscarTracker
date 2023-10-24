@@ -3,14 +3,17 @@ import { ListRenderItemInfo } from 'react-native'
 
 import Card from './Card'
 import * as Styled from './styles'
+import SubmitModal from './SubmitModal'
+import WinnerModal from './WinnerModal'
 import Button from '@components/Button'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
-import Modal from '@components/Modal'
+import { useBallots } from '@features/ballots'
 import { useCategories } from '@features/categories'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
+import useModal from '@hooks/useModal'
 import { type CategoryProps, Nomination } from '@types'
 import routes from '@utils/routes'
 
@@ -19,48 +22,65 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
   const { adminSettings } = useUser()
   const { categories } = useCategories()
 
+  const ballots = useBallots()
+
+  const [wishes, setWishes] = React.useState(undefined)
+  const [bets, setBets] = React.useState(undefined)
+
   const [newWinner, setNewWinner] = React.useState<[string, string] | null>(null)
+
+  const [submitModal, setSubmitModalOpen, setSubmitModalClose] = useModal(false)
+
+  const upToDate = !(bets !== ballots.bets?.[categoryId] || wishes !== ballots.wishes?.[categoryId])
 
   const edition = useEdition()
   const categoryNominations = edition.nominations[categoryId]
 
-  const renderModal = (
-    <Modal.Root
-      visible={!!newWinner}
-      onClickOutside={(): void => {
-        setNewWinner(null)
-      }}
-    >
-      <Modal.Title>Winner</Modal.Title>
-      <Modal.Description>
-        Are you sure you want to set
-        <Styled.Accent> {newWinner?.[0]} </Styled.Accent>
-        as the winner?
-      </Modal.Description>
+  const handleSubmit = (): void => {
+    ballots.vote(categoryId, bets, wishes)
+  }
 
-      <Modal.Row>
-        <Button
-          width="full"
-          label="Cancel"
-          variant="secondary"
-          onPress={(): void => {
-            setNewWinner(null)
-          }}
-        />
-        <Button
-          width="full"
-          variant="primary"
-          label="Set Winner"
-          onPress={(): void => {
-            edition.markCategoryWinner(newWinner[1], categoryId)
-            setNewWinner(null)
-          }}
-        />
-      </Modal.Row>
-    </Modal.Root>
-  )
+  React.useEffect(() => {
+    if (ballots.bets?.[categoryId]) setBets(ballots.bets?.[categoryId])
+    if (ballots.wishes?.[categoryId]) setWishes(ballots.wishes?.[categoryId])
+  }, [ballots.bets, ballots.wishes, categoryId])
 
   const renderCard = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
+    const isWish = wishes?.includes(item.id)
+    const isFirstBet = bets?.first === item.id
+    const isSecondBet = bets?.second === item.id
+
+    const place = (type: 'bet' | 'wish'): void => {
+      if (type === 'wish')
+        if (isWish) {
+          setWishes((value) => {
+            return value?.filter((wish) => {
+              return wish !== item.id
+            })
+          })
+        } else {
+          setWishes((value = []) => {
+            return [...value, item.id]
+          })
+        }
+      else if (type === 'bet') {
+        if ((bets?.first && bets?.second) || (!bets?.first && !bets?.second)) {
+          setBets({
+            first: item.id,
+            second: undefined,
+          })
+        }
+        if (bets?.first && !isFirstBet && !bets?.second) {
+          setBets((value) => {
+            return {
+              ...value,
+              second: item.id,
+            }
+          })
+        }
+      }
+    }
+
     if (item.person)
       return (
         <Card.Person
@@ -91,6 +111,10 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
       )
     return (
       <Card.Movie
+        place={place}
+        isFirstBet={isFirstBet}
+        isSecondBet={isSecondBet}
+        isWish={isWish}
         information={item.information}
         winner={edition.winners[item.category] === item.id}
         movieId={item.movie}
@@ -106,16 +130,26 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
   return (
     <Global.Screen>
       <Header.Root>
+        <Header.Row>
+          <Button
+            onPress={upToDate ? navigation.goBack : setSubmitModalOpen}
+            icon={<Icon.ArrowLeft />}
+            size="action"
+            variant="secondary"
+          />
+          <Header.Title>
+            {adminSettings && 'Winner of '}
+            {categories[categoryId]['en-US']}
+          </Header.Title>
+        </Header.Row>
+
         <Button
-          onPress={navigation.goBack}
-          icon={<Icon.ArrowLeft />}
+          label={upToDate ? 'up to date' : 'submit'}
+          disabled={upToDate}
+          onPress={handleSubmit}
           size="action"
           variant="secondary"
         />
-        <Header.Title>
-          {adminSettings && 'Winner of '}
-          {categories[categoryId]['en-US']}
-        </Header.Title>
       </Header.Root>
 
       <Styled.Content
@@ -125,7 +159,18 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
         ItemSeparatorComponent={Global.Separator}
       />
 
-      {renderModal}
+      <WinnerModal
+        categoryId={categoryId}
+        newWinner={newWinner}
+        setNewWinner={setNewWinner}
+      />
+
+      <SubmitModal
+        visible={submitModal}
+        close={setSubmitModalClose}
+        category={categories[categoryId]['en-US']}
+        handleSubmit={handleSubmit}
+      />
     </Global.Screen>
   )
 }

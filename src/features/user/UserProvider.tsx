@@ -6,8 +6,6 @@ import { db } from '@services/firebase'
 import type { UserType } from '@types'
 
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const usersCollection = collection(db, 'users')
-
   const [isLogged, setIsLogged] = React.useState<UserContextType['isLogged']>(false)
   const [uid, setUid] = React.useState<UserContextType['uid']>('')
   const [adminSettings, setAdminSettings] = React.useState<UserContextType['adminSettings']>(false)
@@ -30,6 +28,8 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     },
   })
 
+  const usersCollection = collection(db, 'users')
+
   const updateUser: UserContextType['updateUser'] = (
     _email?,
     _displayName?,
@@ -38,7 +38,6 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     _onboarding?,
   ) => {
     const userRef = doc(usersCollection, uid)
-
     const values = {
       ...(_email != null && { email: _email }),
       ...(_displayName != null && { displayName: _displayName }),
@@ -64,16 +63,9 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     })
   }
 
-  const placeBet: UserContextType['placeBet'] = (edition, category, nomination, bet) => {
-    const finalBet = {
-      edition,
-      category,
-      nomination,
-      bet,
-    }
-  }
-
   const value: UserContextType = {
+    usersCollection,
+
     adminSettings,
     setAdminSettings,
 
@@ -97,8 +89,6 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     updateUser,
     setMovieUnwatched,
     setMovieWatched,
-
-    placeBet,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

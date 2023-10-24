@@ -1,24 +1,16 @@
-import { Animated } from 'react-native'
+import { Animated, Pressable } from 'react-native'
 import styled from 'styled-components/native'
-
-interface AnimationProps {
-  width: 'fit' | 'fixed' | 'full'
-}
-
-export const Animation = styled(Animated.View)<AnimationProps>((props) => {
-  return {
-    width: props.width === 'fixed' ? '256px' : 'auto',
-    flex: props.width === 'full' ? 1 : null,
-  }
-})
 
 interface PressableProps {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text'
   icon: boolean
   size?: 'action' | 'default'
+  width: 'fit' | 'fixed' | 'full'
 }
 
-export const Pressable = styled.Pressable<PressableProps>((props) => {
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
+
+export const Container = styled(AnimatedPressable)<PressableProps>((props) => {
   const getBackgroundColor = (): string => {
     if (props.variant === 'primary') return props.theme.colors.primary.default
     if (props.variant === 'secondary') return props.theme.colors.primary.shades.shade5
@@ -50,6 +42,8 @@ export const Pressable = styled.Pressable<PressableProps>((props) => {
     border: props.variant === 'outlined' ? props.theme.colors.primary.default : 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
+    width: props.width === 'fixed' ? '256px' : 'auto',
+    flex: props.width === 'full' ? 1 : null,
   }
 })
 

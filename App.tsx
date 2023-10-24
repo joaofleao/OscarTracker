@@ -11,6 +11,7 @@ import { UserProvider } from '@features/user'
 import { AuthProvider } from '@features/auth'
 import { AppProvider } from '@features/app'
 import { AnnouncementsProvider } from '@features/announcements'
+import { BallotsProvider } from '@features/ballots'
 
 const App = (): JSX.Element => {
   return (
@@ -25,7 +26,9 @@ const App = (): JSX.Element => {
                     <MoviesProvider>
                       <CategoriesProvider>
                         <EditionProvider>
-                          <Router />
+                          <BallotsProvider>
+                            <Router />
+                          </BallotsProvider>
                         </EditionProvider>
                       </CategoriesProvider>
                     </MoviesProvider>

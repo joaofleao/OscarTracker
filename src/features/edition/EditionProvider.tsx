@@ -6,6 +6,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  setDoc,
   updateDoc,
   where,
 } from 'firebase/firestore'
@@ -31,10 +32,10 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   const [editionId, setEditionId] = React.useState<string>('95')
   const [year, setYear] = React.useState<number>(0)
 
-  const editionRef = doc(editionsCollection, editionId)
   const user = useUser()
-
   const async = useAsyncStorage()
+
+  const editionRef = doc(editionsCollection, editionId)
 
   React.useEffect(() => {
     if (user.isLogged) {

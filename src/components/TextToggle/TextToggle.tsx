@@ -18,12 +18,26 @@ const defaultValues = {
 }
 
 const TextToggle = (props: TextToggleProps): JSX.Element => {
-  const { selected, label, icon, onToggle, style, onPressIn, onPressOut, onPress, ...rest } = {
+  const {
+    selected,
+    label,
+    icon,
+    onToggle,
+    style,
+    onPressIn,
+    onPressOut,
+    onPress,
+    disabled,
+    ...rest
+  } = {
     ...defaultValues,
     ...props,
   }
   const { colors } = useTheme()
-  const { animationPressIn, animationPressOut, scale } = usePressableAnimation({ scaleTo: 0.95 })
+
+  const { animationPressIn, animationPressOut, scale, opacity } = usePressableAnimation({
+    disabled,
+  })
 
   const handlePress = (event: GestureResponderEvent): void => {
     onToggle(!selected)
@@ -42,11 +56,12 @@ const TextToggle = (props: TextToggleProps): JSX.Element => {
 
   return (
     <Styled.Container
-      style={[style, { transform: [{ scale }] }]}
+      style={[style, { transform: [{ scale }], opacity }]}
       selected={selected}
       onPress={handlePress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
+      disabled={disabled}
       {...rest}
     >
       {React.cloneElement(icon, {
