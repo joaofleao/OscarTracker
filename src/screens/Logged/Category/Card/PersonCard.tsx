@@ -12,16 +12,30 @@ export interface PersonCardProps extends PressableProps {
   movieId: string
   character: string
   winner: boolean
+
+  place: (type: 'wish' | 'bet') => void
+  isFirstBet: boolean
+  isSecondBet: boolean
+  isWish: boolean
 }
 
 const PersonCard = (props: PersonCardProps): JSX.Element => {
-  const { actorId, character, movieId, winner, ...rest } = props
+  const { actorId, character, movieId, winner, place, isFirstBet, isSecondBet, isWish, ...rest } =
+    props
 
   const { movies: watchedMovies, preferences } = useUser()
   const { movies, people } = useEdition()
 
   const movie = movies[movieId]['en-US']
   const person = people[actorId]
+
+  const placeBet = (): void => {
+    place('bet')
+  }
+
+  const placeWish = (): void => {
+    place('wish')
+  }
 
   return (
     <Styled.Container {...rest}>
@@ -48,6 +62,20 @@ const PersonCard = (props: PersonCardProps): JSX.Element => {
 
         <Styled.Information numberOfLines={2}>as {character}</Styled.Information>
         <Styled.Movie numberOfLines={2}>{movie.name}</Styled.Movie>
+        <Styled.Bets>
+          <Styled.Toggle
+            selected={isWish}
+            label="wish"
+            onToggle={placeWish}
+            icon={<Icon.FingersCrossed />}
+          />
+          <Styled.Toggle
+            selected={isFirstBet || isSecondBet}
+            onToggle={placeBet}
+            label={isFirstBet ? 'bet 1' : isSecondBet ? 'bet 2' : 'bet'}
+            icon={<Icon.Oscar />}
+          />
+        </Styled.Bets>
       </Styled.Content>
     </Styled.Container>
   )

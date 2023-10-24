@@ -1,9 +1,9 @@
 import { createContext } from 'react'
 
-import { BetsType, WishesType } from './types'
+import { BetsType, BetType, WishesType } from './types'
 
 export interface BallotsContextType {
-  vote: (categoryId: string, bets: BetsType, wishes: WishesType) => void
+  vote: (categoryId: string, bets: BetType, wishes: WishesType) => void
   bets: BetsType
   wishes: WishesType
 }

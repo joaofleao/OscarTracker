@@ -34,6 +34,7 @@ const BallotsProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
         unsubscribeBallots()
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLogged])
 
   const vote: BallotsContextType['vote'] = (_category, _bets, _wishes) => {
@@ -41,8 +42,13 @@ const BallotsProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     const ballotsCollection = collection(userRef, 'ballots')
     const ballotsRef = doc(ballotsCollection, edition.editionId)
 
+    const finalBets = {
+      first: _bets.first ?? '',
+      second: _bets.second ?? '',
+    }
+
     const object = {
-      ['bets.' + _category]: _bets,
+      ['bets.' + _category]: finalBets,
       ['wishes.' + _category]: _wishes,
     }
 

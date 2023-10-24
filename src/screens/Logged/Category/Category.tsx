@@ -70,6 +70,12 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
             second: undefined,
           })
         }
+        if (bets?.first && isFirstBet && !bets?.second) {
+          setBets({
+            first: undefined,
+            second: undefined,
+          })
+        }
         if (bets?.first && !isFirstBet && !bets?.second) {
           setBets((value) => {
             return {
@@ -84,6 +90,10 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
     if (item.person)
       return (
         <Card.Person
+          place={place}
+          isFirstBet={isFirstBet}
+          isSecondBet={isSecondBet}
+          isWish={isWish}
           actorId={item.person}
           character={item.information}
           winner={edition.winners[item.category] === item.id}
@@ -98,6 +108,10 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
     if (item.song)
       return (
         <Card.Song
+          place={place}
+          isFirstBet={isFirstBet}
+          isSecondBet={isSecondBet}
+          isWish={isWish}
           song={item.song}
           information={item.information}
           winner={edition.winners[item.category] === item.id}
