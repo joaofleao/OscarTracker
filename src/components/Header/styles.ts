@@ -17,6 +17,7 @@ export const Root = styled.View<RootProps>((props) => {
     gap: '16px',
     justifyContent: getAlignment(),
     paddingHorizontal: '20px',
+    paddingVertical: '12px',
     alignItems: 'center',
   }
 })
@@ -37,9 +38,11 @@ export const Title = styled.Text<TextProps>((props) => {
   return {
     color: props.theme.colors.text.default,
     fontSize: props.bigHeader ? '24px' : '20px',
-    lineHeight: '24px',
+    lineHeight: '36px',
+
     fontFamily: props.theme.fonts.primary.semibold,
     textAlign: props.align,
+    flex: 1,
   }
 })
 
@@ -47,11 +50,13 @@ export const Logo = styled.Text<TextProps>((props) => {
   return {
     color: props.theme.colors.text.default,
     fontSize: props.bigHeader ? '24px' : '20px',
-    lineHeight: '24px',
+    lineHeight: '36px',
     fontFamily: props.theme.fonts.secondary.semibold,
     textAlign: props.align,
+    flex: 1,
   }
 })
+
 export const LogoAccent = styled.Text<TextProps>((props) => {
   return {
     color: props.theme.colors.primary.default,
@@ -74,5 +79,12 @@ export const Row = styled.View(() => {
     flex: 1,
     alignItems: 'center',
     gap: '16px',
+  }
+})
+
+export const Placeholder = styled.View(() => {
+  return {
+    height: '36px',
+    width: '36px',
   }
 })

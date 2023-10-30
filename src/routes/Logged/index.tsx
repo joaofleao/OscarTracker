@@ -33,29 +33,44 @@ const tabs = {
 
 const Logged = (
   <>
-    <Stack.Screen name={routes.logged.index}>
+    <Stack.Screen
+      name={routes.logged.index}
+      options={{
+        animation: 'slide_from_right',
+      }}
+    >
       {(): JSX.Element => {
         return <NavBar tabs={tabs} />
       }}
     </Stack.Screen>
 
     <Stack.Screen
-      options={{ gestureEnabled: false }}
+      options={{ gestureEnabled: false, animation: 'slide_from_right' }}
       name={routes.logged.preferences}
       component={Preferences}
     />
 
     <Stack.Screen
+      options={{
+        animation: 'slide_from_right',
+        presentation: 'transparentModal',
+      }}
       name={routes.logged.movie}
       component={Movie}
     />
 
     <Stack.Screen
+      options={{
+        animation: 'slide_from_right',
+      }}
       name={routes.logged.category}
       component={Category}
     />
 
     <Stack.Screen
+      options={{
+        animation: 'slide_from_right',
+      }}
       name={routes.logged.emailVerification}
       component={EmailVerification}
     />

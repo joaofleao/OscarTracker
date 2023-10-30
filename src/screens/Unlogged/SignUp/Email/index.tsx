@@ -25,9 +25,8 @@ const Email = ({ navigation }: EmailProps): JSX.Element => {
           size="action"
           variant="secondary"
         />
-        <Header.TextContainer>
-          <Header.Title>Register</Header.Title>
-        </Header.TextContainer>
+
+        <Header.Title>Register</Header.Title>
       </Header.Root>
 
       <Global.Body>

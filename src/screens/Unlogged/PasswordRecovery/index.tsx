@@ -30,9 +30,8 @@ const PasswordRecovery = ({ navigation, route }: PasswordRecoveryProps): JSX.Ele
           size="action"
           variant="secondary"
         />
-        <Header.TextContainer>
-          <Header.Title>Password Recovery</Header.Title>
-        </Header.TextContainer>
+
+        <Header.Title>Password Recovery</Header.Title>
       </Header.Root>
 
       <Global.Body>

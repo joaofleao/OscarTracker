@@ -11,7 +11,7 @@ export const Container = styled.Pressable({
 export const Content = styled.View(() => {
   return {
     flex: 1,
-    borderRadius: 14,
+    gap: '4px',
   }
 })
 

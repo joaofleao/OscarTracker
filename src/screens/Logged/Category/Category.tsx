@@ -151,10 +151,7 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
             size="action"
             variant="secondary"
           />
-          <Header.Title>
-            {adminSettings && 'Winner of '}
-            {categories[categoryId]['en-US']}
-          </Header.Title>
+          <Header.Title numberOfLines={1}>{categories[categoryId]['en-US']}</Header.Title>
         </Header.Row>
 
         <Button
@@ -171,6 +168,8 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
         data={categoryNominations}
         renderItem={renderCard}
         ItemSeparatorComponent={Global.Separator}
+        ListHeaderComponent={Global.Separator}
+        ListFooterComponent={Global.Separator}
       />
 
       <WinnerModal

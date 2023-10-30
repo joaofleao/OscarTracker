@@ -30,13 +30,12 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
   return (
     <Global.Screen>
       <Header.Root>
-        <Header.TextContainer>
-          <Header.Logo bigHeader>
-            <Header.LogoAccent>oscar</Header.LogoAccent>tracker
-          </Header.Logo>
-
-          <Header.Description bigHeader>here are the 2022 nominations</Header.Description>
-        </Header.TextContainer>
+        <Header.Logo
+          align="center"
+          bigHeader
+        >
+          <Header.LogoAccent>oscar</Header.LogoAccent>tracker
+        </Header.Logo>
       </Header.Root>
       <Styled.Content>
         <ProgressBar

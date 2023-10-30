@@ -19,6 +19,7 @@ export const Content = styled.View(() => {
     paddingHorizontal: '20px',
     flex: 1,
     gap: '32px',
+    marginBottom: '20px',
   }
 })
 

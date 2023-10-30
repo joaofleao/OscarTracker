@@ -47,10 +47,12 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
   return (
     <Global.Screen>
       <Header.Root>
-        <Header.TextContainer>
-          <Header.Title bigHeader>Watch List</Header.Title>
-          <Header.Description bigHeader>here are the 2022 nominees</Header.Description>
-        </Header.TextContainer>
+        <Header.Title
+          align="center"
+          bigHeader
+        >
+          Watch List
+        </Header.Title>
       </Header.Root>
       <Styled.Content>
         <ProgressBar

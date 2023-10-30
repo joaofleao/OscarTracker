@@ -58,10 +58,14 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
   return (
     <Global.Screen>
       <Header.Root>
-        <Header.TextContainer>
-          <Header.Title bigHeader>Profile</Header.Title>
-          <Header.Description bigHeader>{user.email}</Header.Description>
-        </Header.TextContainer>
+        <Header.Placeholder />
+        <Header.Title
+          align="center"
+          bigHeader
+        >
+          Profile
+        </Header.Title>
+
         <Button
           icon={editing ? <Icon.CheckCircle /> : <Icon.Pencil />}
           onPress={handleEdit}
@@ -92,6 +96,12 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
               onChangeText={setNickname}
               valid={nicknameValid}
               errorText={'Please provide a single nickname'}
+            />
+
+            <TextField
+              editable={false}
+              label="Email"
+              value={user.email}
             />
           </Styled.Section>
 

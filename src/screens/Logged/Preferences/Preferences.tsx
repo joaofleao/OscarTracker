@@ -122,16 +122,15 @@ const Preferences = ({ navigation }: PreferencesProps): JSX.Element => {
   return (
     <Global.Screen>
       <Styled.HeaderRoot isFirst={index === 0}>
-        <Button
-          onPress={handleBack}
-          icon={<Icon.ArrowLeft />}
-          size="action"
-          variant="secondary"
-        />
-        <Header.TextContainer>
-          <Header.Title>Preferences</Header.Title>
-          <Header.Description>{screens[index].title}</Header.Description>
-        </Header.TextContainer>
+        <Header.Row>
+          <Button
+            onPress={handleBack}
+            icon={<Icon.ArrowLeft />}
+            size="action"
+            variant="secondary"
+          />
+          <Header.Title>{screens[index].title}</Header.Title>
+        </Header.Row>
       </Styled.HeaderRoot>
 
       <Styled.Content>

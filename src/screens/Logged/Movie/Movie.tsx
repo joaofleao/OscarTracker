@@ -126,15 +126,16 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
   return (
     <Global.Screen>
       <Header.Root>
-        <Button
-          onPress={navigation.goBack}
-          icon={<Icon.ArrowLeft />}
-          size="action"
-          variant="secondary"
-        />
-        <Header.TextContainer>
+        <Header.Row>
+          <Button
+            onPress={navigation.goBack}
+            icon={<Icon.ArrowLeft />}
+            size="action"
+            variant="secondary"
+          />
+
           <Header.Title numberOfLines={2}>{name}</Header.Title>
-        </Header.TextContainer>
+        </Header.Row>
       </Header.Root>
 
       <ScrollView>

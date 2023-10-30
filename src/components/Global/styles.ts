@@ -1,19 +1,11 @@
 import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 
-export interface Screen {
-  showTop?: boolean
-  showBottom?: boolean
-}
-
-export const Screen = styled.SafeAreaView<Screen>((props) => {
+export const Screen = styled.SafeAreaView((props) => {
   return {
     backgroundColor: props.theme.colors.background.default,
     flex: 1,
     position: 'relative',
-    paddingTop: props.showTop ? '20px' : '0px',
-    paddingBottom: props.showBottom ? '20px' : '0px',
-    gap: '20px',
   }
 })
 

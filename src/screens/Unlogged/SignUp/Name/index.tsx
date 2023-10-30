@@ -34,9 +34,8 @@ const Name = ({ navigation, route }: NameProps): JSX.Element => {
           size="action"
           variant="secondary"
         />
-        <Header.TextContainer>
-          <Header.Title>Register</Header.Title>
-        </Header.TextContainer>
+
+        <Header.Title>Register</Header.Title>
       </Header.Root>
 
       <Global.Body>

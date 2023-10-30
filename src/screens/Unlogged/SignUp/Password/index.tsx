@@ -31,9 +31,8 @@ const Password = ({ navigation, route }: PasswordProps): JSX.Element => {
           size="action"
           variant="secondary"
         />
-        <Header.TextContainer>
-          <Header.Title>Register</Header.Title>
-        </Header.TextContainer>
+
+        <Header.Title>Register</Header.Title>
       </Header.Root>
 
       <Global.Body>
