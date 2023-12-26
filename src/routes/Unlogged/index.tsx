@@ -12,22 +12,37 @@ const Stack = createNativeStackNavigator<ScreenTypes>()
 const Unlogged = (
   <>
     <Stack.Screen
+      options={{
+        animation: 'slide_from_right',
+      }}
       name={routes.unlogged.signIn}
       component={SignIn}
     />
     <Stack.Screen
+      options={{
+        animation: 'slide_from_right',
+      }}
       name={routes.unlogged.signUpEmail}
       component={Email}
     />
     <Stack.Screen
+      options={{
+        animation: 'slide_from_right',
+      }}
       name={routes.unlogged.signUpPassword}
       component={Password}
     />
     <Stack.Screen
+      options={{
+        animation: 'slide_from_right',
+      }}
       name={routes.unlogged.signUpName}
       component={Name}
     />
     <Stack.Screen
+      options={{
+        animation: 'slide_from_right',
+      }}
       name={routes.unlogged.forgotPassword}
       component={PasswordRecovery}
     />

@@ -12,8 +12,8 @@ const api = axios.create({
   timeout: 60000,
 })
 
-export const getImage = (id: string): string => {
-  return imageBaseUrl + id
+export const getImage = (id: string, quality = 200): string => {
+  return `${imageBaseUrl}w${quality}${id}`
 }
 
 export const getMovie = async (id: string, language: string): Promise<AxiosResponse<MovieType>> => {

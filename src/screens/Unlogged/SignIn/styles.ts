@@ -5,7 +5,7 @@ export const Header = styled.View(() => {
   return {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: '120px',
+    paddingVertical: '100px',
   }
 })
 

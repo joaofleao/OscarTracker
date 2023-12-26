@@ -1,7 +1,7 @@
 import React from 'react'
 import { StatusBar } from 'react-native'
 import { useFonts } from 'expo-font'
-import * as SplashScreen from 'expo-splash-screen'
+import * as Splash from 'expo-splash-screen'
 import { collection, doc, onSnapshot } from 'firebase/firestore'
 
 import * as Styled from './styles'
@@ -10,6 +10,7 @@ import LoadingModal from '@containers/LoadingModal'
 import NetworkModal from '@containers/NetworkModal'
 import NewVersionModal from '@containers/NewVersionModal'
 import { useAnnouncements } from '@features/announcements'
+import { useCategories } from '@features/categories'
 import { useEdition } from '@features/edition'
 import { useTheme } from '@features/theme'
 import { useUser } from '@features/user'
@@ -19,10 +20,11 @@ import Logged from '@routes/Logged'
 import Unlogged from '@routes/Unlogged'
 import { auth, db } from '@services/firebase'
 import type { ScreenTypes, User, UserType } from '@types'
+import { printFetch } from '@utils/functions'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
 
-SplashScreen.preventAutoHideAsync()
+Splash.preventAutoHideAsync()
 
 const screenOptions = {
   headerShown: false,
@@ -45,7 +47,8 @@ const localFonts = {
 const Router = (): JSX.Element => {
   const user = useUser()
   const edition = useEdition()
-  const announcement = useAnnouncements()
+  const announcements = useAnnouncements()
+  const categories = useCategories()
 
   const { colors } = useTheme()
   const [fontsLoaded] = useFonts(localFonts)
@@ -61,11 +64,11 @@ const Router = (): JSX.Element => {
         user.setUid(data.uid)
         user.setIsLogged(true)
 
-        edition.getCategories()
+        categories.getCategories()
         edition.getMovies()
         edition.getPeople()
         edition.getNominations()
-        announcement.getAnnouncements()
+        announcements.getAnnouncements()
       }
 
       setAuthLoaded(true)
@@ -84,14 +87,17 @@ const Router = (): JSX.Element => {
   React.useEffect(() => {
     if (user.isLogged) {
       const userRef = doc(usersCollection, user.uid)
-      const unsubscribe = onSnapshot(userRef, (snap) => {
+
+      const unsubscribeUser = onSnapshot(userRef, (snap) => {
         const response = snap.data()
         if (response !== undefined) {
+          printFetch('Firebase', 'User updated', 'green')
           user.setUser(response as UserType)
         }
       })
+
       return () => {
-        unsubscribe()
+        unsubscribeUser()
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -99,7 +105,7 @@ const Router = (): JSX.Element => {
 
   React.useEffect(() => {
     if (fontsLoaded && splashLoaded && authLoaded) {
-      SplashScreen.hideAsync()
+      Splash.hideAsync()
     }
   }, [splashLoaded, fontsLoaded, authLoaded])
 

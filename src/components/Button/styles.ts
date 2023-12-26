@@ -1,44 +1,36 @@
-import { Animated } from 'react-native'
+import { Animated, Pressable } from 'react-native'
 import styled from 'styled-components/native'
 
-interface AnimationProps {
+interface PressableProps {
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text'
+  icon: boolean
+  size?: 'action' | 'default'
   width: 'fit' | 'fixed' | 'full'
 }
 
-export const Animation = styled(Animated.View)<AnimationProps>((props) => {
-  return {
-    width: props.width === 'fixed' ? '256px' : 'auto',
-    flex: props.width === 'full' ? 1 : null,
-  }
-})
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
-interface PressableProps {
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
-  icon: boolean
-}
-
-export const Pressable = styled.Pressable<PressableProps>((props) => {
+export const Container = styled(AnimatedPressable)<PressableProps>((props) => {
   const getBackgroundColor = (): string => {
     if (props.variant === 'primary') return props.theme.colors.primary.default
     if (props.variant === 'secondary') return props.theme.colors.primary.shades.shade5
-    if (props.variant === 'action') return props.theme.colors.primary.shades.shade5
     return 'transparent'
   }
 
   const getHorizontalPadding = (): string => {
-    if (props.variant === 'action') return '8px'
+    if (props.size === 'action') return '8px'
     if (props.icon) return '10px'
     return '24px'
   }
 
   const getVerticalPadding = (): string => {
-    if (props.variant === 'action') return '8px'
+    if (props.size === 'action') return '8px'
     if (props.icon) return '10px'
     return '12px'
   }
 
   const getBorderRadius = (): string => {
-    if (props.variant === 'action' || props.icon) return '12px'
+    if (props.size === 'action' || props.icon) return '12px'
     return '16px'
   }
 
@@ -50,11 +42,14 @@ export const Pressable = styled.Pressable<PressableProps>((props) => {
     border: props.variant === 'outlined' ? props.theme.colors.primary.default : 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
+    width: props.width === 'fixed' ? '256px' : 'auto',
+    flex: props.width === 'full' ? 1 : null,
   }
 })
 
 interface LabelProps {
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'action'
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text'
+  size?: 'action' | 'default'
 }
 
 export const Label = styled.Text<LabelProps>((props) => {
@@ -65,8 +60,8 @@ export const Label = styled.Text<LabelProps>((props) => {
 
   return {
     fontFamily: props.theme.fonts.primary.bold,
-    fontSize: props.variant === 'action' ? '12px' : '16px',
-    lineHeight: props.variant === 'action' ? '16px' : '20px',
+    fontSize: props.size === 'action' ? '12px' : '16px',
+    lineHeight: props.size === 'action' ? '18px' : '20px',
     color: getContentColor(),
     textAlign: 'center',
   }

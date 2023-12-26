@@ -22,10 +22,18 @@ export const Container = styled.View((props) => {
 
 export const Row = styled.View(() => {
   return {
-    gap: '8px',
+    gap: '16px',
     flexDirection: 'row',
-    flex: 1,
     alignItems: 'center',
+  }
+})
+
+export const Footer = styled.View(() => {
+  return {
+    gap: '20px',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: '20px',
   }
 })
 
@@ -42,8 +50,8 @@ export const Description = styled.Text((props) => {
   return {
     color: props.theme.colors.text.disabled,
     fontFamily: props.theme.fonts.primary.medium,
-    fontSize: '16px',
-    lineHeight: '18px',
+    fontSize: '14px',
+    lineHeight: '20px',
   }
 })
 

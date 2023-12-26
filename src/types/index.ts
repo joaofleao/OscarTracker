@@ -5,4 +5,9 @@ export * from './tmdb/CastTypes'
 export * from './tmdb/MovieTypes'
 export * from './tmdb/ProvidersTypes'
 export * from 'firebase/auth'
-export type { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore'
+export type {
+  DocumentData,
+  QueryDocumentSnapshot,
+  CollectionReference,
+  DocumentReference,
+} from 'firebase/firestore'

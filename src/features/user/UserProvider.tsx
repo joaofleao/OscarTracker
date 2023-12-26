@@ -3,22 +3,20 @@ import { arrayRemove, arrayUnion, collection, doc, updateDoc } from 'firebase/fi
 
 import UserContext, { type UserContextType } from './UserContext'
 import { db } from '@services/firebase'
-import type { PreferencesType, UserType } from '@types'
+import type { UserType } from '@types'
 
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const usersCollection = collection(db, 'users')
-
-  const [isLogged, setIsLogged] = React.useState<boolean>(false)
-
-  const [uid, setUid] = React.useState('')
-
+  const [isLogged, setIsLogged] = React.useState<UserContextType['isLogged']>(false)
+  const [uid, setUid] = React.useState<UserContextType['uid']>('')
+  const [adminSettings, setAdminSettings] = React.useState<UserContextType['adminSettings']>(false)
   const [user, setUser] = React.useState<UserType>({
+    admin: false,
     email: '',
     phoneNumber: '',
     photoURL: '',
     displayName: '',
     emailVerified: false,
-    nickName: '',
+    nickname: '',
     movies: [],
     onboarding: true,
     uid: '',
@@ -30,19 +28,20 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     },
   })
 
-  const updateUser = async (
-    _email?: string,
-    _displayName?: string,
-    _nickName?: string,
-    _preferences?: PreferencesType,
-    _onboarding?: boolean,
-  ): Promise<void> => {
-    const userRef = doc(usersCollection, uid)
+  const usersCollection = collection(db, 'users')
 
+  const updateUser: UserContextType['updateUser'] = (
+    _email?,
+    _displayName?,
+    _nickname?,
+    _preferences?,
+    _onboarding?,
+  ) => {
+    const userRef = doc(usersCollection, uid)
     const values = {
       ...(_email != null && { email: _email }),
       ...(_displayName != null && { displayName: _displayName }),
-      ...(_nickName != null && { nickName: _nickName }),
+      ...(_nickname != null && { nickname: _nickname }),
       ...(_preferences != null && { preferences: _preferences }),
       ...(_onboarding != null && { onboarding: _onboarding }),
     }
@@ -50,28 +49,32 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     updateDoc(userRef, values)
   }
 
-  const setMovieUnwatched = async (movie: string): Promise<void> => {
+  const setMovieUnwatched: UserContextType['setMovieUnwatched'] = (movie) => {
     const userRef = doc(usersCollection, uid)
-
     updateDoc(userRef, {
       movies: arrayRemove(movie),
     })
   }
 
-  const setMovieWatched = async (movie: string): Promise<void> => {
+  const setMovieWatched: UserContextType['setMovieWatched'] = (movie) => {
     const userRef = doc(usersCollection, uid)
-
     updateDoc(userRef, {
       movies: arrayUnion(movie),
     })
   }
 
   const value: UserContextType = {
+    usersCollection,
+
+    adminSettings,
+    setAdminSettings,
+
+    admin: user.admin,
     preferences: user.preferences,
     email: user.email,
     displayName: user.displayName,
     emailVerified: user.emailVerified,
-    nickName: user.nickName,
+    nickname: user.nickname,
     movies: user.movies,
     onboarding: user.onboarding,
 

@@ -2,17 +2,24 @@ export interface Provider {
   children?: React.ReactNode
 }
 export interface Nomination {
+  id: string
   category: string
   movie: string
   person: string | undefined
   information: string | undefined
-  extra: string | undefined
+  song: string | undefined
 }
-export interface Category {
+export interface CategoryType {
   id: string
   order: number
   'en-US': string
   'pt-BR': string
+}
+export interface EditionType {
+  winners: { [categoryId: string]: string }
+  editionId: string
+  categories: string[]
+  year: number
 }
 
 export interface PreferencesType {
@@ -23,6 +30,7 @@ export interface PreferencesType {
 }
 
 export interface UserType {
+  admin: boolean
   preferences: PreferencesType
   email: string
   displayName: string
@@ -32,7 +40,7 @@ export interface UserType {
   movies: string[]
   uid: string
   onboarding: boolean
-  nickName: string
+  nickname: string
 }
 
 export interface BasicMovieType {

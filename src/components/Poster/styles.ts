@@ -3,6 +3,7 @@ import styled from 'styled-components/native'
 interface ImageProps {
   width: number
   height: number
+  winner: boolean
 }
 export const Container = styled.View<ImageProps>((props) => {
   return {
@@ -13,6 +14,11 @@ export const Container = styled.View<ImageProps>((props) => {
     position: 'relative',
     borderRadius: '12px',
     backgroundColor: props.theme.colors.background.container,
+    ...(props.winner && {
+      borderColor: props.theme.colors.primary.default,
+      borderWidth: '2px',
+      borderStyle: 'solid',
+    }),
   }
 })
 

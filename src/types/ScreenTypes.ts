@@ -2,7 +2,7 @@ import { type ParamListBase } from '@react-navigation/native'
 import { type NativeStackScreenProps } from '@react-navigation/native-stack'
 
 export interface ScreenTypes extends ParamListBase {
-  IndexScreen: undefined
+  Index: undefined
   SignIn: undefined
   Email: undefined
   PasswordRecovery: {
@@ -15,28 +15,26 @@ export interface ScreenTypes extends ParamListBase {
     email: string
     password: string
   }
-  PreferencesScreen: undefined
-  HomeScreen: undefined
-  WatchListScreen: undefined
-  ProfileScreen: undefined
-  MovieScreen: {
-    id: string
-    poster: string
-    name: string
+  Preferences: undefined
+  Home: undefined
+  WatchList: undefined
+  Profile: undefined
+  Movie: {
+    movieId: string
   }
-  NominationScreen: {
-    id: string
+  Category: {
+    categoryId: string
   }
 }
 
-export type HomeScreenProps = NativeStackScreenProps<ScreenTypes, 'HomeScreen'>
-export type MovieScreenProps = NativeStackScreenProps<ScreenTypes, 'MovieScreen'>
-export type PreferencesScreenProps = NativeStackScreenProps<ScreenTypes, 'PreferencesScreen'>
-export type NominationScreenProps = NativeStackScreenProps<ScreenTypes, 'NominationScreen'>
+export type HomeProps = NativeStackScreenProps<ScreenTypes, 'Home'>
+export type MovieProps = NativeStackScreenProps<ScreenTypes, 'Movie'>
+export type PreferencesProps = NativeStackScreenProps<ScreenTypes, 'Preferences'>
+export type CategoryProps = NativeStackScreenProps<ScreenTypes, 'Category'>
 export type SignInProps = NativeStackScreenProps<ScreenTypes, 'SignIn'>
-export type WatchListScreenProps = NativeStackScreenProps<ScreenTypes, 'WatchListScreen'>
+export type WatchListProps = NativeStackScreenProps<ScreenTypes, 'WatchList'>
 export type EmailProps = NativeStackScreenProps<ScreenTypes, 'Email'>
 export type PasswordProps = NativeStackScreenProps<ScreenTypes, 'Password'>
 export type NameProps = NativeStackScreenProps<ScreenTypes, 'Name'>
 export type PasswordRecoveryProps = NativeStackScreenProps<ScreenTypes, 'PasswordRecovery'>
-export type ProfileScreenProps = NativeStackScreenProps<ScreenTypes, 'ProfileScreen'>
+export type ProfileProps = NativeStackScreenProps<ScreenTypes, 'Profile'>

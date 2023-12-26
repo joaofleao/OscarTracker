@@ -31,11 +31,11 @@ const Name = ({ navigation, route }: NameProps): JSX.Element => {
         <Button
           onPress={navigation.goBack}
           icon={<Icon.ArrowLeft />}
-          variant="action"
+          size="action"
+          variant="secondary"
         />
-        <Header.TextContainer>
-          <Header.Title>Register</Header.Title>
-        </Header.TextContainer>
+
+        <Header.Title>Register</Header.Title>
       </Header.Root>
 
       <Global.Body>
