@@ -29,3 +29,15 @@ export const ButtonContainer = styled.View(() => {
     gap: '16px',
   }
 })
+
+export const StepScreen = styled.View(() => {
+  return {
+    margin: 20,
+  }
+})
+
+export const StepList = styled.FlatList(() => {
+  return {
+    marginHorizontal: -20,
+  }
+})
