@@ -1,5 +1,6 @@
 import Icon from '@components/Icon'
 import NavBar from '@components/NavBar'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Category from '@screens/Logged/Category'
 import EmailVerification from '@screens/Logged/EmailVerification'
@@ -12,37 +13,69 @@ import { type ScreenTypes } from '@types'
 import routes from '@utils/routes'
 
 const Stack = createNativeStackNavigator<ScreenTypes>()
+const Tabs = createBottomTabNavigator()
 
-const tabs = {
-  home: {
+const initialRoute = 0
+
+const tabs = [
+  {
     label: routes.logged.home,
     component: Home,
     icon: <Icon.Home />,
   },
-  watchList: {
+  {
     label: routes.logged.watchList,
     component: WatchList,
     icon: <Icon.CheckCircle />,
   },
-  profile: {
+  {
     label: routes.logged.profile,
     component: Profile,
     icon: <Icon.Person />,
   },
+]
+
+const renderTabs = (): JSX.Element[] => {
+  return tabs.map((tab) => {
+    return (
+      <Tabs.Screen
+        key={tab.label}
+        name={tab.label}
+        component={tab.component}
+      />
+    )
+  })
 }
 
+const screenOptions = {
+  tabBarHideOnKeyboard: true,
+  headerShown: false,
+}
+
+const renderNavBar = (): JSX.Element => {
+  return (
+    <NavBar
+      tabs={tabs}
+      initialRoute={initialRoute}
+    />
+  )
+}
+
+const renderScreens = (): JSX.Element => {
+  return (
+    <Tabs.Navigator
+      initialRouteName={tabs[initialRoute].label}
+      backBehavior="none"
+      screenOptions={screenOptions}
+      tabBar={renderNavBar}
+    >
+      {renderTabs()}
+    </Tabs.Navigator>
+  )
+}
 const Logged = (
   <>
-    <Stack.Screen
-      name={routes.logged.index}
-      options={{
-        animation: 'slide_from_right',
-      }}
-    >
-      {(): JSX.Element => {
-        return <NavBar tabs={tabs} />
-      }}
-    </Stack.Screen>
+    <Stack.Screen name={routes.logged.index}>{renderScreens}</Stack.Screen>
 
     <Stack.Screen
       options={{ gestureEnabled: false, animation: 'slide_from_right' }}

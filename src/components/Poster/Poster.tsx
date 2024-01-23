@@ -10,27 +10,35 @@ export interface PosterProps extends ViewProps {
   spoiler: boolean
   large?: boolean
   winner?: boolean
+  winnerTitle?: string
+  winnerDescription?: string
 }
 
 const defaultValues: Partial<PosterProps> = {
   isWatched: false,
   spoiler: false,
   large: false,
+  winner: false,
 }
 
 const Poster = (props: PosterProps): JSX.Element => {
-  const {
-    image,
-    isWatched,
-    spoiler,
-    large = false,
-    winner = false,
-    ...rest
-  } = { ...defaultValues, ...props }
+  const { image, isWatched, spoiler, large, winner, winnerTitle, winnerDescription, ...rest } = {
+    ...defaultValues,
+    ...props,
+  }
   const theme = useTheme()
 
   const width = large ? 158 : 106
   const height = large ? 236 : 158
+
+  const getWinnerCover = (
+    <Styled.WinnerCover blur={isWatched}>
+      {winnerTitle && <Styled.WinnerTitle large={large}>{winnerTitle}</Styled.WinnerTitle>}
+      {winnerDescription && (
+        <Styled.WinnerDescription large={large}>{winnerDescription}</Styled.WinnerDescription>
+      )}
+    </Styled.WinnerCover>
+  )
 
   const getPoster = (
     <Styled.Image
@@ -64,7 +72,8 @@ const Poster = (props: PosterProps): JSX.Element => {
     >
       {(isWatched || spoiler) && getPoster}
       {!isWatched && spoiler && getCover}
-      {!isWatched && getIcon}
+      {!isWatched && !winner && getIcon}
+      {winner && getWinnerCover}
     </Styled.Container>
   )
 }

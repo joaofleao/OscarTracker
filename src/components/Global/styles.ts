@@ -45,3 +45,8 @@ export const Footer = styled(Animated.View)({
   alignItems: 'center',
   justifyContent: 'flex-end',
 })
+
+export const NavBarSeparator = styled.View({
+  width: '100%',
+  height: '100px',
+})

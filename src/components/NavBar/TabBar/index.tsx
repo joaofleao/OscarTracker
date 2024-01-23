@@ -1,21 +1,18 @@
 import React from 'react'
+import { PressableProps } from 'react-native'
 
 import * as Styled from './styles'
 import { useTheme } from '@features/theme'
-import type { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs'
 
-export interface Props extends BottomTabBarButtonProps {
+export interface Props extends PressableProps {
   icon: JSX.Element
+  selected: boolean
 }
 
 const Tab = (props: Props): JSX.Element => {
-  const { icon, accessibilityState, ...rest } = props
-  delete rest.style
-  delete rest.onLayout
+  const { icon, selected, ...rest } = props
 
   const { colors } = useTheme()
-
-  const selected: boolean = accessibilityState.selected
 
   return (
     <Styled.Container {...rest}>
@@ -23,7 +20,7 @@ const Tab = (props: Props): JSX.Element => {
         width: 20,
         height: 20,
         filled: selected,
-        color: selected ? colors.primary.default : colors.primary.shades.shade60,
+        color: selected ? colors.background.container : colors.primary.default,
       })}
     </Styled.Container>
   )

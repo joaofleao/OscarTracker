@@ -8,7 +8,6 @@ import type { UserType } from '@types'
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const [isLogged, setIsLogged] = React.useState<UserContextType['isLogged']>(false)
   const [uid, setUid] = React.useState<UserContextType['uid']>('')
-  const [adminSettings, setAdminSettings] = React.useState<UserContextType['adminSettings']>(false)
   const [user, setUser] = React.useState<UserType>({
     admin: false,
     email: '',
@@ -65,9 +64,6 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
 
   const value: UserContextType = {
     usersCollection,
-
-    adminSettings,
-    setAdminSettings,
 
     admin: user.admin,
     preferences: user.preferences,

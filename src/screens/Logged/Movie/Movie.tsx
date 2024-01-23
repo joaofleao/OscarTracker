@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Linking, type ListRenderItemInfo, ScrollView, View } from 'react-native'
+import { Linking, type ListRenderItemInfo, ScrollView, TouchableOpacity, View } from 'react-native'
 
 import * as Styled from './styles'
 import { IMDB } from '@assets/images'
@@ -99,7 +99,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
   }
 
   const renderItem = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
-    const winner = item.id === edition.winners[item.category]
+    const winner = item.id === edition.winners?.[item.category]
 
     return (
       <Styled.Nomination
@@ -133,12 +133,19 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
             size="action"
             variant="secondary"
           />
-
-          <Header.Title numberOfLines={2}>{name}</Header.Title>
         </Header.Row>
+        <Button
+          onPress={(): void => {
+            markAsWatched(watched)
+          }}
+          label={`mark as ${watched ? 'unwatched' : 'watched'}`}
+          size="action"
+          variant={watched ? 'secondary' : 'primary'}
+        />
       </Header.Root>
 
       <ScrollView>
+        <Styled.Title>{name}</Styled.Title>
         <Styled.ContentContainer>
           <Styled.MainContent>
             <Styled.SpoilerPoster
@@ -150,62 +157,60 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
             </Styled.SpoilerPoster>
 
             <Styled.BasicData>
-              <Styled.Informations>
-                <Styled.IconInformation>
-                  <Icon.Clock
-                    width={18}
-                    height={18}
-                    color={theme.colors.primary.default}
-                  />
-                  <Styled.IconInformationText>{movieData?.runtime}</Styled.IconInformationText>
-                </Styled.IconInformation>
+              <Styled.IconInformation>
+                <Icon.Clock
+                  width={18}
+                  height={18}
+                  color={theme.colors.primary.default}
+                />
+                <Styled.IconInformationText>{movieData?.runtime}</Styled.IconInformationText>
+              </Styled.IconInformation>
 
-                <Spoiler
-                  text="Show"
-                  show={user.preferences.ratings}
-                  watched={watched}
-                >
-                  <Styled.IconInformation>
-                    <Icon.Star
-                      width={18}
-                      height={18}
-                      color={theme.colors.primary.default}
-                    />
-                    <Styled.IconInformationText>
-                      {movieData?.vote_average != null &&
-                        Math.round(movieData?.vote_average * 10) / 10}
-                    </Styled.IconInformationText>
-                  </Styled.IconInformation>
-                </Spoiler>
-
+              <Spoiler
+                text="Show"
+                show={user.preferences.ratings}
+                watched={watched}
+              >
                 <Styled.IconInformation>
-                  <Icon.Globe
+                  <Icon.Star
                     width={18}
                     height={18}
                     color={theme.colors.primary.default}
                   />
                   <Styled.IconInformationText>
-                    {movieData?.original_language}
+                    {movieData?.vote_average != null &&
+                      Math.round(movieData?.vote_average * 10) / 10}
                   </Styled.IconInformationText>
                 </Styled.IconInformation>
-              </Styled.Informations>
+              </Spoiler>
 
-              <Styled.WatchedButton
-                watched={watched}
+              <Styled.IconInformation>
+                <Icon.Globe
+                  width={18}
+                  height={18}
+                  color={theme.colors.primary.default}
+                />
+                <Styled.IconInformationText>
+                  {movieData?.original_language}
+                </Styled.IconInformationText>
+              </Styled.IconInformation>
+
+              <TouchableOpacity
                 onPress={(): void => {
-                  markAsWatched(watched)
+                  Linking.openURL(imdbLink)
                 }}
               >
-                <Styled.WatchedText watched={watched}>
-                  {watched ? 'Watched' : 'Unwatched'}
-                </Styled.WatchedText>
-              </Styled.WatchedButton>
+                <IMDB
+                  width={32}
+                  height={32}
+                />
+              </TouchableOpacity>
             </Styled.BasicData>
           </Styled.MainContent>
 
           <View>
             <Styled.CarousselHeader>
-              <Styled.Title>Nominations</Styled.Title>
+              <Styled.SubTitle>Nominations</Styled.SubTitle>
             </Styled.CarousselHeader>
 
             <Styled.List
@@ -221,7 +226,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
 
           <View>
             <Styled.CarousselHeader>
-              <Styled.Title>Where to Watch</Styled.Title>
+              <Styled.SubTitle>Where to Watch</Styled.SubTitle>
             </Styled.CarousselHeader>
 
             {movieProviders?.length > 0 ? (
@@ -235,49 +240,45 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
                 ListFooterComponent={Global.Separator}
               />
             ) : (
-              <Styled.NoProvider>No streaming services available</Styled.NoProvider>
+              <Styled.EmptyState>No streaming services available</Styled.EmptyState>
             )}
           </View>
 
           <View>
             <Styled.CarousselHeader>
-              <Styled.Title>Plot</Styled.Title>
+              <Styled.SubTitle>Plot</Styled.SubTitle>
             </Styled.CarousselHeader>
-            <Spoiler
-              show={user.preferences.plot}
-              watched={watched}
-            >
-              <Styled.Plot>{movieData?.overview}</Styled.Plot>
-            </Spoiler>
+            {movieCast.length < 1 ? (
+              <Styled.EmptyState>Plot not available</Styled.EmptyState>
+            ) : (
+              <Spoiler
+                show={user.preferences.plot}
+                watched={watched}
+              >
+                <Styled.Plot>{movieData?.overview}</Styled.Plot>
+              </Spoiler>
+            )}
           </View>
 
           <View>
             <Styled.CarousselHeader>
-              <Styled.Title>Cast</Styled.Title>
+              <Styled.SubTitle>Cast</Styled.SubTitle>
             </Styled.CarousselHeader>
 
-            <Styled.List
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={movieCast}
-              renderItem={renderCast}
-              ItemSeparatorComponent={Global.Separator}
-              ListHeaderComponent={Global.Separator}
-              ListFooterComponent={Global.Separator}
-            />
+            {movieCast.length < 1 ? (
+              <Styled.EmptyState>Cast not available</Styled.EmptyState>
+            ) : (
+              <Styled.List
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={movieCast}
+                renderItem={renderCast}
+                ItemSeparatorComponent={Global.Separator}
+                ListHeaderComponent={Global.Separator}
+                ListFooterComponent={Global.Separator}
+              />
+            )}
           </View>
-
-          <Styled.IMDBButton
-            onPress={(): void => {
-              Linking.openURL(imdbLink)
-            }}
-          >
-            <IMDB
-              width={40}
-              height={40}
-            />
-            <Styled.IMDBButtonText>Check on IMDB</Styled.IMDBButtonText>
-          </Styled.IMDBButton>
         </Styled.ContentContainer>
       </ScrollView>
     </Global.Screen>

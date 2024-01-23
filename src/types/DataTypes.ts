@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore'
+
 export interface Provider {
   children?: React.ReactNode
 }
@@ -20,6 +22,7 @@ export interface EditionType {
   editionId: string
   categories: string[]
   year: number
+  date: Timestamp
 }
 
 export interface PreferencesType {

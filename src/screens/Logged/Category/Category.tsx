@@ -19,8 +19,8 @@ import routes from '@utils/routes'
 
 const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
   const { categoryId } = route.params
-  const { adminSettings } = useUser()
   const { categories } = useCategories()
+  const user = useUser()
 
   const ballots = useBallots()
 
@@ -96,12 +96,13 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
           isWish={isWish}
           actorId={item.person}
           character={item.information}
-          winner={edition.winners[item.category] === item.id}
+          winner={edition.winners?.[item.category] === item.id}
           movieId={item.movie}
+          onLongPress={(): void => {
+            user.admin && setNewWinner([edition.people[item.person].name, item.id])
+          }}
           onPress={(): void => {
-            adminSettings
-              ? setNewWinner([edition.people[item.person].name, item.id])
-              : navigation.navigate(routes.logged.movie, { movieId: item.movie })
+            navigation.navigate(routes.logged.movie, { movieId: item.movie })
           }}
         />
       )
@@ -114,12 +115,13 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
           isWish={isWish}
           song={item.song}
           information={item.information}
-          winner={edition.winners[item.category] === item.id}
+          winner={edition.winners?.[item.category] === item.id}
           movieId={item.movie}
+          onLongPress={(): void => {
+            user.admin && setNewWinner([item.song, item.id])
+          }}
           onPress={(): void => {
-            adminSettings
-              ? setNewWinner([item.song, item.id])
-              : navigation.navigate(routes.logged.movie, { movieId: item.movie })
+            navigation.navigate(routes.logged.movie, { movieId: item.movie })
           }}
         />
       )
@@ -130,12 +132,13 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
         isSecondBet={isSecondBet}
         isWish={isWish}
         information={item.information}
-        winner={edition.winners[item.category] === item.id}
+        winner={edition.winners?.[item.category] === item.id}
         movieId={item.movie}
+        onLongPress={(): void => {
+          user.admin && setNewWinner([edition.movies[item.movie]['en-US'].name, item.id])
+        }}
         onPress={(): void => {
-          adminSettings
-            ? setNewWinner([edition.movies[item.movie]['en-US'].name, item.id])
-            : navigation.navigate(routes.logged.movie, { movieId: item.movie })
+          navigation.navigate(routes.logged.movie, { movieId: item.movie })
         }}
       />
     )

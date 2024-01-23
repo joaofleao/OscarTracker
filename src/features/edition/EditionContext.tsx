@@ -7,6 +7,7 @@ export interface EditionContextType {
   winners: EditionType['winners']
   categories: EditionType['categories']
   year: EditionType['year']
+  date: EditionType['date']
 
   editionId: EditionType['editionId']
   setEditionId: (edition: EditionType['editionId']) => void

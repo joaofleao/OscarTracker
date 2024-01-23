@@ -1,14 +1,14 @@
 import { useState } from 'react'
-import { Platform, Switch } from 'react-native'
 
+import EditionModal from './EditionModal'
 import * as Styled from './styles'
 import Button from '@components/Button'
 import TextField from '@components/FormFields/TextField'
+import Toggle from '@components/FormFields/Toggle'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
 import { useAuth } from '@features/auth'
-import { useTheme } from '@features/theme'
 import { useUser } from '@features/user'
 import packageJson from '@package.json'
 import type { ProfileProps } from '@types'
@@ -17,10 +17,11 @@ import routes from '@utils/routes'
 const Profile = ({ navigation }: ProfileProps): JSX.Element => {
   const auth = useAuth()
   const user = useUser()
-  const theme = useTheme()
 
   const [displayName, setDisplayName] = useState<string>(user.displayName ?? '')
   const [nickname, setNickname] = useState<string>(user.nickname ?? '')
+
+  const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false)
 
   const [poster, setPoster] = useState<boolean>(user.preferences.poster)
   const [plot, setPlot] = useState<boolean>(user.preferences.plot)
@@ -45,26 +46,12 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
     }
   }
 
-  const switchSettings = {
-    trackColor: {
-      false: theme.colors.background.container,
-      true: theme.colors.background.container,
-    },
-    ios_backgroundColor: theme.colors.background.container,
-
-    style: Platform.OS === 'android' && { height: 0 },
-  }
-
   return (
     <Global.Screen>
       <Header.Root>
-        <Header.Placeholder />
-        <Header.Title
-          align="center"
-          bigHeader
-        >
-          Profile
-        </Header.Title>
+        <Header.Row>
+          <Header.Title bigHeader>Profile</Header.Title>
+        </Header.Row>
 
         <Button
           icon={editing ? <Icon.CheckCircle /> : <Icon.Pencil />}
@@ -77,7 +64,7 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
       <Styled.Content>
         <Styled.ContentContainer>
           <Styled.Section>
-            <Styled.Title>Personal Information </Styled.Title>
+            <Global.Description>Personal Information </Global.Description>
 
             <TextField
               editable={editing}
@@ -107,8 +94,9 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
 
           <Styled.Section>
             <Styled.Item>
-              <Styled.Title>Spoiler Preferences</Styled.Title>
+              <Global.Description>Spoiler Preferences</Global.Description>
               <Button
+                disabled={!editing}
                 label="Quiz"
                 size="action"
                 variant="secondary"
@@ -119,81 +107,83 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
             </Styled.Item>
 
             <Styled.Item>
-              <Styled.Subtitle>Show Posters</Styled.Subtitle>
-
-              <Switch
-                {...switchSettings}
+              <Toggle
                 disabled={!editing}
-                thumbColor={poster ? theme.colors.primary.default : theme.colors.background.default}
-                value={poster}
-                onValueChange={setPoster}
+                label="Show Posters"
+                selected={poster}
+                onToggle={(): void => {
+                  return setPoster((value: boolean): boolean => {
+                    return !value
+                  })
+                }}
               />
             </Styled.Item>
             <Styled.Item>
-              <Styled.Subtitle>Show Plot</Styled.Subtitle>
-              <Switch
-                {...switchSettings}
+              <Toggle
                 disabled={!editing}
-                thumbColor={plot ? theme.colors.primary.default : theme.colors.background.default}
-                value={plot}
-                onValueChange={setPlot}
+                label="Show Plot"
+                selected={plot}
+                onToggle={(): void => {
+                  return setPlot((value: boolean): boolean => {
+                    return !value
+                  })
+                }}
               />
             </Styled.Item>
             <Styled.Item>
-              <Styled.Subtitle>Show Cast</Styled.Subtitle>
-              <Switch
-                {...switchSettings}
+              <Toggle
                 disabled={!editing}
-                thumbColor={cast ? theme.colors.primary.default : theme.colors.background.default}
-                value={cast}
-                onValueChange={setCast}
+                label="Show Cast"
+                selected={cast}
+                onToggle={(): void => {
+                  return setCast((value: boolean): boolean => {
+                    return !value
+                  })
+                }}
               />
             </Styled.Item>
             <Styled.Item>
-              <Styled.Subtitle>Show Ratings</Styled.Subtitle>
-              <Switch
-                {...switchSettings}
+              <Toggle
                 disabled={!editing}
-                thumbColor={
-                  ratings ? theme.colors.primary.default : theme.colors.background.default
-                }
-                value={ratings}
-                onValueChange={setRatings}
+                label="Show Ratings"
+                selected={ratings}
+                onToggle={(): void => {
+                  return setRatings((value: boolean): boolean => {
+                    return !value
+                  })
+                }}
               />
             </Styled.Item>
           </Styled.Section>
 
-          {!!user.admin && (
-            <Styled.Item>
-              <Styled.Title>Admin Options</Styled.Title>
-              <Switch
-                {...switchSettings}
-                thumbColor={
-                  user.adminSettings
-                    ? theme.colors.primary.default
-                    : theme.colors.background.default
-                }
-                value={user.adminSettings}
-                onValueChange={user.setAdminSettings}
-              />
-            </Styled.Item>
-          )}
-
           <Styled.Item>
-            <Styled.Title>App Version</Styled.Title>
+            <Global.Description>App Version</Global.Description>
             <Styled.AccentText>{packageJson.version}</Styled.AccentText>
           </Styled.Item>
 
           <Styled.ButtonContainer>
+            {/* <Button
+              width="full"
+              label="Change Edition"
+              variant="outlined"
+              onPress={(): void => {
+                return setEditionModalOpen(true)
+              }}
+            /> */}
             <Button
-              width="fixed"
+              width="full"
               label="Log Out"
               variant="outlined"
               onPress={auth.signOut}
             />
           </Styled.ButtonContainer>
         </Styled.ContentContainer>
+        <Global.NavBarSeparator />
       </Styled.Content>
+      <EditionModal
+        visible={editionModalOpen}
+        setVisible={setEditionModalOpen}
+      />
     </Global.Screen>
   )
 }

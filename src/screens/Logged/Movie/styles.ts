@@ -34,25 +34,20 @@ export const MainContent = styled.View(() => {
 })
 export const BasicData = styled.View(() => {
   return {
+    paddingVertical: '24px',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '8px',
-  }
-})
-export const Informations = styled.View(() => {
-  return {
-    flex: 1,
-    width: '100%',
-    alignItems: 'center',
-    gap: '8px',
+    gap: '24px',
   }
 })
 
 export const IconInformation = styled.View((props) => {
   return {
-    flexDirection: 'row',
+    flexDirection: 'column',
     paddingHorizontal: '12px',
     paddingVertical: '12px',
+    width: '100%',
+    minWidth: '64px',
 
     backgroundColor: props.theme.colors.background.container,
     gap: '8px',
@@ -106,6 +101,17 @@ export const CarousselHeader = styled.View(() => {
 
 export const Title = styled.Text((props) => {
   return {
+    paddingHorizontal: '20px',
+    paddingVertical: '20px',
+    fontFamily: props.theme.fonts.primary.bold,
+    color: props.theme.colors.text.default,
+    fontSize: '24px',
+    lineHeight: '32px',
+  }
+})
+
+export const SubTitle = styled.Text((props) => {
+  return {
     fontFamily: props.theme.fonts.primary.bold,
     color: props.theme.colors.text.default,
     fontSize: '16px',
@@ -126,20 +132,6 @@ export const Plot = styled.Text((props) => {
   }
 })
 
-export const IMDBButton = styled.TouchableOpacity((props) => {
-  return {
-    paddingHorizontal: '12px',
-    paddingVertical: '12px',
-    borderRadius: '16px',
-    alignSelf: 'center',
-
-    backgroundColor: props.theme.colors.background.container,
-    flexDirection: 'row',
-    gap: '16px',
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-})
 export const IMDBButtonText = styled.Text((props) => {
   return {
     fontSize: '16px',
@@ -223,7 +215,7 @@ export const Provider = styled.Image((props) => {
   }
 })
 
-export const NoProvider = styled.Text((props) => {
+export const EmptyState = styled.Text((props) => {
   return {
     fontFamily: props.theme.fonts.primary.bold,
     color: props.theme.colors.text.disabled,
@@ -234,7 +226,7 @@ export const Nomination = styled.TouchableOpacity((props) => {
   return {
     gap: '4px',
     flexDirection: 'row',
-    backgroundColor: props.theme.colors.primary.shades.shade5,
+    backgroundColor: props.theme.colors.background.container,
     paddingVertical: '8px',
     paddingHorizontal: '12px',
     borderRadius: '20px',
@@ -244,6 +236,6 @@ export const Nomination = styled.TouchableOpacity((props) => {
 export const NominationText = styled.Text((props) => {
   return {
     fontFamily: props.theme.fonts.primary.bold,
-    color: props.theme.colors.primary.default,
+    color: props.theme.colors.text.default,
   }
 })

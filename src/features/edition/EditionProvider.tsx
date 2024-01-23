@@ -6,6 +6,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  Timestamp,
   updateDoc,
   where,
 } from 'firebase/firestore'
@@ -28,8 +29,10 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   const [categories, setCategories] = React.useState<EditionType['categories']>([])
   const [winners, setWinners] = React.useState<EditionType['winners']>({})
 
-  const [editionId, setEditionId] = React.useState<string>('95')
+  const [editionId, setEditionId] = React.useState<string>('96')
   const [year, setYear] = React.useState<number>(0)
+
+  const [date, setDate] = React.useState<Timestamp>(Timestamp.now())
 
   const user = useUser()
   const async = useAsyncStorage()
@@ -43,6 +46,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
         if (response) {
           printFetch('Firebase', 'Edition updated', 'green')
 
+          setDate(response.date)
           setYear(response.year)
           setWinners(response.winners)
           setCategories(response.categories)
@@ -54,13 +58,14 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.isLogged])
+  }, [user.isLogged, editionId])
 
   const getMovies = async (): Promise<void> => {
     const storedMovies = await async.readObject('movies')
     const storedTotalMovies = await async.readString('totalMovies')
+    const storedEditionId = await async.readString('editionId')
 
-    if (storedMovies) {
+    if (storedMovies && storedEditionId === editionId) {
       printFetch('Async-Storage', 'Movies fetched', 'blue')
       setMovies(storedMovies as EditionContextType['movies'])
       setTotalMovies(parseInt(storedTotalMovies, 10) as EditionContextType['totalMovies'])
@@ -86,8 +91,9 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
 
   const getPeople = async (): Promise<void> => {
     const storedPeople = await async.readObject('people')
+    const storedEditionId = await async.readString('editionId')
 
-    if (storedPeople) {
+    if (storedPeople && storedEditionId === editionId) {
       printFetch('Async-Storage', 'People fetched', 'blue')
       setPeople(storedPeople as EditionContextType['people'])
     } else {
@@ -110,8 +116,9 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
 
   const getNominations = async (): Promise<void> => {
     const storedNominations = await async.readObject('nominations')
+    const storedEditionId = await async.readString('editionId')
 
-    if (storedNominations) {
+    if (storedNominations && storedEditionId === editionId) {
       printFetch('Async-Storage', 'Nominations fetched', 'blue')
 
       setNominations(storedNominations as EditionContextType['nominations'])
@@ -163,14 +170,20 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     return array
   }
 
+  const changeEdition: EditionContextType['setEditionId'] = async (id) => {
+    setEditionId(id)
+    await async.storeString('editionId', id)
+  }
+
   const value: EditionContextType = {
     //edition data
     winners,
     categories,
     year,
+    date,
 
     editionId,
-    setEditionId,
+    setEditionId: changeEdition,
     totalMovies,
 
     //edition collections

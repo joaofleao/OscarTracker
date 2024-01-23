@@ -16,6 +16,24 @@ const BallotsProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
 
   const usersCollection = collection(db, 'users')
 
+  const allPoints = React.useMemo(() => {
+    const _points: { [key: string]: number } = {}
+
+    Object.entries(edition.winners).forEach((winner) => {
+      if (bets?.[winner[0]]?.first === winner[1]) {
+        _points[winner[0]] = 100
+      }
+      if (bets?.[winner[0]]?.second === winner[1]) {
+        _points[winner[0]] = 50
+      }
+    })
+    return _points
+  }, [bets, edition.winners])
+
+  const points = Object.values(allPoints).reduce((acc, cur) => {
+    return acc + cur
+  }, 0)
+
   React.useEffect(() => {
     if (user.isLogged) {
       const userRef = doc(usersCollection, user.uid)
@@ -46,10 +64,11 @@ const BallotsProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
       first: _bets.first ?? '',
       second: _bets.second ?? '',
     }
+    const finalWishes = _wishes ?? []
 
     const object = {
       ['bets.' + _category]: finalBets,
-      ['wishes.' + _category]: _wishes,
+      ['wishes.' + _category]: finalWishes,
     }
 
     updateDoc(ballotsRef, object).catch(() => {
@@ -66,6 +85,7 @@ const BallotsProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     vote,
     bets,
     wishes,
+    points,
   }
 
   return <BallotsContext.Provider value={value}>{children}</BallotsContext.Provider>

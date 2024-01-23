@@ -1,15 +1,16 @@
 import React from 'react'
-import { FlatList } from 'react-native'
+import { Animated, View } from 'react-native'
 
 import * as Styled from './styles'
+import Button from '@components/Button'
+import DynamicHeader from '@components/DynamicHeader'
 import SearchField from '@components/FormFields/SearchField'
 import Global from '@components/Global'
-import Header from '@components/Header'
 import NomineeCard from '@components/NomineeCard'
 import ProgressBar from '@components/ProgressBar'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
-import type { BasicMovieType, WatchListProps } from '@types'
+import type { WatchListProps } from '@types'
 import routes from '@utils/routes'
 
 function WatchList({ navigation }: WatchListProps): JSX.Element {
@@ -17,7 +18,9 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
   const user = useUser()
 
   const [search, setSearch] = React.useState<string>('')
+  const [onlyWatched, setOnlyWatched] = React.useState<boolean>(false)
   const [data, setData] = React.useState(Object.values(edition.movies))
+  const scrollOffsetY = React.useRef(new Animated.Value(0)).current
 
   React.useEffect(() => {
     if (search === '') setData(Object.values(edition.movies))
@@ -31,7 +34,16 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
     }
   }, [search, edition.movies])
 
-  const renderItem = ({ item }: { item: BasicMovieType }): JSX.Element => {
+  React.useEffect(() => {
+    if (onlyWatched) {
+      const filtered = Object.values(edition.movies).filter((movie) => {
+        return !user.movies.includes(movie.imdb)
+      })
+      setData(filtered)
+    } else setData(Object.values(edition.movies))
+  }, [edition.movies, onlyWatched, user.movies])
+
+  const renderItem = ({ item }: { item }): JSX.Element => {
     return (
       <NomineeCard
         onPress={(): void => {
@@ -46,31 +58,49 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
 
   return (
     <Global.Screen>
-      <Header.Root>
-        <Header.Title
-          align="center"
-          bigHeader
-        >
-          Watch List
-        </Header.Title>
-      </Header.Root>
-      <Styled.Content>
-        <ProgressBar
-          progress={user.movies.length}
-          total={edition.totalMovies}
-        />
+      <Styled.List
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }], {
+          useNativeDriver: false,
+        })}
+        data={data}
+        renderItem={renderItem}
+        ItemSeparatorComponent={Global.Separator}
+        ListFooterComponent={Global.NavBarSeparator}
+        stickyHeaderIndices={[0]}
+        ListHeaderComponent={
+          <DynamicHeader.Root>
+            <DynamicHeader.Collapse
+              size={64}
+              scrollOffsetY={scrollOffsetY}
+            >
+              <View>
+                <Styled.Header>
+                  <DynamicHeader.Title>Watch List</DynamicHeader.Title>
+                  <Button
+                    onPress={(): void => {
+                      return setOnlyWatched((value) => {
+                        return !value
+                      })
+                    }}
+                    size="action"
+                    label={onlyWatched ? 'all movies' : 'unwatched'}
+                    variant="secondary"
+                  />
+                </Styled.Header>
+              </View>
+            </DynamicHeader.Collapse>
+            <ProgressBar
+              progress={user.movies.length}
+              total={edition.totalMovies}
+            />
 
-        <SearchField
-          onChangeText={setSearch}
-          value={search}
-        />
-
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          ItemSeparatorComponent={Global.Separator}
-        />
-      </Styled.Content>
+            <SearchField
+              onChangeText={setSearch}
+              value={search}
+            />
+          </DynamicHeader.Root>
+        }
+      />
     </Global.Screen>
   )
 }

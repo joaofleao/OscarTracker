@@ -12,14 +12,6 @@ export const ContentContainer = styled.View(() => {
     gap: '40px',
   }
 })
-export const Title = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.regular,
-    fontSize: '20px',
-    lineHeight: '28px',
-  }
-})
 
 export const Section = styled.View(() => {
   return {
@@ -58,5 +50,6 @@ export const ButtonContainer = styled.View(() => {
     alignItems: 'center',
     flex: 1,
     justifyContent: 'flex-end',
+    flexDirection: 'row',
   }
 })

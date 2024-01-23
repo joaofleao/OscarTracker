@@ -5,8 +5,6 @@ export const Header = styled.View(() => {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: '16px',
-    marginBottom: '16px',
   }
 })
 
@@ -17,5 +15,17 @@ export const Title = styled.Text((props) => {
     fontSize: '20px',
     lineHeight: '28px',
     flex: 1,
+  }
+})
+
+export const List = styled.FlatList(() => {
+  return {
+    marginHorizontal: '-20px',
+  }
+})
+
+export const Caroussel = styled.View(() => {
+  return {
+    gap: '20px',
   }
 })

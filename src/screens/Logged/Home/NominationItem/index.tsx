@@ -10,19 +10,21 @@ import routes from '@utils/routes'
 
 interface NominationItemProps {
   nomination: Nomination
+  winnerTitle: string
+  winnerDescription: string
 }
 
 const NominationItem = (props: NominationItemProps): JSX.Element => {
-  const { nomination } = props
+  const { nomination, winnerTitle, winnerDescription } = props
   const edition = useEdition()
   const user = useUser()
+
   const navigation = useNavigation<NativeStackNavigationProp<ScreenTypes, 'logged'>>()
 
   const movie = edition.movies[nomination.movie]
-  const winner = edition.winners[nomination.category] === nomination.id
+  const winner = edition.winners?.[nomination.category] === nomination.id
   const person = edition.people[nomination.person ?? '']
   const watched = user.movies.includes(movie?.imdb)
-
   const isBestPicture = nomination.category === 'picture'
 
   const showPoster = person != null ? true : user.preferences.poster
@@ -47,6 +49,8 @@ const NominationItem = (props: NominationItemProps): JSX.Element => {
         spoiler={showPoster}
         image={image}
         isWatched={watched}
+        winnerTitle={winnerTitle}
+        winnerDescription={winnerDescription}
       />
 
       <Styled.Title numberOfLines={2}>{text}</Styled.Title>
