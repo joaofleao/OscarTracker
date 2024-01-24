@@ -19,7 +19,7 @@ const BallotsProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   const allPoints = React.useMemo(() => {
     const _points: { [key: string]: number } = {}
 
-    Object.entries(edition.winners).forEach((winner) => {
+    Object.entries(edition.winners || []).forEach((winner) => {
       if (bets?.[winner[0]]?.first === winner[1]) {
         _points[winner[0]] = 100
       }

@@ -6,7 +6,6 @@ import NominationCaroussel from './NominationCaroussel'
 import * as Styled from './styles'
 import DynamicHeader from '@components/DynamicHeader'
 import Global from '@components/Global'
-import Header from '@components/Header'
 import ProgressBar from '@components/ProgressBar'
 import { useAuth } from '@features/auth'
 import { useBallots } from '@features/ballots'
@@ -66,8 +65,9 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
   }
 
   const getTitle = (text: 'title' | 'subTitle' | 'accent'): string => {
-    if (Object.keys(edition.winners).length === edition.categories.length) {
-      if (user.movies.length === edition.totalMovies) return daysLegend.afterFinished[text]
+    if (Object.keys(edition.winners || []).length === edition.categories.length) {
+      if (user.movies.length === Object.keys(edition.movies).length)
+        return daysLegend.afterFinished[text]
       else return daysLegend.afterNotFinished[text]
     }
 
@@ -101,7 +101,7 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
             </DynamicHeader.Collapse>
             <ProgressBar
               progress={user.movies.length}
-              total={edition.totalMovies}
+              total={Object.keys(edition.movies).length}
             />
           </DynamicHeader.Root>
         }

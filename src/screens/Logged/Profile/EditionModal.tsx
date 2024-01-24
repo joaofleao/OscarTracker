@@ -1,6 +1,7 @@
-import Button from '@components/Button'
+import { View } from 'react-native'
+
+import * as Styled from './styles'
 import Modal from '@components/Modal'
-import { useEdition } from '@features/edition'
 
 type EditionModalProps = {
   visible: boolean
@@ -9,15 +10,9 @@ type EditionModalProps = {
 
 const EditionModal = (props: EditionModalProps): JSX.Element => {
   const { visible, setVisible } = props
-  const edition = useEdition()
 
   const close = (): void => {
     setVisible(false)
-  }
-
-  const handleSetEdition = (year: string): void => {
-    edition.setEditionId(year)
-    close()
   }
 
   return (
@@ -25,29 +20,14 @@ const EditionModal = (props: EditionModalProps): JSX.Element => {
       visible={visible}
       onClickOutside={close}
     >
-      <Modal.Title>Change Edition</Modal.Title>
-      <Modal.Description>Select the Oscar edition you want to use</Modal.Description>
+      <Styled.Container>
+        <Styled.Line>Para Sophia,</Styled.Line>
 
-      <Modal.Row>
-        <Button
-          size="action"
-          width="full"
-          label="2023"
-          variant="primary"
-          onPress={(): void => {
-            return handleSetEdition('95')
-          }}
-        />
-        <Button
-          size="action"
-          width="full"
-          variant="primary"
-          label="2024"
-          onPress={(): void => {
-            return handleSetEdition('96')
-          }}
-        />
-      </Modal.Row>
+        <View>
+          <Styled.TabbedLine> mais do que tudo</Styled.TabbedLine>
+          <Styled.TabbedLine2> e pra sempre</Styled.TabbedLine2>
+        </View>
+      </Styled.Container>
     </Modal.Root>
   )
 }

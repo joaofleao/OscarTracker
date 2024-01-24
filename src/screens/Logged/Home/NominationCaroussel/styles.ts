@@ -26,6 +26,7 @@ export const List = styled.FlatList(() => {
 
 export const Caroussel = styled.View(() => {
   return {
+    marginHorizontal: '20px',
     gap: '20px',
   }
 })

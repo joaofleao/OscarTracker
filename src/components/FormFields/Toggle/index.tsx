@@ -33,7 +33,7 @@ const Toggle = (props: ToggleProps): JSX.Element => {
       easing: Easing.ease,
       useNativeDriver: true,
     }).start()
-    if (!disabled) onToggle?.()
+    onToggle?.()
   }
 
   const renderLabel = label && <Styled.Label numberOfLines={1}>{label}</Styled.Label>
@@ -42,6 +42,7 @@ const Toggle = (props: ToggleProps): JSX.Element => {
     <Styled.Container>
       {renderLabel}
       <Styled.Toggle
+        disabled={disabled}
         style={{ transform: [{ scale }] }}
         onPress={handleToggleAnimation}
         onPressIn={animationPressIn}

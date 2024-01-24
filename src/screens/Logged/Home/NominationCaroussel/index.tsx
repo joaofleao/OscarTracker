@@ -24,12 +24,12 @@ const NominationCaroussel = (props: NominationCarousselProps): JSX.Element => {
 
   const { bets } = useBallots()
 
-  const sortedData = nominations[categoryId].sort((x, y) => {
+  const sortedData = nominations?.[categoryId]?.sort((x, y) => {
     return x.id === winners?.[x.category] ? -1 : y.id === winners?.[y.category] ? 1 : 0
   })
 
-  const first = sortedData[0].id === bets[categoryId]?.first
-  const second = sortedData[0].id === bets[categoryId]?.second
+  const first = sortedData?.[0]?.id === bets?.[categoryId]?.first
+  const second = sortedData?.[0]?.id === bets?.[categoryId]?.second
 
   const renderNominationItem = ({ item }): JSX.Element => {
     return (

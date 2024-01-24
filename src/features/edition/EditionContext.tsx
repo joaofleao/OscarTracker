@@ -11,7 +11,6 @@ export interface EditionContextType {
 
   editionId: EditionType['editionId']
   setEditionId: (edition: EditionType['editionId']) => void
-  totalMovies: number
 
   //edition collections
   movies: Record<string, BasicMovieType>

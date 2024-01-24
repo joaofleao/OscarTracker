@@ -5,7 +5,7 @@ import * as Styled from './styles'
 export interface DynamicHeader {
   scrollOffsetY: Animated.Value
   children?: JSX.Element | JSX.Element[]
-  size: number
+  size?: number
 }
 const defaultValue: DynamicHeader = {
   scrollOffsetY: new Animated.Value(0),

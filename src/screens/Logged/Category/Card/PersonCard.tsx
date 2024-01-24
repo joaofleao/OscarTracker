@@ -60,7 +60,7 @@ const PersonCard = (props: PersonCardProps): JSX.Element => {
           {person.name}
         </Styled.Title>
 
-        <Styled.Information numberOfLines={2}>as {character}</Styled.Information>
+        {character && <Styled.Information numberOfLines={2}>as {character}</Styled.Information>}
         <Styled.Movie numberOfLines={2}>{movie.name}</Styled.Movie>
         <Styled.Bets>
           <Styled.Toggle

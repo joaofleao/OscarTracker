@@ -1,6 +1,6 @@
 {
   "name": "oscartracker",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start --go",
@@ -33,7 +33,9 @@
     "react-native-screens": "~3.22.0",
     "react-native-svg": "13.9.0",
     "react-native-vector-icons": "^9.2.0",
-    "styled-components": "^6.0.2"
+    "styled-components": "^6.0.2",
+    "expo-dev-client": "~2.4.12",
+    "expo-blur": "~12.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

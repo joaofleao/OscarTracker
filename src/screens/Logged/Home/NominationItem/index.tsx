@@ -1,7 +1,10 @@
+import { GestureResponderEvent } from 'react-native'
+
 import * as Styled from './styles'
 import Poster from '@components/Poster'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
+import usePressableAnimation from '@hooks/usePressableAnimation'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { getImage } from '@services/tmdb/api'
@@ -10,8 +13,8 @@ import routes from '@utils/routes'
 
 interface NominationItemProps {
   nomination: Nomination
-  winnerTitle: string
-  winnerDescription: string
+  winnerTitle?: string
+  winnerDescription?: string
 }
 
 const NominationItem = (props: NominationItemProps): JSX.Element => {
@@ -27,7 +30,6 @@ const NominationItem = (props: NominationItemProps): JSX.Element => {
   const watched = user.movies.includes(movie?.imdb)
   const isBestPicture = nomination.category === 'picture'
 
-  const showPoster = person != null ? true : user.preferences.poster
   const image =
     person != null
       ? getImage(person.image)
@@ -38,15 +40,20 @@ const NominationItem = (props: NominationItemProps): JSX.Element => {
     navigation.navigate(routes.logged.movie, { movieId: movie.imdb })
   }
 
+  const { animationPressIn, animationPressOut, scale } = usePressableAnimation()
+
   return (
     <Styled.Container
       large={isBestPicture}
+      style={{ transform: [{ scale }] }}
+      onPressIn={animationPressIn}
+      onPressOut={animationPressOut}
       onPress={handleClick}
     >
       <Poster
         winner={winner}
         large={isBestPicture}
-        spoiler={showPoster}
+        spoiler={user.preferences.poster}
         image={image}
         isWatched={watched}
         winnerTitle={winnerTitle}

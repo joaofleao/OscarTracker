@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import EditionModal from './EditionModal'
 import * as Styled from './styles'
@@ -11,6 +11,7 @@ import Icon from '@components/Icon'
 import { useAuth } from '@features/auth'
 import { useUser } from '@features/user'
 import packageJson from '@package.json'
+import { useIsFocused } from '@react-navigation/native'
 import type { ProfileProps } from '@types'
 import routes from '@utils/routes'
 
@@ -45,6 +46,23 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
       setEditing(true)
     }
   }
+
+  const isFocused = useIsFocused()
+
+  React.useEffect(() => {
+    if (!isFocused) {
+      if (editing) {
+        setEditing(false)
+        user.updateUser(
+          user.email,
+          displayName,
+          nickname,
+          { poster, plot, cast, ratings },
+          undefined,
+        )
+      }
+    }
+  }, [isFocused, editing, user, displayName, nickname, poster, plot, cast, ratings])
 
   return (
     <Global.Screen>
@@ -109,8 +127,8 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
             <Styled.Item>
               <Toggle
                 disabled={!editing}
-                label="Show Posters"
-                selected={poster}
+                label="Hide Posters"
+                selected={!poster}
                 onToggle={(): void => {
                   return setPoster((value: boolean): boolean => {
                     return !value
@@ -121,8 +139,8 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
             <Styled.Item>
               <Toggle
                 disabled={!editing}
-                label="Show Plot"
-                selected={plot}
+                label="Hide Plot"
+                selected={!plot}
                 onToggle={(): void => {
                   return setPlot((value: boolean): boolean => {
                     return !value
@@ -133,8 +151,8 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
             <Styled.Item>
               <Toggle
                 disabled={!editing}
-                label="Show Cast"
-                selected={cast}
+                label="Hide Cast"
+                selected={!cast}
                 onToggle={(): void => {
                   return setCast((value: boolean): boolean => {
                     return !value
@@ -145,8 +163,8 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
             <Styled.Item>
               <Toggle
                 disabled={!editing}
-                label="Show Ratings"
-                selected={ratings}
+                label="Hide Ratings"
+                selected={!ratings}
                 onToggle={(): void => {
                   return setRatings((value: boolean): boolean => {
                     return !value
@@ -162,14 +180,14 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
           </Styled.Item>
 
           <Styled.ButtonContainer>
-            {/* <Button
+            <Button
               width="full"
-              label="Change Edition"
+              label="Dedication"
               variant="outlined"
               onPress={(): void => {
                 return setEditionModalOpen(true)
               }}
-            /> */}
+            />
             <Button
               width="full"
               label="Log Out"

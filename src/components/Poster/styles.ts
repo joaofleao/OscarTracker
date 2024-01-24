@@ -9,30 +9,20 @@ export const Container = styled.View<ImageProps>((props) => {
   return {
     width: props.width,
     height: props.height,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
+
+    alignItems: props.winner ? 'flex-end' : 'center',
+    justifyContent: props.winner ? 'flex-end' : 'center',
+
     borderRadius: '12px',
     backgroundColor: props.theme.colors.background.container,
-    ...(props.winner && {
-      borderColor: props.theme.colors.primary.default,
-      borderWidth: '2px',
-      borderStyle: 'solid',
-    }),
   }
 })
 
-interface WinnerCoverProps {
-  blur: boolean
-}
-
-export const WinnerCover = styled.View<WinnerCoverProps>((props) => {
+export const WinnerCover = styled.View(() => {
   return {
-    backgroundColor: props.blur && props.theme.colors.background.backdrop,
     position: 'absolute',
     width: '100%',
     height: '100%',
-    borderRadius: '12px',
     alignItems: 'center',
     justifyContent: 'center',
   }
@@ -57,26 +47,44 @@ export const WinnerDescription = styled.Text<WinnerProps>((props) => {
   }
 })
 
-export const IconContainer = styled.View((props) => {
+interface IconContainerProps {
+  large: boolean
+  winner: boolean
+}
+
+export const IconContainer = styled.View<IconContainerProps>((props) => {
   return {
     position: 'absolute',
-    backgroundColor: props.theme.colors.primary.default,
+    bottom: !props.winner ? undefined : props.large ? 12 : 8,
+    right: !props.winner ? undefined : props.large ? 12 : 8,
+    backgroundColor: props.theme.colors.background.container,
     padding: '8px',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '12px',
+    borderRadius: props.large ? 12 : 8,
+
+    shadowColor: '#000',
+    shadowOpacity: '0.33',
+    shadowRadius: '4px',
+    elevation: '6',
   }
 })
 
-export const Cover = styled.View<ImageProps>((props) => {
+interface CoverProps {
+  winner: boolean
+  height: number
+  width: number
+}
+
+export const Cover = styled.View<CoverProps>((props) => {
   return {
     position: 'absolute',
     borderRadius: '12px',
-    backgroundColor: props.theme.colors.background.container,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: props.width,
-    height: props.height,
+    backgroundColor: 'rgba(0,0,0,.6)',
+
+    ...(props.winner && {
+      borderColor: props.theme.colors.primary.default,
+      borderWidth: '2px',
+      borderStyle: 'solid',
+    }),
   }
 })
 

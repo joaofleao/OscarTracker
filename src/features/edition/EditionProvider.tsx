@@ -22,7 +22,7 @@ const editionsCollection = collection(db, 'editions')
 
 const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const [movies, setMovies] = React.useState<EditionContextType['movies']>({})
-  const [totalMovies, setTotalMovies] = React.useState<EditionContextType['totalMovies']>(0)
+
   const [people, setPeople] = React.useState<EditionContextType['people']>({})
   const [nominations, setNominations] = React.useState<EditionContextType['nominations']>({})
 
@@ -58,17 +58,14 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.isLogged, editionId])
+  }, [user.isLogged])
 
   const getMovies = async (): Promise<void> => {
     const storedMovies = await async.readObject('movies')
-    const storedTotalMovies = await async.readString('totalMovies')
-    const storedEditionId = await async.readString('editionId')
 
-    if (storedMovies && storedEditionId === editionId) {
+    if (storedMovies) {
       printFetch('Async-Storage', 'Movies fetched', 'blue')
       setMovies(storedMovies as EditionContextType['movies'])
-      setTotalMovies(parseInt(storedTotalMovies, 10) as EditionContextType['totalMovies'])
     } else {
       printFetch('Firebase', 'Movies fetched', 'yellow')
 
@@ -83,7 +80,6 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
       })
 
       setMovies(map)
-      setTotalMovies(response.size)
       await async.storeObject('movies', map)
       await async.storeString('totalMovies', `${response.size}`)
     }
@@ -91,9 +87,8 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
 
   const getPeople = async (): Promise<void> => {
     const storedPeople = await async.readObject('people')
-    const storedEditionId = await async.readString('editionId')
 
-    if (storedPeople && storedEditionId === editionId) {
+    if (storedPeople) {
       printFetch('Async-Storage', 'People fetched', 'blue')
       setPeople(storedPeople as EditionContextType['people'])
     } else {
@@ -116,9 +111,8 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
 
   const getNominations = async (): Promise<void> => {
     const storedNominations = await async.readObject('nominations')
-    const storedEditionId = await async.readString('editionId')
 
-    if (storedNominations && storedEditionId === editionId) {
+    if (storedNominations) {
       printFetch('Async-Storage', 'Nominations fetched', 'blue')
 
       setNominations(storedNominations as EditionContextType['nominations'])
@@ -184,7 +178,6 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
 
     editionId,
     setEditionId: changeEdition,
-    totalMovies,
 
     //edition collections
     movies,

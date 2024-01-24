@@ -82,6 +82,13 @@ const Logged = (
       name={routes.logged.preferences}
       component={Preferences}
     />
+    <Stack.Screen
+      options={{
+        animation: 'slide_from_right',
+      }}
+      name={routes.logged.category}
+      component={Category}
+    />
 
     <Stack.Screen
       options={{
@@ -90,14 +97,6 @@ const Logged = (
       }}
       name={routes.logged.movie}
       component={Movie}
-    />
-
-    <Stack.Screen
-      options={{
-        animation: 'slide_from_right',
-      }}
-      name={routes.logged.category}
-      component={Category}
     />
 
     <Stack.Screen

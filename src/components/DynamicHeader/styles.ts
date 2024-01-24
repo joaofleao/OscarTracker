@@ -12,7 +12,7 @@ export const DynamicHeader = styled(Animated.View)(() => {
 export const StickyHeader = styled.View((props) => {
   return {
     backgroundColor: props.theme.colors.background.default,
-    marginHorizontal: '-20px',
+
     paddingHorizontal: '20px',
     gap: '16px',
     paddingBottom: '12px',

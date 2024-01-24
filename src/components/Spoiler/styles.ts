@@ -1,25 +1,33 @@
 import { Animated } from 'react-native'
+import { BlurView } from 'expo-blur'
 import styled from 'styled-components/native'
 
 export const Container = styled.Pressable(() => {
   return {
     alignItems: 'center',
     justifyContent: 'center',
-    overflow: 'hidden',
     position: 'relative',
     borderRadius: '12px',
+    overflow: 'hidden',
   }
 })
 
-export const Background = styled(Animated.View)((props) => {
+export const MovingBackground = styled(Animated.View)(() => {
   return {
     height: '100%',
     width: '100%',
     position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: props.theme.colors.background.container,
-    padding: '10px',
+  }
+})
+export const Blur = styled(BlurView)(() => {
+  return {
+    flex: 1,
+    width: '100%',
+    textAlign: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
   }
 })
 export const Title = styled.Text((props) => {

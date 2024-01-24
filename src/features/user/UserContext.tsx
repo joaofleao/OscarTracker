@@ -12,6 +12,7 @@ export interface UserContextType {
   emailVerified: boolean
   nickname: string
   movies: string[]
+
   onboarding: boolean
   uid: string
   setUid: (uid: string) => void

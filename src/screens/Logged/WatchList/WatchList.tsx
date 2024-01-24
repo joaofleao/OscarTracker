@@ -18,7 +18,8 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
   const user = useUser()
 
   const [search, setSearch] = React.useState<string>('')
-  const [onlyWatched, setOnlyWatched] = React.useState<boolean>(false)
+  const [filter, setFilter] = React.useState<'all movies' | 'watched' | 'unwatched'>('all movies')
+
   const [data, setData] = React.useState(Object.values(edition.movies))
   const scrollOffsetY = React.useRef(new Animated.Value(0)).current
 
@@ -35,29 +36,50 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
   }, [search, edition.movies])
 
   React.useEffect(() => {
-    if (onlyWatched) {
+    if (filter === 'unwatched') {
       const filtered = Object.values(edition.movies).filter((movie) => {
         return !user.movies.includes(movie.imdb)
       })
       setData(filtered)
+    } else if (filter === 'watched') {
+      const filtered = Object.values(edition.movies).filter((movie) => {
+        return user.movies.includes(movie.imdb)
+      })
+      setData(filtered)
     } else setData(Object.values(edition.movies))
-  }, [edition.movies, onlyWatched, user.movies])
+  }, [edition.movies, filter, user.movies])
 
   const renderItem = ({ item }: { item }): JSX.Element => {
     return (
-      <NomineeCard
-        onPress={(): void => {
-          navigation.navigate(routes.logged.movie, { movieId: item.imdb })
-        }}
-        image={item['en-US'].image}
-        title={item['en-US'].name}
-        id={item.imdb}
-      />
+      <Styled.Item>
+        <NomineeCard
+          onPress={(): void => {
+            navigation.navigate(routes.logged.movie, { movieId: item.imdb })
+          }}
+          image={item['en-US'].image}
+          title={item['en-US'].name}
+          id={item.imdb}
+        />
+      </Styled.Item>
     )
   }
 
   return (
     <Global.Screen>
+      <Styled.FloatingButton>
+        <Button
+          onPress={(): void => {
+            return setFilter((value) => {
+              if (value === 'all movies') return 'watched'
+              if (value === 'watched') return 'unwatched'
+              else return 'all movies'
+            })
+          }}
+          size="action"
+          label={filter}
+          variant="outlined"
+        />
+      </Styled.FloatingButton>
       <Styled.List
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }], {
           useNativeDriver: false,
@@ -76,22 +98,12 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
               <View>
                 <Styled.Header>
                   <DynamicHeader.Title>Watch List</DynamicHeader.Title>
-                  <Button
-                    onPress={(): void => {
-                      return setOnlyWatched((value) => {
-                        return !value
-                      })
-                    }}
-                    size="action"
-                    label={onlyWatched ? 'all movies' : 'unwatched'}
-                    variant="secondary"
-                  />
                 </Styled.Header>
               </View>
             </DynamicHeader.Collapse>
             <ProgressBar
               progress={user.movies.length}
-              total={edition.totalMovies}
+              total={Object.keys(edition.movies).length}
             />
 
             <SearchField

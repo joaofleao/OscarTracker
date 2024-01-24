@@ -75,6 +75,8 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
   }
 
   const renderCast = ({ item }: ListRenderItemInfo<TMDBPerson>): JSX.Element => {
+    const picture = getImage(item.profile_path)
+
     return (
       <Styled.CastSpoiler
         show={user.preferences.cast}
@@ -87,8 +89,8 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
           }}
         >
           <Styled.CastImageContainer>
-            <Styled.CastNoImage>No Image</Styled.CastNoImage>
-            <Styled.CastImage source={{ uri: getImage(item.profile_path) }} />
+            {picture && <Styled.CastNoImage>No Image</Styled.CastNoImage>}
+            <Styled.CastImage source={{ uri: picture }} />
           </Styled.CastImageContainer>
 
           <Styled.CastName numberOfLines={2}>{item.name}</Styled.CastName>

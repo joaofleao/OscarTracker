@@ -1,3 +1,4 @@
+import { Animated, Pressable } from 'react-native'
 import styled from 'styled-components/native'
 
 import Spoiler from '@components/Spoiler'

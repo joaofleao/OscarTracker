@@ -8,8 +8,9 @@ export interface Nomination {
   category: string
   movie: string
   person: string | undefined
-  information: string | undefined
   song: string | undefined
+  character: string | undefined
+  information: string | undefined
 }
 export interface CategoryType {
   id: string
@@ -41,6 +42,7 @@ export interface UserType {
   phoneNumber: string
   photoURL: string
   movies: string[]
+  movies2024: string[]
   uid: string
   onboarding: boolean
   nickname: string

@@ -7,6 +7,7 @@ import EyeOff from './EyeOff'
 import FingersCrossed from './FingersCrossed'
 import Globe from './Globe'
 import Home from './Home'
+import Lock from './Lock'
 import Oscar from './Oscar'
 import Pencil from './Pencil'
 import Person from './Person'
@@ -32,4 +33,5 @@ export default {
   Search,
   Star,
   X,
+  Lock,
 }
