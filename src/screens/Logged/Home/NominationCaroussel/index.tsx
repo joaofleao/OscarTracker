@@ -50,7 +50,7 @@ const NominationCaroussel = (props: NominationCarousselProps): JSX.Element => {
       <Styled.Header>
         <Styled.Title>{categories[categoryId]['en-US']}</Styled.Title>
         <Button
-          label="expand"
+          label="vote"
           size="action"
           variant="secondary"
           onPress={handleSeeMore}
