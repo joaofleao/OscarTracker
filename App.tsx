@@ -1,11 +1,46 @@
-import React from 'react'
-import { Router } from './src/routes'
-import ContextProviders from './src/providers'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import Router from '@routes/Router'
 
-export default function App() {
+import { EditionProvider } from '@features/edition'
+import { CategoriesProvider } from '@features/categories'
+import { MoviesProvider } from '@features/movies'
+import { ThemeProvider } from '@features/theme'
+import { LoadingProvider } from '@features/loading'
+import { ToastProvider } from '@features/toast'
+import { UserProvider } from '@features/user'
+import { AuthProvider } from '@features/auth'
+import { AppProvider } from '@features/app'
+import { AnnouncementsProvider } from '@features/announcements'
+import { BallotsProvider } from '@features/ballots'
+
+const App = (): JSX.Element => {
   return (
-    <ContextProviders>
-      <Router />
-    </ContextProviders>
+    <AppProvider>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <LoadingProvider>
+            <ToastProvider>
+              <AnnouncementsProvider>
+                <UserProvider>
+                  <AuthProvider>
+                    <MoviesProvider>
+                      <CategoriesProvider>
+                        <EditionProvider>
+                          <BallotsProvider>
+                            <Router />
+                          </BallotsProvider>
+                        </EditionProvider>
+                      </CategoriesProvider>
+                    </MoviesProvider>
+                  </AuthProvider>
+                </UserProvider>
+              </AnnouncementsProvider>
+            </ToastProvider>
+          </LoadingProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </AppProvider>
   )
 }
+
+export default App
