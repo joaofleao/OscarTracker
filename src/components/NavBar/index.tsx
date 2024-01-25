@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import * as Styled from './styles'
 import Tab from './TabBar'
+import useKeyboard from '@hooks/useKeyboard'
 import { useNavigation } from '@react-navigation/native'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { type ScreenTypes } from '@types'
@@ -23,6 +24,7 @@ const NavBar = (props: Props): JSX.Element => {
   const { tabs, initialRoute } = props
 
   const navigation = useNavigation<ProfileScreenNavigationProp>()
+  const keyboardOpen = useKeyboard()
 
   const selected = navigation.getState()?.routes?.[0]?.state?.index ?? initialRoute
   const insets = useSafeAreaInsets()
@@ -34,6 +36,8 @@ const NavBar = (props: Props): JSX.Element => {
   const offset = (navBarWidth / tabs.length) * selected
 
   const labelOffsetValue = React.useRef(new Animated.Value(offset)).current
+
+  const keyboardOffsetValue = React.useRef<Animated.Value>(new Animated.Value(0)).current
 
   const springAnimation = (index): void => {
     Animated.spring(labelOffsetValue, {
@@ -58,15 +62,21 @@ const NavBar = (props: Props): JSX.Element => {
     )
   }
 
+  React.useEffect(() => {
+    Animated.spring(keyboardOffsetValue, {
+      toValue: keyboardOpen ? 400 : 0,
+      useNativeDriver: true,
+    }).start()
+  }, [keyboardOpen, keyboardOffsetValue])
+
   return (
-    <Styled.Container style={{ bottom: insets.bottom + 12 }}>
+    <Styled.Container
+      keyboardOpen={keyboardOpen}
+      style={{ transform: [{ translateY: keyboardOffsetValue }], bottom: insets.bottom + 12 }}
+    >
       {tabs.map(renderTabs)}
 
-      <Styled.Selector
-        style={{
-          transform: [{ translateX: labelOffsetValue }],
-        }}
-      >
+      <Styled.Selector style={{ transform: [{ translateX: labelOffsetValue }] }}>
         <Styled.Background />
       </Styled.Selector>
     </Styled.Container>

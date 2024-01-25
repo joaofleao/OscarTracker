@@ -1,5 +1,3 @@
-import { GestureResponderEvent } from 'react-native'
-
 import * as Styled from './styles'
 import Poster from '@components/Poster'
 import { useEdition } from '@features/edition'
@@ -52,7 +50,7 @@ const NominationItem = (props: NominationItemProps): JSX.Element => {
     >
       <Poster
         winner={winner}
-        large={isBestPicture}
+        size={isBestPicture ? 'large' : 'small'}
         spoiler={user.preferences.poster}
         image={image}
         isWatched={watched}

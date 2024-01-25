@@ -10,13 +10,10 @@ export const Item = styled.View(() => {
 })
 export const FloatingButton = styled.View((props) => {
   return {
-    position: 'absolute',
-    alignSelf: 'center',
-    bottom: 132,
     backgroundColor: props.theme.colors.background.default,
-    zIndex: 1,
   }
 })
+
 export const Header = styled.View(() => {
   return {
     flexDirection: 'row',

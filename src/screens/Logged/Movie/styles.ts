@@ -15,6 +15,7 @@ export const ContentContainer = styled.View(() => {
 export const SpoilerPoster = styled(Spoiler)(() => {
   return {
     flex: 1,
+    maxWidth: '70%',
   }
 })
 
@@ -31,6 +32,7 @@ export const MainContent = styled.View(() => {
     flexDirection: 'row',
     flex: 1,
     gap: '16px',
+    justifyContent: 'space-around',
   }
 })
 export const BasicData = styled.View(() => {
@@ -39,6 +41,17 @@ export const BasicData = styled.View(() => {
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: '24px',
+
+    flex: 1,
+    maxWidth: '20%',
+  }
+})
+
+export const StarSpoiler = styled(Spoiler)(() => {
+  return {
+    width: '100%',
+    maxWidth: '100px',
+    minWidth: '64px',
   }
 })
 
@@ -48,6 +61,7 @@ export const IconInformation = styled.View((props) => {
     paddingHorizontal: '12px',
     paddingVertical: '12px',
     width: '100%',
+    maxWidth: '100px',
     minWidth: '64px',
 
     backgroundColor: props.theme.colors.background.container,

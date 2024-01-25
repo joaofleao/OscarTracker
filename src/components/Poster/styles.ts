@@ -1,8 +1,8 @@
 import styled from 'styled-components/native'
 
 interface ImageProps {
-  width: number
-  height: number
+  width: number | string
+  height: number | string
   winner: boolean
 }
 export const Container = styled.View<ImageProps>((props) => {
@@ -15,6 +15,7 @@ export const Container = styled.View<ImageProps>((props) => {
 
     borderRadius: '12px',
     backgroundColor: props.theme.colors.background.container,
+    aspectRatio: 0.67,
   }
 })
 
@@ -48,18 +49,18 @@ export const WinnerDescription = styled.Text<WinnerProps>((props) => {
 })
 
 interface IconContainerProps {
-  large: boolean
+  size: 'small' | 'full' | 'large'
   winner: boolean
 }
 
 export const IconContainer = styled.View<IconContainerProps>((props) => {
   return {
     position: 'absolute',
-    bottom: !props.winner ? undefined : props.large ? 12 : 8,
-    right: !props.winner ? undefined : props.large ? 12 : 8,
+    bottom: !props.winner ? undefined : props.size === 'large' ? 12 : 8,
+    right: !props.winner ? undefined : props.size === 'large' ? 12 : 8,
     backgroundColor: props.theme.colors.background.container,
-    padding: '8px',
-    borderRadius: props.large ? 12 : 8,
+    padding: props.size === 'full' ? 16 : 8,
+    borderRadius: props.size === 'small' ? 8 : 12,
 
     shadowColor: '#000',
     shadowOpacity: '0.33',
@@ -70,8 +71,8 @@ export const IconContainer = styled.View<IconContainerProps>((props) => {
 
 interface CoverProps {
   winner: boolean
-  height: number
-  width: number
+  height: number | string
+  width: number | string
 }
 
 export const Cover = styled.View<CoverProps>((props) => {

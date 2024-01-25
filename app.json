@@ -3,9 +3,11 @@
     "version": "3.0.1",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
-    "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true
+    "assetBundlePatterns": ["**/*"]
+  },
+  "extra": {
+    "eas": {
+      "projectId": "8b994b96-2537-4c86-b4c9-6219f98bb639"
     }
   }
 }

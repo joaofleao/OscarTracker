@@ -7,6 +7,7 @@ import Button from '@components/Button'
 import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
+import Poster from '@components/Poster'
 import Spoiler from '@components/Spoiler'
 import { useCategories } from '@features/categories'
 import { useEdition } from '@features/edition'
@@ -155,7 +156,14 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
               watched={watched}
               text="Show Poster"
             >
-              <Styled.Poster source={{ uri: getImage(image, 1280) }} />
+              <Poster
+                spoiler={user.preferences.poster}
+                size="full"
+                image={getImage(image, 1280)}
+                isWatched={watched}
+              />
+
+              {/* <Styled.Poster source={} /> */}
             </Styled.SpoilerPoster>
 
             <Styled.BasicData>
@@ -168,7 +176,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
                 <Styled.IconInformationText>{movieData?.runtime}</Styled.IconInformationText>
               </Styled.IconInformation>
 
-              <Spoiler
+              <Styled.StarSpoiler
                 text="Show"
                 show={user.preferences.ratings}
                 watched={watched}
@@ -184,7 +192,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
                       Math.round(movieData?.vote_average * 10) / 10}
                   </Styled.IconInformationText>
                 </Styled.IconInformation>
-              </Spoiler>
+              </Styled.StarSpoiler>
 
               <Styled.IconInformation>
                 <Icon.Globe

@@ -5,8 +5,8 @@ import { useTheme } from '@features/theme'
 export interface PosterProps {
   image: string
   isWatched: boolean
-  spoiler: boolean
-  large?: boolean
+  spoiler?: boolean
+  size?: 'small' | 'large' | 'full'
   winner?: boolean
   winnerTitle?: string
   winnerDescription?: string
@@ -15,19 +15,19 @@ export interface PosterProps {
 const defaultValues: Partial<PosterProps> = {
   isWatched: false,
   spoiler: false,
-  large: false,
+  size: 'small',
   winner: false,
 }
 
 const Poster = (props: PosterProps): JSX.Element => {
-  const { image, isWatched, spoiler, large, winner, winnerTitle, winnerDescription } = {
+  const { image, isWatched, spoiler, size, winner, winnerTitle, winnerDescription } = {
     ...defaultValues,
     ...props,
   }
   const theme = useTheme()
 
-  const width = large ? 158 : 106
-  const height = large ? 236 : 158
+  const width = size === 'large' ? 158 : size === 'full' ? '100%' : 106
+  const height = size === 'large' ? 236 : size === 'full' ? '100%' : 158
 
   const getPoster = (
     <Styled.Image
@@ -46,12 +46,12 @@ const Poster = (props: PosterProps): JSX.Element => {
 
   const getIcon = (
     <Styled.IconContainer
-      large={large}
-      winner={winner}
+      size={size}
+      winner={winner && winnerTitle != null && winnerDescription != null}
     >
       <Icon.Lock
-        width={large ? 24 : 16}
-        height={large ? 24 : 16}
+        width={size === 'small' ? 16 : 24}
+        height={size === 'small' ? 16 : 24}
         color={theme.colors.primary.default}
       />
     </Styled.IconContainer>
@@ -59,9 +59,13 @@ const Poster = (props: PosterProps): JSX.Element => {
 
   const getWinnerCover = (
     <Styled.WinnerCover>
-      {winnerTitle && <Styled.WinnerTitle large={large}>{winnerTitle}</Styled.WinnerTitle>}
+      {winnerTitle && (
+        <Styled.WinnerTitle large={size === 'large'}>{winnerTitle}</Styled.WinnerTitle>
+      )}
       {winnerDescription && (
-        <Styled.WinnerDescription large={large}>{winnerDescription}</Styled.WinnerDescription>
+        <Styled.WinnerDescription large={size === 'large'}>
+          {winnerDescription}
+        </Styled.WinnerDescription>
       )}
     </Styled.WinnerCover>
   )
@@ -69,7 +73,7 @@ const Poster = (props: PosterProps): JSX.Element => {
     <Styled.Container
       width={width}
       height={height}
-      winner={winner}
+      winner={winner && winnerTitle != null && winnerDescription != null}
     >
       {getPoster}
 

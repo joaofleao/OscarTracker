@@ -24,9 +24,9 @@ const NomineeCard = (props: NomineeCardProps): JSX.Element => {
       {...rest}
     >
       <Poster
+        spoiler={user.preferences.poster}
         image={getImage(image)}
         isWatched={user.movies.includes(id)}
-        spoiler={user.preferences.poster}
       />
       <Styled.Content>
         <Styled.Title numberOfLines={3}>{title}</Styled.Title>

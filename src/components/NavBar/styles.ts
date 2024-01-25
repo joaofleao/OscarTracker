@@ -1,4 +1,4 @@
-import { Animated } from 'react-native'
+import { Animated, Platform } from 'react-native'
 import { styled } from 'styled-components/native'
 
 export const ReminderText = styled.Text((props) => {
@@ -26,7 +26,11 @@ export const Reminder = styled.View((props) => {
   }
 })
 
-export const Container = styled.View((props) => {
+type ContainerProps = {
+  keyboardOpen?: boolean
+}
+
+export const Container = styled(Animated.View)<ContainerProps>((props) => {
   return {
     backgroundColor: props.theme.colors.background.container,
     height: '72px',
@@ -36,6 +40,8 @@ export const Container = styled.View((props) => {
     position: 'absolute',
     flexDirection: 'row',
     bottom: 0,
+    opacity: props.keyboardOpen && Platform.OS === 'android' ? 0 : 1,
+
     maxWidth: '400px',
 
     shadowColor: '#000',

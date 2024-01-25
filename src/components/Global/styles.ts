@@ -1,5 +1,7 @@
-import { Animated } from 'react-native'
+import { Animated, Platform } from 'react-native'
 import styled from 'styled-components/native'
+
+import useScreenInsets from '@hooks/useScreenInsets'
 
 export const Screen = styled.SafeAreaView((props) => {
   return {
@@ -39,11 +41,21 @@ export const Description = styled.Text((props) => {
   }
 })
 
-export const Footer = styled(Animated.View)({
-  position: 'absolute',
-  alignSelf: 'center',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
+type FooterProps = {
+  considerNavBar?: boolean
+  keyboardOpen?: boolean
+}
+
+export const Footer = styled(Animated.View)<FooterProps>((props) => {
+  const insets = useScreenInsets()
+
+  return {
+    opacity: props.keyboardOpen && Platform.OS === 'android' ? 0 : 1,
+    bottom: (props.considerNavBar ? 84 : 0) + (Platform.OS === 'android' ? 0 : insets.bottom) + 12,
+    position: 'absolute',
+    alignSelf: 'center',
+    alignItems: 'center',
+  }
 })
 
 export const NavBarSeparator = styled.View({

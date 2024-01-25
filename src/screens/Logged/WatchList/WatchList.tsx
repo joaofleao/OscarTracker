@@ -66,20 +66,6 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
 
   return (
     <Global.Screen>
-      <Styled.FloatingButton>
-        <Button
-          onPress={(): void => {
-            return setFilter((value) => {
-              if (value === 'all movies') return 'watched'
-              if (value === 'watched') return 'unwatched'
-              else return 'all movies'
-            })
-          }}
-          size="action"
-          label={filter}
-          variant="outlined"
-        />
-      </Styled.FloatingButton>
       <Styled.List
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }], {
           useNativeDriver: false,
@@ -113,6 +99,23 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
           </DynamicHeader.Root>
         }
       />
+
+      <Global.Footer considerNavBar>
+        <Styled.FloatingButton>
+          <Button
+            onPress={(): void => {
+              return setFilter((value) => {
+                if (value === 'all movies') return 'watched'
+                if (value === 'watched') return 'unwatched'
+                else return 'all movies'
+              })
+            }}
+            size="action"
+            label={filter}
+            variant="outlined"
+          />
+        </Styled.FloatingButton>
+      </Global.Footer>
     </Global.Screen>
   )
 }
