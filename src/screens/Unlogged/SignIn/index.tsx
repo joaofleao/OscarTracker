@@ -2,8 +2,8 @@ import { useState } from 'react'
 
 import * as Styled from './styles'
 import Button from '@components/Button'
+import EmailField from '@components/FormFields/EmailField'
 import PasswordField from '@components/FormFields/PasswordField'
-import TextField from '@components/FormFields/TextField'
 import Global from '@components/Global'
 import Logo from '@components/Logo'
 import { useAuth } from '@features/auth'
@@ -37,10 +37,8 @@ const SignIn = ({ navigation }: SignInProps): JSX.Element => {
           <Logo />
         </Styled.Header>
         <Styled.Content>
-          <TextField
+          <EmailField
             placeholder="oscar@email.com"
-            autoComplete="email"
-            label="Email"
             value={email}
             onChangeText={setEmail}
           />
