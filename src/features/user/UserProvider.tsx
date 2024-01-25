@@ -8,7 +8,6 @@ import type { UserType } from '@types'
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const [isLogged, setIsLogged] = React.useState<UserContextType['isLogged']>(false)
   const [uid, setUid] = React.useState<UserContextType['uid']>('')
-  const [adminSettings, setAdminSettings] = React.useState<UserContextType['adminSettings']>(false)
   const [user, setUser] = React.useState<UserType>({
     admin: false,
     email: '',
@@ -18,6 +17,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     emailVerified: false,
     nickname: '',
     movies: [],
+    movies2024: [],
     onboarding: true,
     uid: '',
     preferences: {
@@ -52,22 +52,19 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
   const setMovieUnwatched: UserContextType['setMovieUnwatched'] = (movie) => {
     const userRef = doc(usersCollection, uid)
     updateDoc(userRef, {
-      movies: arrayRemove(movie),
+      movies2024: arrayRemove(movie),
     })
   }
 
   const setMovieWatched: UserContextType['setMovieWatched'] = (movie) => {
     const userRef = doc(usersCollection, uid)
     updateDoc(userRef, {
-      movies: arrayUnion(movie),
+      movies2024: arrayUnion(movie),
     })
   }
 
   const value: UserContextType = {
     usersCollection,
-
-    adminSettings,
-    setAdminSettings,
 
     admin: user.admin,
     preferences: user.preferences,
@@ -75,7 +72,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     displayName: user.displayName,
     emailVerified: user.emailVerified,
     nickname: user.nickname,
-    movies: user.movies,
+    movies: user.movies2024 || [],
     onboarding: user.onboarding,
 
     setUser,

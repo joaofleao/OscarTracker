@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore'
+
 export interface Provider {
   children?: React.ReactNode
 }
@@ -6,8 +8,9 @@ export interface Nomination {
   category: string
   movie: string
   person: string | undefined
-  information: string | undefined
   song: string | undefined
+  character: string | undefined
+  information: string | undefined
 }
 export interface CategoryType {
   id: string
@@ -20,6 +23,7 @@ export interface EditionType {
   editionId: string
   categories: string[]
   year: number
+  date: Timestamp
 }
 
 export interface PreferencesType {
@@ -38,6 +42,7 @@ export interface UserType {
   phoneNumber: string
   photoURL: string
   movies: string[]
+  movies2024: string[]
   uid: string
   onboarding: boolean
   nickname: string

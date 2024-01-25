@@ -5,9 +5,6 @@ import type { CollectionReference, DocumentData, PreferencesType, UserType } fro
 export interface UserContextType {
   usersCollection: CollectionReference<DocumentData>
 
-  adminSettings: boolean
-  setAdminSettings: (adminSettings: boolean) => void
-
   admin: boolean
   preferences: PreferencesType
   email: string
@@ -15,6 +12,7 @@ export interface UserContextType {
   emailVerified: boolean
   nickname: string
   movies: string[]
+
   onboarding: boolean
   uid: string
   setUid: (uid: string) => void

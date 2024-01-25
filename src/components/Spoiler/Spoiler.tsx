@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Animated, type PressableProps } from 'react-native'
+import { BlurView } from 'expo-blur'
 
 import * as Styled from './styles'
 
@@ -22,7 +23,7 @@ const Spoiler = (props: SpoilerProps): JSX.Element => {
 
   useEffect(() => {
     Animated.timing(animatedValue, {
-      toValue: hidden ? -400 : 0,
+      toValue: hidden ? -500 : 0,
       duration: 200,
       useNativeDriver: true,
     }).start()
@@ -39,9 +40,14 @@ const Spoiler = (props: SpoilerProps): JSX.Element => {
     >
       {children}
       {!watched && !show && (
-        <Styled.Background style={{ transform: [{ translateY: animatedValue }] }}>
-          <Styled.Title>{text}</Styled.Title>
-        </Styled.Background>
+        <Styled.MovingBackground style={{ transform: [{ translateY: animatedValue }] }}>
+          <Styled.Blur
+            intensity={90}
+            tint="dark"
+          >
+            <Styled.Title>{text}</Styled.Title>
+          </Styled.Blur>
+        </Styled.MovingBackground>
       )}
     </Styled.Container>
   )

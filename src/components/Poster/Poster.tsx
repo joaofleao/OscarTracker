@@ -1,39 +1,37 @@
-import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils'
-
 import * as Styled from './styles'
 import Icon from '@components/Icon'
 import { useTheme } from '@features/theme'
 
-export interface PosterProps extends ViewProps {
+export interface PosterProps {
   image: string
   isWatched: boolean
-  spoiler: boolean
-  large?: boolean
+  spoiler?: boolean
+  size?: 'small' | 'large' | 'full'
   winner?: boolean
+  winnerTitle?: string
+  winnerDescription?: string
 }
 
 const defaultValues: Partial<PosterProps> = {
   isWatched: false,
   spoiler: false,
-  large: false,
+  size: 'small',
+  winner: false,
 }
 
 const Poster = (props: PosterProps): JSX.Element => {
-  const {
-    image,
-    isWatched,
-    spoiler,
-    large = false,
-    winner = false,
-    ...rest
-  } = { ...defaultValues, ...props }
+  const { image, isWatched, spoiler, size, winner, winnerTitle, winnerDescription } = {
+    ...defaultValues,
+    ...props,
+  }
   const theme = useTheme()
 
-  const width = large ? 158 : 106
-  const height = large ? 236 : 158
+  const width = size === 'large' ? 158 : size === 'full' ? '100%' : 106
+  const height = size === 'large' ? 236 : size === 'full' ? '100%' : 158
 
   const getPoster = (
     <Styled.Image
+      blurRadius={winner || isWatched || spoiler ? 0 : 20}
       source={{ uri: image }}
       resizeMode="cover"
     />
@@ -47,24 +45,41 @@ const Poster = (props: PosterProps): JSX.Element => {
   )
 
   const getIcon = (
-    <Styled.IconContainer>
-      <Icon.EyeOff
-        size={20}
-        color={theme.colors.text.inverse}
+    <Styled.IconContainer
+      size={size}
+      winner={winner && winnerTitle != null && winnerDescription != null}
+    >
+      <Icon.Lock
+        width={size === 'small' ? 16 : 24}
+        height={size === 'small' ? 16 : 24}
+        color={theme.colors.primary.default}
       />
     </Styled.IconContainer>
   )
 
+  const getWinnerCover = (
+    <Styled.WinnerCover>
+      {winnerTitle && (
+        <Styled.WinnerTitle large={size === 'large'}>{winnerTitle}</Styled.WinnerTitle>
+      )}
+      {winnerDescription && (
+        <Styled.WinnerDescription large={size === 'large'}>
+          {winnerDescription}
+        </Styled.WinnerDescription>
+      )}
+    </Styled.WinnerCover>
+  )
   return (
     <Styled.Container
       width={width}
       height={height}
-      winner={winner}
-      {...rest}
+      winner={winner && winnerTitle != null && winnerDescription != null}
     >
-      {(isWatched || spoiler) && getPoster}
-      {!isWatched && spoiler && getCover}
-      {!isWatched && getIcon}
+      {getPoster}
+
+      {!isWatched ? getCover : undefined}
+      {!isWatched ? getIcon : undefined}
+      {winner && getWinnerCover}
     </Styled.Container>
   )
 }

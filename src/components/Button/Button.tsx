@@ -7,7 +7,7 @@ import { useTheme } from '@features/theme'
 import usePressableAnimation from '@hooks/usePressableAnimation'
 
 export interface ButtonProps extends PressableProps {
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text'
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'outlined' | 'text'
   loading?: boolean
   label?: string
   width?: 'fit' | 'fixed' | 'full'

@@ -4,95 +4,79 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import * as Styled from './styles'
 import Tab from './TabBar'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import useKeyboard from '@hooks/useKeyboard'
+import { useNavigation } from '@react-navigation/native'
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { type ScreenTypes } from '@types'
 
-const Tabs = createBottomTabNavigator()
+type ProfileScreenNavigationProp = NativeStackNavigationProp<ScreenTypes>
 
 interface Props {
   tabs: {
-    [key: string]: {
-      label: string
-      icon: JSX.Element
-      component: ({ navigation }: { navigation: unknown }) => JSX.Element
-    }
-  }
+    label: string
+    icon: JSX.Element
+    component: ({ navigation }: { navigation: unknown }) => JSX.Element
+  }[]
+  initialRoute: number
 }
 
 const NavBar = (props: Props): JSX.Element => {
-  const { tabs } = props
+  const { tabs, initialRoute } = props
+
+  const navigation = useNavigation<ProfileScreenNavigationProp>()
+  const keyboardOpen = useKeyboard()
+
+  const selected = navigation.getState()?.routes?.[0]?.state?.index ?? initialRoute
   const insets = useSafeAreaInsets()
 
-  const screenWidth = Dimensions.get('window').width - 28 * 2
+  const screenWidth = Dimensions.get('window').width
 
-  const labelOffsetValue = React.useRef(new Animated.Value(28)).current
+  const window80 = (screenWidth * 80) / 100
+  const navBarWidth = window80 > 400 ? 400 : window80
+  const offset = (navBarWidth / tabs.length) * selected
 
-  const screenOptions = {
-    tabBarHideOnKeyboard: true,
-    headerShown: false,
-    tabBarStyle: {
-      elevation: 0,
-      paddingHorizontal: 28,
-      borderTopWidth: 0,
-      backgroundColor: 'transparent',
-      height: 64,
-      paddingBottom: 0,
-      marginBottom: insets.bottom,
-    },
-  }
+  const labelOffsetValue = React.useRef(new Animated.Value(offset)).current
+
+  const keyboardOffsetValue = React.useRef<Animated.Value>(new Animated.Value(0)).current
 
   const springAnimation = (index): void => {
     Animated.spring(labelOffsetValue, {
-      toValue: 28 + index * (screenWidth / Object.keys(tabs).length),
+      toValue: (navBarWidth / tabs.length) * index,
       useNativeDriver: true,
     }).start()
   }
 
-  const tabBarButton = (tabProps, icon): JSX.Element => {
+  const renderTabs = (tab, index): JSX.Element => {
+    const handlePress = (): void => {
+      springAnimation(index)
+      navigation.navigate(tab.label)
+    }
+
     return (
       <Tab
-        icon={icon}
-        {...tabProps}
+        key={tab.label}
+        onPress={handlePress}
+        selected={index === selected}
+        icon={tab.icon}
       />
     )
   }
 
-  const renderTabs = (): JSX.Element[] => {
-    return Object.values(tabs).map((tab, index) => {
-      return (
-        <Tabs.Screen
-          key={tab.label}
-          name={tab.label}
-          options={{
-            tabBarButton: (e): JSX.Element => {
-              return tabBarButton(e, tab.icon)
-            },
-          }}
-          listeners={{
-            tabPress: (): void => {
-              springAnimation(index)
-            },
-          }}
-          component={tab.component}
-        />
-      )
-    })
-  }
+  React.useEffect(() => {
+    Animated.spring(keyboardOffsetValue, {
+      toValue: keyboardOpen ? 400 : 0,
+      useNativeDriver: true,
+    }).start()
+  }, [keyboardOpen, keyboardOffsetValue])
 
   return (
-    <Styled.Container>
-      <Tabs.Navigator
-        backBehavior="none"
-        screenOptions={screenOptions}
-      >
-        {renderTabs()}
-      </Tabs.Navigator>
+    <Styled.Container
+      keyboardOpen={keyboardOpen}
+      style={{ transform: [{ translateY: keyboardOffsetValue }], bottom: insets.bottom + 12 }}
+    >
+      {tabs.map(renderTabs)}
 
-      <Styled.Selector
-        style={{
-          width: screenWidth / Object.keys(tabs).length,
-          transform: [{ translateX: labelOffsetValue }],
-        }}
-      >
+      <Styled.Selector style={{ transform: [{ translateX: labelOffsetValue }] }}>
         <Styled.Background />
       </Styled.Selector>
     </Styled.Container>

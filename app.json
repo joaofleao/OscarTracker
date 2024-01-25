@@ -1,16 +1,8 @@
 {
   "expo": {
-    "version": "3.0.0",
+    "version": "3.0.1",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
-    "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true
-    },
-    "extra": {
-      "eas": {
-        "projectId": "13139605-3855-4e08-8c3e-6b0e1dcbb439"
-      }
-    }
+    "assetBundlePatterns": ["**/*"]
   }
 }

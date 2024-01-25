@@ -11,8 +11,6 @@ export const Container = styled.View({
 export const Number = styled.Text((props) => {
   return {
     color: props.theme.colors.text.light,
-    fontVariant: 'tabular-nums',
-    textAlign: 'center',
   }
 })
 

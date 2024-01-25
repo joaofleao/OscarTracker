@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions, FlatList, type ListRenderItemInfo, View } from 'react-native'
+import { Dimensions, FlatList, type ListRenderItemInfo } from 'react-native'
 
 import * as steps from './Steps'
 import * as Styled from './styles'
@@ -116,7 +116,7 @@ const Preferences = ({ navigation }: PreferencesProps): JSX.Element => {
     secondButton: string
     content: JSX.Element
   }>): JSX.Element => {
-    return <View style={{ width: width - 40 }}>{item.content}</View>
+    return <Styled.StepScreen style={{ width: width - 40 }}>{item.content}</Styled.StepScreen>
   }
 
   return (
@@ -134,7 +134,7 @@ const Preferences = ({ navigation }: PreferencesProps): JSX.Element => {
       </Styled.HeaderRoot>
 
       <Styled.Content>
-        <FlatList
+        <Styled.StepList
           ref={scrollViewRef}
           data={screens}
           horizontal

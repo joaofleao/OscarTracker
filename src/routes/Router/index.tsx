@@ -82,7 +82,7 @@ const Router = (): JSX.Element => {
       unsubscribeAuth()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [edition.editionId])
 
   React.useEffect(() => {
     if (user.isLogged) {

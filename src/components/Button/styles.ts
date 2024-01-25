@@ -2,7 +2,7 @@ import { Animated, Pressable } from 'react-native'
 import styled from 'styled-components/native'
 
 interface PressableProps {
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text'
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'outlined' | 'text'
   icon: boolean
   size?: 'action' | 'default'
   width: 'fit' | 'fixed' | 'full'
@@ -13,6 +13,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 export const Container = styled(AnimatedPressable)<PressableProps>((props) => {
   const getBackgroundColor = (): string => {
     if (props.variant === 'primary') return props.theme.colors.primary.default
+    if (props.variant === 'tertiary') return props.theme.colors.background.container
     if (props.variant === 'secondary') return props.theme.colors.primary.shades.shade5
     return 'transparent'
   }
@@ -48,7 +49,7 @@ export const Container = styled(AnimatedPressable)<PressableProps>((props) => {
 })
 
 interface LabelProps {
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text'
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'outlined' | 'text'
   size?: 'action' | 'default'
 }
 

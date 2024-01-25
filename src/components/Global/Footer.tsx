@@ -3,33 +3,33 @@ import { Animated, ViewProps } from 'react-native'
 
 import useKeyboard from '../../hooks/useKeyboard'
 import * as Styled from './styles'
-import useScreenInsets from '@hooks/useScreenInsets'
 
-const Footer = (props: ViewProps): JSX.Element => {
-  const { bottom } = useScreenInsets()
+type FooterProps = ViewProps & {
+  considerNavBar?: boolean
+}
+
+const defaultProps: FooterProps = {
+  considerNavBar: false,
+}
+
+const Footer = (props: FooterProps): JSX.Element => {
+  const { considerNavBar } = { ...defaultProps, ...props }
   const keyboardOpen = useKeyboard()
 
-  const animation = useRef<Animated.Value>(new Animated.Value(0)).current
+  const translateY = useRef<Animated.Value>(new Animated.Value(0)).current
 
   useEffect(() => {
-    Animated.spring(animation, {
-      toValue: keyboardOpen ? 1 : 0,
+    Animated.spring(translateY, {
+      toValue: keyboardOpen ? 400 : 0,
       useNativeDriver: true,
     }).start()
-  }, [keyboardOpen, animation])
-
-  const transform = [
-    {
-      translateY: animation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 400],
-      }),
-    },
-  ]
+  }, [keyboardOpen, translateY])
 
   return (
     <Styled.Footer
-      style={{ transform, bottom }}
+      considerNavBar={considerNavBar}
+      keyboardOpen={keyboardOpen}
+      style={{ transform: [{ translateY }] }}
       {...props}
     />
   )

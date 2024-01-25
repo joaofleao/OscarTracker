@@ -1,14 +1,24 @@
 import styled from 'styled-components/native'
 
-export const Content = styled.View(() => {
+export const List = styled.FlatList(() => {
+  return {}
+})
+export const Item = styled.View(() => {
   return {
-    paddingHorizontal: '20px',
-    gap: '16px',
-    flex: 1,
+    marginHorizontal: '20px',
   }
 })
-export const List = styled.FlatList(() => {
+export const FloatingButton = styled.View((props) => {
   return {
-    marginHorizontal: '-20px',
+    backgroundColor: props.theme.colors.background.default,
+  }
+})
+
+export const Header = styled.View(() => {
+  return {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    marginBottom: 12,
   }
 })

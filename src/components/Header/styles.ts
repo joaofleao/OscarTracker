@@ -39,27 +39,16 @@ export const Title = styled.Text<TextProps>((props) => {
     color: props.theme.colors.text.default,
     fontSize: props.bigHeader ? '24px' : '20px',
     lineHeight: '36px',
-
+    flex: 1,
     fontFamily: props.theme.fonts.primary.semibold,
     textAlign: props.align,
-    flex: 1,
   }
 })
 
-export const Logo = styled.Text<TextProps>((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontSize: props.bigHeader ? '24px' : '20px',
-    lineHeight: '36px',
-    fontFamily: props.theme.fonts.secondary.semibold,
-    textAlign: props.align,
-    flex: 1,
-  }
-})
-
-export const LogoAccent = styled.Text<TextProps>((props) => {
+export const Accent = styled.Text<TextProps>((props) => {
   return {
     color: props.theme.colors.primary.default,
+    fontFamily: props.theme.fonts.secondary.bold,
   }
 })
 
@@ -80,6 +69,9 @@ export const Row = styled.View(() => {
     alignItems: 'center',
     gap: '16px',
   }
+})
+export const Column = styled.View(() => {
+  return {}
 })
 
 export const Placeholder = styled.View(() => {

@@ -1,26 +1,71 @@
-import { Animated } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Animated, Platform } from 'react-native'
 import { styled } from 'styled-components/native'
 
-export const Container = styled.View((props) => {
+export const ReminderText = styled.Text((props) => {
   return {
-    flex: 1,
+    color: props.theme.colors.text.default,
+  }
+})
+export const Reminder = styled.View((props) => {
+  return {
     backgroundColor: props.theme.colors.background.default,
+
+    paddingVertical: '12px',
+    paddingHorizontal: '20px',
+    alignSelf: 'center',
+    borderRadius: '20px',
+    position: 'absolute',
+
+    width: '100%',
+    maxWidth: '400px',
+
+    shadowColor: '#000',
+    shadowOpacity: '0.37',
+    shadowRadius: '8px',
+    elevation: '12',
+  }
+})
+
+type ContainerProps = {
+  keyboardOpen?: boolean
+}
+
+export const Container = styled(Animated.View)<ContainerProps>((props) => {
+  return {
+    backgroundColor: props.theme.colors.background.container,
+    height: '72px',
+    width: '80%',
+    alignSelf: 'center',
+    borderRadius: '20px',
+    position: 'absolute',
+    flexDirection: 'row',
+    bottom: 0,
+    opacity: props.keyboardOpen && Platform.OS === 'android' ? 0 : 1,
+
+    maxWidth: '400px',
+
+    shadowColor: '#000',
+    shadowOpacity: '0.37',
+    shadowRadius: '8px',
+    elevation: '12',
   }
 })
 
 export const Selector = styled(Animated.View)(() => {
-  const insets = useSafeAreaInsets()
   return {
     alignItems: 'center',
-    bottom: insets.bottom + 16,
+    height: '100%',
+    justifyContent: 'center',
+    zIndex: -1,
+    position: 'absolute',
+    width: '33%',
   }
 })
 
 export const Background = styled(Animated.View)((props) => {
   return {
-    width: '12px',
-    height: '6px',
+    width: '36px',
+    height: '36px',
     borderRadius: '12px',
     backgroundColor: props.theme.colors.primary.default,
   }

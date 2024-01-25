@@ -32,7 +32,6 @@ const content = (
     </Styled.Header>
     <Styled.Content>
       <Styled.CastList>
-        {getCast('Justin Long', 'Alvin', justin)}
         {getCast('Jason Lee', 'Dave', jason)}
         {getCast('David Cross', 'Ian', david)}
       </Styled.CastList>
