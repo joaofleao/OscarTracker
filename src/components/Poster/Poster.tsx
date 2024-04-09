@@ -77,7 +77,7 @@ const Poster = (props: PosterProps): JSX.Element => {
     >
       {getPoster}
 
-      {!isWatched ? getCover : undefined}
+      {!isWatched || winner ? getCover : undefined}
       {!isWatched ? getIcon : undefined}
       {winner && getWinnerCover}
     </Styled.Container>

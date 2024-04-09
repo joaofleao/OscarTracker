@@ -157,13 +157,11 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
               text="Show Poster"
             >
               <Poster
-                spoiler={user.preferences.poster}
+                spoiler={true}
                 size="full"
                 image={getImage(image, 1280)}
                 isWatched={watched}
               />
-
-              {/* <Styled.Poster source={} /> */}
             </Styled.SpoilerPoster>
 
             <Styled.BasicData>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Animated, type PressableProps } from 'react-native'
-import { BlurView } from 'expo-blur'
 
+// import { BlurView } from 'expo-blur'
 import * as Styled from './styles'
 
 export interface SpoilerProps extends PressableProps {
@@ -42,8 +42,8 @@ const Spoiler = (props: SpoilerProps): JSX.Element => {
       {!watched && !show && (
         <Styled.MovingBackground style={{ transform: [{ translateY: animatedValue }] }}>
           <Styled.Blur
-            intensity={90}
-            tint="dark"
+          // intensity={90}
+          // tint="dark"
           >
             <Styled.Title>{text}</Styled.Title>
           </Styled.Blur>

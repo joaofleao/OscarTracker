@@ -56,8 +56,8 @@ interface IconContainerProps {
 export const IconContainer = styled.View<IconContainerProps>((props) => {
   return {
     position: 'absolute',
-    bottom: !props.winner ? undefined : props.size === 'large' ? 12 : 8,
-    right: !props.winner ? undefined : props.size === 'large' ? 12 : 8,
+    bottom: props.size === 'large' ? 12 : 8,
+    right: props.size === 'large' ? 12 : 8,
     backgroundColor: props.theme.colors.background.container,
     padding: props.size === 'full' ? 16 : 8,
     borderRadius: props.size === 'small' ? 8 : 12,

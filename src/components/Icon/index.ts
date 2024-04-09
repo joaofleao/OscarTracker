@@ -13,6 +13,7 @@ import Pencil from './Pencil'
 import Person from './Person'
 import Placeholder from './Placeholder'
 import Search from './Search'
+import SignOut from './SignOut'
 import Star from './Star'
 import X from './X'
 
@@ -34,4 +35,5 @@ export default {
   Star,
   X,
   Lock,
+  SignOut,
 }
