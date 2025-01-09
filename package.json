@@ -33,7 +33,6 @@
     "react-native-screens": "~3.22.0",
     "react-native-svg": "13.9.0",
     "react-native-vector-icons": "^9.2.0",
-    "styled-components": "^6.0.2",
     "expo-dev-client": "~2.4.12",
     "expo-blur": "~12.4.1"
   },
