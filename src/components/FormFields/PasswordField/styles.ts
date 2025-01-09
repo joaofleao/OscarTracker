@@ -1,23 +1,33 @@
-import { styled } from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const PasswordRuleContainer = styled.View(() => {
-  return {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: '8px',
-  }
-})
+import { useTheme } from '@features/theme'
 
-interface PasswordRuleProps {
-  valid?: boolean
+type StylesReturn = {
+  container: ViewStyle
+  rule: TextStyle
+  valid: TextStyle
 }
 
-export const PasswordRule = styled.Text<PasswordRuleProps>((props) => {
-  return {
-    flex: 1,
-    color: props.valid ? props.theme.colors.primary.default : props.theme.colors.text.light,
-    fontFamily: props.theme.fonts.primary.bold,
-    fontSize: '12px',
-    lineHeight: '18px',
-  }
-})
+const useStyles = (): StylesReturn => {
+  const { colors, fonts } = useTheme()
+
+  return StyleSheet.create({
+    rule: {
+      flex: 1,
+      color: colors.text.light,
+      fontFamily: fonts.primary.bold,
+      fontSize: 12,
+      lineHeight: 18,
+    },
+    valid: {
+      color: colors.primary.default,
+    },
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+  })
+}
+
+export default useStyles

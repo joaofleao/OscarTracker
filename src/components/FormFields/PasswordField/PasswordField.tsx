@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import * as React from 'react'
+import { Text, View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Button from '@components/Button'
 import TextField, { TextFieldProps } from '@components/FormFields/TextField'
 import Icon from '@components/Icon'
@@ -51,7 +52,9 @@ const PasswordField = (props: PasswordFieldProps): JSX.Element => {
     ...props,
   }
 
-  const [passwordVisible, setPasswordVisible] = useState(true)
+  const styles = useStyles()
+
+  const [passwordVisible, setPasswordVisible] = React.useState(true)
 
   const {
     confirmPasswordValid,
@@ -81,25 +84,27 @@ const PasswordField = (props: PasswordFieldProps): JSX.Element => {
   )
 
   const renderPasswordRule = type === 'password' && (
-    <Styled.PasswordRuleContainer>
+    <View style={styles.container}>
       {renderIcon}
-      <Styled.PasswordRule valid={passwordValid}>
-        <Styled.PasswordRule valid={passwordValid}>Your passwords must include</Styled.PasswordRule>
-        ,<Styled.PasswordRule valid={oneDigit}> one digit</Styled.PasswordRule>,
-        <Styled.PasswordRule valid={oneUpperCase}> one uppercase letter</Styled.PasswordRule>,
-        <Styled.PasswordRule valid={oneLowerCase}> one lowercase letter</Styled.PasswordRule>,
-        <Styled.PasswordRule valid={oneSpecialCase}> one special character</Styled.PasswordRule>.
-      </Styled.PasswordRule>
-    </Styled.PasswordRuleContainer>
+      <Text style={(styles.rule, [passwordValid && styles.valid])}>
+        <Text style={(styles.rule, [passwordValid && styles.valid])}>
+          Your passwords must include
+        </Text>
+        ,<Text style={(styles.rule, [oneDigit && styles.valid])}> one digit</Text>,
+        <Text style={(styles.rule, [oneUpperCase && styles.valid])}> one uppercase letter</Text>,
+        <Text style={(styles.rule, [oneLowerCase && styles.valid])}> one lowercase letter</Text>,
+        <Text style={(styles.rule, [oneSpecialCase && styles.valid])}> one special character</Text>.
+      </Text>
+    </View>
   )
 
   const renderPasswordConfirmationRule = type === 'confirmPassword' && (
-    <Styled.PasswordRuleContainer>
+    <View style={styles.container}>
       {renderIcon}
-      <Styled.PasswordRule valid={confirmPasswordValid}>
+      <Text style={[styles.rule, confirmPasswordValid && styles.valid]}>
         Your passwords must match
-      </Styled.PasswordRule>
-    </Styled.PasswordRuleContainer>
+      </Text>
+    </View>
   )
 
   return (
