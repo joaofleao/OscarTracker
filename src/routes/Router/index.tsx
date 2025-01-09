@@ -1,10 +1,10 @@
 import React from 'react'
-import { StatusBar } from 'react-native'
+import { StatusBar, View } from 'react-native'
 import { useFonts } from 'expo-font'
 import * as Splash from 'expo-splash-screen'
 import { collection, doc, onSnapshot } from 'firebase/firestore'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import ToastNotification from '@components/ToastNotification'
 import LoadingModal from '@containers/LoadingModal'
 import NetworkModal from '@containers/NetworkModal'
@@ -49,6 +49,7 @@ const Router = (): JSX.Element => {
   const edition = useEdition()
   const announcements = useAnnouncements()
   const categories = useCategories()
+  const styles = useStyles()
 
   const { colors } = useTheme()
   const [fontsLoaded] = useFonts(localFonts)
@@ -126,13 +127,13 @@ const Router = (): JSX.Element => {
       <NetworkModal />
       <ToastNotification />
 
-      <Styled.Container>
+      <View style={styles.container}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={screenOptions}>
             {user.isLogged ? Logged : Unlogged}
           </Stack.Navigator>
         </NavigationContainer>
-      </Styled.Container>
+      </View>
     </>
   )
 }

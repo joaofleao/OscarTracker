@@ -1,8 +1,20 @@
-import styled from 'styled-components/native'
+import { StyleSheet, ViewStyle } from 'react-native'
 
-export const Container = styled.View((props) => {
-  return {
-    backgroundColor: props.theme.colors.background.default,
-    flex: 1,
-  }
-})
+import { useTheme } from '@features/theme'
+
+type StylesReturn = {
+  container: ViewStyle
+}
+
+const useStyles = (): StylesReturn => {
+  const { colors } = useTheme()
+
+  return StyleSheet.create({
+    container: {
+      backgroundColor: colors.background.default,
+      flex: 1,
+    },
+  })
+}
+
+export default useStyles
