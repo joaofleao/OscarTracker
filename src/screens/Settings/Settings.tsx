@@ -211,7 +211,7 @@ const Settings = ({ navigation }: SettingsProps): JSX.Element => {
 
           <Button
             size="action"
-            variant="primary"
+            variant="tertiary"
             onPress={refreshEdition}
             label={'UPDATE'}
           />
