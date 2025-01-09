@@ -2,7 +2,7 @@ import Svg, { Path } from 'react-native-svg'
 
 import { defaultValues, Props } from './types'
 
-function SignOut(props: Props): JSX.Element {
+function SignOutCircle(props: Props): JSX.Element {
   const { color, ...rest } = { ...defaultValues, ...props }
 
   const linedSvg = (
@@ -37,4 +37,4 @@ function SignOut(props: Props): JSX.Element {
   return linedSvg
 }
 
-export default SignOut
+export default SignOutCircle
