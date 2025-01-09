@@ -1,88 +1,81 @@
-import { Animated, Pressable } from 'react-native'
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-interface PressableProps {
+import { useTheme } from '@features/theme'
+
+type StylesReturn = {
+  root: ViewStyle
+  label: TextStyle
+  content: ViewStyle
+  loadingContent: ViewStyle
+}
+
+type StylesProps = {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'outlined' | 'text'
   icon: boolean
   size?: 'action' | 'default'
   width: 'fit' | 'fixed' | 'full'
+  loading: boolean
 }
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
+const useStyles = ({ variant, size, icon, width, loading }: StylesProps): StylesReturn => {
+  const { colors, fonts } = useTheme()
 
-export const Container = styled(AnimatedPressable)<PressableProps>((props) => {
   const getBackgroundColor = (): string => {
-    if (props.variant === 'primary') return props.theme.colors.primary.default
-    if (props.variant === 'tertiary') return props.theme.colors.background.container
-    if (props.variant === 'secondary') return props.theme.colors.primary.shades.shade5
+    if (variant === 'primary') return colors.primary.default
+    if (variant === 'tertiary') return colors.background.container
+    if (variant === 'secondary') return colors.primary.shades.shade5
     return 'transparent'
   }
 
-  const getHorizontalPadding = (): string => {
-    if (props.size === 'action') return '8px'
-    if (props.icon) return '10px'
-    return '24px'
+  const getHorizontalPadding = (): number => {
+    if (size === 'action') return 8
+    if (icon) return 10
+    return 24
   }
 
-  const getVerticalPadding = (): string => {
-    if (props.size === 'action') return '8px'
-    if (props.icon) return '10px'
-    return '12px'
+  const getVerticalPadding = (): number => {
+    if (size === 'action') return 8
+    if (icon) return 10
+    return 12
   }
 
-  const getBorderRadius = (): string => {
-    if (props.size === 'action' || props.icon) return '12px'
-    return '16px'
+  const getBorderRadius = (): number => {
+    if (size === 'action' || icon) return 12
+    return 16
   }
 
-  return {
-    background: getBackgroundColor(),
-    paddingVertical: getVerticalPadding(),
-    paddingHorizontal: getHorizontalPadding(),
-    borderRadius: getBorderRadius(),
-    border: props.variant === 'outlined' ? props.theme.colors.primary.default : 'transparent',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: props.width === 'fixed' ? '256px' : 'auto',
-    flex: props.width === 'full' ? 1 : null,
-  }
-})
-
-interface LabelProps {
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'outlined' | 'text'
-  size?: 'action' | 'default'
-}
-
-export const Label = styled.Text<LabelProps>((props) => {
   const getContentColor = (): string => {
-    if (props.variant === 'primary') return props.theme.colors.text.inverse
-    return props.theme.colors.primary.default
+    if (variant === 'primary') return colors.text.inverse
+    return colors.primary.default
   }
 
-  return {
-    fontFamily: props.theme.fonts.primary.bold,
-    fontSize: props.size === 'action' ? '12px' : '16px',
-    lineHeight: props.size === 'action' ? '18px' : '20px',
-    color: getContentColor(),
-    textAlign: 'center',
-  }
-})
-interface ContentProps {
-  loading: boolean
+  return StyleSheet.create({
+    root: {
+      background: getBackgroundColor(),
+      paddingVertical: getVerticalPadding(),
+      paddingHorizontal: getHorizontalPadding(),
+      borderRadius: getBorderRadius(),
+      border: variant === 'outlined' ? colors.primary.default : 'transparent',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: width === 'fixed' ? 256 : 'auto',
+      flex: width === 'full' ? 1 : null,
+    },
+    label: {
+      fontFamily: fonts.primary.bold,
+      fontSize: size === 'action' ? 12 : 16,
+      lineHeight: size === 'action' ? 18 : 20,
+      color: getContentColor(),
+      textAlign: 'center',
+    },
+    content: {
+      opacity: loading ? 0 : 1,
+    },
+    loadingContent: {
+      opacity: loading ? 1 : 0,
+      position: 'absolute',
+    },
+  })
 }
 
-export const Content = styled.View<ContentProps>((props) => {
-  return {
-    opacity: props.loading ? 0 : 1,
-  }
-})
-interface LoadingContentProps {
-  loading: boolean
-}
-
-export const LoadingContent = styled.View<LoadingContentProps>((props) => {
-  return {
-    opacity: props.loading ? 1 : 0,
-    position: 'absolute',
-  }
-})
+export default useStyles

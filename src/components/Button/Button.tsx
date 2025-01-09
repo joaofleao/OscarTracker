@@ -1,10 +1,19 @@
 import React from 'react'
-import { GestureResponderEvent, type PressableProps } from 'react-native'
+import {
+  Animated,
+  GestureResponderEvent,
+  Pressable,
+  type PressableProps,
+  Text,
+  View,
+} from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Loading from '@components/Loading'
 import { useTheme } from '@features/theme'
 import usePressableAnimation from '@hooks/usePressableAnimation'
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export interface ButtonProps extends PressableProps {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'outlined' | 'text'
@@ -28,6 +37,7 @@ const Button = (props: ButtonProps): JSX.Element => {
   }
 
   const theme = useTheme()
+  const styles = useStyles({ variant, size, icon: Boolean(icon), width, loading })
 
   const { animationPressIn, animationPressOut, opacity, scale } = usePressableAnimation({
     disabled,
@@ -53,14 +63,13 @@ const Button = (props: ButtonProps): JSX.Element => {
     })
 
   const renderLabel = (
-    <Styled.Label
+    <Text
+      style={styles.label}
       numberOfLines={1}
-      variant={variant}
-      size={size}
       disabled={disabled}
     >
       {label}
-    </Styled.Label>
+    </Text>
   )
 
   const renderLoading = (
@@ -75,20 +84,16 @@ const Button = (props: ButtonProps): JSX.Element => {
   const renderContent = icon && !label ? renderIcon : renderLabel
 
   return (
-    <Styled.Container
-      icon={!!icon}
-      variant={variant}
-      size={size}
+    <AnimatedPressable
       disabled={disabled}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      width={width}
       style={{ transform: [{ scale }], opacity }}
       {...rest}
     >
-      <Styled.LoadingContent loading={loading}>{renderLoading}</Styled.LoadingContent>
-      <Styled.Content loading={loading}>{renderContent}</Styled.Content>
-    </Styled.Container>
+      <View style={styles.loadingContent}>{renderLoading}</View>
+      <View style={styles.content}>{renderContent}</View>
+    </AnimatedPressable>
   )
 }
 
