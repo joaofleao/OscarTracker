@@ -1,6 +1,6 @@
-import { Animated } from 'react-native'
+import { Animated, View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 
 export interface DynamicHeader {
   scrollOffsetY: Animated.Value
@@ -14,6 +14,7 @@ const defaultValue: DynamicHeader = {
 
 const DynamicHeader = (props: DynamicHeader): JSX.Element => {
   const { scrollOffsetY, children, size } = { ...defaultValue, ...props }
+  const styles = useStyles()
   const height = scrollOffsetY.interpolate({
     inputRange: [0, size],
     outputRange: [size, 0],
@@ -25,6 +26,6 @@ const DynamicHeader = (props: DynamicHeader): JSX.Element => {
     extrapolate: 'clamp',
   })
 
-  return <Styled.DynamicHeader style={{ height, opacity }}>{children}</Styled.DynamicHeader>
+  return <View style={[styles.dynamicHeader, { height, opacity }]}>{children}</View>
 }
 export default DynamicHeader
