@@ -1,11 +1,12 @@
-import { Modal } from 'react-native'
+import { Modal, Text, View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Loading from '@components/Loading'
 import { useLoading } from '@features/loading'
 
 const LoadingModal = (): JSX.Element => {
   const loading = useLoading()
+  const styles = useStyles()
 
   return (
     <Modal
@@ -13,13 +14,13 @@ const LoadingModal = (): JSX.Element => {
       transparent={true}
       animationType="fade"
     >
-      <Styled.Container>
+      <View style={styles.container}>
         <Loading
           animation="movie"
           size={120}
         />
-        <Styled.Description>{loading.text}</Styled.Description>
-      </Styled.Container>
+        <Text style={styles.description}>{loading.text}</Text>
+      </View>
     </Modal>
   )
 }

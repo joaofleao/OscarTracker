@@ -1,7 +1,8 @@
 import React from 'react'
-import { Linking } from 'react-native'
+import { FlatList, Linking, Text } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
+import Button from '@components/Button'
 import Global from '@components/Global'
 import Modal from '@components/Modal'
 import { useAnnouncements } from '@features/announcements'
@@ -9,6 +10,7 @@ import packageJson from '@package.json'
 
 const NewVersionModal = (): JSX.Element => {
   const { announcements } = useAnnouncements()
+  const styles = useStyles()
 
   const update = announcements[0]
 
@@ -19,7 +21,7 @@ const NewVersionModal = (): JSX.Element => {
   }, [announcements])
 
   const renderItem = (object): JSX.Element => {
-    return <Styled.UpdateItem>● {object.item}</Styled.UpdateItem>
+    return <Text style={styles.updateItem}>● {object.item}</Text>
   }
 
   return (
@@ -30,7 +32,8 @@ const NewVersionModal = (): JSX.Element => {
       </Modal.Section>
 
       <Modal.Section>
-        <Styled.Content
+        <FlatList
+          style={styles.content}
           data={update?.updates}
           renderItem={renderItem}
           ItemSeparatorComponent={Global.SmallSeparator}
@@ -38,7 +41,8 @@ const NewVersionModal = (): JSX.Element => {
       </Modal.Section>
 
       <Modal.Section>
-        <Styled.ConfirmationButton
+        <Button
+          style={styles.confirmationButton}
           label={'Update to '.concat(update?.version)}
           variant="secondary"
           onPress={(): void => {

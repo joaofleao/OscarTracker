@@ -1,9 +1,15 @@
-import { styled } from 'styled-components/native'
+import { StyleSheet, TextStyle } from 'react-native'
 
-import Button from '@components/Button'
+type StylesReturn = {
+  confirmationButton: TextStyle
+}
 
-export const ConfirmationButton = styled(Button)(() => {
-  return {
-    alignSelf: 'center',
-  }
-})
+const useStyles = (): StylesReturn => {
+  return StyleSheet.create({
+    confirmationButton: {
+      alignSelf: 'center',
+    },
+  })
+}
+
+export default useStyles

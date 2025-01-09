@@ -1,19 +1,29 @@
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const Container = styled.View((props) => {
-  return {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    backgroundColor: props.theme.colors.background.default,
-  }
-})
+import { useTheme } from '@features/theme'
 
-export const Description = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.bold,
-    fontSize: '20px',
-    marginTop: '8px',
-  }
-})
+type StylesReturn = {
+  container: ViewStyle
+  description: TextStyle
+}
+
+const useStyles = (): StylesReturn => {
+  const { colors, fonts } = useTheme()
+
+  return StyleSheet.create({
+    container: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      flex: 1,
+      backgroundColor: colors.background.default,
+    },
+    description: {
+      color: colors.text.default,
+      fontFamily: fonts.primary.bold,
+      fontSize: 20,
+      marginTop: 8,
+    },
+  })
+}
+
+export default useStyles
