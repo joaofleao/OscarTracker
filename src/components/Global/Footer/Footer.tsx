@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
-import { Animated, ViewProps } from 'react-native'
+import { Animated, View, ViewProps } from 'react-native'
 
-import useKeyboard from '../../hooks/useKeyboard'
-import * as Styled from './styles'
+import useKeyboard from '../../../hooks/useKeyboard'
+import useStyles from './styles'
 
 type FooterProps = ViewProps & {
   considerNavBar?: boolean
@@ -15,6 +15,7 @@ const defaultProps: FooterProps = {
 const Footer = (props: FooterProps): JSX.Element => {
   const { considerNavBar } = { ...defaultProps, ...props }
   const keyboardOpen = useKeyboard()
+  const styles = useStyles({ considerNavBar, keyboardOpen })
 
   const translateY = useRef<Animated.Value>(new Animated.Value(0)).current
 
@@ -26,10 +27,8 @@ const Footer = (props: FooterProps): JSX.Element => {
   }, [keyboardOpen, translateY])
 
   return (
-    <Styled.Footer
-      considerNavBar={considerNavBar}
-      keyboardOpen={keyboardOpen}
-      style={{ transform: [{ translateY }] }}
+    <View
+      style={[styles.footer, { transform: [{ translateY }] }]}
       {...props}
     />
   )
