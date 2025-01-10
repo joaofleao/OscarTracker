@@ -1,53 +1,50 @@
-import { Animated } from 'react-native'
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-interface ConteinerProps {
-  isSuccess: boolean
+import { useTheme } from '@features/theme'
+
+type StylesReturn = {
+  container: ViewStyle
+  informations: ViewStyle
+  title: TextStyle
+  description: TextStyle
 }
 
-export const Container = styled(Animated.View)<ConteinerProps>((props) => {
-  return {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    zIndex: 20,
-    position: 'absolute',
-    marginHorizontal: '20px',
-    padding: '16px',
-    borderRadius: '12px',
-    backgroundColor: props.isSuccess
-      ? props.theme.colors.positive.default
-      : props.theme.colors.negative.default,
-  }
-})
+type StylesProps = {
+  isSuccess
+}
 
-export const Content = styled.View(() => {
-  return {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  }
-})
+const useStyles = ({ isSuccess }: StylesProps): StylesReturn => {
+  const { fonts, colors } = useTheme()
 
-export const Informations = styled.View({
-  flex: 1,
-  marginHorizontal: '16px',
-})
+  return StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      zIndex: 20,
+      position: 'absolute',
+      marginHorizontal: 20,
+      padding: 16,
+      borderRadius: 12,
+      backgroundColor: isSuccess ? colors.positive.default : colors.negative.default,
+    },
+    informations: {
+      flex: 1,
+      marginHorizontal: 16,
+    },
+    title: {
+      color: colors.text.default,
+      fontFamily: fonts.primary.bold,
+      fontSize: 16,
+      lineHeight: 24,
+    },
+    description: {
+      color: colors.text.default,
+      fontFamily: fonts.primary.medium,
+      fontSize: 14,
+      lineHeight: 20,
+    },
+  })
+}
 
-export const Title = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.bold,
-    fontSize: '16px',
-    lineHeight: '24px',
-  }
-})
-
-export const Description = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.medium,
-    fontSize: '14px',
-    lineHeight: '20px',
-  }
-})
+export default useStyles

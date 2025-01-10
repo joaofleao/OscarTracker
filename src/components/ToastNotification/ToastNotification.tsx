@@ -1,4 +1,6 @@
-import * as Styled from './styles'
+import { Animated, Text, View } from 'react-native'
+
+import useStyles from './styles'
 import Icon from '@components/Icon'
 import { useTheme } from '@features/theme'
 import { useToast } from '@features/toast'
@@ -9,12 +11,10 @@ const ToastNotification = (): JSX.Element => {
   const theme = useTheme()
 
   const isSuccess = type === 'success'
+  const styles = useStyles({ isSuccess })
 
   return (
-    <Styled.Container
-      style={{ transform: [{ translateY: position }] }}
-      isSuccess={isSuccess}
-    >
+    <Animated.View style={[styles.container, { transform: [{ translateY: position }] }]}>
       {isSuccess ? (
         <Icon.CheckCircle
           color={theme.colors.text.default}
@@ -27,11 +27,16 @@ const ToastNotification = (): JSX.Element => {
         />
       )}
 
-      <Styled.Informations>
-        <Styled.Title numberOfLines={2}>{title}</Styled.Title>
-        {description != null && <Styled.Description>{description}</Styled.Description>}
-      </Styled.Informations>
-    </Styled.Container>
+      <View style={styles.informations}>
+        <Text
+          style={styles.title}
+          numberOfLines={2}
+        >
+          {title}
+        </Text>
+        {description != null && <Text style={styles.description}>{description}</Text>}
+      </View>
+    </Animated.View>
   )
 }
 
