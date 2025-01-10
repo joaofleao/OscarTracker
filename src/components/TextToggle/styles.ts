@@ -1,34 +1,38 @@
-import { Animated, Pressable } from 'react-native'
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-type ContainerProps = {
+import { useTheme } from '@features/theme'
+
+type StylesReturn = {
+  container: ViewStyle
+  label: TextStyle
+}
+
+type StylesProps = {
   selected: boolean
 }
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
+const useStyles = ({ selected }: StylesProps): StylesReturn => {
+  const { fonts, colors } = useTheme()
 
-export const Container = styled(AnimatedPressable)<ContainerProps>((props) => {
-  return {
-    backgroundColor: props.selected ? props.theme.colors.primary.default : 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '12px',
-    flexDirection: 'row',
-    gap: '8px',
-    padding: '8px 12px',
-    border: `1px solid ${props.theme.colors.primary.default}`,
-  }
-})
-
-type LabelProps = {
-  selected: boolean
+  return StyleSheet.create({
+    container: {
+      backgroundColor: selected ? colors.primary.default : 'transparent',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 12,
+      flexDirection: 'row',
+      gap: 8,
+      padding: 8,
+      paddingHorizontal: 12,
+      border: `1px solid ${colors.primary.default}`,
+    },
+    label: {
+      color: selected ? colors.text.inverse : colors.primary.default,
+      fontFamily: fonts.primary.bold,
+      textAlign: 'center',
+      flex: 1,
+    },
+  })
 }
 
-export const Label = styled.Text<LabelProps>((props) => {
-  return {
-    color: props.selected ? props.theme.colors.text.inverse : props.theme.colors.primary.default,
-    fontFamily: props.theme.fonts.primary.bold,
-    textAlign: 'center',
-    flex: 1,
-  }
-})
+export default useStyles

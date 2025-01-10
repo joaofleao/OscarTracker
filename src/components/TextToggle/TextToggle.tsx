@@ -1,9 +1,19 @@
 import React from 'react'
-import { GestureResponderEvent, PressableProps, StyleProp, ViewStyle } from 'react-native'
+import {
+  Animated,
+  GestureResponderEvent,
+  Pressable,
+  PressableProps,
+  StyleProp,
+  Text,
+  ViewStyle,
+} from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import { useTheme } from '@features/theme'
 import usePressableAnimation from '@hooks/usePressableAnimation'
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export type TextToggleProps = PressableProps & {
   selected: boolean
@@ -34,6 +44,7 @@ const TextToggle = (props: TextToggleProps): JSX.Element => {
     ...props,
   }
   const { colors } = useTheme()
+  const styles = useStyles({ selected })
 
   const { animationPressIn, animationPressOut, scale, opacity } = usePressableAnimation({
     disabled,
@@ -55,9 +66,8 @@ const TextToggle = (props: TextToggleProps): JSX.Element => {
   }
 
   return (
-    <Styled.Container
-      style={[style, { transform: [{ scale }], opacity }]}
-      selected={selected}
+    <AnimatedPressable
+      style={[styles.container, style, { transform: [{ scale }], opacity }]}
       onPress={handlePress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
@@ -71,13 +81,13 @@ const TextToggle = (props: TextToggleProps): JSX.Element => {
         filled: selected,
       })}
 
-      <Styled.Label
+      <Text
+        style={styles.label}
         numberOfLines={1}
-        selected={selected}
       >
         {label}
-      </Styled.Label>
-    </Styled.Container>
+      </Text>
+    </AnimatedPressable>
   )
 }
 
