@@ -1,34 +1,41 @@
-import { Animated } from 'react-native'
-import { styled } from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const Container = styled.View({
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  gap: '8px',
-})
+import { useTheme } from '@features/theme'
 
-export const Number = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.light,
-  }
-})
+type StylesReturn = {
+  container: ViewStyle
+  number: TextStyle
+  track: ViewStyle
+  progress: ViewStyle
+}
 
-export const Track = styled.View((props) => {
-  return {
-    backgroundColor: props.theme.colors.background.container,
-    height: '6px',
-    borderRadius: '6px',
-    flex: 1,
-    overflow: 'hidden',
-  }
-})
+const useStyles = (): StylesReturn => {
+  const { colors } = useTheme()
 
-export const Progress = styled(Animated.View)((props) => {
-  return {
-    backgroundColor: props.theme.colors.primary.default,
-    width: '200%',
-    borderRadius: '6px',
-    height: '100%',
-  }
-})
+  return StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: 8,
+    },
+    number: {
+      color: colors.text.light,
+    },
+    track: {
+      backgroundColor: colors.background.container,
+      height: 6,
+      borderRadius: 6,
+      flex: 1,
+      overflow: 'hidden',
+    },
+    progress: {
+      backgroundColor: colors.primary.default,
+      width: '200%',
+      borderRadius: 6,
+      height: '100%',
+    },
+  })
+}
+
+export default useStyles
