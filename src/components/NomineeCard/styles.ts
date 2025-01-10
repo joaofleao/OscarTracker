@@ -1,38 +1,46 @@
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const Container = styled.TouchableOpacity({
-  justifyContent: 'center',
-  flexDirection: 'row',
-})
+import { useTheme } from '@features/theme'
 
-export const Content = styled.View({
-  marginLeft: '16px',
-  flex: 1,
-})
+type StylesReturn = {
+  container: ViewStyle
+  content: ViewStyle
+  title: TextStyle
+  information: TextStyle
+  extra: TextStyle
+}
 
-export const Title = styled.Text((props) => {
-  return {
-    fontSize: '18px',
-    lineHeight: '28px',
-    fontFamily: props.theme.fonts.primary.bold,
-    color: props.theme.colors.text.default,
-  }
-})
+const useStyles = (): StylesReturn => {
+  const { fonts, colors } = useTheme()
 
-export const Information = styled.Text((props) => {
-  return {
-    fontSize: '16px',
-    lineHeight: '24px',
-    fontFamily: props.theme.fonts.primary.regular,
-    color: props.theme.colors.text.light,
-  }
-})
+  return StyleSheet.create({
+    container: {
+      justifyContent: 'center',
+      flexDirection: 'row',
+    },
+    content: {
+      marginLeft: 16,
+      flex: 1,
+    },
+    title: {
+      fontSize: 18,
+      lineHeight: 28,
+      fontFamily: fonts.primary.bold,
+      color: colors.text.default,
+    },
+    information: {
+      fontSize: 16,
+      lineHeight: 24,
+      fontFamily: fonts.primary.regular,
+      color: colors.text.light,
+    },
+    extra: {
+      fontSize: 16,
+      lineHeight: 24,
+      fontFamily: fonts.primary.regular,
+      color: colors.primary.default,
+    },
+  })
+}
 
-export const Extra = styled.Text((props) => {
-  return {
-    fontSize: '16px',
-    lineHeight: '24px',
-    fontFamily: props.theme.fonts.primary.regular,
-    color: props.theme.colors.primary.default,
-  }
-})
+export default useStyles

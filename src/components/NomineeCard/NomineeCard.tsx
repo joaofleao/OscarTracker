@@ -1,6 +1,6 @@
-import { type TouchableOpacityProps } from 'react-native'
+import { Text, TouchableOpacity, type TouchableOpacityProps, View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Poster from '@components/Poster'
 import { useUser } from '@features/user'
 import { getImage } from '@services/tmdb/api'
@@ -15,11 +15,12 @@ export interface NomineeCardProps extends TouchableOpacityProps {
 
 const NomineeCard = (props: NomineeCardProps): JSX.Element => {
   const { image, title, id, information, extra, ...rest } = props
-
   const user = useUser()
+  const styles = useStyles()
 
   return (
-    <Styled.Container
+    <TouchableOpacity
+      style={styles.container}
       delayPressIn={200}
       {...rest}
     >
@@ -28,14 +29,31 @@ const NomineeCard = (props: NomineeCardProps): JSX.Element => {
         image={getImage(image)}
         isWatched={user.movies.includes(id)}
       />
-      <Styled.Content>
-        <Styled.Title numberOfLines={3}>{title}</Styled.Title>
+      <View style={styles.content}>
+        <Text
+          style={styles.title}
+          numberOfLines={3}
+        >
+          {title}
+        </Text>
         {information != null && (
-          <Styled.Information numberOfLines={2}>{information}</Styled.Information>
+          <Text
+            style={styles.information}
+            numberOfLines={2}
+          >
+            {information}
+          </Text>
         )}
-        {extra != null && <Styled.Extra numberOfLines={2}>{extra}</Styled.Extra>}
-      </Styled.Content>
-    </Styled.Container>
+        {extra != null && (
+          <Text
+            style={styles.extra}
+            numberOfLines={2}
+          >
+            {extra}
+          </Text>
+        )}
+      </View>
+    </TouchableOpacity>
   )
 }
 
