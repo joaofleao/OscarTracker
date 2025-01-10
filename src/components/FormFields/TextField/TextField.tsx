@@ -1,7 +1,15 @@
 import { cloneElement, useEffect, useRef, useState } from 'react'
-import { Animated, Easing, TextInput, type TextInputProps } from 'react-native'
+import {
+  Animated,
+  Easing,
+  Pressable,
+  Text,
+  TextInput,
+  type TextInputProps,
+  View,
+} from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import { useTheme } from '@features/theme'
 
 export interface TextFieldProps extends TextInputProps {
@@ -31,6 +39,7 @@ const TextField = (props: TextFieldProps): JSX.Element => {
   const translateY = useRef(new Animated.Value(30)).current
 
   const [focused, setFocused] = useState(false)
+  const styles = useStyles({ isFocused: focused })
 
   useEffect(() => {
     const userTyping = setTimeout(() => {
@@ -59,7 +68,7 @@ const TextField = (props: TextFieldProps): JSX.Element => {
     inputRef.current?.focus()
   }
 
-  const renderLabel = label && <Styled.Label isFocused={focused}>{label}</Styled.Label>
+  const renderLabel = label && <Text style={styles.label}>{label}</Text>
 
   const renderIcon =
     icon &&
@@ -70,19 +79,23 @@ const TextField = (props: TextFieldProps): JSX.Element => {
     })
 
   const renderErrorText = errorText && (
-    <Styled.HelperContainer style={{ transform: [{ translateY }] }}>
-      <Styled.ErrorText>{errorText}</Styled.ErrorText>
-    </Styled.HelperContainer>
+    <Animated.View style={[styles.helperContainer, { transform: [{ translateY }] }]}>
+      <Text style={styles.errorText}>{errorText}</Text>
+    </Animated.View>
   )
 
   return (
-    <Styled.Container>
+    <View style={styles.container}>
       {renderErrorText}
       {renderLabel}
-      <Styled.Row>
-        <Styled.Content onPress={focusRef}>
+      <View style={styles.row}>
+        <Pressable
+          style={styles.content}
+          onPress={focusRef}
+        >
           {iconPosition === 'leading' && renderIcon}
-          <Styled.Input
+          <TextInput
+            style={styles.input}
             ref={inputRef}
             cursorColor={theme.colors.primary.default}
             selectionColor={theme.colors.primary.default}
@@ -100,10 +113,10 @@ const TextField = (props: TextFieldProps): JSX.Element => {
             {...rest}
           />
           {iconPosition === 'trailing' && renderIcon}
-        </Styled.Content>
+        </Pressable>
         {actionButton}
-      </Styled.Row>
-    </Styled.Container>
+      </View>
+    </View>
   )
 }
 
