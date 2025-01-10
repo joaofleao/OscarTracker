@@ -1,17 +1,18 @@
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import { OscarLogo } from '@assets/images'
 
 const Logo = (): JSX.Element => {
+  const styles = useStyles()
   return (
-    <Styled.Container>
+    <View style={styles.container}>
       <OscarLogo />
       <View>
-        <Styled.Title>oscar</Styled.Title>
-        <Styled.Title>tracker</Styled.Title>
+        <Text style={styles.title}>oscar</Text>
+        <Text style={styles.title}>tracker</Text>
       </View>
-    </Styled.Container>
+    </View>
   )
 }
 
