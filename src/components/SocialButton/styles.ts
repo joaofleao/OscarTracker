@@ -1,6 +1,16 @@
-import styled from 'styled-components/native'
+import { StyleSheet, ViewStyle } from 'react-native'
 
-export const Container = styled.TouchableOpacity({
-  height: '40px',
-  width: '40px',
-})
+type StylesReturn = {
+  root: ViewStyle
+}
+
+const useStyles = (): StylesReturn => {
+  return StyleSheet.create({
+    root: {
+      height: 40,
+      width: 40,
+    },
+  })
+}
+
+export default useStyles
