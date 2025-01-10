@@ -1,7 +1,7 @@
 import React from 'react'
-import { PressableProps } from 'react-native'
+import { Pressable, PressableProps } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import { useTheme } from '@features/theme'
 
 export interface Props extends PressableProps {
@@ -11,18 +11,20 @@ export interface Props extends PressableProps {
 
 const Tab = (props: Props): JSX.Element => {
   const { icon, selected, ...rest } = props
-
   const { colors } = useTheme()
-
+  const styles = useStyles()
   return (
-    <Styled.Container {...rest}>
+    <Pressable
+      style={styles.root}
+      {...rest}
+    >
       {React.cloneElement(icon, {
         width: 20,
         height: 20,
         filled: selected,
         color: selected ? colors.background.container : colors.primary.default,
       })}
-    </Styled.Container>
+    </Pressable>
   )
 }
 

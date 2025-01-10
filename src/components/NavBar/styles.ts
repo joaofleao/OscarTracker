@@ -1,72 +1,52 @@
-import { Animated, Platform } from 'react-native'
-import { styled } from 'styled-components/native'
+import { Platform, StyleSheet, ViewStyle } from 'react-native'
 
-export const ReminderText = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-  }
-})
-export const Reminder = styled.View((props) => {
-  return {
-    backgroundColor: props.theme.colors.background.default,
+import { useTheme } from '@features/theme'
 
-    paddingVertical: '12px',
-    paddingHorizontal: '20px',
-    alignSelf: 'center',
-    borderRadius: '20px',
-    position: 'absolute',
+type StylesReturn = {
+  container: ViewStyle
+  selector: ViewStyle
+  background: ViewStyle
+}
 
-    width: '100%',
-    maxWidth: '400px',
-
-    shadowColor: '#000',
-    shadowOpacity: '0.37',
-    shadowRadius: '8px',
-    elevation: '12',
-  }
-})
-
-type ContainerProps = {
+type StylesProps = {
   keyboardOpen?: boolean
 }
 
-export const Container = styled(Animated.View)<ContainerProps>((props) => {
-  return {
-    backgroundColor: props.theme.colors.background.container,
-    height: '72px',
-    width: '80%',
-    alignSelf: 'center',
-    borderRadius: '20px',
-    position: 'absolute',
-    flexDirection: 'row',
-    bottom: 0,
-    opacity: props.keyboardOpen && Platform.OS === 'android' ? 0 : 1,
+const useStyles = ({ keyboardOpen }: StylesProps): StylesReturn => {
+  const { colors } = useTheme()
 
-    maxWidth: '400px',
+  return StyleSheet.create({
+    container: {
+      backgroundColor: colors.background.container,
+      height: 72,
+      width: '80%',
+      alignSelf: 'center',
+      borderRadius: 20,
+      position: 'absolute',
+      flexDirection: 'row',
+      bottom: 0,
+      opacity: keyboardOpen && Platform.OS === 'android' ? 0 : 1,
+      maxWidth: 400,
+      shadowColor: '#000',
+      shadowOpacity: 0.37,
+      shadowRadius: 8,
+      elevation: 12,
+    },
+    selector: {
+      alignItems: 'center',
+      height: '100%',
+      justifyContent: 'center',
+      zIndex: -1,
+      position: 'absolute',
+      width: '33%',
+    },
+    background: {
+      width: 36,
+      height: 36,
+      borderRadius: 12,
+      backgroundColor: colors.primary.default,
+    },
+  })
+}
 
-    shadowColor: '#000',
-    shadowOpacity: '0.37',
-    shadowRadius: '8px',
-    elevation: '12',
-  }
-})
-
-export const Selector = styled(Animated.View)(() => {
-  return {
-    alignItems: 'center',
-    height: '100%',
-    justifyContent: 'center',
-    zIndex: -1,
-    position: 'absolute',
-    width: '33%',
-  }
-})
-
-export const Background = styled(Animated.View)((props) => {
-  return {
-    width: '36px',
-    height: '36px',
-    borderRadius: '12px',
-    backgroundColor: props.theme.colors.primary.default,
-  }
-})
+export default useStyles

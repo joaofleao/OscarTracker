@@ -1,12 +1,20 @@
-import { styled } from 'styled-components/native'
+import { StyleSheet, ViewStyle } from 'react-native'
 
-export const Container = styled.Pressable(() => {
-  return {
-    flex: 1,
-    alignItems: 'center',
-    height: '100%',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignSelf: 'center',
-  }
-})
+type StylesReturn = {
+  root: ViewStyle
+}
+
+const useStyles = (): StylesReturn => {
+  return StyleSheet.create({
+    root: {
+      flex: 1,
+      alignItems: 'center',
+      height: '100%',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      alignSelf: 'center',
+    },
+  })
+}
+
+export default useStyles

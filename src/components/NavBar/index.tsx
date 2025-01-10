@@ -2,7 +2,7 @@ import React from 'react'
 import { Animated, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Tab from './TabBar'
 import useKeyboard from '@hooks/useKeyboard'
 import { useNavigation } from '@react-navigation/native'
@@ -25,6 +25,7 @@ const NavBar = (props: Props): JSX.Element => {
 
   const navigation = useNavigation<ProfileScreenNavigationProp>()
   const keyboardOpen = useKeyboard()
+  const styles = useStyles({ keyboardOpen })
 
   const selected = navigation.getState()?.routes?.[0]?.state?.index ?? initialRoute
   const insets = useSafeAreaInsets()
@@ -70,16 +71,18 @@ const NavBar = (props: Props): JSX.Element => {
   }, [keyboardOpen, keyboardOffsetValue])
 
   return (
-    <Styled.Container
-      keyboardOpen={keyboardOpen}
-      style={{ transform: [{ translateY: keyboardOffsetValue }], bottom: insets.bottom + 12 }}
+    <Animated.View
+      style={[
+        styles.container,
+        { transform: [{ translateY: keyboardOffsetValue }], bottom: insets.bottom + 12 },
+      ]}
     >
       {tabs.map(renderTabs)}
 
-      <Styled.Selector style={{ transform: [{ translateX: labelOffsetValue }] }}>
-        <Styled.Background />
-      </Styled.Selector>
-    </Styled.Container>
+      <Animated.View style={[styles.selector, { transform: [{ translateX: labelOffsetValue }] }]}>
+        <Animated.View style={styles.background} />
+      </Animated.View>
+    </Animated.View>
   )
 }
 
