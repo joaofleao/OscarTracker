@@ -1,6 +1,12 @@
-import { GestureResponderEvent, Modal as RNModal, ModalProps as RNModalProps } from 'react-native'
+import {
+  GestureResponderEvent,
+  Modal as RNModal,
+  ModalProps as RNModalProps,
+  Pressable,
+  View,
+} from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 
 export interface ModalProps extends RNModalProps {
   onClickOutside?: () => void
@@ -9,8 +15,9 @@ const defaultProps = {
   onClickOutside: null,
 }
 
-const Modal = (props: ModalProps): JSX.Element => {
+const Root = (props: ModalProps): JSX.Element => {
   const { children, onClickOutside, ...rest } = { ...defaultProps, ...props }
+  const styles = useStyles()
 
   const handleClickOutside = (event: GestureResponderEvent): void => {
     if (onClickOutside && event.target === event.currentTarget) onClickOutside()
@@ -21,11 +28,14 @@ const Modal = (props: ModalProps): JSX.Element => {
       transparent={true}
       {...rest}
     >
-      <Styled.Background onPress={handleClickOutside}>
-        <Styled.Container>{children}</Styled.Container>
-      </Styled.Background>
+      <Pressable
+        style={styles.root}
+        onPress={handleClickOutside}
+      >
+        <View style={styles.container}>{children}</View>
+      </Pressable>
     </RNModal>
   )
 }
 
-export default Modal
+export default Root

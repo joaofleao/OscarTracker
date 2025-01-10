@@ -1,6 +1,8 @@
-import Root from './Modal'
-import { Description, Footer, Row, Section, Title } from './styles'
+import Description from './Description'
+import Footer from './Footer'
+import Root from './Root'
+import Row from './Row'
+import Section from './Section'
+import Title from './Title'
 
-const Modal = { Root, Title, Description, Section, Row, Footer }
-
-export default Modal
+export default { Root, Description, Footer, Row, Section, Title }

@@ -1,0 +1,22 @@
+import { StyleSheet, TextStyle } from 'react-native'
+
+import { useTheme } from '@features/theme'
+
+type StylesReturn = {
+  root: TextStyle
+}
+
+const useStyles = (): StylesReturn => {
+  const { colors, fonts } = useTheme()
+
+  return StyleSheet.create({
+    root: {
+      color: colors.text.disabled,
+      fontFamily: fonts.primary.medium,
+      fontSize: 14,
+      lineHeight: 20,
+    },
+  })
+}
+
+export default useStyles
