@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Button from '@components/Button'
 import EmailField, { emailValidation } from '@components/FormFields/EmailField'
 import Global from '@components/Global'
@@ -13,6 +14,7 @@ import routes from '@utils/routes'
 const PasswordRecovery = ({ navigation, route }: PasswordRecoveryProps): JSX.Element => {
   const { email } = route.params
   const [recoveryEmail, setRecoveryEmail] = useState<string>(email ?? '')
+  const styles = useStyles()
 
   const auth = useAuth()
 
@@ -35,20 +37,20 @@ const PasswordRecovery = ({ navigation, route }: PasswordRecoveryProps): JSX.Ele
       </Header.Root>
 
       <Global.Body>
-        <Styled.Header>
+        <View style={styles.header}>
           <Global.Title>{"Don't worry, it happens!"}</Global.Title>
           <Global.Description>
             Confirm the email you signed in so we can send a recovery link{' '}
           </Global.Description>
-        </Styled.Header>
+        </View>
 
-        <Styled.Content>
+        <View style={styles.content}>
           <EmailField
             placeholder="spikelee@oscar.com"
             value={recoveryEmail}
             onChangeText={setRecoveryEmail}
           />
-        </Styled.Content>
+        </View>
       </Global.Body>
 
       <Global.Footer>

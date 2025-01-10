@@ -1,50 +1,39 @@
-import { Animated, StyleSheet } from 'react-native'
-import { styled } from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const Header = styled.View(() => {
-  return {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: '100px',
-  }
-})
+import { useTheme } from '@features/theme'
 
-export const Content = styled.View(() => {
-  return {
-    gap: '28px',
-  }
-})
+type StylesReturn = {
+  header: ViewStyle
+  content: TextStyle
+  buttonContainer: ViewStyle
+  forgotLabel: TextStyle
+  forgotButton: ViewStyle
+}
 
-export const Footer = styled(Animated.View)({
-  position: 'absolute',
-  alignSelf: 'center',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-})
+const useStyles = (): StylesReturn => {
+  const { fonts, colors } = useTheme()
 
-export const ButtonContainer = styled.View(() => {
-  return {
-    alignItems: 'center',
-  }
-})
+  return StyleSheet.create({
+    header: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 100,
+    },
+    content: {
+      gap: 28,
+    },
+    buttonContainer: {
+      alignItems: 'center',
+    },
+    forgotLabel: {
+      fontFamily: fonts.primary.bold,
+      fontSize: 12,
+      color: colors.primary.default,
+    },
+    forgotButton: {
+      padding: 12,
+    },
+  })
+}
 
-export const ForgotLabel = styled.Text((props) => {
-  return {
-    fontFamily: props.theme.fonts.primary.bold,
-    fontSize: '12px',
-    color: props.theme.colors.primary.default,
-  }
-})
-
-export const ForgotButton = styled.TouchableOpacity(() => {
-  return {
-    padding: '12px',
-  }
-})
-
-export const styles = StyleSheet.create({
-  contentContainerStyle: {
-    paddingHorizontal: 20,
-    justifyContent: 'center',
-  },
-})
+export default useStyles

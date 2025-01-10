@@ -1,11 +1,21 @@
-import { styled } from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const Header = styled.View({
-  gap: '12px',
-  justifyContent: 'center',
-  paddingVertical: '80px',
-})
+type StylesReturn = {
+  header: ViewStyle
+  content: TextStyle
+}
 
-export const Content = styled.View({
-  gap: '20px',
-})
+const useStyles = (): StylesReturn => {
+  return StyleSheet.create({
+    header: {
+      gap: 12,
+      justifyContent: 'center',
+      paddingVertical: 80,
+    },
+    content: {
+      gap: 20,
+    },
+  })
+}
+
+export default useStyles

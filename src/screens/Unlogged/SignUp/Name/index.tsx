@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Button from '@components/Button'
 import TextField from '@components/FormFields/TextField'
 import Global from '@components/Global'
@@ -13,6 +14,7 @@ const Name = ({ navigation, route }: NameProps): JSX.Element => {
   const [name, setName] = useState<string>('')
   const [nickname, setNickname] = useState<string>('')
   const auth = useAuth()
+  const styles = useStyles()
 
   const { email, password } = route.params
 
@@ -39,12 +41,12 @@ const Name = ({ navigation, route }: NameProps): JSX.Element => {
       </Header.Root>
 
       <Global.Body>
-        <Styled.Header>
+        <View style={styles.header}>
           <Global.Title>How would you like to be called?</Global.Title>
           <Global.Description> The nickname will be shown to all your friends</Global.Description>
-        </Styled.Header>
+        </View>
 
-        <Styled.Content>
+        <View style={styles.content}>
           <TextField
             label="Name"
             placeholder="Greta Gerwig"
@@ -61,7 +63,7 @@ const Name = ({ navigation, route }: NameProps): JSX.Element => {
             valid={nicknameValid}
             errorText={'Please provide a single nickname'}
           />
-        </Styled.Content>
+        </View>
       </Global.Body>
 
       <Global.Footer>

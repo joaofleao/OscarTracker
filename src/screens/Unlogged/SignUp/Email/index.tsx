@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Button from '@components/Button'
 import EmailField, { emailValidation } from '@components/FormFields/EmailField'
 import Global from '@components/Global'
@@ -11,6 +12,7 @@ import routes from '@utils/routes'
 
 const Email = ({ navigation }: EmailProps): JSX.Element => {
   const [email, setEmail] = useState<string>('')
+  const styles = useStyles()
 
   const handleNext = (): void => {
     navigation.navigate(routes.unlogged.signUpPassword, { email })
@@ -30,17 +32,17 @@ const Email = ({ navigation }: EmailProps): JSX.Element => {
       </Header.Root>
 
       <Global.Body>
-        <Styled.Header>
+        <View style={styles.header}>
           <Global.Title>Give us your best e-mail</Global.Title>
           <Global.Description>We will send you a verification code to confirm</Global.Description>
-        </Styled.Header>
-        <Styled.Content>
+        </View>
+        <View style={styles.content}>
           <EmailField
             placeholder="steven_spielberg@oscar.com"
             value={email}
             onChangeText={setEmail}
           />
-        </Styled.Content>
+        </View>
       </Global.Body>
 
       <Global.Footer>

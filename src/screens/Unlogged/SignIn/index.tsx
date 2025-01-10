@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Button from '@components/Button'
 import PasswordField from '@components/FormFields/PasswordField'
 import TextField from '@components/FormFields/TextField'
@@ -12,6 +13,7 @@ import routes from '@utils/routes'
 
 const SignIn = ({ navigation }: SignInProps): JSX.Element => {
   const auth = useAuth()
+  const styles = useStyles()
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -33,10 +35,10 @@ const SignIn = ({ navigation }: SignInProps): JSX.Element => {
   return (
     <Global.Screen>
       <Global.Body>
-        <Styled.Header>
+        <View style={styles.header}>
           <Logo />
-        </Styled.Header>
-        <Styled.Content>
+        </View>
+        <View style={styles.content}>
           <TextField
             placeholder="oscar@email.com"
             autoComplete="email"
@@ -51,21 +53,24 @@ const SignIn = ({ navigation }: SignInProps): JSX.Element => {
             onChangeText={setPassword}
           />
 
-          <Styled.ButtonContainer>
+          <View style={styles.buttonContainer}>
             <Button
               label="Sign In"
               width="fixed"
               disabled={formattedEmail === '' || password === ''}
               onPress={signIn}
             />
-          </Styled.ButtonContainer>
-        </Styled.Content>
+          </View>
+        </View>
       </Global.Body>
 
       <Global.Footer>
-        <Styled.ForgotButton onPress={forgotPassword}>
-          <Styled.ForgotLabel>Forgot password?</Styled.ForgotLabel>
-        </Styled.ForgotButton>
+        <TouchableOpacity
+          style={styles.forgotButton}
+          onPress={forgotPassword}
+        >
+          <Text style={styles.forgotLabel}>Forgot password?</Text>
+        </TouchableOpacity>
 
         <Button
           label="New here?"

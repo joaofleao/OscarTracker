@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Button from '@components/Button'
 import PasswordField, { passwordValidation } from '@components/FormFields/PasswordField'
 import Global from '@components/Global'
@@ -12,6 +13,7 @@ import routes from '@utils/routes'
 const Password = ({ navigation, route }: PasswordProps): JSX.Element => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const styles = useStyles()
 
   const { passwordValid, confirmPasswordValid } = passwordValidation(password, confirmPassword)
 
@@ -36,12 +38,12 @@ const Password = ({ navigation, route }: PasswordProps): JSX.Element => {
       </Header.Root>
 
       <Global.Body>
-        <Styled.Header>
+        <View style={styles.header}>
           <Global.Title>How about some security?</Global.Title>
           <Global.Description>Make sure to use a strong password.</Global.Description>
-        </Styled.Header>
+        </View>
 
-        <Styled.Content>
+        <View style={styles.content}>
           <PasswordField
             value={password}
             onChangeText={setPassword}
@@ -54,7 +56,7 @@ const Password = ({ navigation, route }: PasswordProps): JSX.Element => {
             onChangeText={setConfirmPassword}
             type="confirmPassword"
           />
-        </Styled.Content>
+        </View>
       </Global.Body>
 
       <Global.Footer>
