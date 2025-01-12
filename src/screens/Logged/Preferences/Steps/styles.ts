@@ -93,17 +93,3 @@ const useStyles = (): StylesReturn => {
 }
 
 export default useStyles
-
-// export const Header = styled.View(() => {
-// export const Container = styled.View(() => {
-// export const Content = styled.View(() => {
-// export const Poster = styled.Image(() => {
-// export const Plot = styled.Text((props) => {
-// export const CastList = styled.View(() => {
-// export const Cast = styled.View(() => {
-// export const CastImage = styled.Image(() => {
-// export const CastText = styled.View(() => {
-// export const CastName = styled.Text((props) => {
-// export const CastCharacter = styled.Text((props) => {
-// export const Rating = styled.View((props) => {
-// export const RatingText = styled.Text((props) => {
