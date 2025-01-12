@@ -1,14 +1,24 @@
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const Content = styled.FlatList(() => {
-  return {
-    paddingHorizontal: '20px',
-    flex: 1,
-  }
-})
-export const Accent = styled.Text((props) => {
-  return {
-    color: props.theme.colors.primary.default,
-    fontFamily: props.theme.fonts.primary.bold,
-  }
-})
+import { useTheme } from '@features/theme'
+
+type StylesReturn = {
+  content: ViewStyle
+  accent: TextStyle
+}
+
+const useStyles = (): StylesReturn => {
+  const { colors, fonts } = useTheme()
+  return StyleSheet.create({
+    content: {
+      paddingHorizontal: 20,
+      flex: 1,
+    },
+    accent: {
+      color: colors.primary.default,
+      fontFamily: fonts.primary.bold,
+    },
+  })
+}
+
+export default useStyles

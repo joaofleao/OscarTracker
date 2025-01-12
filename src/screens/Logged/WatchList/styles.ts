@@ -1,24 +1,29 @@
-import styled from 'styled-components/native'
+import { StyleSheet, ViewStyle } from 'react-native'
 
-export const List = styled.FlatList(() => {
-  return {}
-})
-export const Item = styled.View(() => {
-  return {
-    marginHorizontal: '20px',
-  }
-})
-export const FloatingButton = styled.View((props) => {
-  return {
-    backgroundColor: props.theme.colors.background.default,
-  }
-})
+import { useTheme } from '@features/theme'
 
-export const Header = styled.View(() => {
-  return {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  }
-})
+type StylesReturn = {
+  header: ViewStyle
+  floatingButton: ViewStyle
+  item: ViewStyle
+}
+
+const useStyles = (): StylesReturn => {
+  const { colors } = useTheme()
+  return StyleSheet.create({
+    item: {
+      marginHorizontal: 20,
+    },
+    floatingButton: {
+      backgroundColor: colors.background.default,
+    },
+    header: {
+      flexDirection: 'row',
+      width: '100%',
+      justifyContent: 'space-between',
+      marginBottom: 12,
+    },
+  })
+}
+
+export default useStyles

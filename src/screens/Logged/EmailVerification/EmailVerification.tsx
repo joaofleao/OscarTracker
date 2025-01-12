@@ -1,6 +1,7 @@
 import React from 'react'
+import { Text, View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Button from '@components/Button'
 import Global from '@components/Global'
 import { useAuth } from '@features/auth'
@@ -16,6 +17,7 @@ const Password = ({ navigation }: PasswordProps): JSX.Element => {
   const [countdown, setCountdown] = React.useState(0)
   const [firstTime, setFirstTime] = React.useState(true)
   const [loading, setLoading] = React.useState(false)
+  const styles = useStyles()
 
   const handleNext = (): void => {
     auth.user.reload()
@@ -55,13 +57,13 @@ const Password = ({ navigation }: PasswordProps): JSX.Element => {
 
   return (
     <Global.Screen>
-      <Styled.Header>
+      <View style={styles.header}>
         <Global.Title>Looks like you have not yet verified your email</Global.Title>
         <Global.Description>
           Check your inbox and spam at {user.email} to continue using the app
         </Global.Description>
-      </Styled.Header>
-      <Styled.Content>
+      </View>
+      <View style={styles.content}>
         <Button
           width="fixed"
           label={firstTime ? 'Send Verification Email' : 'Resend Verification Email'}
@@ -71,14 +73,14 @@ const Password = ({ navigation }: PasswordProps): JSX.Element => {
           onPress={handleSend}
         />
         {countdown > 0 && (
-          <Styled.Helper>
-            Resend in<Styled.Countdown> {countdown} </Styled.Countdown>
+          <Text style={styles.helper}>
+            Resend in<Text style={styles.countdown}> {countdown} </Text>
             seconds
-          </Styled.Helper>
+          </Text>
         )}
-      </Styled.Content>
+      </View>
 
-      <Styled.Footer>
+      <View style={styles.footer}>
         <Button
           width="fixed"
           label="Not your account?"
@@ -91,7 +93,7 @@ const Password = ({ navigation }: PasswordProps): JSX.Element => {
           label="Done!"
           onPress={handleNext}
         />
-      </Styled.Footer>
+      </View>
     </Global.Screen>
   )
 }

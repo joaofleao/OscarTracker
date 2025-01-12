@@ -1,92 +1,41 @@
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const Content = styled.ScrollView(() => {
-  return {
-    paddingHorizontal: '20px',
-  }
-})
+import { useTheme } from '@features/theme'
 
-export const ContentContainer = styled.View(() => {
-  return {
-    flex: 1,
-    gap: '40px',
-  }
-})
+type StylesReturn = {
+  content: ViewStyle
+  contentContainer: ViewStyle
+  section: ViewStyle
+  item: ViewStyle
 
-export const Section = styled.View(() => {
-  return {
-    gap: '16px',
-  }
-})
+  accentText: TextStyle
+}
 
-export const Item = styled.View(() => {
-  return {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  }
-})
+const useStyles = (): StylesReturn => {
+  const { colors, fonts } = useTheme()
+  return StyleSheet.create({
+    content: {
+      paddingHorizontal: 20,
+    },
+    contentContainer: {
+      flex: 1,
+      gap: 40,
+    },
+    section: {
+      gap: 16,
+    },
+    item: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    accentText: {
+      color: colors.primary.default,
+      fontFamily: fonts.primary.bold,
+      fontSize: 16,
+      lineHeight: 24,
+    },
+  })
+}
 
-export const Subtitle = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.regular,
-    fontSize: '16px',
-    lineHeight: '24px',
-  }
-})
-
-export const AccentText = styled.Text((props) => {
-  return {
-    color: props.theme.colors.primary.default,
-    fontFamily: props.theme.fonts.primary.bold,
-    fontSize: '16px',
-    lineHeight: '24px',
-  }
-})
-export const ButtonContainer = styled.View(() => {
-  return {
-    gap: '16px',
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'flex-end',
-    flexDirection: 'row',
-  }
-})
-
-export const Line = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.medium,
-    fontSize: '14px',
-    lineHeight: '20px',
-    paddingLeft: 20,
-  }
-})
-export const TabbedLine = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.medium,
-    fontSize: '14px',
-    lineHeight: '20px',
-
-    paddingLeft: 80,
-  }
-})
-export const TabbedLine2 = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.medium,
-    fontSize: '14px',
-    lineHeight: '20px',
-
-    paddingLeft: 80,
-  }
-})
-export const Container = styled.View((props) => {
-  return {
-    gap: 8,
-    height: 120,
-    justifyContent: 'center',
-  }
-})
+export default useStyles

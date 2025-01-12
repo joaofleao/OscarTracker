@@ -1,8 +1,9 @@
-import { type PressableProps } from 'react-native'
+import { Pressable, type PressableProps, Text, View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Icon from '@components/Icon'
 import Poster from '@components/Poster'
+import TextToggle from '@components/TextToggle'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
 import { getImage } from '@services/tmdb/api'
@@ -25,6 +26,7 @@ const SongCard = (props: SongCardProps): JSX.Element => {
 
   const { movies: watchedMovies, preferences } = useUser()
   const { movies } = useEdition()
+  const styles = useStyles({ winner })
 
   const movie = movies[movieId]['en-US']
 
@@ -37,16 +39,19 @@ const SongCard = (props: SongCardProps): JSX.Element => {
   }
 
   return (
-    <Styled.Container {...rest}>
+    <Pressable
+      style={styles.container}
+      {...rest}
+    >
       <Poster
         winner={winner}
         image={getImage(movie.image)}
         isWatched={watchedMovies.includes(movieId)}
         spoiler={preferences.poster}
       />
-      <Styled.Content>
-        <Styled.Title
-          winner={winner}
+      <View style={styles.content}>
+        <Text
+          style={styles.title}
           numberOfLines={3}
         >
           {winner && (
@@ -57,25 +62,38 @@ const SongCard = (props: SongCardProps): JSX.Element => {
             />
           )}
           {song}
-        </Styled.Title>
-        <Styled.Information numberOfLines={2}>{information}</Styled.Information>
-        <Styled.Movie numberOfLines={2}>{movie.name}</Styled.Movie>
-        <Styled.Bets>
-          <Styled.Toggle
+        </Text>
+
+        <Text
+          style={styles.information}
+          numberOfLines={2}
+        >
+          {information}
+        </Text>
+        <Text
+          style={styles.movie}
+          numberOfLines={2}
+        >
+          {movie.name}
+        </Text>
+        <View style={styles.bets}>
+          <TextToggle
+            style={styles.toggle}
             selected={isWish}
             label="wish"
             onToggle={placeWish}
             icon={<Icon.FingersCrossed />}
           />
-          <Styled.Toggle
+          <TextToggle
+            style={styles.toggle}
             selected={isFirstBet || isSecondBet}
             onToggle={placeBet}
             label={isFirstBet ? 'bet 1' : isSecondBet ? 'bet 2' : 'bet'}
             icon={<Icon.Oscar />}
           />
-        </Styled.Bets>
-      </Styled.Content>
-    </Styled.Container>
+        </View>
+      </View>
+    </Pressable>
   )
 }
 

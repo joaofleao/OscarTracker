@@ -1,256 +1,193 @@
-import { Animated, Pressable } from 'react-native'
-import styled from 'styled-components/native'
+import { ImageStyle, StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-import Spoiler from '@components/Spoiler'
+import { useTheme } from '@features/theme'
 
-export const ContentContainer = styled.View(() => {
-  return {
-    paddingHorizontal: '20px',
-    flex: 1,
-    gap: '20px',
-    marginBottom: '20px',
-  }
-})
+type StylesReturn = {
+  contentContainer: ViewStyle
+  spoilerPoster: ViewStyle
+  mainContent: ViewStyle
+  basicData: ViewStyle
+  startSpoiler: ViewStyle
+  iconInformation: ViewStyle
+  iconInformationText: TextStyle
+  carousselHeader: ViewStyle
 
-export const SpoilerPoster = styled(Spoiler)(() => {
-  return {
-    flex: 1,
-    maxWidth: '70%',
-  }
-})
-
-export const Poster = styled.Image(() => {
-  return {
-    width: '100%',
-    aspectRatio: 0.67,
-    borderRadius: '12px',
-  }
-})
-
-export const MainContent = styled.View(() => {
-  return {
-    flexDirection: 'row',
-    flex: 1,
-    gap: '16px',
-    justifyContent: 'space-around',
-  }
-})
-export const BasicData = styled.View(() => {
-  return {
-    paddingVertical: '24px',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '24px',
-
-    flex: 1,
-    maxWidth: '20%',
-  }
-})
-
-export const StarSpoiler = styled(Spoiler)(() => {
-  return {
-    width: '100%',
-    maxWidth: '100px',
-    minWidth: '64px',
-  }
-})
-
-export const IconInformation = styled.View((props) => {
-  return {
-    flexDirection: 'column',
-    paddingHorizontal: '12px',
-    paddingVertical: '12px',
-    width: '100%',
-    maxWidth: '100px',
-    minWidth: '64px',
-
-    backgroundColor: props.theme.colors.background.container,
-    gap: '8px',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '16px',
-  }
-})
-
-export const IconInformationText = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.bold,
-    fontSize: '16px',
-  }
-})
-
-export interface WatchedButtonProps {
-  watched: boolean
+  title: TextStyle
+  subTitle: TextStyle
+  plot: TextStyle
+  list: ViewStyle
+  cast: ViewStyle
+  castSpoiler: ViewStyle
+  castImage: ImageStyle
+  castName: TextStyle
+  castCharacter: TextStyle
+  castImageContainer: ViewStyle
+  castNoImage: TextStyle
+  provider: ImageStyle
+  emptyState: TextStyle
+  nomination: ViewStyle
+  nominationText: TextStyle
 }
 
-export const WatchedButton = styled.TouchableOpacity<WatchedButtonProps>((props) => {
-  return {
-    paddingHorizontal: '12px',
-    paddingVertical: '12px',
-    borderRadius: '16px',
-    borderWidth: '2px',
-    borderColor: props.watched ? 'transparent' : props.theme.colors.primary.default,
-    backgroundColor: props.watched ? props.theme.colors.primary.default : 'transparent',
-  }
-})
+const useStyles = (): StylesReturn => {
+  const { colors, fonts } = useTheme()
+  return StyleSheet.create({
+    contentContainer: {
+      paddingHorizontal: 20,
+      flex: 1,
+      gap: 20,
+      marginBottom: 20,
+    },
+    spoilerPoster: {
+      flex: 1,
+      maxWidth: '70%',
+    },
+    mainContent: {
+      flexDirection: 'row',
+      flex: 1,
+      gap: 16,
+      justifyContent: 'space-around',
+    },
+    basicData: {
+      paddingVertical: 24,
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 24,
+      flex: 1,
+      maxWidth: '20%',
+    },
+    startSpoiler: {
+      width: '100%',
+      maxWidth: 100,
+      minWidth: 64,
+    },
+    iconInformation: {
+      flexDirection: 'column',
+      paddingHorizontal: 12,
+      paddingVertical: 12,
+      width: '100%',
+      maxWidth: 100,
+      minWidth: 64,
 
-export const WatchedText = styled.Text<WatchedButtonProps>((props) => {
-  return {
-    fontSize: '16px',
-    textAlign: 'center',
-    fontFamily: props.theme.fonts.primary.bold,
-    color: props.watched ? props.theme.colors.text.inverse : props.theme.colors.primary.default,
-  }
-})
+      backgroundColor: colors.background.container,
+      gap: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 16,
+    },
+    iconInformationText: {
+      color: colors.text.default,
+      fontFamily: fonts.primary.bold,
+      fontSize: 16,
+    },
 
-export const CarousselHeader = styled.View(() => {
-  return {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    carousselHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 16,
+    },
+    title: {
+      paddingHorizontal: 20,
+      paddingVertical: 20,
+      fontFamily: fonts.primary.bold,
+      color: colors.text.default,
+      fontSize: 24,
+      lineHeight: 32,
+    },
+    subTitle: {
+      fontFamily: fonts.primary.bold,
+      color: colors.text.default,
+      fontSize: 16,
+      lineHeight: 20,
+      flex: 1,
+    },
 
-    marginBottom: '16px',
-  }
-})
+    plot: {
+      color: colors.text.default,
+      fontFamily: fonts.primary.regular,
+      fontSize: 14,
+      lineHeight: 20,
 
-export const Title = styled.Text((props) => {
-  return {
-    paddingHorizontal: '20px',
-    paddingVertical: '20px',
-    fontFamily: props.theme.fonts.primary.bold,
-    color: props.theme.colors.text.default,
-    fontSize: '24px',
-    lineHeight: '32px',
-  }
-})
+      letterSpacing: 1,
+      textAlign: 'justify',
+    },
 
-export const SubTitle = styled.Text((props) => {
-  return {
-    fontFamily: props.theme.fonts.primary.bold,
-    color: props.theme.colors.text.default,
-    fontSize: '16px',
-    lineHeight: '20px',
-    flex: 1,
-  }
-})
+    list: {
+      marginHorizontal: 20,
+    },
 
-export const Plot = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.regular,
-    fontSize: '14px',
-    lineHeight: '20px',
+    cast: {
+      gap: 8,
+      width: 106,
+    },
+    castSpoiler: {
+      justifyContent: 'flex-start',
+      alignSelf: 'flex-start',
+    },
 
-    letterSpacing: '1px',
-    textAlign: 'justify',
-  }
-})
+    castImage: {
+      width: 106,
+      height: 158,
+    },
 
-export const IMDBButtonText = styled.Text((props) => {
-  return {
-    fontSize: '16px',
-    textAlign: 'center',
-    fontFamily: props.theme.fonts.primary.bold,
-    color: props.theme.colors.primary.default,
-  }
-})
+    castName: {
+      color: colors.text.default,
+      fontFamily: fonts.primary.bold,
+      fontSize: 16,
+      width: '100%',
+    },
 
-export const List = styled.FlatList(() => {
-  return {
-    marginHorizontal: '-20px',
-  }
-})
+    castCharacter: {
+      color: colors.text.default,
+      fontFamily: fonts.primary.regular,
+      fontSize: 14,
+      textAlign: 'justify',
+      paddingBottom: 4,
+    },
 
-export const Cast = styled.TouchableOpacity(() => {
-  return {
-    gap: '8px',
-    width: '106px',
-  }
-})
-export const CastSpoiler = styled(Spoiler)(() => {
-  return {
-    justifyContent: 'flex-start',
-    alignSelf: 'flex-start',
-  }
-})
+    castImageContainer: {
+      backgroundColor: colors.background.container,
+      borderRadius: 12,
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'relative',
+      overflow: 'hidden',
+    },
 
-export const CastImage = styled.Image(() => {
-  return {
-    width: '106px',
-    height: '158px',
-  }
-})
+    castNoImage: {
+      position: 'absolute',
+      fontFamily: fonts.primary.bold,
+      color: colors.text.disabled,
+    },
 
-export const CastName = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.bold,
-    fontSize: '16px',
-    width: '100%',
-  }
-})
+    provider: {
+      width: 50,
+      height: 50,
+      borderRadius: 50,
+      marginBottom: 2,
+      backgroundColor: colors.background.container,
+    },
 
-export const CastCharacter = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.regular,
-    fontSize: '14px',
-    textAlign: 'justify',
-    paddingBottom: '4px',
-  }
-})
+    emptyState: {
+      fontFamily: fonts.primary.bold,
+      color: colors.text.disabled,
+    },
 
-export const CastImageContainer = styled.View((props) => {
-  return {
-    backgroundColor: props.theme.colors.background.container,
-    borderRadius: '12px',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-    overflow: 'hidden',
-  }
-})
+    nomination: {
+      gap: 4,
+      flexDirection: 'row',
+      backgroundColor: colors.background.container,
+      paddingVertical: 8,
+      paddingHorizontal: 12,
+      borderRadius: 20,
+    },
 
-export const CastNoImage = styled.Text((props) => {
-  return {
-    position: 'absolute',
-    fontFamily: props.theme.fonts.primary.bold,
-    color: props.theme.colors.text.disabled,
-  }
-})
+    nominationText: {
+      fontFamily: fonts.primary.bold,
+      color: colors.text.default,
+    },
+  })
+}
 
-export const Provider = styled.Image((props) => {
-  return {
-    width: '50px',
-    height: '50px',
-    borderRadius: '50px',
-    marginBottom: '2px',
-    backgroundColor: props.theme.colors.background.container,
-  }
-})
-
-export const EmptyState = styled.Text((props) => {
-  return {
-    fontFamily: props.theme.fonts.primary.bold,
-    color: props.theme.colors.text.disabled,
-  }
-})
-
-export const Nomination = styled.TouchableOpacity((props) => {
-  return {
-    gap: '4px',
-    flexDirection: 'row',
-    backgroundColor: props.theme.colors.background.container,
-    paddingVertical: '8px',
-    paddingHorizontal: '12px',
-    borderRadius: '20px',
-  }
-})
-
-export const NominationText = styled.Text((props) => {
-  return {
-    fontFamily: props.theme.fonts.primary.bold,
-    color: props.theme.colors.text.default,
-  }
-})
+export default useStyles

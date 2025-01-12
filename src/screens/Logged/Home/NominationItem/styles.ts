@@ -1,23 +1,29 @@
-import { Animated, Pressable } from 'react-native'
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-type ContainerProps = {
+import { useTheme } from '@features/theme'
+
+type StylesReturn = {
+  container: ViewStyle
+  title: TextStyle
+}
+
+type StylesProps = {
   large: boolean
 }
 
-const AnimatedContainer = Animated.createAnimatedComponent(Pressable)
+const useStyles = ({ large }: StylesProps): StylesReturn => {
+  const { fonts, colors } = useTheme()
+  return StyleSheet.create({
+    container: {
+      width: large ? 158 : 106,
+      gap: 8,
+    },
+    title: {
+      fontFamily: fonts.primary.bold,
+      color: colors.text.default,
+      fontSize: 16,
+    },
+  })
+}
 
-export const Container = styled(AnimatedContainer)<ContainerProps>((props) => {
-  return {
-    width: props.large ? '158px' : '106px',
-    gap: '8px',
-  }
-})
-
-export const Title = styled.Text((props) => {
-  return {
-    fontFamily: props.theme.fonts.primary.bold,
-    color: props.theme.colors.text.default,
-    fontSize: '16px',
-  }
-})
+export default useStyles

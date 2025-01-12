@@ -1,4 +1,6 @@
-import * as Styled from './styles'
+import { Text } from 'react-native'
+
+import useStyles from './styles'
 import Button from '@components/Button'
 import Modal from '@components/Modal'
 import { useEdition } from '@features/edition'
@@ -12,6 +14,7 @@ type WinnerModalProps = {
 const WinnerModal = (props: WinnerModalProps): JSX.Element => {
   const { newWinner, setNewWinner, categoryId } = props
   const edition = useEdition()
+  const styles = useStyles()
 
   const close = (): void => {
     setNewWinner(null)
@@ -30,7 +33,7 @@ const WinnerModal = (props: WinnerModalProps): JSX.Element => {
       <Modal.Title>Winner</Modal.Title>
       <Modal.Description>
         Are you sure you want to set
-        <Styled.Accent> {newWinner?.[0]} </Styled.Accent>
+        <Text style={styles.accent}> {newWinner?.[0]} </Text>
         as the winner?
       </Modal.Description>
 

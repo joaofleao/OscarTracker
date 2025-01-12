@@ -1,8 +1,8 @@
 import React from 'react'
-import { ListRenderItemInfo } from 'react-native'
+import { FlatList, ListRenderItemInfo } from 'react-native'
 
 import Card from './Card'
-import * as Styled from './styles'
+import useStyles from './styles'
 import WinnerModal from './WinnerModal'
 import Button from '@components/Button'
 import Global from '@components/Global'
@@ -19,6 +19,7 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
   const { categoryId } = route.params
   const { categories } = useCategories()
   const user = useUser()
+  const styles = useStyles()
 
   const ballots = useBallots()
 
@@ -156,7 +157,8 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
         </Header.Row>
       </Header.Root>
 
-      <Styled.Content
+      <FlatList
+        style={styles.content}
         indicatorStyle="black"
         data={categoryNominations}
         renderItem={renderCard}

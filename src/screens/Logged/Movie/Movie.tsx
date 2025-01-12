@@ -1,7 +1,16 @@
 import { useEffect, useState } from 'react'
-import { Linking, type ListRenderItemInfo, ScrollView, TouchableOpacity, View } from 'react-native'
+import {
+  FlatList,
+  Image,
+  Linking,
+  type ListRenderItemInfo,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import { IMDB } from '@assets/images'
 import Button from '@components/Button'
 import Global from '@components/Global'
@@ -32,6 +41,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
   const movies = useMovies()
   const { categories } = useCategories()
   const theme = useTheme()
+  const styles = useStyles()
 
   const { image, name } = edition.movies[movieId]['en-US']
 
@@ -79,25 +89,40 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
     const picture = getImage(item.profile_path)
 
     return (
-      <Styled.CastSpoiler
+      <Spoiler
+        style={styles.castSpoiler}
         show={user.preferences.cast}
         watched={watched}
         text="Click to show cast member"
       >
-        <Styled.Cast
+        <TouchableOpacity
+          style={styles.cast}
           onPress={(): void => {
             Linking.openURL(`https://www.themoviedb.org/person/${item.id}`)
           }}
         >
-          <Styled.CastImageContainer>
-            {picture && <Styled.CastNoImage>No Image</Styled.CastNoImage>}
-            <Styled.CastImage source={{ uri: picture }} />
-          </Styled.CastImageContainer>
+          <View style={styles.castImageContainer}>
+            {picture && <Text style={styles.castNoImage}>No Image</Text>}
+            <Image
+              style={styles.castImage}
+              source={{ uri: picture }}
+            />
+          </View>
 
-          <Styled.CastName numberOfLines={2}>{item.name}</Styled.CastName>
-          <Styled.CastCharacter numberOfLines={2}>{item.character}</Styled.CastCharacter>
-        </Styled.Cast>
-      </Styled.CastSpoiler>
+          <Text
+            style={styles.castName}
+            numberOfLines={2}
+          >
+            {item.name}
+          </Text>
+          <Text
+            style={styles.castCharacter}
+            numberOfLines={2}
+          >
+            {item.character}
+          </Text>
+        </TouchableOpacity>
+      </Spoiler>
     )
   }
 
@@ -105,7 +130,8 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
     const winner = item.id === edition.winners?.[item.category]
 
     return (
-      <Styled.Nomination
+      <TouchableOpacity
+        style={styles.nomination}
         onPress={(): void => {
           navigation.navigate(routes.logged.category, { categoryId: item.category })
         }}
@@ -117,13 +143,18 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
             height={18}
           />
         )}
-        <Styled.NominationText>{categories[item.category]['en-US']}</Styled.NominationText>
-      </Styled.Nomination>
+        <Text style={styles.nominationText}>{categories[item.category]['en-US']}</Text>
+      </TouchableOpacity>
     )
   }
 
   const renderProvider = ({ item }: ListRenderItemInfo<ProductionCompany>): JSX.Element => {
-    return <Styled.Provider source={{ uri: getImage(item.logo_path) }} />
+    return (
+      <Image
+        style={styles.provider}
+        source={{ uri: getImage(item.logo_path) }}
+      />
+    )
   }
 
   return (
@@ -148,10 +179,11 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
       </Header.Root>
 
       <ScrollView>
-        <Styled.Title>{name}</Styled.Title>
-        <Styled.ContentContainer>
-          <Styled.MainContent>
-            <Styled.SpoilerPoster
+        <Text style={styles.title}>{name}</Text>
+        <View style={styles.contentContainer}>
+          <View style={styles.mainContent}>
+            <Spoiler
+              style={styles.spoilerPoster}
               show={user.preferences.poster}
               watched={watched}
               text="Show Poster"
@@ -162,46 +194,45 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
                 image={getImage(image, 1280)}
                 isWatched={watched}
               />
-            </Styled.SpoilerPoster>
+            </Spoiler>
 
-            <Styled.BasicData>
-              <Styled.IconInformation>
+            <View style={styles.basicData}>
+              <View style={styles.iconInformation}>
                 <Icon.Clock
                   width={18}
                   height={18}
                   color={theme.colors.primary.default}
                 />
-                <Styled.IconInformationText>{movieData?.runtime}</Styled.IconInformationText>
-              </Styled.IconInformation>
+                <View style={styles.iconInformationText}>{movieData?.runtime}</View>
+              </View>
 
-              <Styled.StarSpoiler
+              <Spoiler
+                style={styles.startSpoiler}
                 text="Show"
                 show={user.preferences.ratings}
                 watched={watched}
               >
-                <Styled.IconInformation>
+                <View style={styles.iconInformation}>
                   <Icon.Star
                     width={18}
                     height={18}
                     color={theme.colors.primary.default}
                   />
-                  <Styled.IconInformationText>
+                  <View style={styles.iconInformationText}>
                     {movieData?.vote_average != null &&
                       Math.round(movieData?.vote_average * 10) / 10}
-                  </Styled.IconInformationText>
-                </Styled.IconInformation>
-              </Styled.StarSpoiler>
+                  </View>
+                </View>
+              </Spoiler>
 
-              <Styled.IconInformation>
+              <View style={styles.iconInformation}>
                 <Icon.Globe
                   width={18}
                   height={18}
                   color={theme.colors.primary.default}
                 />
-                <Styled.IconInformationText>
-                  {movieData?.original_language}
-                </Styled.IconInformationText>
-              </Styled.IconInformation>
+                <View style={styles.iconInformationText}>{movieData?.original_language}</View>
+              </View>
 
               <TouchableOpacity
                 onPress={(): void => {
@@ -213,15 +244,16 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
                   height={32}
                 />
               </TouchableOpacity>
-            </Styled.BasicData>
-          </Styled.MainContent>
+            </View>
+          </View>
 
           <View>
-            <Styled.CarousselHeader>
-              <Styled.SubTitle>Nominations</Styled.SubTitle>
-            </Styled.CarousselHeader>
+            <View style={styles.carousselHeader}>
+              <Text style={styles.subTitle}>Nominations</Text>
+            </View>
 
-            <Styled.List
+            <FlatList
+              style={styles.list}
               horizontal
               showsHorizontalScrollIndicator={false}
               data={nominations}
@@ -233,12 +265,13 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
           </View>
 
           <View>
-            <Styled.CarousselHeader>
-              <Styled.SubTitle>Where to Watch</Styled.SubTitle>
-            </Styled.CarousselHeader>
+            <View style={styles.carousselHeader}>
+              <Text style={styles.title}>Where to Watch</Text>
+            </View>
 
             {movieProviders?.length > 0 ? (
-              <Styled.List
+              <FlatList
+                style={styles.list}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 data={movieProviders}
@@ -248,35 +281,36 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
                 ListFooterComponent={Global.Separator}
               />
             ) : (
-              <Styled.EmptyState>No streaming services available</Styled.EmptyState>
+              <Text style={styles.emptyState}>No streaming services available</Text>
             )}
           </View>
 
           <View>
-            <Styled.CarousselHeader>
-              <Styled.SubTitle>Plot</Styled.SubTitle>
-            </Styled.CarousselHeader>
+            <View style={styles.carousselHeader}>
+              <Text style={styles.title}>Plot</Text>
+            </View>
             {movieCast.length < 1 ? (
-              <Styled.EmptyState>Plot not available</Styled.EmptyState>
+              <Text style={styles.emptyState}>Plot not available</Text>
             ) : (
               <Spoiler
                 show={user.preferences.plot}
                 watched={watched}
               >
-                <Styled.Plot>{movieData?.overview}</Styled.Plot>
+                <Text style={styles.plot}>{movieData?.overview}</Text>
               </Spoiler>
             )}
           </View>
 
           <View>
-            <Styled.CarousselHeader>
-              <Styled.SubTitle>Cast</Styled.SubTitle>
-            </Styled.CarousselHeader>
+            <View style={styles.carousselHeader}>
+              <Text style={styles.title}>Cast</Text>
+            </View>
 
             {movieCast.length < 1 ? (
-              <Styled.EmptyState>Cast not available</Styled.EmptyState>
+              <Text style={styles.emptyState}>Cast not available</Text>
             ) : (
-              <Styled.List
+              <FlatList
+                style={styles.list}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 data={movieCast}
@@ -287,7 +321,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
               />
             )}
           </View>
-        </Styled.ContentContainer>
+        </View>
       </ScrollView>
     </Global.Screen>
   )

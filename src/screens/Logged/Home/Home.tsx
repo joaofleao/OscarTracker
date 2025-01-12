@@ -1,9 +1,8 @@
 import React from 'react'
-import { Animated, View } from 'react-native'
+import { Animated, FlatList, View } from 'react-native'
 import { Timestamp } from 'firebase/firestore'
 
 import NominationCaroussel from './NominationCaroussel'
-import * as Styled from './styles'
 import DynamicHeader from '@components/DynamicHeader'
 import Global from '@components/Global'
 import ProgressBar from '@components/ProgressBar'
@@ -79,7 +78,7 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
 
   return (
     <Global.Screen>
-      <Styled.List
+      <FlatList
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }], {
           useNativeDriver: false,
         })}

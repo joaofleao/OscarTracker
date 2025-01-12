@@ -1,8 +1,8 @@
 import React from 'react'
-import { Dimensions, FlatList, type ListRenderItemInfo } from 'react-native'
+import { Dimensions, FlatList, type ListRenderItemInfo, View } from 'react-native'
 
 import * as steps from './Steps'
-import * as Styled from './styles'
+import useStyles from './styles'
 import Button from '@components/Button'
 import Global from '@components/Global'
 import Header from '@components/Header'
@@ -71,41 +71,41 @@ const Preferences = ({ navigation }: PreferencesProps): JSX.Element => {
       key: 0,
       secondButton: 'Lets go!',
       title: 'Spoiler Settings',
-      content: steps.introduction,
+      content: steps.introduction(),
     },
     {
       key: 1,
       firstButton: 'Of course!',
       secondButton: 'Heh? No',
       title: 'Poster',
-      content: steps.poster,
+      content: steps.poster(),
     },
     {
       key: 2,
       firstButton: 'Yep',
       secondButton: 'Nope',
       title: 'Plot',
-      content: steps.plot,
+      content: steps.plot(),
     },
     {
       key: 3,
       firstButton: 'Yeah',
       secondButton: 'Nah',
       title: 'Casting',
-      content: steps.cast,
+      content: steps.cast(),
     },
     {
       key: 4,
       firstButton: 'Definitely',
       secondButton: 'Not for me',
       title: 'Ratings',
-      content: steps.ratings,
+      content: steps.ratings(),
     },
     {
       key: 5,
       secondButton: 'Nice!',
       title: 'Spoiler Settings',
-      content: steps.conclusion,
+      content: steps.conclusion(),
     },
   ]
 
@@ -116,12 +116,13 @@ const Preferences = ({ navigation }: PreferencesProps): JSX.Element => {
     secondButton: string
     content: JSX.Element
   }>): JSX.Element => {
-    return <Styled.StepScreen style={{ width: width - 40 }}>{item.content}</Styled.StepScreen>
+    return <View style={[styles.stepScreen, { width: width - 40 }]}>{item.content}</View>
   }
+  const styles = useStyles()
 
   return (
     <Global.Screen>
-      <Styled.HeaderRoot isFirst={index === 0}>
+      <Header.Root style={index === 0 && styles.headerRoot}>
         <Header.Row>
           <Button
             onPress={handleBack}
@@ -131,10 +132,11 @@ const Preferences = ({ navigation }: PreferencesProps): JSX.Element => {
           />
           <Header.Title>{screens[index].title}</Header.Title>
         </Header.Row>
-      </Styled.HeaderRoot>
+      </Header.Root>
 
-      <Styled.Content>
-        <Styled.StepList
+      <View style={styles.content}>
+        <FlatList
+          style={styles.list}
           ref={scrollViewRef}
           data={screens}
           horizontal
@@ -146,7 +148,7 @@ const Preferences = ({ navigation }: PreferencesProps): JSX.Element => {
           total={5}
           progress={index}
         />
-        <Styled.ButtonContainer>
+        <View style={styles.buttonContainer}>
           {screens[index].firstButton != null && (
             <Button
               width="full"
@@ -166,8 +168,8 @@ const Preferences = ({ navigation }: PreferencesProps): JSX.Element => {
               }}
             />
           )}
-        </Styled.ButtonContainer>
-      </Styled.Content>
+        </View>
+      </View>
     </Global.Screen>
   )
 }

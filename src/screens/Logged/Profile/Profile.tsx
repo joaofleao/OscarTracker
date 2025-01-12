@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+import { ScrollView, Text, View } from 'react-native'
 
-import EditionModal from './EditionModal'
-import * as Styled from './styles'
+import useStyles from './styles'
 import Button from '@components/Button'
 import TextField from '@components/FormFields/TextField'
 import Toggle from '@components/FormFields/Toggle'
@@ -18,11 +18,10 @@ import routes from '@utils/routes'
 const Profile = ({ navigation }: ProfileProps): JSX.Element => {
   const auth = useAuth()
   const user = useUser()
+  const styles = useStyles()
 
   const [displayName, setDisplayName] = useState<string>(user.displayName ?? '')
   const [nickname, setNickname] = useState<string>(user.nickname ?? '')
-
-  const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false)
 
   const [poster, setPoster] = useState<boolean>(user.preferences.poster)
   const [plot, setPlot] = useState<boolean>(user.preferences.plot)
@@ -79,9 +78,9 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
         />
       </Header.Root>
 
-      <Styled.Content>
-        <Styled.ContentContainer>
-          <Styled.Section>
+      <ScrollView style={styles.content}>
+        <View style={styles.contentContainer}>
+          <View style={styles.section}>
             <Global.Description>Personal Information </Global.Description>
 
             <TextField
@@ -108,10 +107,10 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
               label="Email"
               value={user.email}
             />
-          </Styled.Section>
+          </View>
 
-          <Styled.Section>
-            <Styled.Item>
+          <View>
+            <View style={styles.item}>
               <Global.Description>Spoiler Preferences</Global.Description>
               <Button
                 disabled={!editing}
@@ -122,9 +121,9 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
                   return navigation.navigate(routes.logged.preferences)
                 }}
               />
-            </Styled.Item>
+            </View>
 
-            <Styled.Item>
+            <View style={styles.item}>
               <Toggle
                 disabled={!editing}
                 label="Hide Posters"
@@ -135,8 +134,8 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
                   })
                 }}
               />
-            </Styled.Item>
-            <Styled.Item>
+            </View>
+            <View style={styles.item}>
               <Toggle
                 disabled={!editing}
                 label="Hide Plot"
@@ -147,8 +146,8 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
                   })
                 }}
               />
-            </Styled.Item>
-            <Styled.Item>
+            </View>
+            <View style={styles.item}>
               <Toggle
                 disabled={!editing}
                 label="Hide Cast"
@@ -159,8 +158,8 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
                   })
                 }}
               />
-            </Styled.Item>
-            <Styled.Item>
+            </View>
+            <View style={styles.item}>
               <Toggle
                 disabled={!editing}
                 label="Hide Ratings"
@@ -171,37 +170,23 @@ const Profile = ({ navigation }: ProfileProps): JSX.Element => {
                   })
                 }}
               />
-            </Styled.Item>
-          </Styled.Section>
+            </View>
+          </View>
 
-          <Styled.Item>
+          <View style={styles.item}>
             <Global.Description>App Version</Global.Description>
-            <Styled.AccentText>{packageJson.version}</Styled.AccentText>
-          </Styled.Item>
+            <Text style={styles.accentText}>{packageJson.version}</Text>
+          </View>
 
-          <Styled.ButtonContainer>
-            <Button
-              width="full"
-              label="Dedication"
-              variant="outlined"
-              onPress={(): void => {
-                return setEditionModalOpen(true)
-              }}
-            />
-            <Button
-              width="full"
-              label="Log Out"
-              variant="outlined"
-              onPress={auth.signOut}
-            />
-          </Styled.ButtonContainer>
-        </Styled.ContentContainer>
+          <Button
+            width="full"
+            label="Log Out"
+            variant="outlined"
+            onPress={auth.signOut}
+          />
+        </View>
         <Global.NavBarSeparator />
-      </Styled.Content>
-      <EditionModal
-        visible={editionModalOpen}
-        setVisible={setEditionModalOpen}
-      />
+      </ScrollView>
     </Global.Screen>
   )
 }

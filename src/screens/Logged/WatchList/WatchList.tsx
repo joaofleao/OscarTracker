@@ -1,7 +1,7 @@
 import React from 'react'
-import { Animated, View } from 'react-native'
+import { Animated, FlatList, View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Button from '@components/Button'
 import DynamicHeader from '@components/DynamicHeader'
 import SearchField from '@components/FormFields/SearchField'
@@ -16,6 +16,7 @@ import routes from '@utils/routes'
 function WatchList({ navigation }: WatchListProps): JSX.Element {
   const edition = useEdition()
   const user = useUser()
+  const styles = useStyles()
 
   const [search, setSearch] = React.useState<string>('')
   const [filter, setFilter] = React.useState<'all movies' | 'watched' | 'unwatched'>('all movies')
@@ -51,7 +52,7 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
 
   const renderItem = ({ item }: { item }): JSX.Element => {
     return (
-      <Styled.Item>
+      <View style={styles.item}>
         <NomineeCard
           onPress={(): void => {
             navigation.navigate(routes.logged.movie, { movieId: item.imdb })
@@ -60,13 +61,13 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
           title={item['en-US'].name}
           id={item.imdb}
         />
-      </Styled.Item>
+      </View>
     )
   }
 
   return (
     <Global.Screen>
-      <Styled.List
+      <FlatList
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }], {
           useNativeDriver: false,
         })}
@@ -81,10 +82,8 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
               size={64}
               scrollOffsetY={scrollOffsetY}
             >
-              <View>
-                <Styled.Header>
-                  <DynamicHeader.Title>Watch List</DynamicHeader.Title>
-                </Styled.Header>
+              <View style={styles.header}>
+                <DynamicHeader.Title>Watch List</DynamicHeader.Title>
               </View>
             </DynamicHeader.Collapse>
             <ProgressBar
@@ -101,7 +100,7 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
       />
 
       <Global.Footer considerNavBar>
-        <Styled.FloatingButton>
+        <View style={styles.floatingButton}>
           <Button
             onPress={(): void => {
               return setFilter((value) => {
@@ -114,7 +113,7 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
             label={filter}
             variant="outlined"
           />
-        </Styled.FloatingButton>
+        </View>
       </Global.Footer>
     </Global.Screen>
   )

@@ -1,4 +1,6 @@
-import * as Styled from './styles'
+import { Animated, Pressable, Text } from 'react-native'
+
+import useStyles from './styles'
 import Poster from '@components/Poster'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
@@ -14,6 +16,7 @@ interface NominationItemProps {
   winnerTitle?: string
   winnerDescription?: string
 }
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 const NominationItem = (props: NominationItemProps): JSX.Element => {
   const { nomination, winnerTitle, winnerDescription } = props
@@ -28,6 +31,8 @@ const NominationItem = (props: NominationItemProps): JSX.Element => {
   const watched = user.movies.includes(movie?.imdb)
   const isBestPicture = nomination.category === 'picture'
 
+  const styles = useStyles({ large: isBestPicture })
+
   const image =
     person != null
       ? getImage(person.image)
@@ -41,9 +46,8 @@ const NominationItem = (props: NominationItemProps): JSX.Element => {
   const { animationPressIn, animationPressOut, scale } = usePressableAnimation()
 
   return (
-    <Styled.Container
-      large={isBestPicture}
-      style={{ transform: [{ scale }] }}
+    <AnimatedPressable
+      style={[styles.container, { transform: [{ scale }] }]}
       onPressIn={animationPressIn}
       onPressOut={animationPressOut}
       onPress={handleClick}
@@ -58,8 +62,13 @@ const NominationItem = (props: NominationItemProps): JSX.Element => {
         winnerDescription={winnerDescription}
       />
 
-      <Styled.Title numberOfLines={2}>{text}</Styled.Title>
-    </Styled.Container>
+      <Text
+        style={styles.title}
+        numberOfLines={2}
+      >
+        {text}
+      </Text>
+    </AnimatedPressable>
   )
 }
 

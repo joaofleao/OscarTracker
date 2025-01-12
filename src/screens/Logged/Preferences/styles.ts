@@ -1,43 +1,35 @@
-import styled from 'styled-components/native'
+import { StyleSheet, ViewStyle } from 'react-native'
 
-import Header from '@components/Header'
-
-interface HeaderProps {
-  isFirst: boolean
+type StylesReturn = {
+  headerRoot: ViewStyle
+  stepScreen: ViewStyle
+  content: ViewStyle
+  list: ViewStyle
+  buttonContainer: ViewStyle
 }
 
-export const HeaderRoot = styled(Header.Root)<HeaderProps>((props) => {
-  return {
-    ...(props.isFirst && {
+const useStyles = (): StylesReturn => {
+  return StyleSheet.create({
+    headerRoot: {
       opacity: 0,
-    }),
-  }
-})
+    },
+    stepScreen: {
+      margin: 20,
+    },
+    content: {
+      paddingHorizontal: 20,
+      flex: 1,
+      gap: 32,
+      marginBottom: 20,
+    },
+    list: {
+      marginHorizontal: -20,
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      gap: 16,
+    },
+  })
+}
 
-export const Content = styled.View(() => {
-  return {
-    paddingHorizontal: '20px',
-    flex: 1,
-    gap: '32px',
-    marginBottom: '20px',
-  }
-})
-
-export const ButtonContainer = styled.View(() => {
-  return {
-    flexDirection: 'row',
-    gap: '16px',
-  }
-})
-
-export const StepScreen = styled.View(() => {
-  return {
-    margin: 20,
-  }
-})
-
-export const StepList = styled.FlatList(() => {
-  return {
-    marginHorizontal: -20,
-  }
-})
+export default useStyles

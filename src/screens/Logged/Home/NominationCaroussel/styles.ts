@@ -1,32 +1,37 @@
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const Header = styled.View(() => {
-  return {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  }
-})
+import { useTheme } from '@features/theme'
 
-export const Title = styled.Text((props) => {
-  return {
-    fontFamily: props.theme.fonts.primary.bold,
-    color: props.theme.colors.text.default,
-    fontSize: '20px',
-    lineHeight: '28px',
-    flex: 1,
-  }
-})
+type StylesReturn = {
+  header: ViewStyle
+  title: TextStyle
+  list: ViewStyle
+  caroussel: ViewStyle
+}
 
-export const List = styled.FlatList(() => {
-  return {
-    marginHorizontal: '-20px',
-  }
-})
+const useStyles = (): StylesReturn => {
+  const { fonts, colors } = useTheme()
+  return StyleSheet.create({
+    header: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    title: {
+      fontFamily: fonts.primary.bold,
+      color: colors.text.default,
+      fontSize: 20,
+      lineHeight: 28,
+      flex: 1,
+    },
+    list: {
+      marginHorizontal: -20,
+    },
+    caroussel: {
+      marginHorizontal: 20,
+      gap: 20,
+    },
+  })
+}
 
-export const Caroussel = styled.View(() => {
-  return {
-    marginHorizontal: '20px',
-    gap: '20px',
-  }
-})
+export default useStyles

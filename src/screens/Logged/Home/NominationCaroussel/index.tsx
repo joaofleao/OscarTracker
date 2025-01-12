@@ -1,7 +1,7 @@
-import { FlatList } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
 
 import NominationItem from '../NominationItem'
-import * as Styled from './styles'
+import useStyles from './styles'
 import Button from '@components/Button'
 import Global from '@components/Global'
 import { useBallots } from '@features/ballots'
@@ -21,6 +21,7 @@ const NominationCaroussel = (props: NominationCarousselProps): JSX.Element => {
   const { categories } = useCategories()
   const navigation = useNavigation<NativeStackNavigationProp<ScreenTypes, 'logged'>>()
   const { nominations, winners } = useEdition()
+  const styles = useStyles()
 
   const { bets } = useBallots()
 
@@ -46,17 +47,18 @@ const NominationCaroussel = (props: NominationCarousselProps): JSX.Element => {
   }
 
   return (
-    <Styled.Caroussel>
-      <Styled.Header>
-        <Styled.Title>{categories[categoryId]['en-US']}</Styled.Title>
+    <View style={styles.caroussel}>
+      <View style={styles.header}>
+        <Text style={styles.title}>{categories[categoryId]['en-US']}</Text>
         <Button
           label="vote"
           size="action"
           variant="secondary"
           onPress={handleSeeMore}
         />
-      </Styled.Header>
-      <Styled.List
+      </View>
+      <FlatList
+        style={styles.list}
         horizontal
         showsHorizontalScrollIndicator={false}
         data={sortedData}
@@ -65,7 +67,7 @@ const NominationCaroussel = (props: NominationCarousselProps): JSX.Element => {
         ListHeaderComponent={Global.Separator}
         ListFooterComponent={Global.Separator}
       />
-    </Styled.Caroussel>
+    </View>
   )
 }
 
