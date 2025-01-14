@@ -88,7 +88,7 @@ const Button = (props: ButtonProps): JSX.Element => {
       disabled={disabled}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      style={{ transform: [{ scale }], opacity }}
+      style={[styles.root, { transform: [{ scale }], opacity }]}
       {...rest}
     >
       <View style={styles.loadingContent}>{renderLoading}</View>

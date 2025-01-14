@@ -27,7 +27,7 @@ const Footer = (props: FooterProps): JSX.Element => {
   }, [keyboardOpen, translateY])
 
   return (
-    <View
+    <Animated.View
       style={[styles.footer, { transform: [{ translateY }] }]}
       {...props}
     />

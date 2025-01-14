@@ -58,7 +58,7 @@ const Toggle = (props: ToggleProps): JSX.Element => {
         onPressIn={animationPressIn}
         onPressOut={animationPressOut}
       >
-        <View style={[styles.indicator, { transform: [{ translateX }] }]} />
+        <Animated.View style={[styles.indicator, { transform: [{ translateX }] }]} />
       </AnimatedPressable>
     </View>
   )

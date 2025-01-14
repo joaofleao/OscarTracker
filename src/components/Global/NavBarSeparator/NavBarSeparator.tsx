@@ -2,7 +2,7 @@ import { View, ViewProps } from 'react-native'
 
 import useStyles from './styles'
 
-const Footer = (props: ViewProps): JSX.Element => {
+const NavBarSeparator = (props: ViewProps): JSX.Element => {
   const styles = useStyles()
 
   return (
@@ -13,4 +13,4 @@ const Footer = (props: ViewProps): JSX.Element => {
   )
 }
 
-export default Footer
+export default NavBarSeparator

@@ -51,7 +51,7 @@ const useStyles = ({ variant, size, icon, width, loading }: StylesProps): Styles
 
   return StyleSheet.create({
     root: {
-      background: getBackgroundColor(),
+      backgroundColor: getBackgroundColor(),
       paddingVertical: getVerticalPadding(),
       paddingHorizontal: getHorizontalPadding(),
       borderRadius: getBorderRadius(),
