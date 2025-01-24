@@ -11,7 +11,7 @@ const useStyles = (): StylesReturn => {
 
   return StyleSheet.create({
     description: {
-      fontFamily: fonts.primary.regular,
+      fontFamily: fonts.secondary.regular,
       fontSize: 16,
       lineHeight: 24,
       color: colors.text.default,

@@ -1,12 +1,12 @@
-import { View, ViewProps } from 'react-native'
+import { Text, TextProps } from 'react-native'
 
 import useStyles from './styles'
 
-const Footer = (props: ViewProps): JSX.Element => {
+const Footer = (props: TextProps): JSX.Element => {
   const styles = useStyles()
 
   return (
-    <View
+    <Text
       style={styles.title}
       {...props}
     />

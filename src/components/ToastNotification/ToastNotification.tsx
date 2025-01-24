@@ -16,15 +16,9 @@ const ToastNotification = (): JSX.Element => {
   return (
     <Animated.View style={[styles.container, { transform: [{ translateY: position }] }]}>
       {isSuccess ? (
-        <Icon.CheckCircle
-          color={theme.colors.text.default}
-          size={30}
-        />
+        <Icon.CheckCircle color={theme.colors.text.default} />
       ) : (
-        <Icon.AlertCircle
-          color={theme.colors.text.default}
-          size={30}
-        />
+        <Icon.AlertCircle color={theme.colors.text.default} />
       )}
 
       <View style={styles.informations}>

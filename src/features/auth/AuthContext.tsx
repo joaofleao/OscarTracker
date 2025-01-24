@@ -1,12 +1,13 @@
 import { createContext } from 'react'
 
-import { User } from '@types'
+import { User, UserCredential } from '@types'
 export interface AuthContextType {
-  signIn: (email: string, password: string) => void
-  signUp: (email: string, password: string, displayName: string, nickname: string) => void
-  signOut: () => void
-  recoverPassword: (email: string) => void
-  verifyEmail: () => void
+  signIn: (email: string, password: string) => Promise<UserCredential>
+  signUp: (email: string, password: string) => Promise<UserCredential>
+  addUser: (nickname: string, displayName: string) => Promise<void>
+  signOut: () => Promise<void>
+  recoverPassword: (email: string) => Promise<void>
+  verifyEmail: () => Promise<void>
   user: User
 }
 

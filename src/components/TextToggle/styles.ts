@@ -28,7 +28,7 @@ const useStyles = ({ selected }: StylesProps): StylesReturn => {
     },
     label: {
       color: selected ? colors.text.inverse : colors.primary.default,
-      fontFamily: fonts.primary.bold,
+      fontFamily: fonts.secondary.bold,
       textAlign: 'center',
       flex: 1,
     },

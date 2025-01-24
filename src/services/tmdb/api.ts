@@ -17,7 +17,7 @@ export const getImage = (id: string, quality = 200): string => {
 }
 
 export const getMovie = async (id: string, language: string): Promise<AxiosResponse<MovieType>> => {
-  const response: AxiosResponse<MovieType> = await api.get(`movie/595586`, {
+  const response: AxiosResponse<MovieType> = await api.get(`movie/${id}`, {
     params: { api_key: apiKey, language },
   })
   return response

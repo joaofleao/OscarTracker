@@ -15,7 +15,7 @@ const useStyles = (): StylesReturn => {
       fontSize: 22,
       lineHeight: 32,
       color: colors.text.default,
-      letterSpacing: 15,
+      letterSpacing: 1.5,
     },
   })
 }

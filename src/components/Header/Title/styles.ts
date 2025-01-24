@@ -20,7 +20,7 @@ const useStyles = ({ align, bigHeader }: StylesProps): StylesReturn => {
       fontSize: bigHeader ? 24 : 20,
       lineHeight: 36,
       flex: 1,
-      fontFamily: fonts.primary.semibold,
+      fontFamily: fonts.secondary.regular,
       textAlign: align,
     },
   })

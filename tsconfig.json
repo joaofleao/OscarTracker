@@ -6,7 +6,8 @@
     "paths": {
       "@*": ["./src/*"],
       "@package.json": ["./package.json"]
-    }
+    },
+    "jsx": "react-jsx"
   },
   "include": ["**/*.ts", "**/*.tsx"]
 }

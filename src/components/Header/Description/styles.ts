@@ -19,7 +19,7 @@ const useStyles = ({ align, bigHeader }: StylesProps): StylesReturn => {
       color: colors.text.light,
       fontSize: bigHeader ? 18 : 16,
       lineHeight: 24,
-      fontFamily: fonts.primary.medium,
+      fontFamily: fonts.secondary.medium,
       textAlign: align,
     },
   })

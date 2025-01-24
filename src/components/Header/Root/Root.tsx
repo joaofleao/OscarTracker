@@ -13,6 +13,7 @@ const Root = ({ align = 'center', ...props }: RootProps): JSX.Element => {
     <View
       style={[
         styles.root,
+
         align === 'left' && styles.left,
         align === 'between' && styles.between,
         align === 'center' && styles.center,

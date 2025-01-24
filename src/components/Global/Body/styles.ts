@@ -8,6 +8,7 @@ const useStyles = (): StylesReturn => {
   return StyleSheet.create({
     body: {
       paddingHorizontal: 20,
+      gap: 20,
     },
   })
 }

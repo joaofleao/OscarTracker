@@ -42,12 +42,12 @@ const useStyles = ({ width, height, isWinner, large, size }: StylesProps): Style
       justifyContent: 'center',
     },
     winnerTitle: {
-      fontFamily: fonts.primary.bold,
+      fontFamily: fonts.secondary.bold,
       color: colors.text.default,
       fontSize: large ? 18 : 14,
     },
     winnerDescription: {
-      fontFamily: fonts.primary.bold,
+      fontFamily: fonts.secondary.bold,
       color: colors.primary.default,
       fontSize: large ? 14 : 12,
     },

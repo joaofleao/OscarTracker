@@ -2,8 +2,12 @@ import { View, ViewProps } from 'react-native'
 
 import useStyles from './styles'
 
-const Footer = (props: ViewProps): JSX.Element => {
-  const styles = useStyles()
+interface ScreenProps extends ViewProps {
+  isTabScreen?: boolean
+}
+
+const Screen = ({ isTabScreen = false, ...props }: ScreenProps): JSX.Element => {
+  const styles = useStyles({ isTabScreen })
 
   return (
     <View
@@ -13,4 +17,4 @@ const Footer = (props: ViewProps): JSX.Element => {
   )
 }
 
-export default Footer
+export default Screen

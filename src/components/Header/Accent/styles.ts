@@ -12,7 +12,7 @@ const useStyles = (): StylesReturn => {
   return StyleSheet.create({
     root: {
       color: colors.primary.default,
-      fontFamily: fonts.secondary.bold,
+      fontFamily: fonts.quaternary.bold,
     },
   })
 }

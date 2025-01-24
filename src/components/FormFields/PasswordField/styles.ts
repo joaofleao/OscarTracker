@@ -15,7 +15,7 @@ const useStyles = (): StylesReturn => {
     rule: {
       flex: 1,
       color: colors.text.light,
-      fontFamily: fonts.primary.bold,
+      fontFamily: fonts.secondary.bold,
       fontSize: 12,
       lineHeight: 18,
     },

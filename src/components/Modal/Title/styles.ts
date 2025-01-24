@@ -12,7 +12,7 @@ const useStyles = (): StylesReturn => {
   return StyleSheet.create({
     root: {
       color: colors.text.default,
-      fontFamily: fonts.primary.bold,
+      fontFamily: fonts.secondary.bold,
       fontSize: 20,
       lineHeight: 24,
     },

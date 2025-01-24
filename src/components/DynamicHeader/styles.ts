@@ -30,23 +30,23 @@ const useStyles = (): StylesReturn => {
       color: colors.text.default,
       fontSize: 24,
       lineHeight: 36,
-      fontFamily: fonts.primary.semibold,
+      fontFamily: fonts.secondary.regular,
     },
     subTitle: {
       color: colors.text.default,
       fontSize: 20,
       lineHeight: 36,
-      fontFamily: fonts.primary.semibold,
+      fontFamily: fonts.secondary.regular,
     },
     description: {
       color: colors.text.light,
       fontSize: 20,
       lineHeight: 36,
-      fontFamily: fonts.primary.semibold,
+      fontFamily: fonts.secondary.regular,
     },
     accent: {
       color: colors.primary.default,
-      fontFamily: fonts.secondary.bold,
+      fontFamily: fonts.quaternary.bold,
     },
   })
 }

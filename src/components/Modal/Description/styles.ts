@@ -12,7 +12,7 @@ const useStyles = (): StylesReturn => {
   return StyleSheet.create({
     root: {
       color: colors.text.disabled,
-      fontFamily: fonts.primary.medium,
+      fontFamily: fonts.secondary.medium,
       fontSize: 14,
       lineHeight: 20,
     },

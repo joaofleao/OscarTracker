@@ -19,7 +19,7 @@ const useStyles = (): StylesReturn => {
     },
     description: {
       color: colors.text.default,
-      fontFamily: fonts.primary.bold,
+      fontFamily: fonts.secondary.bold,
       fontSize: 20,
       marginTop: 8,
     },

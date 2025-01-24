@@ -12,11 +12,10 @@ import {
 } from 'firebase/firestore'
 
 import EditionContext, { type EditionContextType } from './EditionContext'
-import { useUser } from '@features/user'
 import useAsyncStorage from '@hooks/useAsyncStorage'
 import { db } from '@services/firebase'
 import type { BasicMovieType, EditionType, Nomination, PersonType } from '@types'
-import { printFetch } from '@utils/functions'
+import { print } from '@utils/functions'
 
 const editionsCollection = collection(db, 'editions')
 
@@ -29,22 +28,21 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   const [categories, setCategories] = React.useState<EditionType['categories']>([])
   const [winners, setWinners] = React.useState<EditionType['winners']>({})
 
-  const [editionId, setEditionId] = React.useState<string>('96')
+  const [editionId, setEditionId] = React.useState<string>('97')
   const [year, setYear] = React.useState<number>(0)
 
   const [date, setDate] = React.useState<Timestamp>(Timestamp.now())
 
-  const user = useUser()
   const async = useAsyncStorage()
 
   const editionRef = doc(editionsCollection, editionId)
 
-  React.useEffect(() => {
-    if (user.isLogged) {
+  React.useEffect(
+    () => {
       const unsubscribeEdition = onSnapshot(editionRef, (snap) => {
         const response = snap.data() as EditionType
         if (response) {
-          printFetch('Firebase', 'Edition updated', 'green')
+          print('Firebase', 'Edition updated', 'green')
 
           setDate(response.date)
           setYear(response.year)
@@ -56,84 +54,97 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
       return () => {
         unsubscribeEdition()
       }
-    }
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.isLogged])
+    [],
+  )
+
+  React.useEffect(() => {
+    getPeople()
+    getMovies()
+    getNominations()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const fetchMovies = async (): Promise<void> => {
+    print('Firebase', 'Movies fetched', 'yellow')
+
+    const moviesCollection = collection(editionRef, 'movies')
+    const orderedMovies = query(moviesCollection, orderBy('name.en-US'))
+
+    const response = await getDocs(orderedMovies)
+    const map: typeof movies = {}
+
+    response.forEach((item) => {
+      map[item.id] = item.data() as BasicMovieType
+    })
+
+    setMovies(map)
+    await async.storeObject('movies', map)
+  }
 
   const getMovies = async (): Promise<void> => {
     const storedMovies = await async.readObject('movies')
-
     if (storedMovies) {
-      printFetch('Async-Storage', 'Movies fetched', 'blue')
+      print('Async-Storage', 'Movies fetched', 'blue')
       setMovies(storedMovies as EditionContextType['movies'])
-    } else {
-      printFetch('Firebase', 'Movies fetched', 'yellow')
+    } else fetchMovies()
+  }
 
-      const moviesCollection = collection(editionRef, 'movies')
-      const orderedMovies = query(moviesCollection, orderBy('en-US.name'))
+  const fetchPeople = async (): Promise<void> => {
+    print('Firebase', 'People fetched', 'yellow')
 
-      const response = await getDocs(orderedMovies)
-      const map: typeof movies = {}
+    const peopleCollection = collection(editionRef, 'people')
+    const orderedPeople = query(peopleCollection, orderBy('name'))
 
-      response.forEach((item) => {
-        map[item.id] = item.data() as BasicMovieType
-      })
+    const response = await getDocs(orderedPeople)
+    const map: typeof people = {}
 
-      setMovies(map)
-      await async.storeObject('movies', map)
-      await async.storeString('totalMovies', `${response.size}`)
-    }
+    response.forEach((item) => {
+      map[item.id] = item.data() as PersonType
+    })
+
+    setPeople(map)
+    await async.storeObject('people', map)
   }
 
   const getPeople = async (): Promise<void> => {
     const storedPeople = await async.readObject('people')
 
     if (storedPeople) {
-      printFetch('Async-Storage', 'People fetched', 'blue')
+      print('Async-Storage', 'People fetched', 'blue')
       setPeople(storedPeople as EditionContextType['people'])
-    } else {
-      printFetch('Firebase', 'People fetched', 'yellow')
+    } else fetchPeople()
+  }
 
-      const peopleCollection = collection(editionRef, 'people')
-      const orderedPeople = query(peopleCollection, orderBy('name'))
+  const fetchNominations = async (): Promise<void> => {
+    print('Firebase', 'Nominations fetched', 'yellow')
 
-      const response = await getDocs(orderedPeople)
-      const map: typeof people = {}
+    const nominationsCollection = collection(editionRef, 'nominations')
 
-      response.forEach((item) => {
-        map[item.id] = item.data() as PersonType
-      })
+    const response = await getDocs(nominationsCollection)
+    const map: typeof nominations = {}
 
-      setPeople(map)
-      await async.storeObject('people', map)
-    }
+    response.forEach((item) => {
+      const data = { ...item.data(), id: item.id } as Nomination
+      const oldValues = map[data.category] ?? []
+
+      map[data.category] = [...oldValues, data]
+    })
+
+    setNominations(map)
+    await async.storeObject('nominations', map)
   }
 
   const getNominations = async (): Promise<void> => {
     const storedNominations = await async.readObject('nominations')
 
     if (storedNominations) {
-      printFetch('Async-Storage', 'Nominations fetched', 'blue')
+      print('Async-Storage', 'Nominations fetched', 'blue')
 
       setNominations(storedNominations as EditionContextType['nominations'])
-    } else {
-      printFetch('Firebase', 'Nominations fetched', 'yellow')
-
-      const nominationsCollection = collection(editionRef, 'nominations')
-
-      const response = await getDocs(nominationsCollection)
-      const map: typeof nominations = {}
-
-      response.forEach((item) => {
-        const data = { ...item.data(), id: item.id } as Nomination
-        const oldValues = map[data.category] ?? []
-
-        map[data.category] = [...oldValues, data]
-      })
-
-      setNominations(map)
-      await async.storeObject('nominations', map)
-    }
+    } else fetchNominations()
   }
 
   const markCategoryWinner = async (nominationId: string, categoryId: string): Promise<void> => {
@@ -143,11 +154,11 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
 
     updateDoc(editionRef, { winners: currentWinners })
 
-    printFetch('Firebase', 'Winner Marked', 'yellow')
+    print('Firebase', 'Winner Marked', 'yellow')
   }
 
   const getMovieNominations = async (movie: string): Promise<Nomination[]> => {
-    printFetch('Firebase', 'Movie Nominations fetched', 'yellow')
+    print('Firebase', 'Movie Nominations fetched', 'yellow')
 
     const nominationsCollection = collection(editionRef, 'nominations')
     const movieNominations = query(nominationsCollection, where('movie', '==', movie))
@@ -169,6 +180,11 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     await async.storeString('editionId', id)
   }
 
+  const refreshEdition: EditionContextType['refreshEdition'] = async () => {
+    fetchMovies()
+    fetchPeople()
+    fetchNominations()
+  }
   const value: EditionContextType = {
     //edition data
     winners,
@@ -184,9 +200,8 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     people,
     nominations,
 
-    getMovies,
-    getPeople,
-    getNominations,
+    refreshEdition,
+
     getMovieNominations,
 
     markCategoryWinner,

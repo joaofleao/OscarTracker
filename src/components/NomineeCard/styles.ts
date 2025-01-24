@@ -25,19 +25,19 @@ const useStyles = (): StylesReturn => {
     title: {
       fontSize: 18,
       lineHeight: 28,
-      fontFamily: fonts.primary.bold,
+      fontFamily: fonts.secondary.bold,
       color: colors.text.default,
     },
     information: {
       fontSize: 16,
       lineHeight: 24,
-      fontFamily: fonts.primary.regular,
+      fontFamily: fonts.secondary.regular,
       color: colors.text.light,
     },
     extra: {
       fontSize: 16,
       lineHeight: 24,
-      fontFamily: fonts.primary.regular,
+      fontFamily: fonts.secondary.regular,
       color: colors.primary.default,
     },
   })

@@ -6,7 +6,7 @@ import { useTheme } from '@features/theme'
 
 export interface PosterProps {
   image: string
-  isWatched: boolean
+  isWatched?: boolean
   spoiler?: boolean
   size?: 'small' | 'large' | 'full'
   winner?: boolean
@@ -37,7 +37,7 @@ const Poster = (props: PosterProps): JSX.Element => {
     <Image
       style={styles.image}
       blurRadius={winner || isWatched || spoiler ? 0 : 20}
-      source={{ uri: image }}
+      source={image ? { uri: image } : null}
       resizeMode="cover"
     />
   )

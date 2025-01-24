@@ -7,12 +7,15 @@ import EyeOff from './EyeOff'
 import FingersCrossed from './FingersCrossed'
 import Globe from './Globe'
 import Home from './Home'
+import Lighthouse from './Lighthouse'
 import Lock from './Lock'
+import MovieRoll from './MovieRoll'
 import Oscar from './Oscar'
 import Pencil from './Pencil'
 import Person from './Person'
 import Placeholder from './Placeholder'
 import Search from './Search'
+import Settings from './Settings'
 import SignOutCircle from './SignOutCircle'
 import Star from './Star'
 import X from './X'
@@ -27,13 +30,16 @@ export default {
   FingersCrossed,
   Globe,
   Home,
+  Lighthouse,
+  Lock,
+  MovieRoll,
   Oscar,
   Pencil,
   Person,
   Placeholder,
   Search,
+  Settings,
+  SignOutCircle,
   Star,
   X,
-  Lock,
-  SignOutCircle,
 }

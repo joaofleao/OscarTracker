@@ -8,7 +8,7 @@ import { useUser } from '@features/user'
 import { db } from '@services/firebase'
 
 const BallotsProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const user = useUser()
+  const { user, isLogged } = useUser()
   const edition = useEdition()
 
   const [bets, setBets] = React.useState<BetsType>()
@@ -35,27 +35,24 @@ const BallotsProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
   }, 0)
 
   React.useEffect(() => {
-    if (user.isLogged) {
-      const userRef = doc(usersCollection, user.uid)
-      const ballotsCollection = collection(userRef, 'ballots')
-      const ballotsRef = doc(ballotsCollection, edition.editionId)
-
-      const unsubscribeBallots = onSnapshot(ballotsRef, (snap) => {
-        const response = snap.data()
-        if (response) {
-          setBets(response.bets)
-          setWishes(response.wishes)
-        }
-      })
-
-      return () => {
-        unsubscribeBallots()
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.isLogged])
+    // if (!isLogged) return
+    // const userRef = doc(usersCollection, user.uid)
+    // const ballotsCollection = collection(userRef, 'ballots')
+    // const ballotsRef = doc(ballotsCollection, edition.editionId)
+    // const unsubscribeBallots = onSnapshot(ballotsRef, (snap) => {
+    //   const response = snap.data()
+    //   if (response) {
+    //     setBets(response.bets)
+    //     setWishes(response.wishes)
+    //   }
+    // })
+    // return () => {
+    //   unsubscribeBallots()
+    // }
+  }, [isLogged])
 
   const vote: BallotsContextType['vote'] = (_category, _bets, _wishes) => {
+    if (!isLogged) return
     const userRef = doc(usersCollection, user.uid)
     const ballotsCollection = collection(userRef, 'ballots')
     const ballotsRef = doc(ballotsCollection, edition.editionId)

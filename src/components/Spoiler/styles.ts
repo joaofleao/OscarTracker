@@ -30,13 +30,13 @@ const useStyles = (): StylesReturn => {
     blur: {
       flex: 1,
       width: '100%',
-      textAlign: 'center',
       justifyContent: 'center',
-      borderRadius: 20,
+      borderRadius: 12,
+      overflow: 'hidden',
     },
     title: {
       color: colors.text.default,
-      fontFamily: fonts.primary.bold,
+      fontFamily: fonts.secondary.bold,
       textAlign: 'center',
     },
   })

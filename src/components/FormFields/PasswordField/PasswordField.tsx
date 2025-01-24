@@ -86,14 +86,14 @@ const PasswordField = (props: PasswordFieldProps): JSX.Element => {
   const renderPasswordRule = type === 'password' && (
     <View style={styles.container}>
       {renderIcon}
-      <Text style={(styles.rule, [passwordValid && styles.valid])}>
-        <Text style={(styles.rule, [passwordValid && styles.valid])}>
+      <Text style={[styles.rule, passwordValid && styles.valid]}>
+        <Text style={[styles.rule, passwordValid && styles.valid]}>
           Your passwords must include
         </Text>
-        ,<Text style={(styles.rule, [oneDigit && styles.valid])}> one digit</Text>,
-        <Text style={(styles.rule, [oneUpperCase && styles.valid])}> one uppercase letter</Text>,
-        <Text style={(styles.rule, [oneLowerCase && styles.valid])}> one lowercase letter</Text>,
-        <Text style={(styles.rule, [oneSpecialCase && styles.valid])}> one special character</Text>.
+        ,<Text style={oneDigit && styles.valid}> one digit</Text>,
+        <Text style={oneUpperCase && styles.valid}> one uppercase letter</Text>,
+        <Text style={oneLowerCase && styles.valid}> one lowercase letter</Text>,
+        <Text style={oneSpecialCase && styles.valid}> one special character</Text>.
       </Text>
     </View>
   )

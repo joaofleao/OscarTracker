@@ -1,4 +1,4 @@
-import { Animated, View } from 'react-native'
+import { Animated } from 'react-native'
 
 import useStyles from './styles'
 
@@ -26,6 +26,8 @@ const DynamicHeader = (props: DynamicHeader): JSX.Element => {
     extrapolate: 'clamp',
   })
 
-  return <View style={[styles.dynamicHeader, { height, opacity }]}>{children}</View>
+  return (
+    <Animated.View style={[styles.dynamicHeader, { height, opacity }]}>{children}</Animated.View>
+  )
 }
 export default DynamicHeader

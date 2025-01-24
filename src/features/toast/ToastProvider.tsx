@@ -7,10 +7,11 @@ import { useLoading } from '@features/loading'
 
 const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const loading = useLoading()
+
   const [title, setTitle] = React.useState<string>('')
   const [description, setDescription] = React.useState<string>('')
   const [type, setType] = React.useState<'success' | 'error'>('success')
-  const [toast, setToast] = React.useState<boolean>(false)
+  const [toastVisible, setToastVisible] = React.useState<boolean>(false)
   const insets = useSafeAreaInsets()
 
   const windowHeight = Dimensions.get('window').height
@@ -37,17 +38,17 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
       }, 6000)
     }
 
-    if (!loading.isActive && toast) {
+    if (!loading.isActive && toastVisible) {
       popIn()
-      setToast(false)
+      setToastVisible(false)
     }
-  }, [loading.isActive, toast, insets.top, popAnim, windowHeight])
+  }, [loading.isActive, toastVisible, insets.top, popAnim, windowHeight])
 
   const showToast = (_title: string, _description: string, _type: 'success' | 'error'): void => {
     setTitle(_title)
     setDescription(_description)
     setType(_type)
-    setToast(true)
+    setToastVisible(true)
   }
 
   const value = {
@@ -56,6 +57,7 @@ const ToastProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
     description,
     type,
     position: popAnim,
+    toastVisible,
   } satisfies ToastContextType
 
   return <ToastContext.Provider value={value}>{children}</ToastContext.Provider>

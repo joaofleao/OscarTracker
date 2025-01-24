@@ -53,7 +53,7 @@ const Toggle = (props: ToggleProps): JSX.Element => {
       {renderLabel}
       <AnimatedPressable
         disabled={disabled}
-        style={{ transform: [{ scale }] }}
+        style={[styles.toggle, { transform: [{ scale }] }]}
         onPress={handleToggleAnimation}
         onPressIn={animationPressIn}
         onPressOut={animationPressOut}

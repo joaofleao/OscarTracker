@@ -16,7 +16,7 @@ const useStyles = ({ considerNavBar, keyboardOpen }: StylesProps): StylesReturn 
   return StyleSheet.create({
     footer: {
       opacity: keyboardOpen && Platform.OS === 'android' ? 0 : 1,
-      bottom: (considerNavBar ? 84 : 0) + (Platform.OS === 'android' ? 0 : insets.bottom) + 12,
+      bottom: (considerNavBar ? 60 : 0) + (Platform.OS === 'android' ? 0 : insets.bottom) + 12,
       position: 'absolute',
       alignSelf: 'center',
       alignItems: 'center',

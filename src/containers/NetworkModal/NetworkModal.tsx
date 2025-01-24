@@ -42,8 +42,8 @@ const NetworkModal = (): JSX.Element => {
         <Button
           style={styles.confirmationButton}
           loading={loading}
-          label="Retry"
-          variant="secondary"
+          label="Try Again"
+          variant="outlined"
           onPress={retry}
         />
       </Modal.Section>

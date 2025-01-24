@@ -3,24 +3,22 @@ import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import { useTheme } from '@features/theme'
 
 type StylesReturn = {
-  container: ViewStyle
-  title: TextStyle
+  appName: TextStyle
+  logo: ViewStyle
 }
 
 const useStyles = (): StylesReturn => {
   const { fonts, colors } = useTheme()
 
   return StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      gap: 20,
-    },
-    title: {
+    appName: {
       color: colors.text.default,
-      fontSize: 36,
-      fontFamily: fonts.primary.regular,
-      alignSelf: 'flex-start',
-      marginVertical: 2,
+      fontFamily: fonts.quaternary.regular,
+      fontSize: 18,
+    },
+    logo: {
+      flexDirection: 'row',
+      alignItems: 'center',
     },
   })
 }

@@ -21,13 +21,16 @@ const useStyles = ({ isFocused }: StylesProps): StylesReturn => {
   return StyleSheet.create({
     container: {
       gap: 4,
+      flex: 1,
     },
     row: {
       flexDirection: 'row',
       gap: 8,
     },
     content: {
-      backgroundColor: colors.background.container,
+      backgroundColor: colors.background.default,
+      borderColor: colors.background.container,
+      borderWidth: 1,
       borderRadius: 14,
       flexDirection: 'row',
       alignItems: 'center',
@@ -36,17 +39,15 @@ const useStyles = ({ isFocused }: StylesProps): StylesReturn => {
       flex: 1,
     },
     input: {
-      marginTop: 22,
-      paddingTop: 22,
-      height: 44 + 22,
+      height: 48,
       color: colors.text.default,
-      fontFamily: fonts.primary.bold,
+      fontFamily: fonts.secondary.bold,
       fontSize: 16,
       flex: 1,
     },
     label: {
       color: isFocused ? colors.primary.default : colors.text.light,
-      fontFamily: fonts.primary.bold,
+      fontFamily: fonts.secondary.bold,
       fontSize: 12,
       lineHeight: 18,
     },
@@ -58,7 +59,7 @@ const useStyles = ({ isFocused }: StylesProps): StylesReturn => {
       position: 'absolute',
       right: 0,
       color: colors.negative.default,
-      fontFamily: fonts.primary.bold,
+      fontFamily: fonts.secondary.bold,
       fontSize: 12,
       lineHeight: 18,
     },

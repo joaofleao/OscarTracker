@@ -15,8 +15,10 @@ export interface Nomination {
 export interface CategoryType {
   id: string
   order: number
-  'en-US': string
-  'pt-BR': string
+  name: {
+    'en-US': string
+    'pt-BR': string
+  }
 }
 export interface EditionType {
   winners: { [categoryId: string]: string }
@@ -25,6 +27,7 @@ export interface EditionType {
   year: number
   date: Timestamp
 }
+export type LanguageType = 'pt-BR' | 'en-US'
 
 export interface PreferencesType {
   poster: boolean
@@ -32,31 +35,28 @@ export interface PreferencesType {
   plot: boolean
   ratings: boolean
 }
+export interface SettingsType {
+  darkMode: boolean
+  language: LanguageType
+  preferences: PreferencesType
+}
 
 export interface UserType {
   admin: boolean
-  preferences: PreferencesType
+  settings: SettingsType
   email: string
   displayName: string
-  emailVerified: boolean
   phoneNumber: string
   photoURL: string
   movies: string[]
-  movies2024: string[]
   uid: string
   onboarding: boolean
   nickname: string
 }
 
 export interface BasicMovieType {
-  'en-US': {
-    image: string
-    name: string
-  }
-  'pt-BR': {
-    image: string
-    name: string
-  }
+  name: { 'en-US': string; 'pt-BR': string }
+  image: { 'en-US': string; 'pt-BR': string }
   imdb: string
   tmdb: string
 }
@@ -89,4 +89,9 @@ export interface TMDBPerson {
   original_name: string
   popularity: number
   profile_path: string
+}
+
+export interface WatchedMovieType {
+  date: unknown
+  movie: string
 }

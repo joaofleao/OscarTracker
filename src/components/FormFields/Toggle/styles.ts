@@ -21,26 +21,24 @@ const useStyles = ({ selected, disabled }: StylesProps): StylesReturn => {
     container: {
       flexDirection: 'row',
       gap: 24,
-      flex: 1,
-
       alignItems: 'center',
     },
     toggle: {
-      borderWidth: 1,
-      borderColor: colors.background.container,
+      backgroundColor: colors.background.container,
       borderRadius: 24,
-
       width: 54,
       height: 30,
-
       flexDirection: 'row',
     },
     indicator: {
-      backgroundColor: disabled
-        ? colors.background.container
-        : selected
-        ? colors.primary.default
-        : colors.primary.shades.shade10,
+      backgroundColor:
+        disabled && selected
+          ? colors.primary.shades.shade30
+          : disabled && !selected
+          ? colors.primary.shades.shade10
+          : !disabled && selected
+          ? colors.primary.default
+          : colors.primary.shades.shade30,
       height: 24,
       width: 24,
       margin: 2,
@@ -50,7 +48,7 @@ const useStyles = ({ selected, disabled }: StylesProps): StylesReturn => {
     label: {
       flex: 1,
       color: colors.text.default,
-      fontFamily: fonts.primary.semibold,
+      fontFamily: fonts.secondary.regular,
       fontSize: 16,
     },
   })

@@ -8,7 +8,6 @@ const Body = (props: ScrollViewProps): JSX.Element => {
   return (
     <ScrollView
       contentContainerStyle={styles.body}
-      indicatorStyle="black"
       automaticallyAdjustKeyboardInsets
       {...props}
     />

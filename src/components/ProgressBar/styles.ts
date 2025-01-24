@@ -14,6 +14,7 @@ const useStyles = (): StylesReturn => {
 
   return StyleSheet.create({
     container: {
+      alignSelf: 'baseline',
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -23,7 +24,7 @@ const useStyles = (): StylesReturn => {
       color: colors.text.light,
     },
     track: {
-      backgroundColor: colors.background.container,
+      backgroundColor: colors.primary.shades.shade5,
       height: 6,
       borderRadius: 6,
       flex: 1,

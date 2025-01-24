@@ -19,7 +19,7 @@ const useStyles = (): StylesReturn => {
       alignSelf: 'center',
     },
     updateItem: {
-      fontFamily: fonts.primary.medium,
+      fontFamily: fonts.secondary.medium,
       color: colors.text.default,
       fontSize: 14,
     },

@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, type TouchableOpacityProps, View } from 'react-
 import useStyles from './styles'
 import Poster from '@components/Poster'
 import { useUser } from '@features/user'
+import { useWatchedMovies } from '@features/watchedMovies'
 import { getImage } from '@services/tmdb/api'
 
 export interface NomineeCardProps extends TouchableOpacityProps {
@@ -15,7 +16,8 @@ export interface NomineeCardProps extends TouchableOpacityProps {
 
 const NomineeCard = (props: NomineeCardProps): JSX.Element => {
   const { image, title, id, information, extra, ...rest } = props
-  const user = useUser()
+  const { isMovieWatched } = useWatchedMovies()
+  const { user } = useUser()
   const styles = useStyles()
 
   return (
@@ -25,9 +27,9 @@ const NomineeCard = (props: NomineeCardProps): JSX.Element => {
       {...rest}
     >
       <Poster
-        spoiler={user.preferences.poster}
+        spoiler={user?.settings.preferences.poster}
         image={getImage(image)}
-        isWatched={user.movies.includes(id)}
+        isWatched={isMovieWatched(id)}
       />
       <View style={styles.content}>
         <Text
