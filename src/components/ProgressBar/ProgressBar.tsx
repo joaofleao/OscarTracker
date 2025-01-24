@@ -1,7 +1,7 @@
 import React from 'react'
-import { Animated, type LayoutChangeEvent, type ViewProps } from 'react-native'
+import { Animated, type LayoutChangeEvent, Text, View, type ViewProps } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 
 export interface ProgressBarProps extends ViewProps {
   total: number
@@ -15,6 +15,7 @@ const defaultValues: Partial<ProgressBarProps> = {
 
 const ProgressBar = (props: ProgressBarProps): JSX.Element => {
   const { total, progress, ...rest } = { ...defaultValues, ...props }
+  const styles = useStyles()
 
   const xCord = React.useRef(new Animated.Value(0)).current
   const [width, setWidth] = React.useState(0)
@@ -28,18 +29,21 @@ const ProgressBar = (props: ProgressBarProps): JSX.Element => {
   }, [progress, total, xCord])
 
   return (
-    <Styled.Container {...rest}>
-      <Styled.Number>{progress}</Styled.Number>
-      <Styled.Track>
-        <Styled.Progress
+    <View
+      style={styles.container}
+      {...rest}
+    >
+      <Text style={styles.number}>{progress}</Text>
+      <View style={styles.track}>
+        <Animated.View
           onLayout={(e: LayoutChangeEvent): void => {
             setWidth(e.nativeEvent.layout.width)
           }}
-          style={{ left: -(width / 2), transform: [{ scaleX: xCord }] }}
+          style={[styles.progress, { left: -(width / 2), transform: [{ scaleX: xCord }] }]}
         />
-      </Styled.Track>
-      <Styled.Number>{total}</Styled.Number>
-    </Styled.Container>
+      </View>
+      <Text style={styles.number}>{total}</Text>
+    </View>
   )
 }
 

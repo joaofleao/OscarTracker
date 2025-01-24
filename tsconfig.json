@@ -1,12 +1,13 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "types": ["node", "./styled-components.d.ts"],
+    "types": ["node"],
     "baseUrl": ".",
     "paths": {
       "@*": ["./src/*"],
       "@package.json": ["./package.json"]
-    }
+    },
+    "jsx": "react-jsx"
   },
   "include": ["**/*.ts", "**/*.tsx"]
 }

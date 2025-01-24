@@ -1,16 +1,26 @@
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const Container = styled.View({
-  flexDirection: 'row',
-  gap: '20px',
-})
+import { useTheme } from '@features/theme'
 
-export const Title = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontSize: '36px',
-    fontFamily: props.theme.fonts.primary.regular,
-    alignSelf: 'flex-start',
-    marginVertical: '2px',
-  }
-})
+type StylesReturn = {
+  appName: TextStyle
+  logo: ViewStyle
+}
+
+const useStyles = (): StylesReturn => {
+  const { fonts, colors } = useTheme()
+
+  return StyleSheet.create({
+    appName: {
+      color: colors.text.default,
+      fontFamily: fonts.quaternary.regular,
+      fontSize: 18,
+    },
+    logo: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+  })
+}
+
+export default useStyles

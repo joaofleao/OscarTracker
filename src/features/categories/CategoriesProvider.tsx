@@ -2,52 +2,66 @@ import React from 'react'
 import { collection, getDocs } from 'firebase/firestore'
 
 import CategoriesContext, { type CategoriesContextType } from './CategoriesContext'
+import { useEdition } from '@features/edition'
 import useAsyncStorage from '@hooks/useAsyncStorage'
 import { db } from '@services/firebase'
 import { CategoryType } from '@types'
-import { printFetch } from '@utils/functions'
+import { print } from '@utils/functions'
 
 const CategoriesProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const categoriesCollection = collection(db, 'categories')
+  const { editionId } = useEdition()
 
   const async = useAsyncStorage()
 
-  const [categories, setCategories] = React.useState<CategoriesContextType['categories']>({})
+  const [categories_map, setCategoriesMap] = React.useState<
+    CategoriesContextType['categories_map']
+  >({})
+
+  const categories_list = Object.keys(categories_map)
+
+  React.useEffect(() => {
+    getCategories()
+  }, [editionId])
+
+  const fetchCategories: CategoriesContextType['fetchCategories'] = async () => {
+    print('Firebase', 'Categories fetched', 'yellow')
+    const response = await getDocs(collection(db, 'categories'))
+    const map: CategoriesContextType['categories_map'] = {}
+
+    response.forEach((item) => {
+      map[item.id] = item.data() as CategoryType
+    })
+
+    const ordered = Object.entries(map)
+      .sort((a, b) => {
+        const order = a[1].order - b[1].order
+        return order
+      })
+      .reduce((accumulator: CategoriesContextType['categories_map'], current) => {
+        accumulator[current[0]] = current[1]
+        return accumulator
+      }, {})
+
+    setCategoriesMap(ordered)
+    await async.storeObject('categories', ordered)
+  }
 
   const getCategories: CategoriesContextType['getCategories'] = async () => {
     const storedCategories = await async.readObject('categories')
 
     if (storedCategories) {
-      printFetch('Async-Storage', 'Categories fetched', 'blue')
-      setCategories(storedCategories as CategoriesContextType['categories'])
+      print('Async-Storage', 'Categories fetched', 'blue')
+      setCategoriesMap(storedCategories as CategoriesContextType['categories_map'])
     } else {
-      printFetch('Firebase', 'Categories fetched', 'yellow')
-
-      const response = await getDocs(categoriesCollection)
-      const map: CategoriesContextType['categories'] = {}
-
-      response.forEach((item) => {
-        map[item.id] = item.data() as CategoryType
-      })
-
-      const ordered = Object.entries(map)
-        .sort((a, b) => {
-          const order = a[1].order - b[1].order
-          return order
-        })
-        .reduce((accumulator: CategoriesContextType['categories'], current) => {
-          accumulator[current[0]] = current[1]
-          return accumulator
-        }, {})
-
-      setCategories(ordered)
-      await async.storeObject('categories', ordered)
+      fetchCategories()
     }
   }
 
   const value: CategoriesContextType = {
-    categories,
+    categories_map,
+    categories_list,
     getCategories,
+    fetchCategories,
   }
 
   return <CategoriesContext.Provider value={value}>{children}</CategoriesContext.Provider>

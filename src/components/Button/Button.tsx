@@ -1,10 +1,21 @@
-import React from 'react'
-import { GestureResponderEvent, type PressableProps } from 'react-native'
+import React, { Ref } from 'react'
+import {
+  Animated,
+  GestureResponderEvent,
+  Pressable,
+  type PressableProps,
+  StyleProp,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import Loading from '@components/Loading'
 import { useTheme } from '@features/theme'
 import usePressableAnimation from '@hooks/usePressableAnimation'
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export interface ButtonProps extends PressableProps {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'outlined' | 'text'
@@ -13,6 +24,8 @@ export interface ButtonProps extends PressableProps {
   width?: 'fit' | 'fixed' | 'full'
   size?: 'default' | 'action'
   icon?: JSX.Element
+  customRef?: Ref<View>
+  style?: StyleProp<ViewStyle>
 }
 const defaultValue: ButtonProps = {
   width: 'fit',
@@ -22,12 +35,26 @@ const defaultValue: ButtonProps = {
 }
 
 const Button = (props: ButtonProps): JSX.Element => {
-  const { label, width, variant, disabled, loading, icon, size, onPressIn, onPressOut, ...rest } = {
+  const {
+    label,
+    customRef,
+    width,
+    variant,
+    disabled,
+    loading,
+    style: customStyle,
+    icon,
+    size,
+    onPressIn,
+    onPressOut,
+    ...rest
+  } = {
     ...defaultValue,
     ...props,
   }
 
   const theme = useTheme()
+  const styles = useStyles({ variant, size, icon: Boolean(icon), width, loading })
 
   const { animationPressIn, animationPressOut, opacity, scale } = usePressableAnimation({
     disabled,
@@ -53,14 +80,13 @@ const Button = (props: ButtonProps): JSX.Element => {
     })
 
   const renderLabel = (
-    <Styled.Label
+    <Text
+      style={styles.label}
       numberOfLines={1}
-      variant={variant}
-      size={size}
       disabled={disabled}
     >
       {label}
-    </Styled.Label>
+    </Text>
   )
 
   const renderLoading = (
@@ -75,20 +101,19 @@ const Button = (props: ButtonProps): JSX.Element => {
   const renderContent = icon && !label ? renderIcon : renderLabel
 
   return (
-    <Styled.Container
-      icon={!!icon}
-      variant={variant}
-      size={size}
-      disabled={disabled}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      width={width}
-      style={{ transform: [{ scale }], opacity }}
-      {...rest}
-    >
-      <Styled.LoadingContent loading={loading}>{renderLoading}</Styled.LoadingContent>
-      <Styled.Content loading={loading}>{renderContent}</Styled.Content>
-    </Styled.Container>
+    <>
+      <AnimatedPressable
+        ref={customRef}
+        disabled={disabled}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        style={[styles.root, { transform: [{ scale }], opacity }, customStyle]}
+        {...rest}
+      >
+        <View style={styles.loadingContent}>{renderLoading}</View>
+        <View style={styles.content}>{renderContent}</View>
+      </AnimatedPressable>
+    </>
   )
 }
 

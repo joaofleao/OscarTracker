@@ -1,6 +1,6 @@
-import { Svg } from 'react-native-svg'
+import { SvgProps } from 'react-native-svg'
 
-export interface Props extends Partial<Svg> {
+export interface Props extends SvgProps {
   filled?: boolean
   color?: string
 }

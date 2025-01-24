@@ -1,11 +1,27 @@
-import { ExpoConfig, ConfigContext } from 'expo/config'
+import { ExpoConfig } from 'expo/config'
 
-export default ({ config }: ConfigContext): ExpoConfig => ({
-  ...config,
-
+export default (): ExpoConfig => ({
+  owner: 'joaofleao',
   name: process.env.APP_NAME,
-  slug: process.env.APP_SLUG,
+  slug: 'oscartracker',
   icon: process.env.ICON,
+  newArchEnabled: true,
+
+  plugins: [
+    'expo-font',
+    [
+      'expo-splash-screen',
+      {
+        image: './src/assets/app/splash-icon.png',
+        backgroundColor: '#FAFAFA',
+        dark: {
+          backgroundColor: '#171C23',
+          image: './src/assets/app/splash-icon-dark.png',
+        },
+        imageWidth: 200,
+      },
+    ],
+  ],
 
   extra: {
     eas: {
@@ -13,18 +29,15 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
   },
 
-  splash: {
-    image: process.env.SPLASH_SCREEN,
-    resizeMode: 'contain',
-    backgroundColor: '#18181B',
+  androidStatusBar: {
+    translucent: true,
+    barStyle: 'light-content',
   },
 
   android: {
-    versionCode: 2,
-    backgroundColor: '#18181B',
     adaptiveIcon: {
       foregroundImage: process.env.ADAPTIVE_ICON,
-      backgroundColor: '#18181B',
+      backgroundColor: '#171C23',
     },
     package: 'com.joaofleao.oscartracker',
   },

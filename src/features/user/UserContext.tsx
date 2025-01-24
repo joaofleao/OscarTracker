@@ -1,36 +1,29 @@
 import { createContext } from 'react'
 
-import type { CollectionReference, DocumentData, PreferencesType, UserType } from '@types'
+import type {
+  CollectionReference,
+  DocumentData,
+  LanguageType,
+  PreferencesType,
+  UserType,
+} from '@types'
 
 export interface UserContextType {
   usersCollection: CollectionReference<DocumentData>
 
-  admin: boolean
-  preferences: PreferencesType
-  email: string
-  displayName: string
-  emailVerified: boolean
-  nickname: string
-  movies: string[]
-
-  onboarding: boolean
-  uid: string
   setUid: (uid: string) => void
 
+  user: UserType
   setUser: (user: UserType) => void
-
   isLogged: boolean
-  setIsLogged: (isLogged: boolean) => void
 
-  setMovieUnwatched: (movie: string) => void
-  setMovieWatched: (movie: string) => void
-  updateUser: (
-    email?: string,
-    displayName?: string,
-    nickname?: string,
-    preferences?: { poster: boolean; plot: boolean; cast: boolean; ratings: boolean },
-    onboarding?: boolean,
-  ) => void
+  language: LanguageType
+  setLanguage: React.Dispatch<React.SetStateAction<LanguageType>>
+
+  preferences: PreferencesType
+  setPreferences: React.Dispatch<React.SetStateAction<PreferencesType>>
+
+  updateUser: (updatedUser: Partial<UserType>) => void
 }
 
 const UserContext = createContext<UserContextType | null>(null)

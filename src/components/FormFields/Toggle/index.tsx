@@ -1,8 +1,10 @@
 import { useRef } from 'react'
-import { Animated, Easing } from 'react-native'
+import { Animated, Easing, Pressable, Text, View } from 'react-native'
 
-import * as Styled from './styles'
+import useStyles from './styles'
 import usePressableAnimation from '@hooks/usePressableAnimation'
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export interface ToggleProps {
   label?: string
@@ -21,6 +23,7 @@ const Toggle = (props: ToggleProps): JSX.Element => {
     ...defaultProps,
     ...props,
   }
+  const styles = useStyles({ selected, disabled })
 
   const translateX = useRef(new Animated.Value(selected ? 24 : 0)).current
 
@@ -36,25 +39,28 @@ const Toggle = (props: ToggleProps): JSX.Element => {
     onToggle?.()
   }
 
-  const renderLabel = label && <Styled.Label numberOfLines={1}>{label}</Styled.Label>
+  const renderLabel = label && (
+    <Text
+      style={styles.label}
+      numberOfLines={1}
+    >
+      {label}
+    </Text>
+  )
 
   return (
-    <Styled.Container>
+    <View style={styles.container}>
       {renderLabel}
-      <Styled.Toggle
+      <AnimatedPressable
         disabled={disabled}
-        style={{ transform: [{ scale }] }}
+        style={[styles.toggle, { transform: [{ scale }] }]}
         onPress={handleToggleAnimation}
         onPressIn={animationPressIn}
         onPressOut={animationPressOut}
       >
-        <Styled.Indicator
-          selected={selected}
-          disabled={disabled}
-          style={{ transform: [{ translateX }] }}
-        />
-      </Styled.Toggle>
-    </Styled.Container>
+        <Animated.View style={[styles.indicator, { transform: [{ translateX }] }]} />
+      </AnimatedPressable>
+    </View>
   )
 }
 

@@ -1,70 +1,69 @@
-import { Animated } from 'react-native'
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const Container = styled.View(() => {
-  return {
-    gap: '4px',
-  }
-})
+import { useTheme } from '@features/theme'
 
-export const Row = styled.View(() => {
-  return {
-    flexDirection: 'row',
-    gap: '8px',
-  }
-})
-
-export const Content = styled.Pressable((props) => {
-  return {
-    backgroundColor: props.theme.colors.background.container,
-    borderRadius: '14px',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: '14px',
-    gap: '8px',
-    flex: 1,
-  }
-})
-
-export const Input = styled.TextInput((props) => {
-  return {
-    marginTop: '-22px',
-    paddingTop: '22px',
-    height: `${44 + 22}px`,
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.bold,
-    fontSize: '16px',
-    flex: 1,
-  }
-})
-
-type LabelProps = {
+type StylesReturn = {
+  container: ViewStyle
+  row: ViewStyle
+  content: ViewStyle
+  input: TextStyle
+  label: TextStyle
+  errorText: TextStyle
+  helperContainer: ViewStyle
+}
+type StylesProps = {
   isFocused: boolean
 }
 
-export const Label = styled.Text<LabelProps>((props) => {
-  return {
-    color: props.isFocused ? props.theme.colors.primary.default : props.theme.colors.text.light,
-    fontFamily: props.theme.fonts.primary.bold,
-    fontSize: '12px',
-    lineHeight: '18px',
-  }
-})
+const useStyles = ({ isFocused }: StylesProps): StylesReturn => {
+  const { fonts, colors } = useTheme()
 
-export const HelperContainer = styled(Animated.View)(() => {
-  return {
-    zIndex: -200,
-    backgroundColor: 'blue',
-  }
-})
+  return StyleSheet.create({
+    container: {
+      gap: 4,
+      flex: 1,
+    },
+    row: {
+      flexDirection: 'row',
+      gap: 8,
+    },
+    content: {
+      backgroundColor: colors.background.default,
+      borderColor: colors.background.container,
+      borderWidth: 1,
+      borderRadius: 14,
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 14,
+      gap: 8,
+      flex: 1,
+    },
+    input: {
+      height: 48,
+      color: colors.text.default,
+      fontFamily: fonts.secondary.bold,
+      fontSize: 16,
+      flex: 1,
+    },
+    label: {
+      color: isFocused ? colors.primary.default : colors.text.light,
+      fontFamily: fonts.secondary.bold,
+      fontSize: 12,
+      lineHeight: 18,
+    },
+    helperContainer: {
+      zIndex: -200,
+      backgroundColor: 'blue',
+    },
+    errorText: {
+      position: 'absolute',
+      right: 0,
+      color: colors.negative.default,
+      fontFamily: fonts.secondary.bold,
+      fontSize: 12,
+      lineHeight: 18,
+    },
+  })
+}
 
-export const ErrorText = styled.Text((props) => {
-  return {
-    position: 'absolute',
-    right: 0,
-    color: props.theme.colors.negative.default,
-    fontFamily: props.theme.fonts.primary.bold,
-    fontSize: '12px',
-    lineHeight: '18px',
-  }
-})
+export default useStyles

@@ -3,9 +3,9 @@ import axios, { type AxiosResponse } from 'axios'
 import { tmdbConfig } from './config'
 import type { CastType, MovieType, ProvidersType } from '@types'
 
-const apiBaseUrl = tmdbConfig.api_base_url
+const apiBaseUrl = 'https://api.themoviedb.org/3/'
 const apiKey = tmdbConfig.api_key
-const imageBaseUrl = tmdbConfig.image_base_url
+const imageBaseUrl = 'https://image.tmdb.org/t/p/'
 
 const api = axios.create({
   baseURL: apiBaseUrl,

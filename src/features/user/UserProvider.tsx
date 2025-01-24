@@ -1,91 +1,71 @@
-import React from 'react'
-import { arrayRemove, arrayUnion, collection, doc, updateDoc } from 'firebase/firestore'
+import React, { useEffect } from 'react'
+import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore'
 
 import UserContext, { type UserContextType } from './UserContext'
+import usePersistedState from '@hooks/usePersistentState'
 import { db } from '@services/firebase'
-import type { UserType } from '@types'
+import type { LanguageType, PreferencesType, UserType } from '@types'
+import { print } from '@utils/functions'
 
 const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const [isLogged, setIsLogged] = React.useState<UserContextType['isLogged']>(false)
-  const [uid, setUid] = React.useState<UserContextType['uid']>('')
-  const [user, setUser] = React.useState<UserType>({
-    admin: false,
-    email: '',
-    phoneNumber: '',
-    photoURL: '',
-    displayName: '',
-    emailVerified: false,
-    nickname: '',
-    movies: [],
-    movies2024: [],
-    onboarding: true,
-    uid: '',
-    preferences: {
-      poster: false,
-      cast: false,
-      plot: false,
-      ratings: false,
-    },
+  const [user, setUser] = React.useState<UserType | null>(null)
+  const [uid, setUid] = React.useState<string | null>(null)
+
+  const [language, setLanguage] = usePersistedState<LanguageType>('language', 'pt-BR')
+  const [preferences, setPreferences] = usePersistedState<PreferencesType>('preferences', {
+    poster: false,
+    cast: false,
+    plot: false,
+    ratings: false,
   })
 
   const usersCollection = collection(db, 'users')
 
-  const updateUser: UserContextType['updateUser'] = (
-    _email?,
-    _displayName?,
-    _nickname?,
-    _preferences?,
-    _onboarding?,
-  ) => {
-    const userRef = doc(usersCollection, uid)
+  const isAuth = Boolean(uid)
+  const isLogged = Boolean(user)
+
+  //subscribes to firestore changes
+  useEffect(() => {
+    if (isAuth) {
+      const userRef = doc(usersCollection, uid)
+
+      const unsubscribeUser = onSnapshot(userRef, (snap) => {
+        const response = snap.data()
+
+        if (response !== undefined) {
+          print('Firebase', 'User updated', 'green')
+          setUser(response as UserType)
+        }
+      })
+      return unsubscribeUser
+    } else setUser(null)
+  }, [isAuth])
+
+  const updateUser: UserContextType['updateUser'] = (updatedUser) => {
+    if (!isLogged) return
+    const userRef = doc(usersCollection, user.uid)
     const values = {
-      ...(_email != null && { email: _email }),
-      ...(_displayName != null && { displayName: _displayName }),
-      ...(_nickname != null && { nickname: _nickname }),
-      ...(_preferences != null && { preferences: _preferences }),
-      ...(_onboarding != null && { onboarding: _onboarding }),
+      ...(updatedUser.email != null && { email: updatedUser.email }),
+      ...(updatedUser.displayName != null && { displayName: updatedUser.displayName }),
+      ...(updatedUser.nickname != null && { nickname: updatedUser.nickname }),
+      ...(updatedUser.settings != null && { settings: updatedUser.settings }),
+      ...(updatedUser.onboarding != null && { onboarding: updatedUser.onboarding }),
     }
-
     updateDoc(userRef, values)
-  }
-
-  const setMovieUnwatched: UserContextType['setMovieUnwatched'] = (movie) => {
-    const userRef = doc(usersCollection, uid)
-    updateDoc(userRef, {
-      movies2024: arrayRemove(movie),
-    })
-  }
-
-  const setMovieWatched: UserContextType['setMovieWatched'] = (movie) => {
-    const userRef = doc(usersCollection, uid)
-    updateDoc(userRef, {
-      movies2024: arrayUnion(movie),
-    })
   }
 
   const value: UserContextType = {
     usersCollection,
-
-    admin: user.admin,
-    preferences: user.preferences,
-    email: user.email,
-    displayName: user.displayName,
-    emailVerified: user.emailVerified,
-    nickname: user.nickname,
-    movies: user.movies2024 || [],
-    onboarding: user.onboarding,
-
+    user,
     setUser,
-
-    uid,
-    setUid,
-
     isLogged,
-    setIsLogged,
-
+    setUid,
     updateUser,
-    setMovieUnwatched,
-    setMovieWatched,
+
+    language,
+    setLanguage,
+    preferences,
+    setPreferences,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

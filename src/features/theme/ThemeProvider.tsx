@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
 
 import ThemeContext, { type ThemeContextType } from './ThemeContext'
 import { colors } from '@styles/colors'
@@ -19,11 +18,7 @@ const ThemeProvider = ({ children }: { children?: React.ReactNode }): JSX.Elemen
     setMode,
   } satisfies ThemeContextType
 
-  return (
-    <ThemeContext.Provider value={value}>
-      <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>
-    </ThemeContext.Provider>
-  )
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
 
 export default ThemeProvider

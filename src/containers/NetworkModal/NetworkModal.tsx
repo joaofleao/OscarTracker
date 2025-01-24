@@ -1,6 +1,7 @@
 import React from 'react'
 
-import * as Styled from './styles'
+import useStyles from './styles'
+import Button from '@components/Button'
 import Modal from '@components/Modal'
 import { useApp } from '@features/app'
 
@@ -8,6 +9,7 @@ const NetworkModal = (): JSX.Element => {
   const app = useApp()
   const [visible, setVisible] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
+  const styles = useStyles()
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -37,10 +39,11 @@ const NetworkModal = (): JSX.Element => {
       <Modal.Section />
 
       <Modal.Section>
-        <Styled.ConfirmationButton
+        <Button
+          style={styles.confirmationButton}
           loading={loading}
-          label="Retry"
-          variant="secondary"
+          label="Try Again"
+          variant="outlined"
           onPress={retry}
         />
       </Modal.Section>

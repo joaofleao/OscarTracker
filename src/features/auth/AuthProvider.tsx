@@ -1,84 +1,106 @@
+import { useEffect } from 'react'
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
-  type User,
+  User,
 } from 'firebase/auth'
 import { collection, doc, setDoc } from 'firebase/firestore'
 
 import useError from '../../hooks/useError'
 import AuthContext, { type AuthContextType } from './AuthContext'
-import { useLoading } from '@features/loading'
 import { useToast } from '@features/toast'
 import { useUser } from '@features/user'
 import { auth, db } from '@services/firebase'
+import { UserType } from '@types'
 
 const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => {
   const toast = useToast()
-  const user = useUser()
-  const loading = useLoading()
+  const { setUid } = useUser()
   const { showFirebaseError } = useError()
 
-  const users = collection(db, 'users')
+  const usersCollection = collection(db, 'users')
 
-  const signIn = (email: string, password: string): void => {
-    loading.start('Signin in')
-    signInWithEmailAndPassword(auth, email, password)
-      .then((response) => {
-        user.setUid(response.user.uid)
-      })
-      .catch(showFirebaseError)
-      .finally(loading.stop)
+  //subscribes to auth changes
+  useEffect(() => {
+    const unsubscribeAuth = auth.onAuthStateChanged((data: User | null) => {
+      if (data !== undefined) {
+        setUid(data?.uid)
+      } else setUid(null)
+    })
+    return unsubscribeAuth
+  }, [])
+
+  const signIn: AuthContextType['signIn'] = async (email, password) => {
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password)
+      setUid(response.user.uid)
+      return response
+    } catch (error) {
+      showFirebaseError(error)
+      throw error
+    }
   }
 
-  const signUp = (email: string, password: string, displayName: string, nickname: string): void => {
-    loading.start('Creating an Account')
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((response) => {
-        addUser(response.user, displayName, nickname)
-      })
-      .catch(showFirebaseError)
-      .finally(loading.stop)
+  const signUp: AuthContextType['signUp'] = async (email, password) => {
+    try {
+      const response = await createUserWithEmailAndPassword(auth, email, password)
+      return response
+    } catch (error) {
+      showFirebaseError(error)
+      throw error
+    }
   }
 
-  const addUser = (newUser: User, displayName: string, nickname: string): void => {
-    const userRef = doc(users, newUser.uid)
+  const addUser: AuthContextType['addUser'] = async (displayName, nickname) => {
+    const userRef = doc(usersCollection, auth.currentUser.uid)
 
-    const object = {
-      email: newUser.email ?? '',
+    const object: UserType = {
+      email: auth.currentUser.email,
       displayName,
       nickname,
-      uid: newUser.uid,
+      uid: auth.currentUser.uid,
       movies: [],
-      preferences: {
-        poster: false,
-        cast: false,
-        plot: false,
-        ratings: false,
+      admin: false,
+      onboarding: false,
+      phoneNumber: null,
+      photoURL: null,
+      settings: {
+        language: 'pt-BR',
+        darkMode: true,
+        preferences: {
+          plot: false,
+          cast: false,
+          ratings: false,
+          poster: false,
+        },
       },
     }
 
-    setDoc(userRef, object)
-      .then(() => {
-        user.setUid(newUser.uid)
-      })
-      .catch(showFirebaseError)
-      .finally(loading.stop)
+    try {
+      const response = await setDoc(userRef, object)
+      setUid(auth.currentUser.uid)
+      return response
+    } catch (error) {
+      showFirebaseError(error)
+      throw error
+    }
   }
 
-  const signOut = (): void => {
-    loading.start('Signing Out')
-    firebaseSignOut(auth)
-      .then(() => {
-        user.setIsLogged(false)
-      })
-      .catch(showFirebaseError)
-      .finally(loading.stop)
+  const signOut: AuthContextType['signOut'] = async () => {
+    try {
+      const response = await firebaseSignOut(auth)
+      setUid(null)
+      return response
+    } catch (error) {
+      showFirebaseError(error)
+      throw error
+    }
   }
 
-  const recoverPassword = (email: string): void => {
+  const recoverPassword: AuthContextType['recoverPassword'] = async (email) => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
         toast.showToast(
@@ -90,21 +112,16 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
       .catch(showFirebaseError)
   }
 
-  const verifyEmail = (): void => {
+  const verifyEmail: AuthContextType['verifyEmail'] = async () => {
     const userValue = auth.currentUser
-    sendEmailVerification(userValue).then(() => {
-      toast.showToast(
-        'Email Sent',
-        'You will recieve an email to verify your account shortly',
-        'success',
-      )
-    })
+    sendEmailVerification(userValue)
   }
 
   const value: AuthContextType = {
     signIn,
     signUp,
     signOut,
+    addUser,
     recoverPassword,
     verifyEmail,
     user: auth.currentUser,

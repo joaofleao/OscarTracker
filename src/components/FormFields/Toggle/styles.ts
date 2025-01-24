@@ -1,55 +1,57 @@
-import { Animated, Pressable } from 'react-native'
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const Container = styled.View(() => {
-  return {
-    flexDirection: 'row',
-    gap: '24px',
-    flex: 1,
+import { useTheme } from '@features/theme'
 
-    alignItems: 'center',
-  }
-})
+type StylesReturn = {
+  container: ViewStyle
+  toggle: ViewStyle
+  indicator: ViewStyle
+  label: TextStyle
+}
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
-
-export const Toggle = styled(AnimatedPressable)((props) => {
-  return {
-    borderWidth: 1,
-    borderColor: props.theme.colors.background.container,
-    borderRadius: '24px',
-
-    width: '54px',
-    height: '30px',
-
-    flexDirection: 'row',
-  }
-})
-
-type IndicatorTypes = {
+type StylesProps = {
   selected: boolean
   disabled: boolean
 }
-export const Indicator = styled(Animated.View)<IndicatorTypes>((props) => {
-  return {
-    backgroundColor: props.disabled
-      ? props.theme.colors.background.container
-      : props.selected
-      ? props.theme.colors.primary.default
-      : props.theme.colors.primary.shades.shade10,
-    height: '24px',
-    width: '24px',
-    margin: '2px',
-    borderRadius: '24px',
-    position: 'absolute',
-  }
-})
 
-export const Label = styled.Text((props) => {
-  return {
-    flex: 1,
-    color: props.theme.colors.text.default,
-    fontFamily: props.theme.fonts.primary.semibold,
-    fontSize: '16px',
-  }
-})
+const useStyles = ({ selected, disabled }: StylesProps): StylesReturn => {
+  const { colors, fonts } = useTheme()
+
+  return StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      gap: 24,
+      alignItems: 'center',
+    },
+    toggle: {
+      backgroundColor: colors.background.container,
+      borderRadius: 24,
+      width: 54,
+      height: 30,
+      flexDirection: 'row',
+    },
+    indicator: {
+      backgroundColor:
+        disabled && selected
+          ? colors.primary.shades.shade30
+          : disabled && !selected
+          ? colors.primary.shades.shade10
+          : !disabled && selected
+          ? colors.primary.default
+          : colors.primary.shades.shade30,
+      height: 24,
+      width: 24,
+      margin: 2,
+      borderRadius: 24,
+      position: 'absolute',
+    },
+    label: {
+      flex: 1,
+      color: colors.text.default,
+      fontFamily: fonts.secondary.regular,
+      fontSize: 16,
+    },
+  })
+}
+
+export default useStyles

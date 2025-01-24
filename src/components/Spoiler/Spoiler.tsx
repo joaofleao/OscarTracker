@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { Animated, type PressableProps } from 'react-native'
+import { Animated, Pressable, type PressableProps, Text } from 'react-native'
+import { BlurView } from 'expo-blur'
 
-// import { BlurView } from 'expo-blur'
-import * as Styled from './styles'
+import useStyles from './styles'
 
 export interface SpoilerProps extends PressableProps {
   children: JSX.Element | JSX.Element[]
@@ -20,6 +20,7 @@ const Spoiler = (props: SpoilerProps): JSX.Element => {
 
   const [hidden, setHidden] = useState<boolean>(false)
   const animatedValue = useRef(new Animated.Value(0)).current
+  const styles = useStyles()
 
   useEffect(() => {
     Animated.timing(animatedValue, {
@@ -30,7 +31,8 @@ const Spoiler = (props: SpoilerProps): JSX.Element => {
   }, [hidden, animatedValue])
 
   return (
-    <Styled.Container
+    <Pressable
+      style={styles.container}
       onPress={(): void => {
         setHidden((value) => {
           return !value
@@ -40,16 +42,15 @@ const Spoiler = (props: SpoilerProps): JSX.Element => {
     >
       {children}
       {!watched && !show && (
-        <Styled.MovingBackground style={{ transform: [{ translateY: animatedValue }] }}>
-          <Styled.Blur
-          // intensity={90}
-          // tint="dark"
-          >
-            <Styled.Title>{text}</Styled.Title>
-          </Styled.Blur>
-        </Styled.MovingBackground>
+        <Animated.View
+          style={[styles.movingBackground, { transform: [{ translateY: animatedValue }] }]}
+        >
+          <BlurView style={styles.blur}>
+            <Text style={styles.title}>{text}</Text>
+          </BlurView>
+        </Animated.View>
       )}
-    </Styled.Container>
+    </Pressable>
   )
 }
 

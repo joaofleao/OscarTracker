@@ -1,55 +1,54 @@
-import { Animated } from 'react-native'
-import styled from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const DynamicHeader = styled(Animated.View)(() => {
-  return {
-    justifyContent: 'flex-end',
-    overflow: 'hidden',
-    gap: '16px',
-  }
-})
+import { useTheme } from '@features/theme'
 
-export const StickyHeader = styled.View((props) => {
-  return {
-    backgroundColor: props.theme.colors.background.default,
+type StylesReturn = {
+  dynamicHeader: ViewStyle
+  stickyHeader: ViewStyle
+  title: TextStyle
+  subTitle: TextStyle
+  description: TextStyle
+  accent: TextStyle
+}
 
-    paddingHorizontal: '20px',
-    gap: '16px',
-    paddingBottom: '12px',
-  }
-})
+const useStyles = (): StylesReturn => {
+  const { colors, fonts } = useTheme()
 
-export const Title = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontSize: '24px',
-    lineHeight: '36px',
-    fontFamily: props.theme.fonts.primary.semibold,
-  }
-})
+  return StyleSheet.create({
+    dynamicHeader: {
+      justifyContent: 'flex-end',
+      overflow: 'hidden',
+      gap: 16,
+    },
+    stickyHeader: {
+      backgroundColor: colors.background.default,
+      paddingHorizontal: 20,
+      gap: 16,
+      paddingBottom: 12,
+    },
+    title: {
+      color: colors.text.default,
+      fontSize: 24,
+      lineHeight: 36,
+      fontFamily: fonts.secondary.regular,
+    },
+    subTitle: {
+      color: colors.text.default,
+      fontSize: 20,
+      lineHeight: 36,
+      fontFamily: fonts.secondary.regular,
+    },
+    description: {
+      color: colors.text.light,
+      fontSize: 20,
+      lineHeight: 36,
+      fontFamily: fonts.secondary.regular,
+    },
+    accent: {
+      color: colors.primary.default,
+      fontFamily: fonts.quaternary.bold,
+    },
+  })
+}
 
-export const SubTitle = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.default,
-    fontSize: '20px',
-    lineHeight: '36px',
-
-    fontFamily: props.theme.fonts.primary.semibold,
-  }
-})
-export const Description = styled.Text((props) => {
-  return {
-    color: props.theme.colors.text.light,
-    fontSize: '20px',
-    lineHeight: '36px',
-
-    fontFamily: props.theme.fonts.primary.semibold,
-  }
-})
-
-export const Accent = styled.Text((props) => {
-  return {
-    color: props.theme.colors.primary.default,
-    fontFamily: props.theme.fonts.secondary.bold,
-  }
-})
+export default useStyles

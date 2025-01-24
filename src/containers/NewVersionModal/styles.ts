@@ -1,22 +1,29 @@
-import { styled } from 'styled-components/native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-import Button from '@components/Button'
+import { useTheme } from '@features/theme'
 
-export const Content = styled.FlatList(() => {
-  return {
-    maxHeight: '200px',
-  }
-})
-export const ConfirmationButton = styled(Button)(() => {
-  return {
-    alignSelf: 'center',
-  }
-})
+type StylesReturn = {
+  content: ViewStyle
+  confirmationButton: TextStyle
+  updateItem: TextStyle
+}
 
-export const UpdateItem = styled.Text((props) => {
-  return {
-    fontFamily: props.theme.fonts.primary.medium,
-    color: props.theme.colors.text.default,
-    fontSize: '14px',
-  }
-})
+const useStyles = (): StylesReturn => {
+  const { colors, fonts } = useTheme()
+
+  return StyleSheet.create({
+    content: {
+      maxHeight: 200,
+    },
+    confirmationButton: {
+      alignSelf: 'center',
+    },
+    updateItem: {
+      fontFamily: fonts.secondary.medium,
+      color: colors.text.default,
+      fontSize: 14,
+    },
+  })
+}
+
+export default useStyles

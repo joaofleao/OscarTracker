@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { printFetch } from '@utils/functions'
+import { print } from '@utils/functions'
 
 interface useAsyncStorageType {
   storeString: (id: string, value: string) => Promise<void>
@@ -16,7 +16,7 @@ const useAsyncStorage = (): useAsyncStorageType => {
       const jsonValue = JSON.stringify(value)
       await AsyncStorage.setItem(id, jsonValue)
     } catch (e) {
-      printFetch('async-storage', `error saving object: ${id}`, 'red')
+      print('async-storage', `error saving object: ${id}`, 'red')
     }
   }
 
@@ -24,7 +24,7 @@ const useAsyncStorage = (): useAsyncStorageType => {
     try {
       await AsyncStorage.setItem(id, value)
     } catch (e) {
-      printFetch('async-storage', `error saving string: ${id}`, 'red')
+      print('async-storage', `error saving string: ${id}`, 'red')
     }
   }
 
@@ -35,7 +35,7 @@ const useAsyncStorage = (): useAsyncStorageType => {
         return value
       }
     } catch (e) {
-      printFetch('async-storage', `error reading string: ${id}`, 'red')
+      print('async-storage', `error reading string: ${id}`, 'red')
     }
   }
 
@@ -44,7 +44,7 @@ const useAsyncStorage = (): useAsyncStorageType => {
       const jsonValue = await AsyncStorage.getItem(id)
       return jsonValue != null ? JSON.parse(jsonValue) : null
     } catch (e) {
-      printFetch('async-storage', `error reading string: ${id}`, 'red')
+      print('async-storage', `error reading string: ${id}`, 'red')
     }
   }
 
@@ -52,7 +52,7 @@ const useAsyncStorage = (): useAsyncStorageType => {
     try {
       await AsyncStorage.removeItem(id)
     } catch (e) {
-      printFetch('async-storage', `error removing: ${id}`, 'red')
+      print('async-storage', `error removing: ${id}`, 'red')
     }
   }
 

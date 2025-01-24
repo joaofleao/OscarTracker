@@ -18,9 +18,8 @@ export interface EditionContextType {
   nominations: Record<string, Nomination[]>
 
   getMovieNominations: (movie: string) => Promise<Nomination[]>
-  getMovies: () => Promise<void>
-  getPeople: () => Promise<void>
-  getNominations: () => Promise<void>
+
+  refreshEdition: () => Promise<void>
 
   markCategoryWinner: (nominationId: string, categoryId: string) => Promise<void>
 }

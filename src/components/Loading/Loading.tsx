@@ -5,7 +5,7 @@ import { getAnimation, getColorPrimary, getColorSecondary, getSpeed } from './ut
 import { useTheme } from '@features/theme'
 
 export interface LoadingProps {
-  animation?: 'dots' | 'movie' | 'circle'
+  animation?: 'dots' | 'movie' | 'circle' | 'confetti'
   size?: number
   disabled?: boolean
   type?: 'primary' | 'secondary'

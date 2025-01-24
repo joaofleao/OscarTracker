@@ -1,8 +1,0 @@
-{
-  "expo": {
-    "version": "3.0.1",
-    "orientation": "portrait",
-    "userInterfaceStyle": "dark",
-    "assetBundlePatterns": ["**/*"]
-  }
-}
