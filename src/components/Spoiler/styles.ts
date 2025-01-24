@@ -1,4 +1,4 @@
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
+import { Platform, StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
 import { useTheme } from '@features/theme'
 
@@ -28,6 +28,7 @@ const useStyles = (): StylesReturn => {
       alignItems: 'center',
     },
     blur: {
+      backgroundColor: Platform.OS === 'android' ? colors.background.container : 'transparent',
       flex: 1,
       width: '100%',
       justifyContent: 'center',

@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Animated, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import useStyles from './styles'
 import Tab from './TabBar'
 import ProgressBar from '@components/ProgressBar'
 import { useEdition } from '@features/edition'
 import { useWatchedMovies } from '@features/watchedMovies'
+import useKeyboard from '@hooks/useKeyboard'
 import { useNavigation } from '@react-navigation/native'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { type ScreenTypes } from '@types'
@@ -27,12 +27,19 @@ const NavBar = (props: Props): JSX.Element => {
   const { tabs, initialRoute } = props
   const styles = useStyles()
   const { editionWatchedMovies } = useWatchedMovies()
+  const keyboardOpen = useKeyboard()
   const edition = useEdition()
 
   const selected = navigation.getState()?.routes?.[0]?.state?.index ?? initialRoute
-  const insets = useSafeAreaInsets()
-
   const selectorOffset = React.useRef(new Animated.Value(0)).current
+  const translateY = useRef<Animated.Value>(new Animated.Value(0)).current
+
+  useEffect(() => {
+    Animated.spring(translateY, {
+      toValue: keyboardOpen ? 400 : 0,
+      useNativeDriver: true,
+    }).start()
+  }, [keyboardOpen, translateY])
 
   const springAnimation = (index): void => {
     Animated.spring(selectorOffset, {
@@ -58,10 +65,10 @@ const NavBar = (props: Props): JSX.Element => {
   }
 
   return (
-    <View style={styles.footer}>
+    <Animated.View style={[styles.footer, { transform: [{ translateY }] }]}>
       <View style={styles.container}>
         <Animated.View style={[styles.selector, { transform: [{ translateX: selectorOffset }] }]}>
-          <Animated.View style={styles.background} />
+          <View style={styles.background} />
         </Animated.View>
         {tabs.map(renderTabs)}
       </View>
@@ -72,7 +79,7 @@ const NavBar = (props: Props): JSX.Element => {
           total={Object.keys(edition.movies).length}
         />
       </View>
-    </View>
+    </Animated.View>
   )
 }
 
