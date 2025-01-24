@@ -41,11 +41,16 @@ const Spoiler = (props: SpoilerProps): JSX.Element => {
       {...rest}
     >
       {children}
+
       {!watched && !show && (
         <Animated.View
           style={[styles.movingBackground, { transform: [{ translateY: animatedValue }] }]}
         >
-          <BlurView style={styles.blur}>
+          <BlurView
+            intensity={50}
+            tint={'dark'}
+            style={styles.blur}
+          >
             <Text style={styles.title}>{text}</Text>
           </BlurView>
         </Animated.View>

@@ -19,22 +19,20 @@ const useStyles = (): StylesReturn => {
     footer: {
       bottom: bottom,
       position: 'absolute',
-      width: '100%',
       gap: 12,
+      paddingHorizontal: 40,
+      width: '100%',
       alignItems: 'center',
     },
     container: {
       backgroundColor: colors.background.container,
       borderRadius: 100,
       flexDirection: 'row',
-      bottom: 0,
-      alignSelf: 'center',
     },
     selector: {
-      alignItems: 'center',
-      height: '100%',
       position: 'absolute',
-      width: '20%',
+      width: 80,
+      height: 60,
     },
     background: {
       width: 12,
@@ -48,7 +46,7 @@ const useStyles = (): StylesReturn => {
     progressContainer: {
       backgroundColor: colors.background.container,
       padding: 16,
-      maxWidth: '88%',
+
       borderRadius: 48,
       alignSelf: 'center',
     },
