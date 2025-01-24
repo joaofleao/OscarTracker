@@ -36,7 +36,7 @@ const Poster = (props: PosterProps): JSX.Element => {
   const getPoster = (
     <Image
       style={styles.image}
-      blurRadius={winner || isWatched || spoiler ? 0 : 20}
+      blurRadius={winner || isWatched || spoiler ? 0 : 8}
       source={image ? { uri: image } : null}
       resizeMode="cover"
     />
