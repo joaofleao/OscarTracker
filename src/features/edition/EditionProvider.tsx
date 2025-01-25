@@ -12,6 +12,7 @@ import {
 } from 'firebase/firestore'
 
 import EditionContext, { type EditionContextType } from './EditionContext'
+import { useUser } from '@features/user'
 import useAsyncStorage from '@hooks/useAsyncStorage'
 import { db } from '@services/firebase'
 import type { BasicMovieType, EditionType, Nomination, PersonType } from '@types'
@@ -20,6 +21,7 @@ import { print } from '@utils/functions'
 const editionsCollection = collection(db, 'editions')
 
 const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
+  const { language } = useUser()
   const [movies, setMovies] = React.useState<EditionContextType['movies']>({})
 
   const [people, setPeople] = React.useState<EditionContextType['people']>({})
@@ -71,7 +73,7 @@ const EditionProvider = ({ children }: { children?: React.ReactNode }): JSX.Elem
     print('Firebase', 'Movies fetched', 'yellow')
 
     const moviesCollection = collection(editionRef, 'movies')
-    const orderedMovies = query(moviesCollection, orderBy('name.en-US'))
+    const orderedMovies = query(moviesCollection, orderBy(`name.${language}`))
 
     const response = await getDocs(orderedMovies)
     const map: typeof movies = {}

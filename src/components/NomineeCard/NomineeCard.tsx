@@ -17,7 +17,7 @@ export interface NomineeCardProps extends TouchableOpacityProps {
 const NomineeCard = (props: NomineeCardProps): JSX.Element => {
   const { image, title, id, information, extra, ...rest } = props
   const { isMovieWatched } = useWatchedMovies()
-  const { user } = useUser()
+  const { preferences } = useUser()
   const styles = useStyles()
 
   return (
@@ -27,7 +27,8 @@ const NomineeCard = (props: NomineeCardProps): JSX.Element => {
       {...rest}
     >
       <Poster
-        spoiler={user?.settings.preferences.poster}
+        dimmAndLock
+        spoiler={preferences.poster}
         image={getImage(image)}
         isWatched={isMovieWatched(id)}
       />

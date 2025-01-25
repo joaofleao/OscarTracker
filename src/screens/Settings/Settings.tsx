@@ -18,7 +18,7 @@ import routes from '@utils/routes'
 
 const Settings = ({ navigation }: SettingsProps): JSX.Element => {
   const auth = useAuth()
-  const { user, isLogged, updateUser, setLanguage, language } = useUser()
+  const { user, isLogged, setLanguage, language, preferences, setPreferences } = useUser()
   const { refreshEdition } = useEdition()
   const styles = useStyles()
   const [loading, setLoading] = useState<boolean>(false)
@@ -91,68 +91,40 @@ const Settings = ({ navigation }: SettingsProps): JSX.Element => {
 
           <Toggle
             label="Hide Posters"
-            disabled={!isLogged}
-            selected={!user?.settings.preferences.poster}
+            selected={!preferences.poster}
             onToggle={(): void => {
-              updateUser({
-                settings: {
-                  ...user?.settings,
-                  preferences: {
-                    ...user?.settings.preferences,
-                    poster: !user?.settings.preferences.poster,
-                  },
-                },
+              setPreferences((old) => {
+                return { ...old, poster: !preferences.poster }
               })
             }}
           />
 
           <Toggle
             label="Hide Plot"
-            disabled={!isLogged}
-            selected={!user?.settings.preferences.plot}
+            selected={!preferences.plot}
             onToggle={(): void => {
-              updateUser({
-                settings: {
-                  ...user?.settings,
-                  preferences: {
-                    ...user?.settings.preferences,
-                    plot: !user?.settings.preferences.plot,
-                  },
-                },
+              setPreferences((old) => {
+                return { ...old, plot: !preferences.plot }
               })
             }}
           />
 
           <Toggle
             label="Hide Cast"
-            disabled={!isLogged}
-            selected={!user?.settings.preferences.cast}
+            selected={!preferences.cast}
             onToggle={(): void => {
-              updateUser({
-                settings: {
-                  ...user?.settings,
-                  preferences: {
-                    ...user?.settings.preferences,
-                    cast: !user?.settings.preferences.cast,
-                  },
-                },
+              setPreferences((old) => {
+                return { ...old, cast: !preferences.cast }
               })
             }}
           />
 
           <Toggle
             label="Hide Ratings"
-            disabled={!isLogged}
-            selected={!user?.settings.preferences.ratings}
+            selected={!preferences.ratings}
             onToggle={(): void => {
-              updateUser({
-                settings: {
-                  ...user?.settings,
-                  preferences: {
-                    ...user?.settings.preferences,
-                    ratings: !user?.settings.preferences.ratings,
-                  },
-                },
+              setPreferences((old) => {
+                return { ...old, ratings: !preferences.ratings }
               })
             }}
           />

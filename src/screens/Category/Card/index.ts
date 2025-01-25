@@ -1,5 +1,3 @@
-import Movie from './MovieCard'
-import Person from './PersonCard'
-import Song from './SongCard'
+import Card from './Card'
 
-export default { Movie, Person, Song }
+export default Card

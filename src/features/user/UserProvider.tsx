@@ -12,6 +12,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
   const [uid, setUid] = React.useState<string | null>(null)
 
   const [language, setLanguage] = usePersistedState<LanguageType>('language', 'pt-BR')
+
   const [preferences, setPreferences] = usePersistedState<PreferencesType>('preferences', {
     poster: false,
     cast: false,

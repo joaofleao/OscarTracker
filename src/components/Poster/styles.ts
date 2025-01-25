@@ -18,10 +18,18 @@ type StylesProps = {
   height: number | '100%'
   isWinner: boolean
   large: boolean
+  isWatched?: boolean
   size: 'small' | 'full' | 'large'
 }
 
-const useStyles = ({ width, height, isWinner, large, size }: StylesProps): StylesReturn => {
+const useStyles = ({
+  width,
+  height,
+  isWinner,
+  large,
+  size,
+  isWatched,
+}: StylesProps): StylesReturn => {
   const { fonts, colors } = useTheme()
 
   return StyleSheet.create({
@@ -32,6 +40,7 @@ const useStyles = ({ width, height, isWinner, large, size }: StylesProps): Style
       justifyContent: isWinner ? 'flex-end' : 'center',
       borderRadius: 12,
       backgroundColor: colors.background.container,
+
       aspectRatio: 0.67,
     },
     winnerCover: {
@@ -65,8 +74,10 @@ const useStyles = ({ width, height, isWinner, large, size }: StylesProps): Style
     },
     cover: {
       position: 'absolute',
+      width: '100%',
+      height: '100%',
       borderRadius: 12,
-      backgroundColor: 'rgba(0,0,0,.6)',
+      backgroundColor: 'rgba(0,0,0,.61)',
     },
     coverWinner: {
       borderColor: colors.primary.default,

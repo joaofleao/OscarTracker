@@ -7,18 +7,18 @@ export interface Nomination {
   id: string
   category: string
   movie: string
-  person: string | undefined
-  song: string | undefined
-  character: string | undefined
-  information: string | undefined
+
+  person?: string
+  song?: string
+  country?: string
+  character?: string
+  url?: string
+  nominees?: string
 }
 export interface CategoryType {
   id: string
   order: number
-  name: {
-    'en-US': string
-    'pt-BR': string
-  }
+  name: LanguageType
 }
 export interface EditionType {
   winners: { [categoryId: string]: string }
@@ -38,12 +38,12 @@ export interface PreferencesType {
 export interface SettingsType {
   darkMode: boolean
   language: LanguageType
-  preferences: PreferencesType
 }
 
 export interface UserType {
   admin: boolean
   settings: SettingsType
+  preferences: PreferencesType
   email: string
   displayName: string
   phoneNumber: string
@@ -55,8 +55,8 @@ export interface UserType {
 }
 
 export interface BasicMovieType {
-  name: { 'en-US': string; 'pt-BR': string }
-  image: { 'en-US': string; 'pt-BR': string }
+  name: LanguageType
+  image: LanguageType
   imdb: string
   tmdb: string
 }
