@@ -22,7 +22,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 const NominationCard = (props: NominationCardProps): JSX.Element => {
   const { nomination, winnerTitle, winnerDescription } = props
   const edition = useEdition()
-  const { user, language } = useUser()
+  const { preferences, language } = useUser()
   const { isMovieWatched } = useWatchedMovies()
 
   const navigation = useNavigation<NativeStackNavigationProp<ScreenTypes, 'logged'>>()
@@ -37,7 +37,7 @@ const NominationCard = (props: NominationCardProps): JSX.Element => {
 
   const image = person != null ? person.image : movie.image[language]
 
-  const text = person != null ? person.name : movie?.name['en-US']
+  const text = person != null ? person.name : movie?.name[language]
 
   const handleClick = (): void => {
     navigation.navigate(routes.movie, { movieId: movie.imdb })
@@ -53,9 +53,10 @@ const NominationCard = (props: NominationCardProps): JSX.Element => {
       onPress={handleClick}
     >
       <Poster
+        dimmAndLock
         winner={winner}
         size={isBestPicture ? 'large' : 'small'}
-        spoiler={user?.settings.preferences.poster}
+        spoiler={preferences.plot}
         image={getImage(image)}
         isWatched={watched}
         winnerTitle={winnerTitle}

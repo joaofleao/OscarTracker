@@ -34,12 +34,13 @@ import type {
   TMDBPerson,
   WatchProvider,
 } from '@types'
+import { formatRuntime } from '@utils/functions'
 import routes from '@utils/routes'
 
 const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
   const { movieId } = route.params
   const edition = useEdition()
-  const { user, isLogged, language } = useUser()
+  const { preferences, isLogged, language } = useUser()
   const { setMovieUnwatched, setMovieWatched, isMovieWatched } = useWatchedMovies()
   const movies = useMovies()
   const { categories_map } = useCategories()
@@ -47,7 +48,6 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
   const styles = useStyles()
 
   const markAsWatchedButtonRef = useRef(null)
-  const confettiRef = useRef(null)
 
   const image = edition.movies[movieId].image[language]
   const name = edition.movies[movieId].name[language]
@@ -56,6 +56,8 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
   const [movieCast, setMovieCast] = useState([])
   const [movieProviders, setMovieProviders] = useState([])
   const [nominations, setNominations] = useState<Nomination[]>([])
+
+  const [playAnimation, setPlayAnimation] = useState<boolean>(false)
 
   const watched = isMovieWatched(movieId)
 
@@ -88,7 +90,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
       setMovieUnwatched(movieId)
     } else {
       setMovieWatched(movieId, new Date())
-      confettiRef.current.play()
+      setPlayAnimation(true)
     }
   }
 
@@ -98,7 +100,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
     return (
       <Spoiler
         style={styles.castSpoiler}
-        show={user?.settings.preferences.cast}
+        show={preferences.cast}
         watched={watched}
         text="Click to show cast member"
       >
@@ -149,7 +151,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
             height={18}
           />
         )}
-        <Text style={styles.nominationText}>{categories_map[item.category].name[language]}</Text>
+        <Text style={styles.nominationText}>{categories_map?.[item.category]?.name[language]}</Text>
       </TouchableOpacity>
     )
   }
@@ -170,7 +172,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
           <View style={styles.mainContent}>
             <Spoiler
               style={styles.spoilerPoster}
-              show={user?.settings.preferences.poster}
+              show={preferences.poster}
               watched={watched}
               text="Show Poster"
             >
@@ -186,7 +188,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
           <View style={styles.basicData}>
             <Spoiler
               text="Show"
-              show={user?.settings.preferences.ratings}
+              show={preferences.ratings}
               watched={watched}
             >
               <View style={styles.iconInformation}>
@@ -207,7 +209,9 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
                 height={18}
                 color={theme.colors.text.default}
               />
-              <Text style={styles.iconInformationText}>{movieData?.runtime}</Text>
+              <Text style={styles.iconInformationText}>
+                {formatRuntime(movieData?.runtime, language)}
+              </Text>
             </View>
 
             <View style={styles.iconInformation}>
@@ -275,7 +279,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
               <Text style={styles.emptyState}>Plot not available</Text>
             ) : (
               <Spoiler
-                show={user?.settings.preferences.plot}
+                show={preferences.plot}
                 watched={watched}
               >
                 <Text style={styles.plot}>{movieData?.overview}</Text>
@@ -316,7 +320,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
           style={styles.animation}
           source={getAnimation('confetti')}
           loop={false}
-          ref={confettiRef}
+          autoPlay={playAnimation}
         />
 
         <View style={styles.footer}>

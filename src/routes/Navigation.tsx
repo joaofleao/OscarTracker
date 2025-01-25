@@ -109,7 +109,6 @@ const Routes = (
       <Stack.Screen
         options={{
           animation: 'slide_from_bottom',
-          // presentation: 'transparentModal',
         }}
         name={routes.movie}
         component={Movie}

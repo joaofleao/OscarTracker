@@ -48,6 +48,7 @@ const NominationCaroussel = ({ categoryId }: NominationCarousselProps): JSX.Elem
     navigation.navigate(routes.category, { categoryId })
   }
 
+  // console.log(categories_map)
   return (
     <View style={styles.caroussel}>
       <View style={styles.header}>

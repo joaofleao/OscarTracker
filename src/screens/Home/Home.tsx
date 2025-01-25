@@ -11,6 +11,10 @@ const Home = ({ navigation: _ }: HomeProps): JSX.Element => {
 
   const { categories_list } = useCategories()
 
+  const filteredCategories = categories_list.filter((item) => {
+    return edition.categories.includes(item)
+  })
+
   const renderNominationCaroussel = ({ item }): JSX.Element => {
     if (edition?.categories?.includes(item)) return <NominationCaroussel categoryId={item} />
   }
@@ -18,7 +22,7 @@ const Home = ({ navigation: _ }: HomeProps): JSX.Element => {
   return (
     <Global.Screen isTabScreen>
       <FlatList
-        data={categories_list}
+        data={filteredCategories}
         renderItem={renderNominationCaroussel}
         ItemSeparatorComponent={Global.Separator}
         ListHeaderComponent={Global.HeaderBarSeparator}

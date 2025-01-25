@@ -8,7 +8,8 @@ import Global from '@components/Global'
 import NomineeCard from '@components/NomineeCard'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
-import type { WatchListProps } from '@types'
+import { useWatchedMovies } from '@features/watchedMovies'
+import type { BasicMovieType, WatchListProps } from '@types'
 import routes from '@utils/routes'
 
 const allStatus = [
@@ -20,6 +21,7 @@ const allStatus = [
 function WatchList({ navigation }: WatchListProps): JSX.Element {
   const edition = useEdition()
   const { language } = useUser()
+  const { isMovieWatched } = useWatchedMovies()
 
   const styles = useStyles()
 
@@ -27,22 +29,34 @@ function WatchList({ navigation }: WatchListProps): JSX.Element {
   const [filter, setFilter] = React.useState<'all' | 'watched' | 'unwatched'>('all')
 
   const [data, setData] = React.useState(Object.values(edition.movies))
+
   const scrollOffsetY = React.useRef(new Animated.Value(0)).current
 
   React.useEffect(() => {
-    if (search === '') setData(Object.values(edition.movies))
-    else {
-      const filtered = Object.values(edition.movies).filter((movie) => {
+    let filteredData = Object.values(edition.movies)
+
+    // Apply search filter
+    if (search !== '') {
+      filteredData = filteredData.filter((movie) => {
         const nameLowerEnglish = movie.name['en-US'].toLowerCase()
         const nameLowerPortuguese = movie.name['pt-BR'].toLowerCase()
         const searchLower = search.toLowerCase()
         return nameLowerEnglish.includes(searchLower) || nameLowerPortuguese.includes(searchLower)
       })
-      setData(filtered)
     }
-  }, [search, edition.movies])
 
-  const renderItem = ({ item }: { item }): JSX.Element => {
+    // Apply watched/unwatched filter
+    if (filter !== 'all') {
+      filteredData = filteredData.filter((movie) => {
+        const watched = isMovieWatched(movie.imdb)
+        return filter === 'watched' ? watched : !watched
+      })
+    }
+
+    setData(filteredData)
+  }, [search, filter, edition.movies, isMovieWatched])
+
+  const renderItem = ({ item }: { item: BasicMovieType }): JSX.Element => {
     return (
       <View style={styles.item}>
         <NomineeCard

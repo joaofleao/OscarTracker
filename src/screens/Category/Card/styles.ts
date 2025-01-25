@@ -3,24 +3,19 @@ import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import { useTheme } from '@features/theme'
 
 type StylesReturn = {
-  container: ViewStyle
+  root: ViewStyle
   content: ViewStyle
-  titleContainer: ViewStyle
+  rightContainer: ViewStyle
+
   title: TextStyle
-  information: TextStyle
-  movie: TextStyle
-  toggle: ViewStyle
-  bets: ViewStyle
+  subtitle: TextStyle
+  description: TextStyle
 }
 
-type StylesProps = {
-  winner: boolean
-}
-
-const useStyles = ({ winner }: StylesProps): StylesReturn => {
+const useStyles = (): StylesReturn => {
   const { colors, fonts } = useTheme()
   return StyleSheet.create({
-    container: {
+    root: {
       justifyContent: 'center',
       flexDirection: 'row',
       gap: 16,
@@ -30,38 +25,28 @@ const useStyles = ({ winner }: StylesProps): StylesReturn => {
       gap: 4,
       justifyContent: 'center',
     },
-    title: {
-      fontSize: 18,
-      lineHeight: 18,
-      fontFamily: fonts.secondary.bold,
-      color: winner ? colors.primary.default : colors.text.default,
-    },
-    titleContainer: {
+    rightContainer: {
       flexDirection: 'row',
       gap: 4,
     },
-    information: {
+    title: {
+      fontSize: 18,
+      lineHeight: 24,
+      fontFamily: fonts.secondary.bold,
+      color: colors.text.default,
+      flex: 1,
+    },
+    subtitle: {
       fontSize: 16,
       lineHeight: 24,
       fontFamily: fonts.secondary.regular,
       color: colors.text.light,
     },
-    movie: {
+    description: {
       fontSize: 16,
       lineHeight: 24,
       fontFamily: fonts.secondary.regular,
       color: colors.text.default,
-    },
-    toggle: {
-      maxWidth: '45%',
-    },
-    bets: {
-      flexDirection: 'row',
-      flex: 1,
-      alignItems: 'center',
-      gap: 8,
-      overflow: 'hidden',
-      justifyContent: 'space-around',
     },
   })
 }
