@@ -1,21 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  limit,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from 'firebase/firestore'
+import firestore from '@react-native-firebase/firestore'
 
 import WatchedMoviesContext, { type WatchedMoviesContextType } from './WatchedMoviesContext'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
-import { db } from '@services/firebase'
 import { WatchedMovieType } from '@types'
 import { print } from '@utils/functions'
 
@@ -37,48 +25,47 @@ const WatchedMoviesProvider = ({ children }: { children?: React.ReactNode }): JS
       {} as Record<string, WatchedMovieType>,
     )
 
-  const usersCollection = collection(db, 'users')
-
   useEffect(() => {
     if (!isLogged) return
 
-    const userRef = doc(db, 'users', user.uid)
-    const watchedMoviesCollection = collection(userRef, 'watchedMovies')
-
-    const q = query(watchedMoviesCollection, orderBy('date', 'desc'))
-
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const map: Record<string, WatchedMovieType> = {}
-      snapshot.forEach((doc) => {
-        map[doc.id] = doc.data() as WatchedMovieType
+    const subscriber = firestore()
+      .collection('users')
+      .doc(user.uid)
+      .collection('watchedMovies')
+      .orderBy('date', 'desc')
+      .onSnapshot((documentSnapshot) => {
+        print('Firebase', 'Watched movies updated', 'green')
+        const map: Record<string, WatchedMovieType> = {}
+        documentSnapshot.forEach((doc) => {
+          map[doc.id] = doc.data() as WatchedMovieType
+        })
+        setWatchedMovies(map)
       })
-      setWatchedMovies(map)
-    })
 
-    return () => {
-      return unsubscribe()
-    }
+    return subscriber
   }, [isLogged, user])
 
   const setMovieUnwatched: WatchedMoviesContextType['setMovieUnwatched'] = async (movie) => {
     if (!isLogged) return
 
     try {
-      const userRef = doc(usersCollection, user.uid)
-      const watchedMoviesCollection = collection(userRef, 'watchedMovies')
+      const movieInstance = await firestore()
+        .collection('user')
+        .doc(user.uid)
+        .collection('watchedMovies')
+        .where('movie', '==', movie)
+        .orderBy('date', 'desc')
+        .limit(1)
+        .get()
 
-      const q = query(
-        watchedMoviesCollection,
-        where('movie', '==', movie),
-        orderBy('date', 'desc'),
-        limit(1),
-      )
-
-      const querySnapshot = await getDocs(q)
-
-      if (!querySnapshot.empty) {
-        const docToDelete = querySnapshot.docs[0]
-        await deleteDoc(doc(watchedMoviesCollection, docToDelete.id))
+      if (!movieInstance.empty) {
+        const docToDelete = movieInstance.docs[0]
+        await firestore()
+          .collection('user')
+          .doc(user.uid)
+          .collection('watchedMovies')
+          .doc(docToDelete.id)
+          .delete()
       }
     } catch (error) {
       print('Error removing watched movie: ', error, 'red')
@@ -89,14 +76,11 @@ const WatchedMoviesProvider = ({ children }: { children?: React.ReactNode }): JS
     if (!isLogged) return
 
     try {
-      const userRef = doc(usersCollection, user.uid)
-      const watchedMoviesCollection = collection(userRef, 'watchedMovies')
-
       const object = {
         movie,
         date,
       }
-      addDoc(watchedMoviesCollection, object)
+      firestore().collection('users').doc(user.uid).collection('watchedMovies').add(object)
     } catch (error) {
       print('Error removing watched movie: ', error, 'red')
     }

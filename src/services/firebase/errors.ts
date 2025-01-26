@@ -1,4 +1,4 @@
-import { type FirebaseError } from 'firebase/app'
+import { FirebaseAuthTypes } from '@react-native-firebase/auth'
 
 interface Error {
   type: string
@@ -6,7 +6,7 @@ interface Error {
   description: string
 }
 
-const getError = (response: FirebaseError): Error => {
+const getError = (response: FirebaseAuthTypes.NativeFirebaseAuthError): Error => {
   if (response.code === 'auth/invalid-email')
     return {
       type: 'danger',

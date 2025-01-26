@@ -1,19 +1,18 @@
 import React from 'react'
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import firestore from '@react-native-firebase/firestore'
 
 import AnnouncementsContext, { type AnnouncementsContextType } from './AnnouncementsContext'
-import { db } from '@services/firebase'
 import type { AnnouncementType } from '@types'
 import { print } from '@utils/functions'
 
 const AnnouncementProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const announcementsCollection = collection(db, 'announcements')
+  const announcementsCollection = firestore().collection('announcements')
 
   const [announcements, setAnnouncements] = React.useState<AnnouncementType[]>([])
 
   const getAnnouncements = async (): Promise<void> => {
-    const orderedAnnouncements = query(announcementsCollection, orderBy('date'))
-    const response = await getDocs(orderedAnnouncements)
+    const response = await announcementsCollection.orderBy('date').get()
+
     print('Firebase', 'Announcements fetched', 'yellow')
     const array = []
     response.forEach((item) => {

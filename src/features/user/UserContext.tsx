@@ -1,16 +1,8 @@
 import { createContext } from 'react'
 
-import type {
-  CollectionReference,
-  DocumentData,
-  LanguageType,
-  PreferencesType,
-  UserType,
-} from '@types'
+import type { LanguageType, PreferencesType, UserType } from '@types'
 
 export interface UserContextType {
-  usersCollection: CollectionReference<DocumentData>
-
   setUid: (uid: string) => void
 
   user: UserType

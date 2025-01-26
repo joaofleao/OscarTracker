@@ -1,5 +1,5 @@
+import { Timestamp } from '@react-native-firebase/firestore'
 import { Text, View } from 'react-native'
-import { Timestamp } from 'firebase/firestore'
 
 import useStyles from './styles'
 import Avatar from '@components/Avatar'

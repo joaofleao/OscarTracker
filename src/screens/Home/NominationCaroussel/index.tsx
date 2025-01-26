@@ -4,7 +4,7 @@ import NominationCard from '../NominationCard'
 import useStyles from './styles'
 import Button from '@components/Button'
 import Global from '@components/Global'
-import { useBallots } from '@features/ballots'
+// import { useBallots } from '@features/ballots'
 import { useCategories } from '@features/categories'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
@@ -23,7 +23,7 @@ const NominationCaroussel = ({ categoryId }: NominationCarousselProps): JSX.Elem
   const { categories_map } = useCategories()
   const { language } = useUser()
   const { nominations, winners } = useEdition()
-  const { bets } = useBallots()
+  // const { bets } = useBallots()
 
   const styles = useStyles()
 
@@ -31,15 +31,15 @@ const NominationCaroussel = ({ categoryId }: NominationCarousselProps): JSX.Elem
     return x.id === winners?.[x.category] ? -1 : y.id === winners?.[y.category] ? 1 : 0
   })
 
-  const first = sortedData?.[0]?.id === bets?.[categoryId]?.first
-  const second = sortedData?.[0]?.id === bets?.[categoryId]?.second
+  // const first = sortedData?.[0]?.id === bets?.[categoryId]?.first
+  // const second = sortedData?.[0]?.id === bets?.[categoryId]?.second
 
   const renderNominationCard = ({ item }): JSX.Element => {
     return (
       <NominationCard
         nomination={item}
-        winnerTitle={first ? '100 points' : second ? '50 points' : '0 points'}
-        winnerDescription={first ? '1st guess' : second ? '2nd guess' : undefined}
+        // winnerTitle={first ? '100 points' : second ? '50 points' : '0 points'}
+        // winnerDescription={first ? '1st guess' : second ? '2nd guess' : undefined}
       />
     )
   }
@@ -48,7 +48,6 @@ const NominationCaroussel = ({ categoryId }: NominationCarousselProps): JSX.Elem
     navigation.navigate(routes.category, { categoryId })
   }
 
-  // console.log(categories_map)
   return (
     <View style={styles.caroussel}>
       <View style={styles.header}>

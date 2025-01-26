@@ -36,3 +36,5 @@ yarn-error.*
 
 
 oscar-c3c39-c6b15d36cfd0.json
+src/services/firebase/google-services.json
+src/services/firebase/GoogleService-Info.plist

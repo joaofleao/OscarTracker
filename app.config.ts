@@ -9,6 +9,8 @@ export default (): ExpoConfig => ({
 
   plugins: [
     'expo-font',
+    '@react-native-firebase/app',
+    '@react-native-firebase/auth',
     [
       'expo-splash-screen',
       {
@@ -19,6 +21,14 @@ export default (): ExpoConfig => ({
           image: './src/assets/app/splash-icon-dark.png',
         },
         imageWidth: 200,
+      },
+    ],
+    [
+      'expo-build-properties',
+      {
+        ios: {
+          useFrameWorks: 'static',
+        },
       },
     ],
   ],
@@ -41,13 +51,16 @@ export default (): ExpoConfig => ({
       backgroundColor: '#171C23',
     },
     package: 'com.joaofleao.oscartracker',
+    googleServicesFile:
+      process.env.GOOGLE_SERVICES_ANDROID ?? './src/services/firebase/google-services.json',
   },
 
   ios: {
+    googleServicesFile:
+      process.env.GOOGLE_SERVICES_IOS ?? './src/services/firebase/GoogleService-Info.plist',
     supportsTablet: true,
     bundleIdentifier: 'com.joaofleao.oscartracker',
     bitcode: false,
-    usesAppleSignIn: true,
   },
 
   web: {

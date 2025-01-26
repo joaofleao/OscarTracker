@@ -9,7 +9,7 @@ import Global from '@components/Global'
 import Header from '@components/Header'
 import Icon from '@components/Icon'
 import Poster from '@components/Poster'
-import { useBallots } from '@features/ballots'
+// import { useBallots } from '@features/ballots'
 import { useCategories } from '@features/categories'
 import { useEdition } from '@features/edition'
 import { useUser } from '@features/user'
@@ -22,7 +22,7 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
   const { categoryId } = route.params
   const { categories_map } = useCategories()
   const { language, preferences } = useUser()
-  const ballots = useBallots()
+  // const ballots = useBallots()
   const edition = useEdition()
   const { isMovieWatched } = useWatchedMovies()
 
@@ -31,19 +31,19 @@ const Category = ({ navigation, route }: CategoryProps): JSX.Element => {
   const [wishes, setWishes] = React.useState(undefined)
   const [bets, setBets] = React.useState(undefined)
   const [newWinner, setNewWinner] = React.useState<[string, string] | null>(null)
-  const upToDate = !(bets !== ballots.bets?.[categoryId] || wishes !== ballots.wishes?.[categoryId])
+  // const upToDate = !(bets !== ballots.bets?.[categoryId] || wishes !== ballots.wishes?.[categoryId])
   const categoryNominations = edition.nominations[categoryId]
 
-  React.useEffect(() => {
-    if (ballots.bets?.[categoryId]) setBets(ballots.bets?.[categoryId])
-    if (ballots.wishes?.[categoryId]) setWishes(ballots.wishes?.[categoryId])
-  }, [ballots.bets, ballots.wishes, categoryId])
+  // React.useEffect(() => {
+  //   if (ballots.bets?.[categoryId]) setBets(ballots.bets?.[categoryId])
+  //   if (ballots.wishes?.[categoryId]) setWishes(ballots.wishes?.[categoryId])
+  // }, [ballots.bets, ballots.wishes, categoryId])
 
-  React.useEffect(() => {
-    return navigation.addListener('beforeRemove', async () => {
-      await ballots.vote(categoryId, bets, wishes)
-    })
-  }, [ballots, bets, categoryId, navigation, upToDate, wishes])
+  // React.useEffect(() => {
+  //   return navigation.addListener('beforeRemove', async () => {
+  //     await ballots.vote(categoryId, bets, wishes)
+  //   })
+  // }, [ballots, bets, categoryId, navigation, upToDate, wishes])
 
   const renderCard = ({ item }: ListRenderItemInfo<Nomination>): JSX.Element => {
     // const isWish = wishes?.includes(item.id)

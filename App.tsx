@@ -91,9 +91,9 @@ const App = (): JSX.Element => {
                       <EditionProvider>
                         <CategoriesProvider>
                           <WatchedMoviesProvider>
-                            <BallotsProvider>
-                              <Router />
-                            </BallotsProvider>
+                            {/* <BallotsProvider> */}
+                            <Router />
+                            {/* </BallotsProvider> */}
                           </WatchedMoviesProvider>
                         </CategoriesProvider>
                       </EditionProvider>
