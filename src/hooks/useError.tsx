@@ -1,15 +1,15 @@
-import { FirebaseError } from 'firebase/app'
+import { FirebaseAuthTypes } from '@react-native-firebase/auth'
 
 import { useToast } from '@features/toast'
 
 interface useErrorType {
-  showFirebaseError: (error: FirebaseError) => void
+  showFirebaseError: (error: FirebaseAuthTypes.NativeFirebaseAuthError) => void
 }
 
 const useError = (): useErrorType => {
   const toast = useToast()
 
-  const showFirebaseError = (error: FirebaseError): void => {
+  const showFirebaseError = (error: FirebaseAuthTypes.NativeFirebaseAuthError): void => {
     if (error.code === 'auth/network-request-failed')
       toast.showToast(
         'Unable to connect',
