@@ -20,7 +20,7 @@ const useStyles = (): StylesReturn => {
       lineHeight: 18,
     },
     valid: {
-      color: colors.primary.default,
+      color: colors.positive.default,
     },
     container: {
       flexDirection: 'row',
