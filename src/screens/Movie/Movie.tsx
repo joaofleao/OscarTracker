@@ -57,6 +57,8 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
   const [movieProviders, setMovieProviders] = useState([])
   const [nominations, setNominations] = useState<Nomination[]>([])
 
+  const animationRef = useRef<LottieView>(null)
+
   const [playAnimation, setPlayAnimation] = useState<boolean>(false)
 
   const watched = isMovieWatched(movieId)
@@ -88,6 +90,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
     if (!isLogged) setLoginFirstCoachmark(true)
     else if (current) {
       setMovieUnwatched(movieId)
+      setPlayAnimation(false)
     } else {
       setMovieWatched(movieId, new Date())
       setPlayAnimation(true)
@@ -185,47 +188,54 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
             </Spoiler>
           </View>
           <Text style={styles.title}>{name}</Text>
-          <View style={styles.basicData}>
-            <Spoiler
-              text="Show"
-              show={preferences.ratings}
-              watched={watched}
-            >
-              <View style={styles.iconInformation}>
-                <Icon.Star
-                  width={18}
-                  height={18}
-                  color={theme.colors.text.default}
-                />
-                <Text style={styles.iconInformationText}>
-                  {movieData?.vote_average != null && Math.round(movieData?.vote_average * 10) / 10}
-                </Text>
-              </View>
-            </Spoiler>
+          {(movieData?.vote_average || movieData?.runtime || movieData?.original_language) && (
+            <View style={styles.basicData}>
+              {movieData?.vote_average && (
+                <Spoiler
+                  text="Show"
+                  show={preferences.ratings}
+                  watched={watched}
+                >
+                  <View style={styles.iconInformation}>
+                    <Icon.Star
+                      width={18}
+                      height={18}
+                      color={theme.colors.text.default}
+                    />
+                    <Text style={styles.iconInformationText}>
+                      {movieData?.vote_average != null &&
+                        Math.round(movieData?.vote_average * 10) / 10}
+                    </Text>
+                  </View>
+                </Spoiler>
+              )}
+              {movieData?.runtime && (
+                <View style={styles.iconInformation}>
+                  <Icon.Clock
+                    width={18}
+                    height={18}
+                    color={theme.colors.text.default}
+                  />
+                  <Text style={styles.iconInformationText}>
+                    {formatRuntime(movieData?.runtime, language)}
+                  </Text>
+                </View>
+              )}
 
-            <View style={styles.iconInformation}>
-              <Icon.Clock
-                width={18}
-                height={18}
-                color={theme.colors.text.default}
-              />
-              <Text style={styles.iconInformationText}>
-                {formatRuntime(movieData?.runtime, language)}
-              </Text>
+              {movieData?.original_language && (
+                <View style={styles.iconInformation}>
+                  <Icon.Globe
+                    width={18}
+                    height={18}
+                    color={theme.colors.text.default}
+                  />
+                  <Text style={styles.iconInformationText}>
+                    {languageNames[movieData?.original_language]?.[language]}
+                  </Text>
+                </View>
+              )}
             </View>
-
-            <View style={styles.iconInformation}>
-              <Icon.Globe
-                width={18}
-                height={18}
-                color={theme.colors.text.default}
-              />
-              <Text style={styles.iconInformationText}>
-                {languageNames[movieData?.original_language]?.[language]}
-              </Text>
-            </View>
-          </View>
-
+          )}
           <View>
             <View style={styles.carousselHeader}>
               <Text style={styles.subTitle}>Nominations</Text>
@@ -316,12 +326,18 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
           />
         </ScrollView>
 
-        <LottieView
-          style={styles.animation}
-          source={getAnimation('confetti')}
-          loop={false}
-          autoPlay={playAnimation}
-        />
+        {playAnimation && (
+          <LottieView
+            style={styles.animation}
+            source={getAnimation('confetti')}
+            autoPlay={false}
+            loop={false}
+            ref={animationRef}
+            // onAnimationFinish={(): void => {
+            //   setPlayAnimation(false)
+            // }}
+          />
+        )}
 
         <View style={styles.footer}>
           <Button
