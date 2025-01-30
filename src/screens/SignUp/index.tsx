@@ -21,11 +21,11 @@ const SignUp = ({ navigation }: SignUpProps): JSX.Element => {
 
   const scrollViewRef = useRef<FlatList>(null)
 
-  const [email, setEmail] = useState<string>('joaofleao@gmail.com')
-  const [password, setPassword] = useState<string>('Nildo690.')
-  const [confirmPassword, setConfirmPassword] = useState<string>('Nildo690.')
-  const [name, setName] = useState<string>('Joao Leao')
-  const [nickname, setNickname] = useState<string>('joaoleao')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [confirmPassword, setConfirmPassword] = useState<string>('')
+  const [name, setName] = useState<string>('')
+  const [nickname, setNickname] = useState<string>('')
 
   const [countdown, setCountdown] = useState(0)
   const [loading, setLoading] = useState(false)
@@ -121,13 +121,12 @@ const SignUp = ({ navigation }: SignUpProps): JSX.Element => {
         <Global.Title>Give us your best e-mail</Global.Title>
         <Global.Description>We will send you a verification code to confirm</Global.Description>
       </View>
-      <View style={styles.content}>
-        <EmailField
-          placeholder="steven_spielberg@oscar.com"
-          value={email}
-          onChangeText={setEmail}
-        />
-      </View>
+
+      <EmailField
+        placeholder="steven_spielberg@oscar.com"
+        value={email}
+        onChangeText={setEmail}
+      />
     </View>,
 
     <View
@@ -139,7 +138,7 @@ const SignUp = ({ navigation }: SignUpProps): JSX.Element => {
         <Global.Description>Make sure to use a strong password.</Global.Description>
       </View>
 
-      <View style={styles.content}>
+      <View style={styles.form}>
         <PasswordField
           value={password}
           onChangeText={setPassword}
@@ -192,24 +191,22 @@ const SignUp = ({ navigation }: SignUpProps): JSX.Element => {
         <Global.Description>The nickname will be shown to all your friends</Global.Description>
       </View>
 
-      <View style={styles.content}>
-        <TextField
-          label="Name"
-          placeholder="Greta Gerwig"
-          value={name}
-          onChangeText={setName}
-          valid={nameValid}
-          errorText={'Please provide name and last name'}
-        />
-        <TextField
-          placeholder="LadyBird"
-          label="Nickname"
-          value={nickname}
-          onChangeText={setNickname}
-          valid={nicknameValid}
-          errorText={'Please provide a single nickname'}
-        />
-      </View>
+      <TextField
+        label="Name"
+        placeholder="Greta Gerwig"
+        value={name}
+        onChangeText={setName}
+        valid={nameValid}
+        errorText={'Please provide name and last name'}
+      />
+      <TextField
+        placeholder="LadyBird"
+        label="Nickname"
+        value={nickname}
+        onChangeText={setNickname}
+        valid={nicknameValid}
+        errorText={'Please provide a single nickname'}
+      />
     </View>,
   ]
   return (
@@ -231,7 +228,6 @@ const SignUp = ({ navigation }: SignUpProps): JSX.Element => {
         <FlatList
           scrollEnabled={false}
           ref={scrollViewRef}
-          style={styles.list}
           snapToAlignment="center"
           horizontal
           data={pages}

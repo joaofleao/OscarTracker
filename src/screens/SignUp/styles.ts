@@ -5,7 +5,7 @@ import { useTheme } from '@features/theme'
 type StylesReturn = {
   header: ViewStyle
   content: TextStyle
-  list: ViewStyle
+  form: ViewStyle
   centeredContent: ViewStyle
   countdown: TextStyle
   helper: TextStyle
@@ -22,15 +22,15 @@ const useStyles = (): StylesReturn => {
       paddingVertical: 80,
     },
     content: {
-      gap: 28,
       width: width - 40,
-      height: '100%',
     },
     centeredContent: {
-      gap: 28,
+      gap: 24,
       alignItems: 'center',
     },
-    list: {},
+    form: {
+      gap: 12,
+    },
     countdown: {
       fontFamily: fonts.secondary.bold,
       color: colors.primary.default,
