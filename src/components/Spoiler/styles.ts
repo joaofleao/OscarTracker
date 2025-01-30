@@ -29,7 +29,7 @@ const useStyles = (): StylesReturn => {
     },
     blur: {
       backgroundColor: Platform.OS === 'android' ? colors.background.container : 'transparent',
-      flex: 1,
+      height: '100%',
       width: '100%',
       justifyContent: 'center',
       borderRadius: 12,
