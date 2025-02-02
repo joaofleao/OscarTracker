@@ -2,19 +2,10 @@ import { useEffect } from 'react'
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 
-// import {
-//   createUserWithEmailAndPassword,
-//   sendEmailVerification,
-//   sendPasswordResetEmail,
-//   signInWithEmailAndPassword,
-//   signOut as firebaseSignOut,
-//   User,
-// } from 'firebase/auth'
 import useError from '../../hooks/useError'
 import AuthContext, { type AuthContextType } from './AuthContext'
 import { useToast } from '@features/toast'
 import { useUser } from '@features/user'
-// import { auth } from '@services/firebase'
 import { UserType } from '@types'
 
 const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => {
@@ -111,7 +102,7 @@ const AuthProvider = ({ children }: { children?: JSX.Element }): JSX.Element => 
   }
 
   const verifyEmail: AuthContextType['verifyEmail'] = async () => {
-    auth().sendPasswordResetEmail(auth().currentUser.email)
+    auth().currentUser.sendEmailVerification()
   }
 
   const value: AuthContextType = {

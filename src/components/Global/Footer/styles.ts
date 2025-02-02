@@ -15,6 +15,7 @@ const useStyles = ({ considerNavBar, keyboardOpen }: StylesProps): StylesReturn 
   const insets = useScreenInsets()
   return StyleSheet.create({
     footer: {
+      gap: 16,
       opacity: keyboardOpen && Platform.OS === 'android' ? 0 : 1,
       bottom: (considerNavBar ? 60 : 0) + (Platform.OS === 'android' ? 0 : insets.bottom) + 12,
       position: 'absolute',

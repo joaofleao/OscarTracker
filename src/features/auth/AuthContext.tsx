@@ -1,14 +1,14 @@
 import { createContext } from 'react'
+import { FirebaseAuthTypes } from '@react-native-firebase/auth'
 
-import { User, UserCredential } from '@types'
 export interface AuthContextType {
-  signIn: (email: string, password: string) => Promise<UserCredential>
-  signUp: (email: string, password: string) => Promise<UserCredential>
+  signIn: (email: string, password: string) => Promise<FirebaseAuthTypes.UserCredential>
+  signUp: (email: string, password: string) => Promise<FirebaseAuthTypes.UserCredential>
   addUser: (nickname: string, displayName: string) => Promise<void>
   signOut: () => Promise<void>
   recoverPassword: (email: string) => Promise<void>
   verifyEmail: () => Promise<void>
-  user: User
+  user: FirebaseAuthTypes.User
 }
 
 const AuthContext = createContext<AuthContextType | null>(null)
