@@ -9,52 +9,24 @@ import { print } from '@utils/functions'
 const MoviesProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
   const { language } = useUser()
   const getMovie = async (id: string): Promise<MovieType> => {
-    const response = await tmdb
-      .getMovie(id, language)
-      .then(() => {
-        print('TMDB Movie', 'Fetched', 'yellow')
-        return response.data
-      })
-      .catch((e) => {
-        print('TMDB Movie', e.message, 'red')
-      })
-    return null
+    print('TMDB', 'Movie fetched', 'yellow')
+    const response = await tmdb.getMovie(id, language)
+    return response.data
   }
   const getCast = async (id: string): Promise<CastType> => {
-    const response = await tmdb
-      .getCast(id, language)
-      .then(() => {
-        print('TMDB Cast', 'Fetched', 'yellow')
-        return response.data
-      })
-      .catch((e) => {
-        print('TMDB Cast', e.message, 'red')
-      })
-    return null
+    print('TMDB', 'Cast fetched', 'yellow')
+    const response = await tmdb.getCast(id, language)
+    return response.data
   }
   const getTrailer = async (id: string): Promise<string> => {
-    const response = await tmdb
-      .getVideos(id, language)
-      .then(() => {
-        print('TMDB Trailer', 'Fetched', 'yellow')
-        return response.data
-      })
-      .catch((e) => {
-        print('TMDB Trailer', e.message, 'red')
-      })
-    return null
+    print('TMDB', 'Trailer fetched', 'yellow')
+    const response = await tmdb.getVideos(id, language)
+    return response.data
   }
   const getProviders = async (id: string): Promise<ProvidersType> => {
-    const response = await tmdb
-      .getProviders(id, language)
-      .then(() => {
-        print('TMDB Providers', 'Fetched', 'yellow')
-        return response.data
-      })
-      .catch((e) => {
-        print('TMDB Providers', e.message, 'red')
-      })
-    return null
+    print('TMDB', 'Providers fetched', 'yellow')
+    const response = await tmdb.getProviders(id, language)
+    return response.data
   }
 
   const value = { getMovie, getCast, getTrailer, getProviders } satisfies MoviesContextType

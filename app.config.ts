@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { ExpoConfig } from 'expo/config'
 
 export default (): ExpoConfig => ({
@@ -53,11 +54,11 @@ export default (): ExpoConfig => ({
       backgroundColor: '#171C23',
     },
     package: 'com.joaofleao.oscartracker',
-    googleServicesFile: process.env.GOOGLE_SERVICES_ANDROID ?? './google-services.json',
+    googleServicesFile: process.env.GOOGLE_SERVICES_ANDROID,
   },
 
   ios: {
-    googleServicesFile: process.env.GOOGLE_SERVICES_IOS ?? './GoogleService-Info.plist',
+    googleServicesFile: process.env.GOOGLE_SERVICES_IOS,
     supportsTablet: true,
     bundleIdentifier: 'com.joaofleao.oscartracker',
     bitcode: false,
