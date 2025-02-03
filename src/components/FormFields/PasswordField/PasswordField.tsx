@@ -5,6 +5,7 @@ import useStyles from './styles'
 import Button from '@components/Button'
 import TextField, { TextFieldProps } from '@components/FormFields/TextField'
 import Icon from '@components/Icon'
+import { useTheme } from '@features/theme'
 
 export interface PasswordFieldProps extends TextFieldProps {
   type?: 'password' | 'confirmPassword' | 'plain'
@@ -71,8 +72,10 @@ const PasswordField = (props: PasswordFieldProps): JSX.Element => {
     })
   }
 
+  const { colors } = useTheme()
   const renderIcon = passwordValid ? (
     <Icon.CheckCircle
+      color={colors.positive.default}
       width={16}
       height={16}
     />
@@ -115,6 +118,7 @@ const PasswordField = (props: PasswordFieldProps): JSX.Element => {
         secureTextEntry={passwordVisible}
         actionButton={
           <Button
+            size="action"
             variant="secondary"
             icon={passwordVisible ? <Icon.Eye /> : <Icon.EyeOff />}
             onPress={handlePress}

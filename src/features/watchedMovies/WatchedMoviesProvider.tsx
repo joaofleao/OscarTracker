@@ -50,7 +50,7 @@ const WatchedMoviesProvider = ({ children }: { children?: React.ReactNode }): JS
 
     try {
       const movieInstance = await firestore()
-        .collection('user')
+        .collection('users')
         .doc(user.uid)
         .collection('watchedMovies')
         .where('movie', '==', movie)
@@ -61,7 +61,7 @@ const WatchedMoviesProvider = ({ children }: { children?: React.ReactNode }): JS
       if (!movieInstance.empty) {
         const docToDelete = movieInstance.docs[0]
         await firestore()
-          .collection('user')
+          .collection('users')
           .doc(user.uid)
           .collection('watchedMovies')
           .doc(docToDelete.id)

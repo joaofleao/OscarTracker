@@ -1,13 +1,5 @@
 import { cloneElement, useEffect, useRef, useState } from 'react'
-import {
-  Animated,
-  Easing,
-  Pressable,
-  Text,
-  TextInput,
-  type TextInputProps,
-  View,
-} from 'react-native'
+import { Animated, Easing, Text, TextInput, type TextInputProps, View } from 'react-native'
 
 import useStyles from './styles'
 import { useTheme } from '@features/theme'
@@ -17,25 +9,27 @@ export interface TextFieldProps extends TextInputProps {
   placeholder?: string
   value?: string
   icon?: JSX.Element
-  iconPosition?: 'leading' | 'trailing'
+
   actionButton?: JSX.Element
   errorText?: string
   valid?: boolean
 }
 
 const defaultProps: TextFieldProps = {
-  iconPosition: 'leading',
   valid: false,
 }
 
 const TextField = (props: TextFieldProps): JSX.Element => {
-  const { label, value, placeholder, icon, iconPosition, actionButton, errorText, valid, ...rest } =
-    {
-      ...defaultProps,
-      ...props,
-    }
+  const { label, value, placeholder, icon, actionButton, errorText, valid, ...rest } = {
+    ...defaultProps,
+    ...props,
+  }
   const theme = useTheme()
-  const inputRef = useRef<TextInput>(null)
+
+  const hasLabel = Boolean(label)
+  const hasActionButton = Boolean(actionButton)
+  const hasIcon = Boolean(icon)
+
   const translateY = useRef(new Animated.Value(30)).current
 
   const [focused, setFocused] = useState(false)
@@ -64,18 +58,21 @@ const TextField = (props: TextFieldProps): JSX.Element => {
     }
   }, [value, valid, translateY])
 
-  const focusRef = (): void => {
-    inputRef.current?.focus()
-  }
-
-  const renderLabel = label && <Text style={styles.label}>{label}</Text>
+  const renderLabel = hasLabel && <Text style={styles.label}>{label}</Text>
 
   const renderIcon =
-    icon &&
+    hasIcon &&
     cloneElement(icon, {
       color: theme.colors.primary.default,
       width: 16,
       height: 16,
+      style: styles.icon,
+    })
+
+  const renderActionButton =
+    hasActionButton &&
+    cloneElement(actionButton, {
+      style: styles.actionButton,
     })
 
   const renderErrorText = errorText && (
@@ -89,32 +86,28 @@ const TextField = (props: TextFieldProps): JSX.Element => {
       {renderErrorText}
       {renderLabel}
       <View style={styles.row}>
-        <Pressable
-          style={styles.content}
-          onPress={focusRef}
-        >
-          {iconPosition === 'leading' && renderIcon}
-          <TextInput
-            style={styles.input}
-            ref={inputRef}
-            cursorColor={theme.colors.primary.default}
-            selectionColor={theme.colors.primary.default}
-            placeholderTextColor={theme.colors.text.light}
-            placeholder={placeholder}
-            autoCapitalize="none"
-            pointerEvents="none"
-            value={value}
-            onFocus={(): void => {
-              return setFocused(true)
-            }}
-            onBlur={(): void => {
-              return setFocused(false)
-            }}
-            {...rest}
-          />
-          {iconPosition === 'trailing' && renderIcon}
-        </Pressable>
-        {actionButton}
+        <TextInput
+          cursorColor={theme.colors.primary.default}
+          style={[
+            styles.input,
+            hasIcon && styles.inputWithIcon,
+            hasActionButton && styles.inputWithButton,
+          ]}
+          selectionColor={theme.colors.primary.default}
+          placeholderTextColor={theme.colors.text.light}
+          placeholder={placeholder}
+          autoCapitalize="none"
+          value={value}
+          onFocus={(): void => {
+            return setFocused(true)
+          }}
+          onBlur={(): void => {
+            return setFocused(false)
+          }}
+          {...rest}
+        />
+        {renderIcon}
+        {renderActionButton}
       </View>
     </View>
   )

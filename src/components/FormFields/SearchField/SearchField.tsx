@@ -16,7 +16,6 @@ const SearchField = (props: SearchFieldProps): JSX.Element => {
   return (
     <TextField
       icon={<Icon.Search />}
-      iconPosition="trailing"
       {...rest}
     />
   )

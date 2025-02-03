@@ -14,7 +14,7 @@ const NetworkModal = (): JSX.Element => {
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(!app.hasInternet)
-    }, 1000)
+    }, 5000)
     return () => {
       return clearTimeout(timer)
     }
