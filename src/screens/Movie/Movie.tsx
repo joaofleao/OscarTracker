@@ -16,7 +16,7 @@ import Button from '@components/Button'
 import Coachmark from '@components/Coachmark'
 import Global from '@components/Global'
 import Icon from '@components/Icon'
-import { formatDate, getAnimation, languageNames } from '@components/Loading/utils'
+import { formatDate, languageNames } from '@components/Loading/utils'
 import Poster from '@components/Poster'
 import Spoiler from '@components/Spoiler'
 import { useCategories } from '@features/categories'
@@ -57,9 +57,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
   const [movieProviders, setMovieProviders] = useState([])
   const [nominations, setNominations] = useState<Nomination[]>([])
 
-  const animationRef = useRef<LottieView>(null)
-
-  const [playAnimation, setPlayAnimation] = useState<boolean>(false)
+  // const animationRef = useRef<LottieView>(null)
 
   const watched = isMovieWatched(movieId)
 
@@ -76,7 +74,7 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
       const providers = await movies.getProviders(movieId)
 
       setMovieProviders(() => {
-        return providers.results?.BR?.flatrate?.filter((provider: WatchProvider) => {
+        return providers?.results?.BR?.flatrate?.filter((provider: WatchProvider) => {
           return provider.provider_id !== 1796
         })
       })
@@ -90,10 +88,9 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
     if (!isLogged) setLoginFirstCoachmark(true)
     else if (current) {
       setMovieUnwatched(movieId)
-      setPlayAnimation(false)
     } else {
       setMovieWatched(movieId, new Date())
-      setPlayAnimation(true)
+      // animationRef.current?.play()
     }
   }
 
@@ -326,18 +323,13 @@ const Movie = ({ navigation, route }: MovieProps): JSX.Element => {
           />
         </ScrollView>
 
-        {playAnimation && (
-          <LottieView
-            style={styles.animation}
-            source={getAnimation('confetti')}
-            autoPlay={false}
-            loop={false}
-            ref={animationRef}
-            // onAnimationFinish={(): void => {
-            //   setPlayAnimation(false)
-            // }}
-          />
-        )}
+        {/* <LottieView
+          style={styles.animation}
+          source={getAnimation('confetti')}
+          autoPlay={false}
+          loop={false}
+          ref={animationRef}
+        /> */}
 
         <View style={styles.footer}>
           <Button
