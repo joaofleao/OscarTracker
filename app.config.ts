@@ -35,6 +35,7 @@ export default (): ExpoConfig => ({
   ],
 
   extra: {
+    TMDB_API_KEY: process.env.TMDB_API_KEY,
     eas: {
       projectId: '8b994b96-2537-4c86-b4c9-6219f98bb639',
     },
