@@ -1,0 +1,15 @@
+{
+  "title": "Activities",
+  "empty_state": "No trainings found",
+  "history": "History",
+  "expand_history": "expand",
+  "weight": "Weight",
+  "add_weight": {
+    "open": "add weight",
+    "title": "Update Current Weight",
+    "label": "Current Weight",
+    "add": "Update",
+    "cancel": "Cancel"
+  },
+  "goals": "Take Goals Quiz"
+}

@@ -7,6 +7,7 @@ module.exports = function (api) {
         'module-resolver',
         {
           alias: {
+            '@i18n': './src/i18n',
             '@assets': './src/assets',
             '@components': './src/components',
             '@containers': './src/containers',

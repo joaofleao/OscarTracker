@@ -1,7 +1,10 @@
 import React from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { StatusBar, View } from 'react-native'
 import * as Fonts from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
 
 import Navigation from './Navigation'
 import useStyles from './styles'
@@ -9,6 +12,8 @@ import ToastNotification from '@components/ToastNotification'
 import LoadingModal from '@containers/LoadingModal'
 import NetworkModal from '@containers/NetworkModal'
 import { useTheme } from '@features/theme'
+import enUS from '@i18n/en-US.json'
+import ptBR from '@i18n/pt-BR.json'
 import { print } from '@utils/functions'
 
 SplashScreen.preventAutoHideAsync()
@@ -17,6 +22,32 @@ SplashScreen.setOptions({
   duration: 1000,
   fade: true,
 })
+
+const resources = {
+  'pt-BR': ptBR,
+  'en-US': enUS,
+}
+
+const initI18n = async (): Promise<void> => {
+  const json = await AsyncStorage.getItem('userData')
+  const savedLanguage = JSON.parse(json)?.language
+
+  // if (!user.language) {
+  //   savedLanguage = Localization.locale
+  // }
+
+  i18n.use(initReactI18next).init({
+    compatibilityJSON: 'v4',
+    resources,
+    lng: savedLanguage,
+    fallbackLng: 'pt-BR',
+    interpolation: {
+      escapeValue: false,
+    },
+  })
+}
+
+initI18n()
 
 const localFonts = {
   'Tienne-Black': require('@assets/fonts/tienne/Tienne-Black.ttf'),
