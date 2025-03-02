@@ -18,7 +18,16 @@ import routes from '@utils/routes'
 
 const Settings = ({ navigation }: SettingsProps): JSX.Element => {
   const auth = useAuth()
-  const { user, isLogged, setLanguage, language, preferences, setPreferences } = useUser()
+  const {
+    adminMode,
+    setAdminMode,
+    user,
+    isLogged,
+    setLanguage,
+    language,
+    preferences,
+    setPreferences,
+  } = useUser()
   const { refreshEdition } = useEdition()
   const styles = useStyles()
   const [loading, setLoading] = useState<boolean>(false)
@@ -163,7 +172,17 @@ const Settings = ({ navigation }: SettingsProps): JSX.Element => {
             onSelect={setLanguage}
           />
         </View>
-
+        {user.admin && (
+          <Toggle
+            label="Admin Mode"
+            selected={adminMode}
+            onToggle={(): void => {
+              setAdminMode((old) => {
+                return !old
+              })
+            }}
+          />
+        )}
         <View style={styles.item}>
           <Global.Description>App Version</Global.Description>
           <Text style={styles.accentText}>{packageJson.version}</Text>

@@ -72,7 +72,7 @@ const Poster = (props: PosterProps): JSX.Element => {
     <View style={styles.container}>
       {getPoster}
 
-      {dimmAndLock && !isWatched && getCover}
+      {((dimmAndLock && !isWatched) || winner) && getCover}
       {dimmAndLock && !isWatched ? getIcon : undefined}
       {winner && getWinnerCover}
     </View>

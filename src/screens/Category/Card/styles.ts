@@ -6,7 +6,6 @@ type StylesReturn = {
   root: ViewStyle
   content: ViewStyle
   rightContainer: ViewStyle
-
   title: TextStyle
   subtitle: TextStyle
   description: TextStyle
@@ -19,10 +18,11 @@ const useStyles = (): StylesReturn => {
       justifyContent: 'center',
       flexDirection: 'row',
       gap: 16,
+      flex: 1,
     },
     content: {
       flex: 1,
-      gap: 4,
+
       justifyContent: 'center',
     },
     rightContainer: {

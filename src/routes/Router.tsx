@@ -79,7 +79,7 @@ const Router = (): JSX.Element => {
 
       <LoadingModal />
       {/* <NewVersionModal /> */}
-      <NetworkModal />
+      {/* <NetworkModal /> */}
 
       <ToastNotification />
       <View

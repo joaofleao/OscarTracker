@@ -16,6 +16,9 @@ export interface UserContextType {
   setPreferences: React.Dispatch<React.SetStateAction<PreferencesType>>
 
   updateUser: (updatedUser: Partial<UserType>) => void
+
+  adminMode: boolean
+  setAdminMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const UserContext = createContext<UserContextType | null>(null)
