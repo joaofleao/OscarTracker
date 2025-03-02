@@ -44,6 +44,9 @@ const useStyles = ({
       aspectRatio: 0.67,
     },
     winnerCover: {
+      borderColor: colors.primary.default,
+      borderRadius: 12,
+      borderWidth: 2,
       position: 'absolute',
       width: '100%',
       height: '100%',

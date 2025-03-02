@@ -21,7 +21,7 @@ export interface ButtonProps extends PressableProps {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'outlined' | 'text'
   loading?: boolean
   label?: string
-  width?: 'fit' | 'fixed' | 'full'
+  width?: 'fit' | 'fixed' | 'full' | 'fill'
   size?: 'default' | 'action'
   icon?: JSX.Element
   customRef?: Ref<View>
@@ -79,7 +79,7 @@ const Button = (props: ButtonProps): JSX.Element => {
       variant,
     })
 
-  const renderLabel = (
+  const renderLabel = label && (
     <Text
       style={styles.label}
       numberOfLines={1}
@@ -98,8 +98,6 @@ const Button = (props: ButtonProps): JSX.Element => {
     />
   )
 
-  const renderContent = icon && !label ? renderIcon : renderLabel
-
   return (
     <>
       <AnimatedPressable
@@ -111,7 +109,10 @@ const Button = (props: ButtonProps): JSX.Element => {
         {...rest}
       >
         <View style={styles.loadingContent}>{renderLoading}</View>
-        <View style={styles.content}>{renderContent}</View>
+        <View style={styles.content}>
+          {renderIcon}
+          {renderLabel}
+        </View>
       </AnimatedPressable>
     </>
   )
