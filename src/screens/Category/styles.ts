@@ -5,6 +5,8 @@ import { useTheme } from '@features/theme'
 type StylesReturn = {
   content: ViewStyle
   accent: TextStyle
+  interactiveArea: ViewStyle
+  card: ViewStyle
 }
 
 const useStyles = (): StylesReturn => {
@@ -17,6 +19,16 @@ const useStyles = (): StylesReturn => {
     accent: {
       color: colors.primary.default,
       fontFamily: fonts.secondary.bold,
+    },
+    interactiveArea: {
+      gap: 12,
+      // justifyContent: 'center',
+      // flex: 1,
+      flexDirection: 'row',
+      // alignItems: 'flex-end',
+    },
+    card: {
+      flexDirection: 'row',
     },
   })
 }

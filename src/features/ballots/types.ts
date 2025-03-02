@@ -58,3 +58,8 @@ export type WishesType = {
   'supporting-actress': string[]
   'visual-effects': string[]
 }
+
+export type BallotType = {
+  bets: BetsType
+  wishes: WishesType
+}

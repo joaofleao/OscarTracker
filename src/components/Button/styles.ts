@@ -13,7 +13,7 @@ type StylesProps = {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'outlined' | 'text'
   icon: boolean
   size?: 'action' | 'default'
-  width: 'fit' | 'fixed' | 'full'
+  width: 'fit' | 'fixed' | 'full' | 'fill'
   loading: boolean
 }
 
@@ -59,7 +59,7 @@ const useStyles = ({ variant, size, icon, width, loading }: StylesProps): Styles
       borderColor: variant === 'outlined' ? colors.primary.default : 'transparent',
       justifyContent: 'center',
       alignItems: 'center',
-      width: width === 'fixed' ? 256 : 'auto',
+      width: width === 'fixed' ? 256 : width === 'fill' ? '100%' : 'auto',
       flex: width === 'full' ? 1 : null,
     },
     label: {
@@ -72,6 +72,8 @@ const useStyles = ({ variant, size, icon, width, loading }: StylesProps): Styles
     },
     content: {
       opacity: loading ? 0 : 1,
+      flexDirection: 'row',
+      gap: 12,
     },
     loadingContent: {
       opacity: loading ? 1 : 0,

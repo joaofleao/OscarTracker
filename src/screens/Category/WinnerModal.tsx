@@ -6,7 +6,7 @@ import Modal from '@components/Modal'
 import { useEdition } from '@features/edition'
 
 type WinnerModalProps = {
-  newWinner: [string, string] | null
+  newWinner: [string, string, string] | null
   setNewWinner: (value: [string, string] | null) => void
   categoryId: string
 }
@@ -30,10 +30,11 @@ const WinnerModal = (props: WinnerModalProps): JSX.Element => {
       visible={!!newWinner}
       onClickOutside={close}
     >
-      <Modal.Title>Winner</Modal.Title>
+      <Modal.Title>Set Winner</Modal.Title>
       <Modal.Description>
         Are you sure you want to set
-        <Text style={styles.accent}> {newWinner?.[0]} </Text>
+        <Text style={styles.accent}> {newWinner?.[0]} </Text> from
+        <Text style={styles.accent}> {newWinner?.[2]} </Text>
         as the winner?
       </Modal.Description>
 

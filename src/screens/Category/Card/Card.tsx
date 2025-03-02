@@ -9,9 +9,18 @@ export interface CardProps extends PressableProps {
   description?: string
   icon?: React.ReactNode
   image?: React.ReactNode
+  bottomArea?: React.ReactNode
 }
 
-const Card = ({ title, subtitle, description, icon, image, ...rest }: CardProps): JSX.Element => {
+const Card = ({
+  description,
+  icon,
+  image,
+  subtitle,
+  title,
+  bottomArea,
+  ...rest
+}: CardProps): JSX.Element => {
   const styles = useStyles()
 
   return (
@@ -21,31 +30,34 @@ const Card = ({ title, subtitle, description, icon, image, ...rest }: CardProps)
     >
       {image}
       <View style={styles.content}>
-        <View style={styles.rightContainer}>
-          {icon}
-          <Text
-            style={styles.title}
-            numberOfLines={3}
-          >
-            {title}
-          </Text>
-        </View>
+        <View style={styles.content}>
+          <View style={styles.rightContainer}>
+            {icon}
+            <Text
+              style={styles.title}
+              numberOfLines={3}
+            >
+              {title}
+            </Text>
+          </View>
 
-        <Text
-          style={styles.subtitle}
-          numberOfLines={2}
-        >
-          {subtitle}
-        </Text>
-
-        {description && (
           <Text
-            style={styles.description}
+            style={styles.subtitle}
             numberOfLines={2}
           >
-            {description}
+            {subtitle}
           </Text>
-        )}
+
+          {description && (
+            <Text
+              style={styles.description}
+              numberOfLines={2}
+            >
+              {description}
+            </Text>
+          )}
+        </View>
+        {bottomArea}
       </View>
     </Pressable>
   )

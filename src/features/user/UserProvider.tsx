@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import firestore from '@react-native-firebase/firestore'
 
 import UserContext, { type UserContextType } from './UserContext'
@@ -18,6 +18,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     plot: false,
     ratings: false,
   })
+  const [adminMode, setAdminMode] = useState(false)
 
   const isAuth = Boolean(uid)
   const isLogged = Boolean(user)
@@ -60,6 +61,8 @@ const UserProvider = ({ children }: { children?: React.ReactNode }): JSX.Element
     setLanguage,
     preferences,
     setPreferences,
+    adminMode,
+    setAdminMode,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
